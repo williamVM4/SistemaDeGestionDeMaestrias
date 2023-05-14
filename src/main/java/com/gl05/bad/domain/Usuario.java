@@ -1,0 +1,90 @@
+package com.gl05.bad.domain;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.*;
+//import lombok.Data;
+
+@Entity
+@Table(name = "USUARIO")
+public class Usuario implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
+    @Column(name="IDUSUARIO")
+    @Id
+    @SequenceGenerator(name = "USUARIO_SEQ", sequenceName = "USUARIO_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SEQ")
+    private Long idUsuario;
+ 
+    @Column(name="USERNAME")
+    private String username;
+    
+    @Column(name="EMAIL")
+    private String email;
+    
+    @Column(name="PASSWORD_USER")
+    private String password;
+    
+    @Column(name="ENABLE_USER")
+    private boolean enabled;
+    
+   //Establezco la relación con la base de datos
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   @JoinTable(
+           name = "USUARIO_ROLES",
+            joinColumns = @JoinColumn(name="IDUSUARIO"),
+            inverseJoinColumns = @JoinColumn(name="IDROL")
+    )
+    private Set<Roles> roles = new HashSet<>();
+ 
+    
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+   }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+ 
+    
+}
