@@ -89,23 +89,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //    }
     
     
-//    //Metodo que se utiliza para la reestricción de urls
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception{
-//        http.authorizeHttpRequests()
-//               //Con esto puedo reestringir los usuarios por
-//               //vistas
-//                .antMatchers("/editar/**")
-//                //Coloco el rol al cual podra redirigirse a estas vistas
-//                    .hasRole("ADMIN")
-////                Modificar cuando se tenga login               
-////                .antMatchers("/")
-////                    .hasAnyRole("USER","ADMIN")
-////                .and()
-////                .formLogin()
-////                .loginPage("/login")
-//                ;
-//    
+    //Metodo que se utiliza para la reestricción de urls
+    @Override
+    protected void configure(HttpSecurity http) throws Exception{
+        http.authorizeHttpRequests()
+               //Con esto puedo reestringir los usuarios por
+               //vistas
+                .antMatchers("/welcome2")
+                //Coloco el rol al cual podra redirigirse a estas vistas
+                    .hasRole("ADMIN")
+//                Modificar cuando se tenga login               
+                .antMatchers("/login","/logout","/")
+                    .hasAnyRole("USER","ADMIN")
+                .and()
+                .formLogin()
+//                .loginPage("/login")
+                ;
+    }
     
 }
 
