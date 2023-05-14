@@ -1,0 +1,7 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+        <title>Inicio</title>
+    </head>
+    <body>
