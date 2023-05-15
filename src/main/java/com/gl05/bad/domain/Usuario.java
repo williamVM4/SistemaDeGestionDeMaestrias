@@ -35,7 +35,7 @@ public class Usuario implements Serializable{
             joinColumns = @JoinColumn(name="IDUSUARIO"),
             inverseJoinColumns = @JoinColumn(name="IDROL")
     )
-    private Set<Roles> roles = new HashSet<>();
+    private Collection<Roles> roles;
  
     
     public Long getIdUsuario() {
@@ -69,15 +69,7 @@ public class Usuario implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public Set<Roles> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Roles> roles) {
-        this.roles = roles;
-   }
-
+    
     public boolean isEnabled() {
         return enabled;
     }
@@ -85,6 +77,13 @@ public class Usuario implements Serializable{
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
- 
-    
+
+    public Collection<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Roles> roles) {
+        this.roles = roles;
+    }
+
 }
