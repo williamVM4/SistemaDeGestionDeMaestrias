@@ -18,4 +18,10 @@ public class IndexController {
         return "welcome2";
     }
     
+      @GetMapping("/welcome3")
+    public String pagina3(Model model) {
+        model.addAttribute("pageTitle", "welcome2");
+        return "welcome3";
+    }
+    
 }

@@ -97,10 +97,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                //vistas
                 .antMatchers("/welcome2")
                 //Coloco el rol al cual podra redirigirse a estas vistas
-                    .hasRole("ADMIN")
+//                    .hasRole("ADMIN")
+                      .hasAuthority("VER_ADMIN_PRIVILEGE")
 //                Modificar cuando se tenga login               
                 .antMatchers("/login","/logout","/")
-                    .hasAnyRole("USER","ADMIN")
+                    .hasAnyAuthority("VER_ADMIN_PRIVILEGE", "VER_USUARIO_PRIVILEGE")
+//                    .hasAnyRole("USER","ADMIN")
+                .antMatchers("/welcome3")
+                      .hasAuthority("VER_USUARIO_PRIVILEGE")
                 .and()
                 .formLogin()
 //                .loginPage("/login")
