@@ -1,90 +1,159 @@
 <nav class="main-menu">
+    <a href="/" class="align-items-center ms-5 pb-3 mb-md-0 me-md-auto">
+        <img src="" alt="Img" width="120" height="120" class="img-fluid">
+    </a>
     <ul>
         <li>
-            <a href="https://jbfarrow.com">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="nav-text">
-                   Community Dashboard
-                </span>
+            <a href="#procesos" data-bs-toggle="collapse">
+                <i class="fa bi-clipboard-check"></i>
+                <span class="nav-text">Procesos</span>
             </a>
-
-        </li>
-        <li class="has-subnav">
-            <a href="#">
-                <i class="fa fa-globe fa-2x"></i>
-                <span class="nav-text">
-                    Global Surveyors
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a href="#">
-               <i class="fa fa-comments fa-2x"></i>
-                <span class="nav-text">
-                    Group Hub Forums
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a href="#">
-               <i class="fa fa-camera-retro fa-2x"></i>
-                <span class="nav-text">
-                    Survey Photos
-                </span>
-            </a>
-
+            <div class="collapse" id="procesos">
+                <ul class="" data-bs-parent="#procesos">
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Gestionar Maestria
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Inscribir Maestria
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Postular a Profesor
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li>
-            <a href="#">
-                <i class="fa fa-film fa-2x"></i>
-                <span class="nav-text">
-                    Surveying Tutorials
-                </span>
+            <a href="#perfiles" data-bs-toggle="collapse">
+                <i class="fa bi-person-circle"></i>
+                <span class="nav-text">Perfiles</span>
             </a>
+            <div class="collapse" id="perfiles">
+                <ul class="" data-bs-parent="#perfiles">
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Coordinadores
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Aspirantes a Profesor
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Estudiantes
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li>
-            <a href="#">
-                <i class="fa fa-book fa-2x"></i>
-                <span class="nav-text">
-                   Surveying Jobs
-                </span>
+            <a href="#admin" data-bs-toggle="collapse">
+                <i class="fa bi-sliders"></i>
+                <span class="nav-text">Administraciòn</span>
             </a>
+            <div class="collapse" id="admin">
+                <ul class="" data-bs-parent="#admin">
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Usuarios
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Roles
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Privilegios
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Facultades
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Escuelas de Posgrado
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li>
-           <a href="#">
-               <i class="fa fa-cogs fa-2x"></i>
-                <span class="nav-text">
-                    Tools & Resources
-                </span>
+            <a href="#maestrias" class="" data-bs-toggle="collapse">
+                <i class="fa bi-book"></i>
+                <span class="nav-text">Maestria</span>
             </a>
+            <div class="collapse" id="maestrias">
+                <ul class="" data-bs-parent="#maestrias">
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Asignaturas
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Àreas de Conocimiento
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link ms-5">
+                            <span class="ps-2">
+                                Gestionar Cohorte
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
-        <li>
-           <a href="#">
-                <i class="fa fa-map-marker fa-2x"></i>
-                <span class="nav-text">
-                    Member Map
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-               <i class="fa fa-info fa-2x"></i>
-                <span class="nav-text">
-                    Documentation
-                </span>
-            </a>
-        </li>
+                        
     </ul>
-    <ul class="logout">
-        <li>
-           <a href="#">
-                 <i class="fa fa-power-off fa-2x"></i>
-                <span class="nav-text">
-                    Logout
-                </span>
-            </a>
-        </li>  
-    </ul>
+    <div class="logout"> 
+        <form method="POST" action="/logout">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <a onclick="this.parentNode.submit()" href="#"><i class="fa bi-power"></i></i>
+            <span class="nav-text">
+                Logout
+            </span></a>
+        </form>
+    </div>
 </nav>
+<div class="titulo">
+    <h1>${pageTitle}</h1>
+</div>
+            
