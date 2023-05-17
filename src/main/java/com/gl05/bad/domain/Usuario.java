@@ -28,6 +28,13 @@ public class Usuario implements Serializable{
     @Column(name="ENABLE_USER")
     private boolean enabled;
     
+    @Column(name="NUMEROINTENTOS")
+    private int numerointentos;
+    
+    @Column(name="BLOQUEADO")
+    private int usuarioBloqueado;
+    
+    
    //Establezco la relación con la base de datos
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    @JoinTable(
@@ -86,4 +93,21 @@ public class Usuario implements Serializable{
         this.roles = roles;
     }
 
+    public int getNumerointentos() {
+        return numerointentos;
+    }
+
+    public void setNumerointentos(int numerointentos) {
+        this.numerointentos = numerointentos;
+    }
+
+    public int getUsuarioBloqueado() {
+        return usuarioBloqueado;
+    }
+
+    public void setUsuarioBloqueado(int usuarioBloqueado) {
+        this.usuarioBloqueado = usuarioBloqueado;
+    }
+
+    
 }
