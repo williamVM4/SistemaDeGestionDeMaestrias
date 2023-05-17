@@ -132,3 +132,24 @@ display:table-cell;
 vertical-align:middle;
 width:190px;
 }
+
+
+/* PERFIL GENERAL*/
+
+.titulo-Perfil{
+  text-align:left;
+  color: #004077;
+  margin-top:2em;
+  margin-bottom: 2em;
+}
+
+.subtitulo-Perfil{
+  text-align:left;
+  color: #596064;
+  margin-top:1em;
+}
+
+.subtitulo-Perfil i{
+  font-size: 20px;
+  color: #004077;
+}
