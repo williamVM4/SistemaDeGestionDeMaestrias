@@ -1,5 +1,8 @@
 package com.gl05.bad.web;
 
+import com.gl05.bad.dao.UsuarioDao;
+import com.gl05.bad.domain.Usuario;
+import java.io.IOException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +20,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import java.util.Properties;
 import javax.mail.Session;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -85,9 +94,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/welcome3")
                 .hasAuthority("VER_USUARIO_PRIVILEGE")
                 .and()
-                .formLogin() //                .loginPage("/login")
+                .formLogin()
                 .failureHandler(falloAutenticacionHandler())
-                ;
+                .successHandler(authenticationSuccessHandler());
+                //.failureUrl("/login?error=true");
+    }
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return (AuthenticationSuccessHandler) new CustomAuthenticationSuccessHandler();
+    }
+    @Autowired
+    private UsuarioDao usuarioDao;
+    private class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+            String username = authentication.getName();
+            Usuario usuario = usuarioDao.findByUsername(username);
+
+            if (usuario != null && usuario.getUsuarioBloqueado() == 1) {
+                response.sendRedirect("/correctcredentialsdisable");
+            } else {
+                super.onAuthenticationSuccess(request, response, authentication);
+            }
+        }
     }
 
 }
