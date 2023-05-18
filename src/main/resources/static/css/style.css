@@ -1,6 +1,33 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+
+.btn-add {
+  color: #004077 !Important;
+  background-color: transparent !Important;
+  border-color: #004077 !important;
+}
+
+.btn-add:hover {
+  color: #fff !Important;
+  border: none !Important;
+  background-color: #004077 !Important;
+  border-color: transparent !important;
+}
+
+.btn-info:hover {
+  color: #fff !Important;
+  border: none !Important;
+  background-color: #004077 !Important;
+  border-color: transparent !important;
+}
+
+.btn-check:active+.btn-info, .btn-check:checked+.btn-info, .btn-info.active, .btn-info:active, .show>.btn-info.dropdown-toggle {
+  color: #fff !Important;
+  background-color: #004077 !Important;
+  border: none;
+  border-color: transparent !important;
+}
+
 
 .fa {
 position: relative;
