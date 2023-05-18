@@ -34,7 +34,6 @@ public class Usuario implements Serializable{
     @Column(name="BLOQUEADO")
     private int usuarioBloqueado;
     
-    
    //Establezco la relación con la base de datos
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    @JoinTable(
@@ -43,6 +42,13 @@ public class Usuario implements Serializable{
             inverseJoinColumns = @JoinColumn(name="IDROL")
     )
     private Collection<Roles> roles;
+    
+    @OneToMany(mappedBy = "idusuario")
+    private Collection<AspiranteProfesor> aspiranteProfesorCollection;
+    @OneToMany(mappedBy = "idusuario")
+    private Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection;
+    @OneToMany(mappedBy = "idusuario")
+    private Collection<Bitacora> bitacoraCollection;
  
     
     public Long getIdUsuario() {
@@ -107,6 +113,30 @@ public class Usuario implements Serializable{
 
     public void setUsuarioBloqueado(int usuarioBloqueado) {
         this.usuarioBloqueado = usuarioBloqueado;
+    }
+    
+    public Collection<AspiranteProfesor> getAspiranteProfesorCollection() {
+        return aspiranteProfesorCollection;
+    }
+
+    public void setAspiranteProfesorCollection(Collection<AspiranteProfesor> aspiranteProfesorCollection) {
+        this.aspiranteProfesorCollection = aspiranteProfesorCollection;
+    }
+
+    public Collection<CoordinadorAcademico_1> getCoordinadorAcademicoCollection() {
+        return coordinadorAcademicoCollection;
+    }
+
+    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection) {
+        this.coordinadorAcademicoCollection = coordinadorAcademicoCollection;
+    }
+
+    public Collection<Bitacora> getBitacoraCollection() {
+        return bitacoraCollection;
+    }
+
+    public void setBitacoraCollection(Collection<Bitacora> bitacoraCollection) {
+        this.bitacoraCollection = bitacoraCollection;
     }
 
     
