@@ -17,61 +17,58 @@
           <div class="row">
             <div class="col-sm-12 ">
               <div class="list-group info ">
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_generales" data-url="#" title="Datos generales" type="button">
+                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_generales" title="Datos generales" type="button">
                       Información general
                   </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_educacion" data-url="#" title="Educación" type="button">
+                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_educacion" title="Educación" type="button">
                       Educación
                   </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_fotografías" data-url="#" title="Documentos" type="button">
+                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_fotografías" title="Documentos" type="button">
                       Documentos
                   </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_telefonos" data-url="#" title="Teléfonos" type="button">
+                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_telefonos" title="Teléfonos" type="button">
                       Teléfonos
                   </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_correos" data-url="#" title="Correos" type="button">
+                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_correos" title="Correos" type="button">
                       Correos
                   </button>
               </div>
             </div>
           </div>
         </div>
-
         <div class="col-sm-10">
             <div class="row">
                 <div class="col-sm-12">
-                    <div id="contenido-perfil" class="contenido">
-                        <div id="perfil-informacion-general">
-                            <div class="subtitulo-Perfil"><h3>Información general
-                                    <span title="Editar datos" onclick="" class="text-info puntero pull-right">
-                                        <i class="fa bi-pencil-square"></i>
-                                    </span>
-                                </h3>
-                            </div>
-
-                            <table style="width:100%; " class="table table-bordered table-striped small">
-                                <tbody>
-                                    <tr>
-                                        <td width="20%">Apellidos</td>
-                                        <td>Pineda Delgado</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Estado Laboral</td>
-                                        <td>Estudiante</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Estado Laboral</td>
-                                        <td>Estudiante</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>                   
+                  <div id="contenido-perfil" class="contenido">
+                    <div id="perfil-informacion-general">
+                      <div class="subtitulo-Perfil"><h3>Información general
+                              <span title="Editar datos" onclick="" class="text-info puntero pull-right">
+                                  <i class="fa bi-pencil-square"></i>
+                              </span>
+                          </h3>
+                      </div>
+                      <table style="width:100%; " class="table table-bordered table-striped small">
+                          <tbody>
+                              <tr>
+                                  <td width="20%">Apellidos</td>
+                                  <td>Pineda Delgado</td>
+                              </tr>
+                              <tr>
+                                  <td>Estado Laboral</td>
+                                  <td>Estudiante</td>
+                              </tr>
+                              <tr>
+                                  <td>Estado Laboral</td>
+                                  <td>Estudiante</td>
+                              </tr>
+                          </tbody>
+                      </table>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
