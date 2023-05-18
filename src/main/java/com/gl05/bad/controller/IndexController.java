@@ -31,10 +31,10 @@ public class IndexController {
         return "errorPage";
     }
     
-      @GetMapping("/correctcredentialsdisable")
+      @GetMapping("/usuariobloqueado")
     public String correctDisable(Model model) {
         model.addAttribute("pageTitle", "welcome2");
-        return "errorCredencialesCorrectas";
+        return "usuariobloqueado";
     }
     
 }

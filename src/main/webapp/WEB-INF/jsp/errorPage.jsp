@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>bloqueo</title>
     </head>
     <body>
         <h1>SE HA EQUIVOCADO 3 VECES EN SU CONSTRASEÑA, SE HA ENVIADO UN CORREO AL ADMINISTRADOR DEL SISTEMA PARA SU DESBLOQUEO</h1>

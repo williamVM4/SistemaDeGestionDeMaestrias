@@ -23,6 +23,8 @@ import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -51,10 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
-        
+
         Session session = Session.getDefaultInstance(props);
         mailSender.setSession(session);
-        
+
         return mailSender;
     }
 
@@ -80,43 +82,52 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //Metodo que se utiliza para la reestricción de urls
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        
+        http
+                .exceptionHandling()
+                    .accessDeniedHandler((request, response, accessDeniedException) -> {
+                        String mensaje = accessDeniedException.getMessage();
+                        if (mensaje.contains("La cuenta está bloqueada")) {
+                            response.sendRedirect("/usuariobloqueado");
+                        } else {
+                            response.sendRedirect("/");
+                        }
+                    })
+        ;           
+        
         http.authorizeHttpRequests()
-                //Con esto puedo reestringir los usuarios por
-                //vistas
                 .antMatchers("/welcome2")
-                //Coloco el rol al cual podra redirigirse a estas vistas
-                //                    .hasRole("ADMIN")
-                .hasAuthority("VER_ADMIN_PRIVILEGE")
-                //                Modificar cuando se tenga login               
+                .hasAuthority("VER_ADMIN_PRIVILEGE")             
                 .antMatchers("/login", "/logout", "/")
                 .hasAnyAuthority("VER_ADMIN_PRIVILEGE", "VER_USUARIO_PRIVILEGE")
-                //                    .hasAnyRole("USER","ADMIN")
                 .antMatchers("/welcome3")
                 .hasAuthority("VER_USUARIO_PRIVILEGE")
                 .and()
-                .formLogin()
+                .formLogin() 
                 .failureHandler(falloAutenticacionHandler())
                 .successHandler(authenticationSuccessHandler());
-                //.failureUrl("/login?error=true");
+
+        //.failureUrl("/login?error=true");
     }
+
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (AuthenticationSuccessHandler) new CustomAuthenticationSuccessHandler();
     }
+
     @Autowired
     private UsuarioDao usuarioDao;
+
     private class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         @Override
         public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
             String username = authentication.getName();
+            
             Usuario usuario = usuarioDao.findByUsername(username);
-
-            if (usuario != null && usuario.getUsuarioBloqueado() == 1) {
-                response.sendRedirect("/correctcredentialsdisable");
-            } else {
-                super.onAuthenticationSuccess(request, response, authentication);
-            }
+            usuario.setNumerointentos(0);
+            usuarioDao.save(usuario);
+            super.onAuthenticationSuccess(request, response, authentication);
         }
     }
 

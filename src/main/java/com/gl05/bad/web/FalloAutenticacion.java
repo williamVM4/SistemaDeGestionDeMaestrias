@@ -2,7 +2,6 @@ package com.gl05.bad.web;
 
 import com.gl05.bad.dao.UsuarioDao;
 import com.gl05.bad.domain.Usuario;
-import com.gl05.bad.servicio.UsuarioService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,13 +34,12 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
 
         //Formulario
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
         //Base
         Usuario usuario = usuarioDao.findByUsername(username);
 
         //Cuando el usuario esta bloqueado por los 3 intentos
         if (username.equals(usuario.getUsername()) && usuario.getUsuarioBloqueado() == 1) {
-            response.sendRedirect("/correctcredentialsdisable");
+            response.sendRedirect("/usuariobloqueado");
         } else if (username.equals(usuario.getUsername()) || usuario.getUsuarioBloqueado() == 0) {
             //Incrementamos el contador de intentos fallidos
             int intentos = usuario.getNumerointentos() + 1;
@@ -61,10 +59,9 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
                 response.sendRedirect("/errorpage");
             } else {
                 // Redirigir al usuario a la página de inicio de sesión
-                response.sendRedirect("/login");
+                response.sendRedirect("/login?error=true");
             }
         }
-
     }
 
     //Metodo para el envio de correo electronico
