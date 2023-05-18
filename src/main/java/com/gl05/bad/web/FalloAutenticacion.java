@@ -32,7 +32,9 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
 
-        //Formulario
+        
+        try{
+            //Formulario
         String username = request.getParameter("username");
         //Base
         Usuario usuario = usuarioDao.findByUsername(username);
@@ -62,6 +64,13 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
                 response.sendRedirect("/login?error=true");
             }
         }
+        }catch (NullPointerException e){
+           System.out.println("usuario nulo");
+           response.sendRedirect("/login");
+        }
+           
+        
+        
     }
 
     //Metodo para el envio de correo electronico
