@@ -12,11 +12,6 @@ vertical-align: middle;
 padding: 5px;
 }
 
-
-.main-menu:hover,nav.main-menu.expanded {
-width:250px;
-}
-
 .main-menu {
 background:#383838;
 border-right:1px solid #e5e5e5;
@@ -37,7 +32,7 @@ width:250px;
 
 .main-menu li>a {
 position:relative;
-display:table;
+display:block;
 border-collapse:collapse;
 border-spacing:0;
 color:#999;
@@ -112,6 +107,10 @@ outline:0;
 margin:0;
 padding:0;
 }
+
+.main-menu li a{
+   padding: 0.5rem 0;
+}
 .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
 color:#fff;
 background-color:#000000;
@@ -152,4 +151,10 @@ width:190px;
 .subtitulo-Perfil i{
   font-size: 20px;
   color: #004077;
+}
+
+
+/* TEMPORAL POR ESTRUCTURA DE SIDEBAR */
+.content{
+    margin-left: 250px
 }
