@@ -141,6 +141,8 @@ width:190px;
   color: #004077;
   margin-top:2em;
   margin-bottom: 2em;
+  border-bottom: 1px solid black;
+  border-color: #BECECF;
 }
 
 .subtitulo-Perfil{
