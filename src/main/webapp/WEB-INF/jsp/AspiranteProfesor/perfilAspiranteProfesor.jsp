@@ -10,14 +10,14 @@
                 <div class="col-sm-2 ">
                     <div class="row">
                         <div class="col-sm-12" style="text-align: center;">
-                            <img style="width:128px;cursor:pointer;" src="/images/foto.jpg" id="nofoto" title="Click para subir foto" onerror="">
+                            <img style="width:128px;cursor:pointer;" src="/images/foto.jpg" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                       <div class="col-sm-12 ">
                             <div class="list-group info ">
-                                <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_generales" data-url="#" title="Datos generales" type="button" onclick="setActiveButton('tab_generales')">
+                                <button class="tab-perfil list-group-item list-group-item-info btn-info active" id="tab_generales" data-url="#" title="Datos generales" type="button" onclick="setActiveButton('tab_generales')">
                                     Información general
                                 </button>
                                 <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_documentos_personales" data-url="#" title="Educación" type="button" onclick="setActiveButton('tab_documentos_personales')">
@@ -45,7 +45,10 @@
                 <div class="col-sm-10">
                     <div class="col-sm-12">
                         <div id="contenido-perfil" class="contenido">
-                            <div id="content_tab_generales" class="row d-none content_tab tab_generales">
+                            <div id="content_tab_fotografia" class="row d-none content_tab tab_fotografia">
+                                <jsp:include page="informacionGeneral/aspiranteProfesorFotografia.jsp" />
+                            </div>
+                            <div id="content_tab_generales" class="row content_tab tab_generales">
                                 <jsp:include page="informacionGeneral/aspiranteProfesorGenerales.jsp" />
                             </div>
                             <div id="content_tab_documentos_personales" class="row d-none content_tab tab_documentos_personales">
