@@ -1,24 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "LISTADO_PERFIL_COORDINADORAC")
 @NamedQueries({
@@ -28,9 +13,10 @@ public class ListadoPerfilCoordinadorac implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_LISTADO_PERFIL_COORDINADORAC", sequenceName = "S_LISTADO_PERFIL_COORDINADORAC", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_LISTADO_PERFIL_COORDINADORAC")
     @Column(name = "ID_LPC")
-    private Long idLpc;
+    private int idLpc;
     @OneToMany(mappedBy = "idLpc")
     private Collection<PerfilCoordinadorac> perfilCoordinadoracCollection;
     @OneToMany(mappedBy = "idLpc")
@@ -39,15 +25,15 @@ public class ListadoPerfilCoordinadorac implements Serializable {
     public ListadoPerfilCoordinadorac() {
     }
 
-    public ListadoPerfilCoordinadorac(Long idLpc) {
+    public ListadoPerfilCoordinadorac(int idLpc) {
         this.idLpc = idLpc;
     }
 
-    public Long getIdLpc() {
+    public int getIdLpc() {
         return idLpc;
     }
 
-    public void setIdLpc(Long idLpc) {
+    public void setIdLpc(int idLpc) {
         this.idLpc = idLpc;
     }
 
@@ -66,30 +52,30 @@ public class ListadoPerfilCoordinadorac implements Serializable {
     public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
         this.maestriaCollection = maestriaCollection;
     }
-
+    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idLpc != null ? idLpc.hashCode() : 0);
+        final int prime = 31;
+        int hash = 1;
+        hash = prime * hash + idLpc;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ListadoPerfilCoordinadorac)) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
         ListadoPerfilCoordinadorac other = (ListadoPerfilCoordinadorac) object;
-        if ((this.idLpc == null && other.idLpc != null) || (this.idLpc != null && !this.idLpc.equals(other.idLpc))) {
-            return false;
-        }
-        return true;
+        return idLpc == other.idLpc;
     }
-
+    
     @Override
     public String toString() {
-        return "com.gl05.bad.domain.ListadoPerfilCoordinadorac[ idLpc=" + idLpc + " ]";
+        return "ListadoPerfilCoordinadorac[ idLpc=" + idLpc + " ]";
     }
     
 }

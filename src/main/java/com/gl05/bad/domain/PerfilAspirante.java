@@ -1,24 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "PERFIL_ASPIRANTE")
 @NamedQueries({
@@ -30,9 +14,10 @@ public class PerfilAspirante implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_PERFIL_ASPIRANTE", sequenceName = "S_PERFIL_ASPIRANTE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_PERFIL_ASPIRANTE")
     @Column(name = "ID_PERFIL_ASPIRANTE")
-    private Long idPerfilAspirante;
+    private int idPerfilAspirante;
     @Basic(optional = false)
     @Column(name = "TITULO_REQ")
     private String tituloReq;
@@ -45,21 +30,21 @@ public class PerfilAspirante implements Serializable {
     public PerfilAspirante() {
     }
 
-    public PerfilAspirante(Long idPerfilAspirante) {
+    public PerfilAspirante(int idPerfilAspirante) {
         this.idPerfilAspirante = idPerfilAspirante;
     }
 
-    public PerfilAspirante(Long idPerfilAspirante, String tituloReq, String requisitos) {
+    public PerfilAspirante(int idPerfilAspirante, String tituloReq, String requisitos) {
         this.idPerfilAspirante = idPerfilAspirante;
         this.tituloReq = tituloReq;
         this.requisitos = requisitos;
     }
 
-    public Long getIdPerfilAspirante() {
+    public int getIdPerfilAspirante() {
         return idPerfilAspirante;
     }
 
-    public void setIdPerfilAspirante(Long idPerfilAspirante) {
+    public void setIdPerfilAspirante(int idPerfilAspirante) {
         this.idPerfilAspirante = idPerfilAspirante;
     }
 
@@ -89,27 +74,27 @@ public class PerfilAspirante implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idPerfilAspirante != null ? idPerfilAspirante.hashCode() : 0);
+        final int prime = 31;
+        int hash = 1;
+        hash = prime * hash + idPerfilAspirante;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PerfilAspirante)) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
         PerfilAspirante other = (PerfilAspirante) object;
-        if ((this.idPerfilAspirante == null && other.idPerfilAspirante != null) || (this.idPerfilAspirante != null && !this.idPerfilAspirante.equals(other.idPerfilAspirante))) {
-            return false;
-        }
-        return true;
+        return idPerfilAspirante == other.idPerfilAspirante;
     }
-
+    
     @Override
     public String toString() {
-        return "com.gl05.bad.domain.PerfilAspirante[ idPerfilAspirante=" + idPerfilAspirante + " ]";
+        return "PerfilAspirante[ idPerfilAspirante=" + idPerfilAspirante + " ]";
     }
     
 }

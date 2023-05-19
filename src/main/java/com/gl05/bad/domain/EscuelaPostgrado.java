@@ -1,27 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "ESCUELA_POSTGRADO")
 @NamedQueries({
@@ -32,9 +14,10 @@ public class EscuelaPostgrado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_ESCUELA_POSTGRADO", sequenceName = "S_ESCUELA_POSTGRADO", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ESCUELA_POSTGRADO")
     @Column(name = "ID_POSTGRADO")
-    private Long idPostgrado;
+    private int idPostgrado;
     @Basic(optional = false)
     @Column(name = "NOMBRE_POSTGRADO")
     private String nombrePostgrado;
@@ -47,20 +30,20 @@ public class EscuelaPostgrado implements Serializable {
     public EscuelaPostgrado() {
     }
 
-    public EscuelaPostgrado(Long idPostgrado) {
+    public EscuelaPostgrado(int idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 
-    public EscuelaPostgrado(Long idPostgrado, String nombrePostgrado) {
+    public EscuelaPostgrado(int idPostgrado, String nombrePostgrado) {
         this.idPostgrado = idPostgrado;
         this.nombrePostgrado = nombrePostgrado;
     }
 
-    public Long getIdPostgrado() {
+    public int getIdPostgrado() {
         return idPostgrado;
     }
 
-    public void setIdPostgrado(Long idPostgrado) {
+    public void setIdPostgrado(int idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 
@@ -87,30 +70,30 @@ public class EscuelaPostgrado implements Serializable {
     public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
         this.maestriaCollection = maestriaCollection;
     }
-
+    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idPostgrado != null ? idPostgrado.hashCode() : 0);
+        final int prime = 31;
+        int hash = 1;
+        hash = prime * hash + idPostgrado;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EscuelaPostgrado)) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
         EscuelaPostgrado other = (EscuelaPostgrado) object;
-        if ((this.idPostgrado == null && other.idPostgrado != null) || (this.idPostgrado != null && !this.idPostgrado.equals(other.idPostgrado))) {
-            return false;
-        }
-        return true;
+        return idPostgrado == other.idPostgrado;
     }
-
+    
     @Override
     public String toString() {
-        return "com.gl05.bad.domain.EscuelaPostgrado[ idPostgrado=" + idPostgrado + " ]";
+        return "EscuelaPostgrado[ idPostgrado=" + idPostgrado + " ]";
     }
     
 }
