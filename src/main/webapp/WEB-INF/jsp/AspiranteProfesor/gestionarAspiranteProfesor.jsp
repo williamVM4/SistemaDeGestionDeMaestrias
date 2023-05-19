@@ -1,6 +1,5 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
-
 <div class="container">
     <div style="clear:both; padding-bottom:15px;"></div>
     <div align="center">
