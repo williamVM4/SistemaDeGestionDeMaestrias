@@ -2,24 +2,9 @@ package com.gl05.bad.domain;
 
 import java.sql.Blob;
 import javax.persistence.*;
-import lombok.Data;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="COORDINADOR_ACADEMICO")
@@ -44,73 +29,72 @@ public class CoordinadorAcademico implements Serializable{
   private static final long serialVersionUID = 1L;
   
   @Id
-  @Basic(optional = false)
   @Column(name="ID_COOR_ACA")
   @SequenceGenerator(name = "S_COORDINADOR_ACADEMICO", sequenceName = "S_COORDINADOR_ACADEMICO", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_COORDINADOR_ACADEMICO")
-    private Integer idCoorAca;
+    private Long idCoorAca;
   
-  @Column(name="COD_CA", nullable = true)
+  @Column(name="COD_CA")
     private String codCa;
   
-  @Column(name="NOMBRES_CA", nullable = true)
+  @Column(name="NOMBRES_CA")
     private String nombresCa;
   
-  @Column(name="APELLIDOS_CA", nullable = true)
+  @Column(name="APELLIDOS_CA")
     private String apellidosCa;
   
-  @Column(name="SEXO_CA", nullable = true)
+  @Column(name="SEXO_CA")
     private String sexoCa;
   
-  @Column(name="GENERO_CA", nullable = true)
+  @Column(name="GENERO_CA")
     private String generoCa;
   
-  @Column(name="FECHA_NAC_CA", nullable = true)
+  @Column(name="FECHA_NAC_CA")
   @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacCa;  
 
-  @Column(name="ESTADO_CIVIL_CA", nullable = true)
+  @Column(name="ESTADO_CIVIL_CA")
     private String estadoCivilCa;
   
-  @Column(name="NACIONALIDAD_CA", nullable = true)
+  @Column(name="NACIONALIDAD_CA")
     private String nacionalidadCa;
 
   @Lob
-  @Column(name="FOTOGRAFIA_CA", nullable = true)
+  @Column(name="FOTOGRAFIA_CA")
     private Blob fotografiaCa;
   
-  @Column(name="DUI_CA", nullable = true)
+  @Column(name="DUI_CA")
     private String duiCa;
   
-  @Column(name="NIT_CA", nullable = true)
+  @Column(name="NIT_CA")
     private String nitCa;
   
-  @Column(name="NUP_CA", nullable = true)
+  @Column(name="NUP_CA")
     private String nupCa;
   
-  @Column(name="PASAPORTE_CA", nullable = true)
+  @Column(name="PASAPORTE_CA")
     private String pasaporteCa;
   
-  @Column(name="DOC_PERSONAL_CA", nullable = true)
+  @Column(name="DOC_PERSONAL_CA")
     private String docPersonalCa;
  
-  @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO", nullable = true)
+  @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO")
   @ManyToOne(optional = false)
     private ListadoCorreo idListCorreo;
 
-  @JoinColumn(name = "ID_LIST_DP", referencedColumnName = "ID_LIST_DP", nullable = true)
+  @JoinColumn(name = "ID_LIST_DP", referencedColumnName = "ID_LIST_DP")
   @ManyToOne
     private ListadoDocumentacionPersonal idListDp;
 
-  @JoinColumn(name = "ID_LIST_TELEFONO", referencedColumnName = "ID_LIST_TELEFONO", nullable = true)
+  @JoinColumn(name = "ID_LIST_TELEFONO", referencedColumnName = "ID_LIST_TELEFONO")
   @ManyToOne
     private ListadoTelefono idListTelefono;
 
-  @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA", nullable = true)
+  @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA")
   @ManyToOne
     private ListadoTitulosAcademicos idListTa;
 
-  @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS", nullable = true)
+  @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
   @ManyToOne(optional = false)
     private Pais idPais;
 
@@ -123,11 +107,11 @@ public class CoordinadorAcademico implements Serializable{
   
   public CoordinadorAcademico() {}
 
-  public CoordinadorAcademico(Integer idCoorAca) {
+  public CoordinadorAcademico(Long idCoorAca) {
     this.idCoorAca = idCoorAca;
   }
 
-  public CoordinadorAcademico(Integer idCoorAca, String codCa, String nombresCa, String apellidosCa, String sexoCa, String generoCa, Date fechaNacCa, String estadoCivilCa, String nacionalidadCa, Blob fotografiaCa) {
+  public CoordinadorAcademico(Long idCoorAca, String codCa, String nombresCa, String apellidosCa, String sexoCa, String generoCa, Date fechaNacCa, String estadoCivilCa, String nacionalidadCa, Blob fotografiaCa) {
     this.idCoorAca = idCoorAca;
     this.codCa = codCa;
     this.nombresCa = nombresCa;
@@ -140,11 +124,11 @@ public class CoordinadorAcademico implements Serializable{
     this.fotografiaCa = fotografiaCa;
   }
 
-  public int getIdCoorAca() {
+  public Long getIdCoorAca() {
     return idCoorAca;
   }
 
-  public void setIdCoorAca(int idCoorAca) {
+  public void setIdCoorAca(Long idCoorAca) {
     this.idCoorAca = idCoorAca;
   }
 
@@ -324,21 +308,24 @@ public class CoordinadorAcademico implements Serializable{
   }
 
   @Override
-  public boolean equals(Object object) {
-      if (this == object) {
-          return true;
-      }
-      if (object == null || getClass() != object.getClass()) {
-          return false;
-      }
-      CoordinadorAcademico other = (CoordinadorAcademico) object;
-      return idCoorAca == other.idCoorAca;
-  }
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof CoordinadorAcademico)) {
+            return false;
+        }
+        CoordinadorAcademico other = (CoordinadorAcademico) object;
+        if ((this.idCoorAca == null && other.idCoorAca != null) || (this.idCoorAca != null && !this.idCoorAca.equals(other.idCoorAca))) {
+            return false;
+        }
+           return true;
+    }
+ 
 
   @Override
   public String toString() {
     return "com.gl05.bad.domain.CoordinadorAcademico[ idCoorAca=" + idCoorAca + " ]";
   }
+
 
   
 }
