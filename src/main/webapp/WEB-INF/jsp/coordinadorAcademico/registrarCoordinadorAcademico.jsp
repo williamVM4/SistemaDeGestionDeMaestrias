@@ -1,15 +1,13 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
-<div align="center">
-    <div class="titulo-Perfil"><h3>Coordinadores Académicos</h3></div>
-    <div id="container-datos">
-        <div class="row">
-            <div class="col-sm-2 ">
-                <div class="row">
 
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+  <form action="/guardar" method="POST" modelAttribute="coordinador" accept-charset="UTF-8">
+
+    <label for="codCa">Carnet de identificación:</label>
+    <input type="text" class="form-control" id="codCa" name="codCa" maxlength="6" required>
+
+    <input type="submit" name="guardar" value="Guardar">
+
+  </form>
+
 <%@ include file="../common/footer.jspf"%>

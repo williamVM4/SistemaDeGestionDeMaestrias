@@ -9,10 +9,11 @@
         <div class="row">
           <div id="view-coordinadores">
             <div class="row col-sm-12 d-flex justify-content-end">
-              <div class="col-sm-1">
-                  <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
-              </div>
+              <!--<div class="col-sm-1">
+                  <button type="button" class="btn-add btn" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
+              </div>-->
             </div>
+            <a href="/registrar">registrar</a>
             <br>
             <div class="row col-sm-12">
               <table style="width:100%; " class="table table-bordered table-striped small">
@@ -35,9 +36,9 @@
                     <c:forEach items="${coordinadoresAC}" var="elemento" varStatus="status">
                         <tr>
                             <td width="20%">${status.index + 1}</td>
-                            <td>${elemento.codCA}</td>
-                            <td>${elemento.nombresCA}</td>
-                            <td>${elemento.apellidosCA}</td>
+                            <td>${elemento.codCa}</td>
+                            <td>${elemento.nombresCa}</td>
+                            <td>${elemento.apellidosCa}</td>
                             <td>Ver coordinador</td>
                         </tr>
                     </c:forEach>
@@ -51,9 +52,8 @@
     </div>
   </div>
 </div>
-
     <!-- Modal para crear coordinadores -->
-    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
+<!--    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -61,25 +61,27 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="AspiranteProfesorController" method="post">
-              <input type="hidden" name="action" value="create">
+            <form action="${pageContext.request.contextPath}/viewCoordinadoresAcademicos/create" method="POST" accept-charset="UTF-8">
+              
               <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                <label for="codCa">Carnet de identificación:</label>
+                <input type="text" class="form-control" id="codCa" name="codCa" maxlength="6" required>
               </div>
               <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <label for="nombresCa">Nombre:</label>
+                <input type="text" class="form-control" id="nombresCa" name="nombresCa" required>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success">Guardar</button>
-                <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+              <div class="form-group">
+                <label for="apellidosCa">Apellido:</label>
+                <input type="text" class="form-control" id="apellidosCa" name="apellidosCa" required>
               </div>
+              <a onclick="form.submit()" href="/viewCoordinadoresAcademicos">Salir</i>
+              
             </form>
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
 <%@ include file="../common/footer.jspf"%>
 
 
