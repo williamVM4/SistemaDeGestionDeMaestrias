@@ -1,5 +1,6 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
+
 <div align="center">
   <div class="titulo-Perfil"><h3>Coordinadores Académicos</h3></div>
   <div id="container-datos">
@@ -50,46 +51,35 @@
     </div>
   </div>
 </div>
-<!--<div align="center">
-        <div class="titulo-Perfil"><h3>Gestionar Aspirante a Profesor</h3></div>
-        <div id="container-datos">
-            <div class="row col-sm-12 d-flex justify-content-end">
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
-                </div>
-            </div>
-            <br>
-            
-        </div>
-    </div>
+
     <!-- Modal para crear coordinadores -->
     <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="crearModalLabel">Agregar Coordinador Académico</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="AspiranteProfesorController" method="post">
-                        <input type="hidden" name="action" value="create">
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-success">Guardar</button>
-                            <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="crearModalLabel">Agregar Coordinador Académico</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="AspiranteProfesorController" method="post">
+              <input type="hidden" name="action" value="create">
+              <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success">Guardar</button>
+                <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+            </form>
+          </div>
         </div>
-    </div>-->
+      </div>
+    </div>
 <%@ include file="../common/footer.jspf"%>
 
 
