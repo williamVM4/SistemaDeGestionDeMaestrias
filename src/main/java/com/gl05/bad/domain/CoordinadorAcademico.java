@@ -1,153 +1,81 @@
 package com.gl05.bad.domain;
 
-public class CoordinadorAcademico {
-  private int idUsuario, idPais,idListTelefono,idListDP;
-  private String codCA,nombresCA,apellidosCA,sexoCA,generoCA,estadoCivilCA,nacionalidadCA,duiCA,nitCA,nupCA,pasaporteCA,docPersonalCA,fechaNacCA;
+import java.io.Serializable;
+import java.sql.Blob;
+import java.util.Date;
+import javax.persistence.*;
+import lombok.Data;
 
-  public CoordinadorAcademico(String codCA, String nombresCA, String apellidosCA) {
-    this.codCA = codCA;
-    this.nombresCA = nombresCA;
-    this.apellidosCA = apellidosCA;
-  }
+@Data
+@Entity
+@Table(name="COORDINADOR_ACADEMICO")
+public class CoordinadorAcademico implements Serializable{
+  private static final long serialVersionUID = 1L;
+  
+  @Column(name="ID_COOR_ACA")
+  @Id
+  @SequenceGenerator(name = "S_COORDINADOR_ACADEMICO", sequenceName = "S_COORDINADOR_ACADEMICO", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_COORDINADOR_ACADEMICO")
+    private int idCA;
+ 
+  @Column(name="IDUSUARIO", nullable = true)
+    private Integer idUsuario;
+  
+  @Column(name="COD_CA", nullable = true)
+    private String codCA;
+  
+  @Column(name="NOMBRES_CA", nullable = true)
+    private String nombresCA;
+  
+  @Column(name="APELLIDOS_CA", nullable = true)
+    private String apellidosCA;
+  
+  @Column(name="SEXO_CA", nullable = true)
+    private String sexoCA;
+  
+  @Column(name="GENERO_CA", nullable = true)
+    private String generoCA;
+  
+  @Column(name="FECHA_NAC_CA", nullable = true)
+    private Date fechaNacCA;  
 
-  public CoordinadorAcademico() {
-  }
+  @Column(name="ESTADO_CIVIL_CA", nullable = true)
+    private String estadoCivilCA;
+  
+  @Column(name="NACIONALIDAD_CA", nullable = true)
+    private String nacionalidadCA;
+   
+  @Column(name="ID_PAIS", nullable = true)
+    private Integer idPais;
 
-  public int getIdUsuario() {
-    return idUsuario;
-  }
+  @Column(name="FOTOGRAFIA_CA", nullable = true)
+    private Blob fotografia;
+  
+  @Column(name="DUI_CA", nullable = true)
+    private String duiCA;
+  
+  @Column(name="NIT_CA", nullable = true)
+    private String nitCA;
+  
+  @Column(name="NUP_CA", nullable = true)
+    private String nupCA;
+  
+  @Column(name="PASAPORTE_CA", nullable = true)
+    private String pasaporteCA;
+  
+  @Column(name="DOC_PERSONAL_CA", nullable = true)
+    private String docPersonalCA;
 
-  public void setIdUsuario(int idUsuario) {
-    this.idUsuario = idUsuario;
-  }
+    @Column(name="ID_LIST_TELEFONO", nullable = true)
+    private Integer idListTelefono;
+  
+  @Column(name="ID_LIST_DP", nullable = true)
+    private Integer idListDP;
 
-  public int getIdPais() {
-    return idPais;
-  }
+   @Column(name="ID_LIST_TA", nullable = true)
+    private Integer idListTA;
 
-  public void setIdPais(int idPais) {
-    this.idPais = idPais;
-  }
-
-  public int getIdListTelefono() {
-    return idListTelefono;
-  }
-
-  public void setIdListTelefono(int idListTelefono) {
-    this.idListTelefono = idListTelefono;
-  }
-
-  public int getIdListDP() {
-    return idListDP;
-  }
-
-  public void setIdListDP(int idListDP) {
-    this.idListDP = idListDP;
-  }
-
-  public String getCodCA() {
-    return codCA;
-  }
-
-  public void setCodCA(String codCA) {
-    this.codCA = codCA;
-  }
-
-  public String getNombresCA() {
-    return nombresCA;
-  }
-
-  public void setNombresCA(String nombresCA) {
-    this.nombresCA = nombresCA;
-  }
-
-  public String getApellidosCA() {
-    return apellidosCA;
-  }
-
-  public void setApellidosCA(String apellidosCA) {
-    this.apellidosCA = apellidosCA;
-  }
-
-  public String getSexoCA() {
-    return sexoCA;
-  }
-
-  public void setSexoCA(String sexoCA) {
-    this.sexoCA = sexoCA;
-  }
-
-  public String getGeneroCA() {
-    return generoCA;
-  }
-
-  public void setGeneroCA(String generoCA) {
-    this.generoCA = generoCA;
-  }
-
-  public String getEstadoCivilCA() {
-    return estadoCivilCA;
-  }
-
-  public void setEstadoCivilCA(String estadoCivilCA) {
-    this.estadoCivilCA = estadoCivilCA;
-  }
-
-  public String getNacionalidadCA() {
-    return nacionalidadCA;
-  }
-
-  public void setNacionalidadCA(String nacionalidadCA) {
-    this.nacionalidadCA = nacionalidadCA;
-  }
-
-  public String getDuiCA() {
-    return duiCA;
-  }
-
-  public void setDuiCA(String duiCA) {
-    this.duiCA = duiCA;
-  }
-
-  public String getNitCA() {
-    return nitCA;
-  }
-
-  public void setNitCA(String nitCA) {
-    this.nitCA = nitCA;
-  }
-
-  public String getNupCA() {
-    return nupCA;
-  }
-
-  public void setNupCA(String nupCA) {
-    this.nupCA = nupCA;
-  }
-
-  public String getPasaporteCA() {
-    return pasaporteCA;
-  }
-
-  public void setPasaporteCA(String pasaporteCA) {
-    this.pasaporteCA = pasaporteCA;
-  }
-
-  public String getDocPersonalCA() {
-    return docPersonalCA;
-  }
-
-  public void setDocPersonalCA(String docPersonalCA) {
-    this.docPersonalCA = docPersonalCA;
-  }
-
-  public String getFechaNacCA() {
-    return fechaNacCA;
-  }
-
-  public void setFechaNacCA(String fechaNacCA) {
-    this.fechaNacCA = fechaNacCA;
-  }
-
+   @Column(name="ID_LIST_CORREO", nullable = true)
+    private Integer idListCorreo;
   
 }
