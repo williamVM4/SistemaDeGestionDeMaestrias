@@ -1,75 +1,99 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
-
-<div class="container">
-  <div style="clear:both; padding-bottom:15px;"></div>
-  <div align="center">
+<div align="center">
     <div class="titulo-Perfil"><h3>Perfil del Coordinador Académico</h3></div>
     <div id="container-datos">
-      <div class="row">
-        <div class="col-sm-2 ">
-          <div class="row">
-              <div class="col-sm-12" style="text-align: center;">
-                  <img style="width:128px;cursor:pointer;" src="/images/foto.jpg" id="nofoto" title="Click para subir foto" onerror="">
-              </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-sm-12 ">
-              <div class="list-group info ">
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_generales" title="Datos generales" type="button">
-                      Información general
-                  </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_educacion" title="Educación" type="button">
-                      Educación
-                  </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_fotografías" title="Documentos" type="button">
-                      Documentos
-                  </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_telefonos" title="Teléfonos" type="button">
-                      Teléfonos
-                  </button>
-                  <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_correos" title="Correos" type="button">
-                      Correos
-                  </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-10">
-            <div class="row">
-                <div class="col-sm-12">
-                  <div id="contenido-perfil" class="contenido">
-                    <div id="perfil-informacion-general">
-                      <div class="subtitulo-Perfil"><h3>Información general
-                              <span title="Editar datos" onclick="" class="text-info puntero pull-right">
-                                  <i class="fa bi-pencil-square"></i>
-                              </span>
-                          </h3>
-                      </div>
-                      <table style="width:100%; " class="table table-bordered table-striped small">
-                          <tbody>
-                              <tr>
-                                  <td width="20%">Apellidos</td>
-                                  <td>Pineda Delgado</td>
-                              </tr>
-                              <tr>
-                                  <td>Estado Laboral</td>
-                                  <td>Estudiante</td>
-                              </tr>
-                              <tr>
-                                  <td>Estado Laboral</td>
-                                  <td>Estudiante</td>
-                              </tr>
-                          </tbody>
-                      </table>
+        <div class="row">
+            <div class="col-sm-2 ">
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center;">
+                        <img style="width:128px;cursor:pointer;" src="/images/foto.jpg" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')">
                     </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm-12 ">
+                        <div class="list-group info ">
+                            <button class="tab-perfil list-group-item list-group-item-info btn-info active" id="tab_generales" data-url="#" title="Datos generales" type="button" onclick="setActiveButton('tab_generales')">
+                                Información general
+                            </button>
+                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_documentos_personales" data-url="#" title="Educación" type="button" onclick="setActiveButton('tab_documentos_personales')">
+                                Documentos
+                            </button>
+                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_titulos_academicos" data-url="#" title="Documentos" type="button" onclick="setActiveButton('tab_titulos_academicos')">
+                                Títulos
+                            </button>
+                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_telefonos" data-url="#" title="Teléfonos" type="button" onclick="setActiveButton('tab_telefonos')">
+                                Teléfonos
+                            </button>
+                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_correos" data-url="#" title="Correos" type="button" onclick="setActiveButton('tab_correos')">
+                                Correos
+                            </button>
+                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_redes_sociales" data-url="#" title="Correos" type="button" onclick="setActiveButton('tab_redes_sociales')">
+                                Redes Sociales
+                            </button>
+                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_experiencia_laboral" data-url="#" title="Correos" type="button" onclick="setActiveButton('tab_experiencia_laboral')">
+                                Experiencia Laboral
+                            </button>
+                        </div>
                   </div>
                 </div>
             </div>
+            <div class="col-sm-10">
+                <div class="col-sm-12">
+                    <div id="contenido-perfil" class="contenido">
+                        <div id="content_tab_fotografia" class="row d-none content_tab tab_fotografia">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoFotografia.jsp" />
+                        </div>
+                        <div id="content_tab_generales" class="row content_tab tab_generales">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoGenerales.jsp" />
+                        </div>
+                        <div id="content_tab_documentos_personales" class="row d-none content_tab tab_documentos_personales">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoDocumentos.jsp" />
+                        </div>
+                        <div id="content_tab_titulos_academicos" class="row d-none content_tab tab_titulos_academicos">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoTitulos.jsp" />
+                        </div>
+                        <div id="content_tab_telefonos" class="row d-none content_tab tab_telefonos">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoTelefonos.jsp" />
+                        </div>
+                        <div id="content_tab_correos" class="row d-none content_tab tab_correos">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoCorreos.jsp" />
+                        </div>
+                        <div id="content_tab_redes_sociales" class="row d-none content_tab tab_redes_sociales">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoRedes.jsp" />
+                        </div>
+                        <div id="content_tab_experiencia_laboral" class="row d-none content_tab tab_experiencia_laboral">
+                            <jsp:include page="informacionGeneral/coordinadorAcademicoExperiencia.jsp" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <%@ include file="../common/footer.jspf"%>
+<script>
+    // Función que se ejecuta cuando se hace clic en un botón
+    function setActiveButton(buttonId) {
+        // Obtener todos los botones
+        var buttons = document.getElementsByClassName("tab-perfil");
+        var content_tab = document.getElementsByClassName('content_tab');
+
+        // Recorrer todos los botones y quitar la clase "active"
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].classList.remove("active");
+        }
+
+        // Agregar la clase "active" al botón actual
+        var currentButton = document.getElementById(buttonId);
+        currentButton.classList.add("active");
+
+        for (var i = 0; i < content_tab.length; i++) {
+            content_tab[i].classList.add('d-none');
+        }
+
+        var currentContentTab = document.getElementById("content_"+buttonId);
+        currentContentTab.classList.remove('d-none');
+    }
+</script>

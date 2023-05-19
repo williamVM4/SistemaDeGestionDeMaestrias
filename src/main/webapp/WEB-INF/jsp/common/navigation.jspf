@@ -1,9 +1,9 @@
-<nav id="sidebar">
+<nav id="sidebar" class="navbar-collapse collapse show">
     <div class="p-4 pt-5">
-        <a href="#Procesos" class="img logo rounded-circle mb-5" style="background-image: url(images/logo.jpg);"></a>
+        <a href="#Logo" class="img logo rounded-circle mb-5" style="background-image: url(images/logo.jpg);"></a>
         <ul class="list-unstyled components mb-5">
             <li class="active">
-                <a href="#Procesos" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Procesos</a>
+                <a href="#Procesos" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Procesos</a>
                 <ul class="collapse list-unstyled" id="Procesos">
                     <li>
                         <a href="/maestria/index">Gestionar Maestría</a>
@@ -17,7 +17,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#Perfiles" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfiles</a>
+                <a href="#Perfiles" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfiles</a>
                 <ul class="collapse list-unstyled" id="Perfiles">
                     <li>
                         <a href="/viewCoordinadoresAcademicos">Gestionar Coordinadores</a>
@@ -34,7 +34,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#Administracion" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
+                <a href="#Administracion" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
                 <ul class="collapse list-unstyled" id="Administracion">
                     <li>
                         <a href="#">Usuarios</a>
@@ -57,7 +57,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#Maestria" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Maestría</a>
+                <a href="#Maestria" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Maestría</a>
                 <ul class="collapse list-unstyled" id="Maestria">
                     <li>
                         <a href="#">Asignaturas</a>
@@ -78,23 +78,23 @@
                     <i class="fa fa-bars"></i>
                     <span class="sr-only">Toggle Menu</span>
                 </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
                     <i class="fa fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <div class="nav-link">
-                                <form method="POST" action="/logout">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <a onclick="this.parentNode.submit()" href="#">Salir</i>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
+                  <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Perfil</a>
+                    </li>
+                    <li class="nav-item active">
+                        <div class="nav-link">
+                            <form method="POST" action="/logout">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <a onclick="this.parentNode.submit()" href="#"><i class="fa bi-power"></i>  Salir</i>
+                        </form>
+                        </div>
+                    </li>
+                  </ul>
                 </div>
             </div>
         </nav>
