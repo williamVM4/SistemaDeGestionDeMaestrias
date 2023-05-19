@@ -9,11 +9,10 @@
         <div class="row">
           <div id="view-coordinadores">
             <div class="row col-sm-12 d-flex justify-content-end">
-              <!--<div class="col-sm-1">
+              <div class="col-sm-1">
                   <button type="button" class="btn-add btn" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
-              </div>-->
+              </div>
             </div>
-            <a href="/registrar">registrar</a>
             <br>
             <div class="row col-sm-12">
               <table style="width:100%; " class="table table-bordered table-striped small">
@@ -53,7 +52,7 @@
   </div>
 </div>
     <!-- Modal para crear coordinadores -->
-<!--    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
+   <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -61,8 +60,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="${pageContext.request.contextPath}/viewCoordinadoresAcademicos/create" method="POST" accept-charset="UTF-8">
-              
+            <form action="/guardarCA" method="POST" accept-charset="UTF-8">
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
               <div class="form-group">
                 <label for="codCa">Carnet de identificación:</label>
                 <input type="text" class="form-control" id="codCa" name="codCa" maxlength="6" required>
@@ -75,13 +74,15 @@
                 <label for="apellidosCa">Apellido:</label>
                 <input type="text" class="form-control" id="apellidosCa" name="apellidosCa" required>
               </div>
-              <a onclick="form.submit()" href="/viewCoordinadoresAcademicos">Salir</i>
-              
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-success">Guardar</button>
+                <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
 <%@ include file="../common/footer.jspf"%>
 
 
