@@ -17,7 +17,7 @@ public class EscuelaPostgrado implements Serializable {
     @SequenceGenerator(name = "S_ESCUELA_POSTGRADO", sequenceName = "S_ESCUELA_POSTGRADO", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ESCUELA_POSTGRADO")
     @Column(name = "ID_POSTGRADO")
-    private int idPostgrado;
+    private Integer idPostgrado;
     @Basic(optional = false)
     @Column(name = "NOMBRE_POSTGRADO")
     private String nombrePostgrado;
@@ -30,20 +30,20 @@ public class EscuelaPostgrado implements Serializable {
     public EscuelaPostgrado() {
     }
 
-    public EscuelaPostgrado(int idPostgrado) {
+    public EscuelaPostgrado(Integer idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 
-    public EscuelaPostgrado(int idPostgrado, String nombrePostgrado) {
+    public EscuelaPostgrado(Integer idPostgrado, String nombrePostgrado) {
         this.idPostgrado = idPostgrado;
         this.nombrePostgrado = nombrePostgrado;
     }
 
-    public int getIdPostgrado() {
+    public Integer getIdPostgrado() {
         return idPostgrado;
     }
 
-    public void setIdPostgrado(int idPostgrado) {
+    public void setIdPostgrado(Integer idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 
@@ -73,22 +73,22 @@ public class EscuelaPostgrado implements Serializable {
     
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-        hash = prime * hash + idPostgrado;
+        int hash = 0;
+        hash += (idPostgrado != null ? idPostgrado.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EscuelaPostgrado)) {
             return false;
         }
         EscuelaPostgrado other = (EscuelaPostgrado) object;
-        return idPostgrado == other.idPostgrado;
+        if ((this.idPostgrado == null && other.idPostgrado != null) || (this.idPostgrado != null && !this.idPostgrado.equals(other.idPostgrado))) {
+            return false;
+        }
+        return true;
     }
     
     @Override

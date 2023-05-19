@@ -16,7 +16,7 @@ public class ListadoPerfilAspirante implements Serializable {
     @SequenceGenerator(name = "S_LISTADO_PERFIL_ASPIRANTE", sequenceName = "S_LISTADO_PERFIL_ASPIRANTE", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_LISTADO_PERFIL_ASPIRANTE")
     @Column(name = "ID_LPA")
-    private int idLpa;
+    private Integer idLpa;
     @OneToMany(mappedBy = "idLpa")
     private Collection<PerfilAspirante> perfilAspiranteCollection;
     @OneToMany(mappedBy = "idLpa")
@@ -25,15 +25,15 @@ public class ListadoPerfilAspirante implements Serializable {
     public ListadoPerfilAspirante() {
     }
 
-    public ListadoPerfilAspirante(int idLpa) {
+    public ListadoPerfilAspirante(Integer idLpa) {
         this.idLpa = idLpa;
     }
 
-    public int getIdLpa() {
+    public Integer getIdLpa() {
         return idLpa;
     }
 
-    public void setIdLpa(int idLpa) {
+    public void setIdLpa(Integer idLpa) {
         this.idLpa = idLpa;
     }
 
@@ -55,22 +55,22 @@ public class ListadoPerfilAspirante implements Serializable {
     
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-        hash = prime * hash + idLpa;
+        int hash = 0;
+        hash += (idLpa != null ? idLpa.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ListadoPerfilAspirante)) {
             return false;
         }
         ListadoPerfilAspirante other = (ListadoPerfilAspirante) object;
-        return idLpa == other.idLpa;
+        if ((this.idLpa == null && other.idLpa != null) || (this.idLpa != null && !this.idLpa.equals(other.idLpa))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

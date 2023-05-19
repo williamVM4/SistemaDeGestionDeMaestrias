@@ -16,7 +16,7 @@ public class Facultad implements Serializable {
     @SequenceGenerator(name = "S_FACULTAD", sequenceName = "S_FACULTAD", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_FACULTAD")
     @Column(name = "ID_FACULTAD")
-    private int idFacultad;
+    private Integer idFacultad;
     @Basic(optional = false)
     @Column(name = "NOMBRE_FACULTAD")
     private String nombreFacultad;
@@ -26,20 +26,20 @@ public class Facultad implements Serializable {
     public Facultad() {
     }
 
-    public Facultad(int idFacultad) {
+    public Facultad(Integer idFacultad) {
         this.idFacultad = idFacultad;
     }
 
-    public Facultad(int idFacultad, String nombreFacultad) {
+    public Facultad(Integer idFacultad, String nombreFacultad) {
         this.idFacultad = idFacultad;
         this.nombreFacultad = nombreFacultad;
     }
 
-    public int getIdFacultad() {
+    public Integer getIdFacultad() {
         return idFacultad;
     }
 
-    public void setIdFacultad(int idFacultad) {
+    public void setIdFacultad(Integer idFacultad) {
         this.idFacultad = idFacultad;
     }
 
@@ -61,22 +61,22 @@ public class Facultad implements Serializable {
     
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-        hash = prime * hash + idFacultad;
+        int hash = 0;
+        hash += (idFacultad != null ? idFacultad.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Facultad)) {
             return false;
         }
         Facultad other = (Facultad) object;
-        return idFacultad == other.idFacultad;
+        if ((this.idFacultad == null && other.idFacultad != null) || (this.idFacultad != null && !this.idFacultad.equals(other.idFacultad))) {
+            return false;
+        }
+        return true;
     }
     
     @Override

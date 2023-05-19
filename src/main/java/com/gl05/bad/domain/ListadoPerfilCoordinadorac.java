@@ -16,7 +16,7 @@ public class ListadoPerfilCoordinadorac implements Serializable {
     @SequenceGenerator(name = "S_LISTADO_PERFIL_COORDINADORAC", sequenceName = "S_LISTADO_PERFIL_COORDINADORAC", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_LISTADO_PERFIL_COORDINADORAC")
     @Column(name = "ID_LPC")
-    private int idLpc;
+    private Integer idLpc;
     @OneToMany(mappedBy = "idLpc")
     private Collection<PerfilCoordinadorac> perfilCoordinadoracCollection;
     @OneToMany(mappedBy = "idLpc")
@@ -25,15 +25,15 @@ public class ListadoPerfilCoordinadorac implements Serializable {
     public ListadoPerfilCoordinadorac() {
     }
 
-    public ListadoPerfilCoordinadorac(int idLpc) {
+    public ListadoPerfilCoordinadorac(Integer idLpc) {
         this.idLpc = idLpc;
     }
 
-    public int getIdLpc() {
+    public Integer getIdLpc() {
         return idLpc;
     }
 
-    public void setIdLpc(int idLpc) {
+    public void setIdLpc(Integer idLpc) {
         this.idLpc = idLpc;
     }
 
@@ -55,22 +55,22 @@ public class ListadoPerfilCoordinadorac implements Serializable {
     
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-        hash = prime * hash + idLpc;
+        int hash = 0;
+        hash += (idLpc != null ? idLpc.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ListadoPerfilCoordinadorac)) {
             return false;
         }
         ListadoPerfilCoordinadorac other = (ListadoPerfilCoordinadorac) object;
-        return idLpc == other.idLpc;
+        if ((this.idLpc == null && other.idLpc != null) || (this.idLpc != null && !this.idLpc.equals(other.idLpc))) {
+            return false;
+        }
+        return true;
     }
     
     @Override

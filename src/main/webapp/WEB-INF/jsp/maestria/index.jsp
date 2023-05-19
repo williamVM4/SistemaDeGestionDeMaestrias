@@ -12,8 +12,8 @@
         <div class="row">
             <div class="col-md-12 pt-4">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-bordered table-striped small">
+                        <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Escuela de Posgrado</th>
@@ -22,12 +22,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>John Doe</td>
-                                <td>Escuela A</td>
-                                <td>Facultad 1</td>
-                                <td>Botones</td>
-                            </tr>
+                            <c:if test="${empty maestrias}">
+                                <tr>
+                                    <td colspan="4">No hay registros</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${not empty maestrias}">
+                                <c:forEach items="${maestrias}" var="elemento">
+                                    <tr>
+                                        <td>${elemento.nombreMaestria}</td>
+                                        <td>${elemento.idPostgrado.nombrePostgrado}</td>
+                                        <td>prueba</td>
+                                        <td>Botones</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
                         </tbody>
                     </table>
                 </div>

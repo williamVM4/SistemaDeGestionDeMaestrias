@@ -16,7 +16,7 @@ public class Maestria implements Serializable {
     @SequenceGenerator(name = "S_MAESTRIA", sequenceName = "S_MAESTRIA", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_MAESTRIA")
     @Column(name = "ID_MAESTRIA")
-    private int idMaestria;
+    private Integer idMaestria;
     
     @Basic(optional = false)
     @Column(name = "NOMBRE_MAESTRIA")
@@ -48,20 +48,20 @@ public class Maestria implements Serializable {
     public Maestria() {
     }
 
-    public Maestria(int idMaestria) {
+    public Maestria(Integer idMaestria) {
         this.idMaestria = idMaestria;
     }
 
-    public Maestria(int idMaestria, String nombreMaestria) {
+    public Maestria(Integer idMaestria, String nombreMaestria) {
         this.idMaestria = idMaestria;
         this.nombreMaestria = nombreMaestria;
     }
 
-    public int getIdMaestria() {
+    public Integer getIdMaestria() {
         return idMaestria;
     }
 
-    public void setIdMaestria(int idMaestria) {
+    public void setIdMaestria(Integer idMaestria) {
         this.idMaestria = idMaestria;
     }
 
@@ -123,22 +123,22 @@ public class Maestria implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-        hash = prime * hash + idMaestria;
+        int hash = 0;
+        hash += (idMaestria != null ? idMaestria.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Maestria)) {
             return false;
         }
         Maestria other = (Maestria) object;
-        return idMaestria == other.idMaestria;
+        if ((this.idMaestria == null && other.idMaestria != null) || (this.idMaestria != null && !this.idMaestria.equals(other.idMaestria))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

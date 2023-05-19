@@ -17,7 +17,7 @@ public class PerfilAspirante implements Serializable {
     @SequenceGenerator(name = "S_PERFIL_ASPIRANTE", sequenceName = "S_PERFIL_ASPIRANTE", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_PERFIL_ASPIRANTE")
     @Column(name = "ID_PERFIL_ASPIRANTE")
-    private int idPerfilAspirante;
+    private Integer idPerfilAspirante;
     @Basic(optional = false)
     @Column(name = "TITULO_REQ")
     private String tituloReq;
@@ -30,21 +30,21 @@ public class PerfilAspirante implements Serializable {
     public PerfilAspirante() {
     }
 
-    public PerfilAspirante(int idPerfilAspirante) {
+    public PerfilAspirante(Integer idPerfilAspirante) {
         this.idPerfilAspirante = idPerfilAspirante;
     }
 
-    public PerfilAspirante(int idPerfilAspirante, String tituloReq, String requisitos) {
+    public PerfilAspirante(Integer idPerfilAspirante, String tituloReq, String requisitos) {
         this.idPerfilAspirante = idPerfilAspirante;
         this.tituloReq = tituloReq;
         this.requisitos = requisitos;
     }
 
-    public int getIdPerfilAspirante() {
+    public Integer getIdPerfilAspirante() {
         return idPerfilAspirante;
     }
 
-    public void setIdPerfilAspirante(int idPerfilAspirante) {
+    public void setIdPerfilAspirante(Integer idPerfilAspirante) {
         this.idPerfilAspirante = idPerfilAspirante;
     }
 
@@ -74,22 +74,22 @@ public class PerfilAspirante implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-        hash = prime * hash + idPerfilAspirante;
+        int hash = 0;
+        hash += (idPerfilAspirante != null ? idPerfilAspirante.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof PerfilAspirante)) {
             return false;
         }
         PerfilAspirante other = (PerfilAspirante) object;
-        return idPerfilAspirante == other.idPerfilAspirante;
+        if ((this.idPerfilAspirante == null && other.idPerfilAspirante != null) || (this.idPerfilAspirante != null && !this.idPerfilAspirante.equals(other.idPerfilAspirante))) {
+            return false;
+        }
+        return true;
     }
     
     @Override
