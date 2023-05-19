@@ -1,52 +1,49 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
 
-<div class="container">
-  <div style="clear:both; padding-bottom:15px;"></div>
-  <div align="center">
-    <div class="titulo-Perfil"><h3>Coordinadores Académicos</h3></div>
-    <div id="container-datos">
-      <div class="row">
-        <div class="col-sm-10 ">
-          <div class="row">
-            <div id="view-coordinadores">
-              <div class="row col-sm-12 d-flex justify-content-end">
-                <div class="col-sm-1">
-                    <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
-                </div>
+<div align="center">
+  <div class="titulo-Perfil"><h3>Coordinadores Académicos</h3></div>
+  <div id="container-datos">
+    <div class="row">
+      <div class="col-sm-10 ">
+        <div class="row">
+          <div id="view-coordinadores">
+            <div class="row col-sm-12 d-flex justify-content-end">
+              <div class="col-sm-1">
+                  <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
               </div>
-              <br>
-              <div class="row col-sm-12">
-                <table style="width:100%; " class="table table-bordered table-striped small">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Número de identificación</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Opciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <c:if test="${empty coordinadoresAC}">
-                      <tr>
-                          <td colspan="5">No hay registros</td>
-                      </tr>
-                  </c:if>
-                  <c:if test="${not empty coordinadoresAC}">
-                      <c:forEach items="${coordinadoresAC}" var="elemento" varStatus="status">
-                          <tr>
-                              <td width="20%">${status.index + 1}</td>
-                              <td>${elemento.codCa}</td>
-                              <td>${elemento.nombresCa}</td>
-                              <td>${elemento.apellidosCa}</td>
-                              <td>Ver coordinador</td>
-                          </tr>
-                      </c:forEach>
-                  </c:if>
-                </tbody>
-              </table>
-              </div>
+            </div>
+            <br>
+            <div class="row col-sm-12">
+              <table style="width:100%; " class="table table-bordered table-striped small">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Número de identificación</th>
+                  <th>Nombres</th>
+                  <th>Apellidos</th>
+                  <th>Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:if test="${empty coordinadoresAC}">
+                    <tr>
+                        <td colspan="5">No hay registros</td>
+                    </tr>
+                </c:if>
+                <c:if test="${not empty coordinadoresAC}">
+                    <c:forEach items="${coordinadoresAC}" var="elemento" varStatus="status">
+                        <tr>
+                            <td width="20%">${status.index + 1}</td>
+                            <td>${elemento.codCA}</td>
+                            <td>${elemento.nombresCA}</td>
+                            <td>${elemento.apellidosCA}</td>
+                            <td>Ver coordinador</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+              </tbody>
+            </table>
             </div>
           </div>
         </div>

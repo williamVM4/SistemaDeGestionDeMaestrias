@@ -5,6 +5,7 @@
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -52,43 +53,43 @@ public class AspiranteProfesor implements Serializable {
     @Column(name = "ID_ASPIRANTE_PROFESOR")
     private Long idAspiranteProfesor;
     @Basic(optional = false)
-    @Column(name = "COD_AP")
+    @Column(name = "COD_AP", nullable=true)
     private String codAp;
     @Basic(optional = false)
-    @Column(name = "NOMBRES_AP")
+    @Column(name = "NOMBRES_AP", nullable=true)
     private String nombresAp;
     @Basic(optional = false)
-    @Column(name = "APELLIDOS_AP")
+    @Column(name = "APELLIDOS_AP", nullable=true)
     private String apellidosAp;
     @Basic(optional = false)
-    @Column(name = "SEXO_AP")
+    @Column(name = "SEXO_AP", nullable=true)
     private String sexoAp;
     @Basic(optional = false)
-    @Column(name = "GENERO_AP")
+    @Column(name = "GENERO_AP", nullable=true)
     private String generoAp;
     @Basic(optional = false)
-    @Column(name = "FECHA_NAC_AP")
+    @Column(name = "FECHA_NAC_AP", nullable=true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacAp;
     @Basic(optional = false)
-    @Column(name = "ESTADO_CIVIL_AP")
+    @Column(name = "ESTADO_CIVIL_AP", nullable=true)
     private String estadoCivilAp;
     @Basic(optional = false)
-    @Column(name = "NACIONALIDAD_AP")
+    @Column(name = "NACIONALIDAD_AP", nullable=true)
     private String nacionalidadAp;
     @Basic(optional = false)
     @Lob
-    @Column(name = "FOTOGRAFIA_AP")
-    private Serializable fotografiaAp;
-    @Column(name = "DUI_AP")
+    @Column(name = "FOTOGRAFIA_AP", nullable=true)
+    private Blob fotografiaAp;
+    @Column(name = "DUI_AP", nullable=true)
     private String duiAp;
-    @Column(name = "NIT_AP")
+    @Column(name = "NIT_AP", nullable=true)
     private String nitAp;
-    @Column(name = "NUP_AP")
+    @Column(name = "NUP_AP", nullable=true)
     private String nupAp;
-    @Column(name = "PASAPORTE_AP")
+    @Column(name = "PASAPORTE_AP", nullable=true)
     private String pasaporteAp;
-    @Column(name = "DOC_PERSONAL_AP")
+    @Column(name = "DOC_PERSONAL_AP", nullable=true)
     private String docPersonalAp;
     @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO")
     @ManyToOne
@@ -126,7 +127,7 @@ public class AspiranteProfesor implements Serializable {
         this.idAspiranteProfesor = idAspiranteProfesor;
     }
 
-    public AspiranteProfesor(Long idAspiranteProfesor, String codAp, String nombresAp, String apellidosAp, String sexoAp, String generoAp, Date fechaNacAp, String estadoCivilAp, String nacionalidadAp, Serializable fotografiaAp) {
+    public AspiranteProfesor(Long idAspiranteProfesor, String codAp, String nombresAp, String apellidosAp, String sexoAp, String generoAp, Date fechaNacAp, String estadoCivilAp, String nacionalidadAp, Blob fotografiaAp) {
         this.idAspiranteProfesor = idAspiranteProfesor;
         this.codAp = codAp;
         this.nombresAp = nombresAp;
@@ -211,11 +212,11 @@ public class AspiranteProfesor implements Serializable {
         this.nacionalidadAp = nacionalidadAp;
     }
 
-    public Serializable getFotografiaAp() {
+    public Blob getFotografiaAp() {
         return fotografiaAp;
     }
 
-    public void setFotografiaAp(Serializable fotografiaAp) {
+    public void setFotografiaAp(Blob fotografiaAp) {
         this.fotografiaAp = fotografiaAp;
     }
 

@@ -1,165 +1,103 @@
-<nav class="main-menu">
-    <a href="/" class="align-items-center ms-5 pb-3 mb-md-0 me-md-auto">
-        <img src="" alt="Img" width="120" height="120" class="img-fluid">
-    </a>
-    <ul>
-        <li>
-            <a href="#procesos" data-bs-toggle="collapse">
-                <i class="fa bi-clipboard-check"></i>
-                <span class="nav-text">Procesos</span>
-            </a>
-            <div class="collapse" id="procesos">
-                <ul class="" data-bs-parent="#procesos">
+<nav id="sidebar" class="navbar-collapse collapse show">
+    <div class="p-4 pt-5">
+        <a href="#Logo" class="img logo rounded-circle mb-5" style="background-image: url(images/logo.jpg);"></a>
+        <ul class="list-unstyled components mb-5">
+            <li class="active">
+                <a href="#Procesos" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Procesos</a>
+                <ul class="collapse list-unstyled" id="Procesos">
                     <li>
-                        <a href="/maestria/index" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Gestionar Maestria
-                            </span>
-                        </a>
+                        <a href="/maestria/index">Gestionar Maestría</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Inscribir Maestria
-                            </span>
-                        </a>
+                        <a href="#">Inscribir Maestria</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Postular a Profesor
-                            </span>
-                        </a>
+                        <a href="#">Postular a Profesor</a>
                     </li>
                 </ul>
-            </div>
-        </li>
-        <li>
-            <a href="#perfiles" data-bs-toggle="collapse">
-                <i class="fa bi-person-circle"></i>
-                <span class="nav-text">Perfiles</span>
-            </a>
-            <div class="collapse" id="perfiles">
-                <ul class="" data-bs-parent="#perfiles">
+            </li>
+            <li>
+                <a href="#Perfiles" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfiles</a>
+                <ul class="collapse list-unstyled" id="Perfiles">
                     <li>
-                        <a href="/viewCoordinadoresAcademicos" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Gestionar Coordinadores
-                            </span>
-                        </a>
+                        <a href="/viewCoordinadoresAcademicos">Gestionar Coordinadores</a>
                     </li>
                     <li>
-                        <a href="/CoordinadorAcademico" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Coordinadores
-                            </span>
-                        </a>
+                        <a href="/CoordinadorAcademico">Coordinadores</a>
                     </li>
                     <li>
-                        <a href="/GestionarAspiranteProfesor" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Aspirantes a Profesor
-                            </span>
-                        </a>
+                        <a href="/GestionarAspiranteProfesor">Aspirantes a Profesor</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Estudiantes
-                            </span>
-                        </a>
+                        <a href="#">Estudiantes</a>
                     </li>
                 </ul>
-            </div>
-        </li>
-        <li>
-            <a href="#admin" data-bs-toggle="collapse">
-                <i class="fa bi-sliders"></i>
-                <span class="nav-text">Administraciòn</span>
-            </a>
-            <div class="collapse" id="admin">
-                <ul class="" data-bs-parent="#admin">
+            </li>
+            <li>
+                <a href="#Administracion" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
+                <ul class="collapse list-unstyled" id="Administracion">
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Usuarios
-                            </span>
-                        </a>
+                        <a href="#">Usuarios</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Roles
-                            </span>
-                        </a>
+                        <a href="#">Roles</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Privilegios
-                            </span>
-                        </a>
+                        <a href="#">Privilegios</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Facultades
-                            </span>
-                        </a>
+                        <a href="#">Facultades</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Escuelas de Posgrado
-                            </span>
-                        </a>
+                        <a href="#">Escuelas de Posgrado</a>
+                    </li>
+                    <li>
+                        <a href="#">Áreas del Conocimiento</a>
                     </li>
                 </ul>
-            </div>
-        </li>
-        <li>
-            <a href="#maestrias" class="" data-bs-toggle="collapse">
-                <i class="fa bi-book"></i>
-                <span class="nav-text">Maestria</span>
-            </a>
-            <div class="collapse" id="maestrias">
-                <ul class="" data-bs-parent="#maestrias">
+            </li>
+            <li>
+                <a href="#Maestria" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Maestría</a>
+                <ul class="collapse list-unstyled" id="Maestria">
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Asignaturas
-                            </span>
-                        </a>
+                        <a href="#">Asignaturas</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Àreas de Conocimiento
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link ms-5">
-                            <span class="ps-2">
-                                Gestionar Cohorte
-                            </span>
-                        </a>
+                        <a href="#">Gestión de Cohorte</a>
                     </li>
                 </ul>
-            </div>
-        </li>
-                        
-    </ul>
-    <div class="logout"> 
-        <form method="POST" action="/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <a onclick="this.parentNode.submit()" href="#"><i class="fa bi-power"></i></i>
-            <span class="nav-text">
-                Logout
-            </span></a>
-        </form>
+            </li>
+        </ul>
     </div>
 </nav>
+<!-- Contenido de la Pagina  -->
+    <div id="content" class="p-4 p-md-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Perfil</a>
+                    </li>
+                    <li class="nav-item active">
+                        <div class="nav-link">
+                            <form method="POST" action="/logout">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <a onclick="this.parentNode.submit()" href="#"><i class="fa bi-power"></i>  Salir</i>
+                        </form>
+                        </div>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+        </nav>
 <!--<div class="titulo">
     <h1>${pageTitle}</h1>
 </div>-->
