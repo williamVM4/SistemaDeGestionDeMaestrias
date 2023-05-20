@@ -13,19 +13,30 @@
             <table class="table">
                 <thead class="table">
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">N°</th>
+                        <th scope="col">Carné</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
+                <c:if test="${empty aspirantesAP}">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mario</td>
-                        <td>Juan</td>
-                        <td>Antonio</td>
+                        <td colspan="5">No hay registros</td>
                     </tr>
+                </c:if>
+                <c:if test="${not empty aspirantesAP}">
+                    <c:forEach items="${aspirantesAP}" var="elemento" varStatus="status">
+                        <tr>
+                            <td width="20%">${status.index + 1}</td>
+                            <td>${elemento.codAp}</td>
+                            <td>${elemento.nombresAp}</td>
+                            <td>${elemento.apellidosAp}</td>
+                            <td>Ver coordinador</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
                 </tbody>
             </table>
         </div>
@@ -40,19 +51,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form th.action="/AgregarAspiranteProfesor" method="post">
+                <form th.action="/AgregarAspiranteProfesor" method="post" accept-charset="UTF-8">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     <input type="hidden" name="action" value="create">
                     <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                      <input type="text" class="form-control" id="codAp" name="codAp" maxlength="6" placeholder="Carné" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input type="text" class="form-control" id="nombresAp" name="nombresAp" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="apellidosAp" name="apellidosAp" placeholder="Apellido" required>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-success">Guardar</button>
-                        <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-outline-success">Guardar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>
