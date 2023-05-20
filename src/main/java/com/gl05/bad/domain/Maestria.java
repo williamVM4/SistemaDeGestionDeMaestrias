@@ -30,7 +30,7 @@ public class Maestria implements Serializable {
     @JoinColumn(name = "ID_COOR_ACA", referencedColumnName = "ID_COOR_ACA")
     @ManyToOne(optional = false)
     private CoordinadorAcademico idCoorAca;
-    
+
     @JoinColumn(name = "ID_POSTGRADO", referencedColumnName = "ID_POSTGRADO")
     @ManyToOne(optional = false)
     private EscuelaPostgrado idPostgrado;

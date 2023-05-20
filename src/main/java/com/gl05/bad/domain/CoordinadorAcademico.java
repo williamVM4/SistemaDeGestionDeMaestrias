@@ -6,7 +6,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
+
+@Data
 @Entity
 @Table(name="COORDINADOR_ACADEMICO")
 @NamedQueries({
@@ -35,78 +38,90 @@ public class CoordinadorAcademico implements Serializable{
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_COORDINADOR_ACADEMICO")
     private Long idCoorAca;
   
-  @Column(name="COD_CA")
+  @Column(name="COD_CA", nullable=true)
     private String codCa;
   
-  @Column(name="NOMBRES_CA")
+  @Column(name="NOMBRES_CA", nullable=true)
     private String nombresCa;
   
-  @Column(name="APELLIDOS_CA")
+  @Column(name="APELLIDOS_CA", nullable=true)
     private String apellidosCa;
   
-  @Column(name="SEXO_CA")
+  @Column(name="SEXO_CA", nullable=true)
     private String sexoCa;
   
-  @Column(name="GENERO_CA")
+  @Column(name="GENERO_CA", nullable=true)
     private String generoCa;
   
-  @Column(name="FECHA_NAC_CA")
+  @Column(name="FECHA_NAC_CA", nullable=true)
   @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacCa;  
 
-  @Column(name="ESTADO_CIVIL_CA")
+  @Column(name="ESTADO_CIVIL_CA", nullable=true)
     private String estadoCivilCa;
   
-  @Column(name="NACIONALIDAD_CA")
+  @Column(name="NACIONALIDAD_CA", nullable=true)
     private String nacionalidadCa;
 
   @Lob
-  @Column(name="FOTOGRAFIA_CA")
+  @Column(name="FOTOGRAFIA_CA", nullable=true)
     private Blob fotografiaCa;
   
-  @Column(name="DUI_CA")
+  @Column(name="DUI_CA", nullable=true)
     private String duiCa;
   
-  @Column(name="NIT_CA")
+  @Column(name="NIT_CA", nullable=true)
     private String nitCa;
   
-  @Column(name="NUP_CA")
+  @Column(name="NUP_CA", nullable=true)
     private String nupCa;
   
-  @Column(name="PASAPORTE_CA")
+  @Column(name="PASAPORTE_CA", nullable=true)
     private String pasaporteCa;
   
-  @Column(name="DOC_PERSONAL_CA")
+  @Column(name="DOC_PERSONAL_CA", nullable=true)
     private String docPersonalCa;
+ 
+  @Column(name="ID_LIST_CORREO", nullable=true)
+    private Integer idListCorreo;
+  @Column(name="ID_LIST_DP", nullable=true)
+    private Integer idListDp;
+  @Column(name="ID_LIST_TELEFONO", nullable=true)
+    private Integer idListTelefono;
+  @Column(name="ID_LIST_TA", nullable=true)
+    private Integer idListTa;
+  @Column(name="ID_PAIS", nullable=true)
+    private Integer idPais;
+  @Column(name="IDUSUARIO", nullable=true)
+    private Integer idusuario;
   
-  @JsonIgnore
-  @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO")
+  /*@JsonIgnore
+  @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO", nullable=true)
   @ManyToOne(optional = false)
     private ListadoCorreo idListCorreo;
 
-  @JoinColumn(name = "ID_LIST_DP", referencedColumnName = "ID_LIST_DP")
+  @JoinColumn(name = "ID_LIST_DP", referencedColumnName = "ID_LIST_DP", nullable=true)
   @ManyToOne
     private ListadoDocumentacionPersonal idListDp;
 
-  @JoinColumn(name = "ID_LIST_TELEFONO", referencedColumnName = "ID_LIST_TELEFONO")
+  @JoinColumn(name = "ID_LIST_TELEFONO", referencedColumnName = "ID_LIST_TELEFONO", nullable=true)
   @ManyToOne
     private ListadoTelefono idListTelefono;
 
-  @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA")
+  @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA", nullable=true)
   @ManyToOne
     private ListadoTitulosAcademicos idListTa;
-  
+
   @JsonIgnore
-  @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
+  @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS", nullable=true)
   @ManyToOne(optional = false)
     private Pais idPais;
   
   @JsonIgnore
-  @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO")
+  @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO", nullable=true)
   @ManyToOne
-    private Usuario idusuario;
-  
-  @JsonIgnore
+    private Usuario idusuario;*/
+
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCoorAca")
     private Collection<Maestria> maestriaCollection;
   
@@ -129,7 +144,7 @@ public class CoordinadorAcademico implements Serializable{
     this.fotografiaCa = fotografiaCa;
   }
 
-  public Long getIdCoorAca() {
+  /*public Long getIdCoorAca() {
     return idCoorAca;
   }
 
@@ -304,7 +319,7 @@ public class CoordinadorAcademico implements Serializable{
 
   public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
     this.maestriaCollection = maestriaCollection;
-  }
+  }*/
 
   @Override
   public int hashCode() {
