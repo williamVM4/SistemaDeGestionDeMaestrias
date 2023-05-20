@@ -8,6 +8,20 @@
       <div class="col-sm-10 ">
         <div class="row">
           <div id="view-coordinadores">
+            
+            <c:if test="${not empty mensaje}">
+              <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Éxito!</strong> ${mensaje}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+            <c:if test="${not empty error}">
+              <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-exclamation-triangle"></i> Error!</strong> ${error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+            <br>
             <div class="row col-sm-12 d-flex justify-content-end">
               <div class="col-sm-1">
                   <button type="button" class="btn-add btn" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
@@ -60,7 +74,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="/guardarCA" method="POST" accept-charset="UTF-8">
+            <form action="/guardarCA" method="Post" accept-charset="UTF-8">
               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
               <div class="form-group">
                 <label for="codCa">Carnet de identificación:</label>

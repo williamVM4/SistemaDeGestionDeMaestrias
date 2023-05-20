@@ -40,7 +40,7 @@ public class Maestria implements Serializable {
     private Collection<PlanEstudio> planEstudioCollection;
     @JoinColumn(name = "ID_COOR_ACA", referencedColumnName = "ID_COOR_ACA")
     @ManyToOne(optional = false)
-    private CoordinadorAcademico_1 idCoorAca;
+    private CoordinadorAcademico idCoorAca;
     @JoinColumn(name = "ID_POSTGRADO", referencedColumnName = "ID_POSTGRADO")
     @ManyToOne(optional = false)
     private EscuelaPostgrado idPostgrado;
@@ -90,11 +90,11 @@ public class Maestria implements Serializable {
         this.planEstudioCollection = planEstudioCollection;
     }
 
-    public CoordinadorAcademico_1 getIdCoorAca() {
+    public CoordinadorAcademico getIdCoorAca() {
         return idCoorAca;
     }
 
-    public void setIdCoorAca(CoordinadorAcademico_1 idCoorAca) {
+    public void setIdCoorAca(CoordinadorAcademico idCoorAca) {
         this.idCoorAca = idCoorAca;
     }
 

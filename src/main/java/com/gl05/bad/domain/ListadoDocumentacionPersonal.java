@@ -53,7 +53,7 @@ public class ListadoDocumentacionPersonal implements Serializable {
     @OneToMany(mappedBy = "idListDp")
     private Collection<AspiranteProfesor> aspiranteProfesorCollection;
     @OneToMany(mappedBy = "idListDp")
-    private Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection;
+    private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
 
     public ListadoDocumentacionPersonal() {
     }
@@ -126,11 +126,11 @@ public class ListadoDocumentacionPersonal implements Serializable {
         this.aspiranteProfesorCollection = aspiranteProfesorCollection;
     }
 
-    public Collection<CoordinadorAcademico_1> getCoordinadorAcademicoCollection() {
+    public Collection<CoordinadorAcademico> getCoordinadorAcademicoCollection() {
         return coordinadorAcademicoCollection;
     }
 
-    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection) {
+    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico> coordinadorAcademicoCollection) {
         this.coordinadorAcademicoCollection = coordinadorAcademicoCollection;
     }
 
