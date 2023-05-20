@@ -41,7 +41,7 @@ public class Pais implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
     private Collection<AspiranteProfesor> aspiranteProfesorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
-    private Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection;
+    private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
     private Collection<Estudiante> estudianteCollection;
 
@@ -90,11 +90,11 @@ public class Pais implements Serializable {
         this.aspiranteProfesorCollection = aspiranteProfesorCollection;
     }
 
-    public Collection<CoordinadorAcademico_1> getCoordinadorAcademicoCollection() {
+    public Collection<CoordinadorAcademico> getCoordinadorAcademicoCollection() {
         return coordinadorAcademicoCollection;
     }
 
-    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection) {
+    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico> coordinadorAcademicoCollection) {
         this.coordinadorAcademicoCollection = coordinadorAcademicoCollection;
     }
 

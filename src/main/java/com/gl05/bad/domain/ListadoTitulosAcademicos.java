@@ -35,7 +35,7 @@ public class ListadoTitulosAcademicos implements Serializable {
     @OneToMany(mappedBy = "idListTa")
     private Collection<AspiranteProfesor> aspiranteProfesorCollection;
     @OneToMany(mappedBy = "idListTa")
-    private Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection;
+    private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idListTa")
     private Collection<AtestadoTa> atestadoTaCollection;
 
@@ -62,11 +62,11 @@ public class ListadoTitulosAcademicos implements Serializable {
         this.aspiranteProfesorCollection = aspiranteProfesorCollection;
     }
 
-    public Collection<CoordinadorAcademico_1> getCoordinadorAcademicoCollection() {
+    public Collection<CoordinadorAcademico> getCoordinadorAcademicoCollection() {
         return coordinadorAcademicoCollection;
     }
 
-    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico_1> coordinadorAcademicoCollection) {
+    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico> coordinadorAcademicoCollection) {
         this.coordinadorAcademicoCollection = coordinadorAcademicoCollection;
     }
 
