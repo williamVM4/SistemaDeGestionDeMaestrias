@@ -74,7 +74,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="/guardarCA" method="Post" accept-charset="UTF-8">
+            <form action="/guardarCA" method="post" accept-charset="UTF-8">
               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
               <div class="form-group">
                 <label for="codCa">Carnet de identificación:</label>
