@@ -19,6 +19,7 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     }
 
     @Override
+    @Transactional
     public void agregarAP(AspiranteProfesor aspirante) {
         aspiranteDao.save(aspirante);
     }
@@ -32,9 +33,4 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     public AspiranteProfesor encontrarAP(AspiranteProfesor aspirante) {
         return aspiranteDao.findById(aspirante.getIdAspiranteProfesor()).orElse(null);
     }
-
-    /*@Override
-    public void proIsertarAP(String cod, String nombre, String apellido) {
-        aspiranteDao.insert_aspirante(cod, nombre, apellido);
-    }*/
 }
