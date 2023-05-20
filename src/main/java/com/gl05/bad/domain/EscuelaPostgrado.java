@@ -1,5 +1,6 @@
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class EscuelaPostgrado implements Serializable {
     @JoinColumn(name = "ID_FACULTAD", referencedColumnName = "ID_FACULTAD")
     @ManyToOne(optional = false)
     private Facultad idFacultad;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPostgrado")
     private Collection<Maestria> maestriaCollection;
 

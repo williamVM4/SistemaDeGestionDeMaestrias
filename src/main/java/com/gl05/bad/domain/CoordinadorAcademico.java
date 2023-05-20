@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="COORDINADOR_ACADEMICO")
@@ -77,7 +78,8 @@ public class CoordinadorAcademico implements Serializable{
   
   @Column(name="DOC_PERSONAL_CA")
     private String docPersonalCa;
- 
+  
+  @JsonIgnore
   @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO")
   @ManyToOne(optional = false)
     private ListadoCorreo idListCorreo;
@@ -93,15 +95,18 @@ public class CoordinadorAcademico implements Serializable{
   @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA")
   @ManyToOne
     private ListadoTitulosAcademicos idListTa;
-
+  
+  @JsonIgnore
   @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
   @ManyToOne(optional = false)
     private Pais idPais;
-
+  
+  @JsonIgnore
   @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO")
   @ManyToOne
     private Usuario idusuario;
-
+  
+  @JsonIgnore
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCoorAca")
     private Collection<Maestria> maestriaCollection;
   
@@ -195,7 +200,8 @@ public class CoordinadorAcademico implements Serializable{
   public void setNacionalidadCa(String nacionalidadCa) {
     this.nacionalidadCa = nacionalidadCa;
   }
-
+  
+  @JsonIgnore
   public Blob getFotografiaCa() {
     return fotografiaCa;
   }

@@ -1,5 +1,6 @@
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -17,8 +18,10 @@ public class ListadoPerfilCoordinadorac implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_LISTADO_PERFIL_COORDINADORAC")
     @Column(name = "ID_LPC")
     private Integer idLpc;
+    @JsonIgnore
     @OneToMany(mappedBy = "idLpc")
     private Collection<PerfilCoordinadorac> perfilCoordinadoracCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "idLpc")
     private Collection<Maestria> maestriaCollection;
 

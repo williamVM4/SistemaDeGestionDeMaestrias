@@ -1,5 +1,6 @@
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Maestria implements Serializable {
     @Column(name = "NOMBRE_MAESTRIA")
     private String nombreMaestria;
     
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMaestria")
     private Collection<PlanEstudio> planEstudioCollection;
     
