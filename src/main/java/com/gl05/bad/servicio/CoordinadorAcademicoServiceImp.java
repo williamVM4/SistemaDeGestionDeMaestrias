@@ -43,4 +43,12 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
   /*  public void actualizarFoto(CoordinadorAcademico c){
       String sql = "UPDATE COORDINADOR_ACADEMICO SET FOTOGRAFIA_CA = (?) WHERE ID_COOR_ACA = (?)";
     }*/
+
+  @Override
+  public void actualizarFoto(CoordinadorAcademico coordinador) {
+    CoordinadorAcademico coordinadorExistente = coordinadorDao.findById(coordinador.getIdCoorAca()).orElse(null);
+    coordinadorExistente.setFotografiaCa(coordinador.getFotografiaCa());
+    coordinadorDao.save(coordinadorExistente);
+    
+  }
 }
