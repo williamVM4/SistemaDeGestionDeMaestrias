@@ -27,11 +27,10 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     @Override
     @Transactional
     public void actualizarAP(AspiranteProfesor aspirante) {
-        // Verificar si el aspirante existe en la base de datos
         AspiranteProfesor aspiranteExistente = aspiranteDao.findById(aspirante.getIdAspiranteProfesor()).orElse(null);
         aspiranteExistente.setNombresAp(aspirante.getNombresAp());
         aspiranteExistente.setApellidosAp(aspirante.getApellidosAp());
-        /*aspiranteExistente.setSexoAp(aspirante.getSexoAp());
+        aspiranteExistente.setSexoAp(aspirante.getSexoAp());
         aspiranteExistente.setGeneroAp(aspirante.getGeneroAp());
         aspiranteExistente.setFechaNacAp(aspirante.getFechaNacAp());
         aspiranteExistente.setEstadoCivilAp(aspirante.getEstadoCivilAp());
@@ -41,7 +40,7 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
         aspiranteExistente.setNitAp(aspirante.getNitAp());
         aspiranteExistente.setNupAp(aspirante.getNupAp());
         aspiranteExistente.setPasaporteAp(aspirante.getPasaporteAp());
-        aspiranteExistente.setDocPersonalAp(aspirante.getDocPersonalAp());*/
+        aspiranteExistente.setDocPersonalAp(aspirante.getDocPersonalAp());
         aspiranteDao.save(aspiranteExistente);
     }
 

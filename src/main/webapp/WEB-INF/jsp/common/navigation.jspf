@@ -87,7 +87,7 @@
                         <div class="nav-link">
                             <form method="POST" action="/logout">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <a onclick="this.parentNode.submit()" href="#"><i class="fa bi-power"></i>  Salir</i>
+                            <a onclick="this.parentNode.submit()" href="#"><i class="fa bi-power"></i>  Salir</i></a>
                         </form>
                         </div>
                     </li>

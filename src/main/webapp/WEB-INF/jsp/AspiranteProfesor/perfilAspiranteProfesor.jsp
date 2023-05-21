@@ -15,7 +15,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
-        <br>
         <div class="row">
             <div class="col-sm-2 ">
                 <div class="row">

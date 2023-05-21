@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="perfil-informacion-general">
     <div class="subtitulo-Perfil"><h3>Información General
-            <span title="Editar datos" data-bs-toggle="modal" data-bs-target="#actualizarGeneralesModal" class="text-info puntero pull-right" onclick="cargarSelect()">
+            <span title="Editar datos" data-bs-toggle="modal" data-bs-target="#actualizarGeneralesModal" class="text-info puntero pull-right" onclick="cargarSelect()" style="cursor: pointer;">
                 <i class="fa bi-pencil-square"></i>
             </span>
         </h3>
@@ -31,7 +32,7 @@
                 </tr>
                 <tr>
                     <td>Fecha Nacimiento</td>
-                    <td><c:if test="${not empty aspiranteAP.fechaNacAp}">${aspiranteAP.fechaNacAp}</c:if></td>
+                    <td><c:if test="${not empty aspiranteAP.fechaNacAp}"><fmt:formatDate value="${aspiranteAP.fechaNacAp}" pattern="dd/MM/yyyy" /></c:if></td>
                 </tr>
                 <tr>
                     <td>Estado Civil</td>
@@ -39,32 +40,40 @@
                 </tr>
                 <tr>
                     <td>Pais</td>
-                    <td><c:if test="${not empty aspiranteAP.idPais}">${aspiranteAP.idPais}</c:if></td>
+                    <td>${paisSeleccionado}</td>
                 </tr>
                 <tr>
                     <td>Nacionalidad</td>
                     <td><c:if test="${not empty aspiranteAP.nacionalidadAp}">${aspiranteAP.nacionalidadAp}</c:if></td>
                 </tr>
-                <tr>
-                    <td>DUI</td>
-                    <td><c:if test="${not empty aspiranteAP.duiAp}">${aspiranteAP.duiAp}</c:if></td>
-                </tr>
-                <tr>
-                    <td>NIT</td>
-                    <td><c:if test="${not empty aspiranteAP.nitAp}">${aspiranteAP.nitAp}</c:if></td>
-                </tr>
-                <tr>
-                    <td>NUP</td>
-                    <td><c:if test="${not empty aspiranteAP.nupAp}">${aspiranteAP.nupAp}</c:if></td>
-                </tr>
-                <tr>
-                    <td>Pasaporte</td>
-                    <td><c:if test="${not empty aspiranteAP.pasaporteAp}">${aspiranteAP.pasaporteAp}</c:if></td>
-                </tr>
-                <tr>
-                    <td>DocumentoPersonal</td>
-                    <td><c:if test="${not empty aspiranteAP.docPersonalAp}">${aspiranteAP.docPersonalAp}</c:if></td>
-                </tr>
+                <c:choose>
+                    <c:when test="${paisSeleccionado eq ''}">
+                    </c:when>
+                    <c:when test="${paisSeleccionado eq 'El Salvador'}">
+                        <tr>
+                            <td>DUI</td>
+                            <td><c:if test="${not empty aspiranteAP.duiAp}">${aspiranteAP.duiAp}</c:if></td>
+                        </tr>
+                        <tr>
+                            <td>NIT</td>
+                            <td><c:if test="${not empty aspiranteAP.nitAp}">${aspiranteAP.nitAp}</c:if></td>
+                        </tr>
+                        <tr>
+                            <td>NUP</td>
+                            <td><c:if test="${not empty aspiranteAP.nupAp}">${aspiranteAP.nupAp}</c:if></td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td>Pasaporte</td>
+                            <td><c:if test="${not empty aspiranteAP.pasaporteAp}">${aspiranteAP.pasaporteAp}</c:if></td>
+                        </tr>
+                        <tr>
+                            <td>Documento Personal</td>
+                            <td><c:if test="${not empty aspiranteAP.docPersonalAp}">${aspiranteAP.docPersonalAp}</c:if></td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
             </tbody>
         </table>
     </div>
@@ -79,9 +88,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/ActualizarAspiranteProfesor/${aspiranteAP.idAspiranteProfesor}" method="post" accept-charset="UTF-8">
+                    <form action="/ActualizarAspiranteProfesor/${aspiranteAP.idAspiranteProfesor}" method="post" accept-charset="UTF-8" onsubmit="return validarParametros()">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                        <div class="overflow-auto" style="max-height: 55vh;">
+                        <div id="MensajeErrorFecha" class="d-none">
+                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>La edad debe ser mayor de 18 años.
+                                <button id="btnAlertaFecha" type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div id="MensajeErrorDui" class="d-none">
+                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El DUI no es un formato válido.
+                                <button id="btnAlertaDui" type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div id="MensajeErrorNit" class="d-none">
+                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El NIT no es un formato válido.
+                                <button id="btnAlertaNit" type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div id="MensajeErrorNup" class="d-none">
+                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El NUP no es un formato válido.
+                                <button id="btnAlertaNup" type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="overflow-auto" style="max-height:55vh;">
                             <div class="form-group">
                                 <label for="apellidosAp" class="form-label">Nombre:</label>
                                 <input type="text" class="form-control" id="nombresAp" name="nombresAp" value="${aspiranteAP.nombresAp}">
@@ -90,58 +123,58 @@
                                 <label for="apellidosAp" class="form-label">Apellido:</label>
                                 <input type="text" class="form-control" id="apellidosAp" name="apellidosAp" value="${aspiranteAP.apellidosAp}">
                             </div>
-                            <!--<div class="form-group">
+                            <div class="form-group">
                                 <label for="sexoAp" class="form-label">Sexo:</label>
-                                <select type="text" class="form-select" id="sexoAp" name="sexoAp" value="${aspiranteAP.sexoAp}">
-                                    <option>Seleccione una opción</option>
+                                <select type="text" class="form-select" id="sexoAp" name="sexoAp">
+                                    <option value="">Seleccione una opción</option>
                                     <c:forEach items="${sexos}" var="eSexo" varStatus="status">
-                                        <option value="${eSexo}">${eSexo}</option>
+                                        <option value="${eSexo}" <c:if test="${aspiranteAP.sexoAp == eSexo}">selected</c:if>>${eSexo}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="generoAp" class="form-label">Genero:</label>
-                                <select type="text" class="form-select" id="generoAp" name="generoAp" value="${aspiranteAP.generoAp}">
-                                    <option>Seleccione una opción</option>
+                                <select type="text" class="form-select" id="generoAp" name="generoAp">
+                                    <option value="">Seleccione una opción</option>
                                     <c:forEach items="${generos}" var="eGenero">
-                                        <option value="${eGenero}">${eGenero}</option>
+                                        <option value="${eGenero}" <c:if test="${aspiranteAP.generoAp == eGenero}">selected</c:if>>${eGenero}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="fechaNacAp" class="form-label">Fecha Nacimiento:</label>
-                                <input type="text" class="form-control" id="fechaNacAp" name="fechaNacAp" placeholder="## / ## / ####" value="${aspiranteAP.fechaNacAp}">
+                                <input type="text" class="form-control" id="fechaNacAp" name="fechaNacAp" placeholder="dd - mm - yyyy" value="<fmt:formatDate value="${aspiranteAP.fechaNacAp}" pattern="dd/MM/yyyy" />">
                             </div>
                             <div class="form-group">
                                 <label for="estadoCivilAp" class="form-label">Estado Civil:</label>
-                                <select type="text" class="form-select" id="estadoCivilAp" name="estadoCivilAp" value="${aspiranteAp.estadoCivilAp}">
+                                <select type="text" class="form-select" id="estadoCivilAp" name="estadoCivilAp">
                                     <option>Seleccione una opción</option>
-                                    <c:forEach items="${estadosCiviles}" var="eEstadosCiviles">
-                                        <option value="${eEstadosCiviles}">${eEstadosCiviles}</option>
+                                    <c:forEach items="${estadosCiviles}" var="eEstadoCivil">
+                                        <option value="${eEstadoCivil}" <c:if test="${aspiranteAP.estadoCivilAp == eEstadoCivil}">selected</c:if>>${eEstadoCivil}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="idPais" class="form-label">País:</label>
-                                <select class="form-select" id="idPais" name="idPais" value="${aspiranteAp.idPais.nombrePais}" onchange="mostrarOcultarSelect()">
+                                <select class="form-select" id="idPais" name="idPais" onchange="mostrarOcultarSelect()">
                                     <option>Seleccione una opción</option>
                                     <c:forEach items="${paises}" var="ePais">
-                                        <option value="${ePais.idPais}">${ePais.nombrePais}</option>
+                                        <option value="${ePais.idPais}" <c:if test="${aspiranteAP.idPais == ePais.idPais}">selected</c:if>>${ePais.nombrePais}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="nacionalidadAp" class="form-label">Nacionalidad:</label>
-                                <select class="form-select" id="nacionalidadesAp" name="nacionalidadesAp" value="${aspiranteAp.nacionalidadesAp}">
+                                <select class="form-select" id="nacionalidadAp" name="nacionalidadAp">
                                     <option>Seleccione una opción</option>
                                     <c:forEach items="${nacionalidades}" var="eNacionalidad">
-                                        <option value="${eNacionalidad}">${eNacionalidad}</option>
+                                        <option value="${eNacionalidad}" <c:if test="${aspiranteAP.nacionalidadAp == eNacionalidad}">selected</c:if>>${eNacionalidad}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div id="group-duiAp" class="form-group">
                                 <label for="duiAp" class="form-label">DUI:</label>
-                                <input type="text" class="form-control duiApMask" id="duiAp" name="duiAp" placeholder="######## - #" value="${aspiranteAP.duiAp}">
+                                <input type="text" class="form-control" id="duiAp" name="duiAp" placeholder="######## - #" value="${aspiranteAP.duiAp}">
                             </div>
                             <div id="group-nitAp" class="form-group">
                                 <label for="nitAp" class="form-label">NIT:</label>
@@ -158,7 +191,7 @@
                             <div id="group-docPersonalAp" class="form-group">
                                 <label for="docPersonalAp" class="form-label">Documento Personal:</label>
                                 <input type="text" class="form-control" id="docPersonalAp" name="docPersonalAp" placeholder="####################" value="${aspiranteAP.docPersonalAp}">
-                            </div>-->
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-outline-success">Guardar</button>
@@ -173,12 +206,13 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script>
+    //Manejo de mascaras
     var inputDocPersonal = document.getElementById('docPersonalAp');
     var inputPasaporte = document.getElementById("pasaporteAp");
     var inputDui = document.getElementById("duiAp");
     var inputNit = document.getElementById("nitAp");
     var inputNup = document.getElementById("nupAp");
-    var fechaNacAp = document.getElementById('fechaNacAp');
+    var inputFechaNac = document.getElementById("fechaNacAp");
     $(inputDocPersonal).inputmask('9999999999999999999999999999', {
         showMaskOnFocus: false,
         showMaskOnHover: false
@@ -198,38 +232,71 @@
     $(inputNup).inputmask('999999999999', {
         showMaskOnFocus: false,
         showMaskOnHover: false
-    });  
-    $(fechaNacAp).inputmask('99/99/9999', {
+    });
+    $(inputFechaNac).inputmask('99/99/9999', {
         showMaskOnFocus: false,
         showMaskOnHover: false
     });
-
-    // Calcular la fecha mínima permitida (hoy - 15 años)
-    var fechaMinima = new Date();
-    fechaMinima.setFullYear(fechaMinima.getFullYear() - 15);
-
-    // Establecer la fecha mínima en el campo de fecha de nacimiento
-    fechaNacAp.min = fechaMinima.toISOString().split('T')[0];
-
-    // Agregar un evento de escucha para validar la fecha al cambiar el valor
-    fechaNacAp.addEventListener('change', function() {
-        // Obtener la fecha seleccionada
-        var fechaSeleccionada = new Date(fechaNacAp.value);
-
-        // Obtener la fecha actual
-        var fechaActual = new Date();
-
-        // Calcular la edad en años
-        var edad = fechaActual.getFullYear() - fechaSeleccionada.getFullYear();
-
-        // Verificar si la edad es menor que 15
-        if (edad < 15) {
-            // La fecha seleccionada es menor de 15 años, mostrar un mensaje de error
-            alert('Debe ser mayor de 15 años.');
-            // Restablecer el valor del campo de fecha de nacimiento
-            fechaNacAp.value = '';
-        }
+    //Alerta de Fecha
+    var mensajeErrorFecha = document.getElementById("MensajeErrorFecha");
+    var botonAlertaFecha= document.getElementById("btnAlertaFecha");
+    botonAlertaFecha.addEventListener("click", function() {
+      mensajeErrorFecha.classList.add("d-none");
     });
+    //Alerta de Dui
+    var mensajeErrorDui = document.getElementById("MensajeErrorDui");
+    var botonAlertaDui= document.getElementById("btnAlertaDui");
+    botonAlertaDui.addEventListener("click", function() {
+      mensajeErrorDui.classList.add("d-none");
+    });
+    //Alerta de Nit
+    var mensajeErrorNit = document.getElementById("MensajeErrorNit");
+    var botonAlertaNit= document.getElementById("btnAlertaNit");
+    botonAlertaNit.addEventListener("click", function() {
+      mensajeErrorNit.classList.add("d-none");
+    });
+    //Alerta de Nup
+    var mensajeErrorNup = document.getElementById("MensajeErrorNup");
+    var botonAlertaNup= document.getElementById("btnAlertaNup");
+    botonAlertaNup.addEventListener("click", function() {
+      mensajeErrorNup.classList.add("d-none");
+    });
+    function validarParametros() {
+        var resultado = true;
+        var fechaNacimiento = document.getElementById('fechaNacAp').value;
+        var duiInput= document.getElementById('duiAp').value;
+        duiInput=duiInput.replace("_", "");
+        var nitInput= document.getElementById('nitAp').value;
+        nitInput=nitInput.replace("_", "");
+        var nupInput= document.getElementById('nupAp').value;
+        nupInput=nupInput.replace("_", "");
+        var partesFecha = fechaNacimiento.split("/"); // Suponiendo que el formato de fecha es "dd-mm-yyyy"
+        var dia = parseInt(partesFecha[0], 10);
+        var mes = parseInt(partesFecha[1], 10) - 1; // Restamos 1 al mes porque en JavaScript los meses van de 0 a 11
+        var anio = parseInt(partesFecha[2], 10);
+        var fechaConvertida=anio+"/"+mes+"/"+dia;
+        var fechaNacimientoOk = new Date(fechaConvertida);
+        var fechaActual = new Date();
+        var edadMilisegundos = fechaActual.getTime() - fechaNacimientoOk.getTime();
+        var edadAnios = Math.floor(edadMilisegundos / (1000 * 60 * 60 * 24 * 365));
+        if (edadAnios < 18) {
+            mensajeErrorFecha.classList.remove("d-none");
+            resultado = false; // Detener el envío del formulario
+        }
+        if (duiInput.length > 0 && duiInput.length < 10) {
+            mensajeErrorDui.classList.remove("d-none");
+            resultado = false; // Detener el envío del formulario
+        }
+        if (nitInput.length > 0 && nitInput.length < 17) {
+            mensajeErrorNit.classList.remove("d-none");
+            resultado = false; // Detener el envío del formulario
+        }
+        if (nupInput.length > 0 && nupInput.length < 12) {
+            mensajeErrorNup.classList.remove("d-none");
+            resultado = false; // Detener el envío del formulario
+        }
+        return resultado;
+    }
     function mostrarOcultarSelect() {
         var selectPais = document.getElementById("idPais");
         var docPersonal= document.getElementById("group-docPersonalAp");
