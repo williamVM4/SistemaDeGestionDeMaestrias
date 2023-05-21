@@ -9,6 +9,8 @@ public interface AspiranteProfesorService {
   
   public void agregarAP(AspiranteProfesor aspirante);
   
+  public void actualizarAP(AspiranteProfesor aspirante);
+  
   public void eliminarAP(AspiranteProfesor aspirante);
   
   public AspiranteProfesor encontrarAP(AspiranteProfesor aspirante);

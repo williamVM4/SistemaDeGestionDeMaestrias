@@ -15,7 +15,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
-          <br>
+        <br>
         <div class="row col-sm-12 d-flex justify-content-end">
             <div class="col-sm-1">
                 <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
@@ -91,13 +91,16 @@
                 <form action="/AgregarAspiranteProfesor" method="post" accept-charset="UTF-8">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="codAp" name="codAp" maxlength="6" placeholder="Carné" required>
+                        <label for="codAp" class="form-label">Carné:</label>
+                        <input type="text" class="form-control" id="codAp" name="codAp" maxlength="5" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nombresAp" name="nombresAp" placeholder="Nombre" required>
+                        <label for="nombresAp" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombresAp" name="nombresAp" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="apellidosAp" name="apellidosAp" placeholder="Apellido" required>
+                        <label for="apellidosAp" class="form-label">Apellido:</label>
+                        <input type="text" class="form-control" id="apellidosAp" name="apellidosAp" required>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Guardar</button>
@@ -107,4 +110,5 @@
             </div>
         </div>
     </div>
+</div>
 <%@ include file="../common/footer.jspf"%>
