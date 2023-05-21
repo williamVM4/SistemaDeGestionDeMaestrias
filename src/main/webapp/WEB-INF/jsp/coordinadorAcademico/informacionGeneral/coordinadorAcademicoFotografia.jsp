@@ -2,10 +2,13 @@
     <div class="subtitulo-Perfil"><h3>Fotografía</h3></div>
     <div class="row align-items-start">
         <div class="col">
-            <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputFotografia" aria-hidden="true" accept=".png,.jpg,.jpeg">
-            </div>
-            <button class="btn btn-outline-secondary align-items-start" type="button" id="btnSubirFotografia">Subir</button>
+            <form action="/actualizarFoto/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" id="fotografiaCa" name="fotografiaCa" aria-hidden="true" accept=".png,.jpg,.jpeg">
+              </div>
+              <button class="btn btn-outline-secondary align-items-start" type="submit" id="btnSubirFotografia">Subir</button>
+            </form>
         </div>
         <div class="col">
             <p>Para que la fotografía sea incorporada a su expediente, tome en cuenta los siguientes detalles de la foto:

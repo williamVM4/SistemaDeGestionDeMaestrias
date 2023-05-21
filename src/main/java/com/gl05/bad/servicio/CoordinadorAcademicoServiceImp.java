@@ -36,10 +36,19 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
 
   @Override
   public void proIsertarCA(String cod, String nombre, String apellido) {
-    coordinadorDao.insert_coordinador(cod, nombre, apellido);
+    coordinadorDao.sp_insert_coordinador(cod, nombre, apellido);
   }
+  
+      
+  /*  public void actualizarFoto(CoordinadorAcademico c){
+      String sql = "UPDATE COORDINADOR_ACADEMICO SET FOTOGRAFIA_CA = (?) WHERE ID_COOR_ACA = (?)";
+    }*/
 
- 
-
-
+  @Override
+  public void actualizarFoto(CoordinadorAcademico coordinador) {
+    CoordinadorAcademico coordinadorExistente = coordinadorDao.findById(coordinador.getIdCoorAca()).orElse(null);
+    coordinadorExistente.setFotografiaCa(coordinador.getFotografiaCa());
+    coordinadorDao.save(coordinadorExistente);
+    
+  }
 }

@@ -15,6 +15,6 @@ public interface CoordinadorAcademicoService {
   
   public void proIsertarCA(String cod, String nombre, String apellido);
   
-
+  public void actualizarFoto(CoordinadorAcademico coordinador);
   
 }

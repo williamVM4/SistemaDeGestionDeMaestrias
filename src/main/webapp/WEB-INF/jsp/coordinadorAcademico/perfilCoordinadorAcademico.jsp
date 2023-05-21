@@ -3,12 +3,32 @@
 <div align="center">
     <div class="titulo-Perfil"><h3>Perfil del Coordinador Académico</h3></div>
     <div id="container-datos">
+        <c:if test="${not empty mensaje}">
+            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Éxito!  </strong>${mensaje}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>${error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
+        <br>
         <div class="row">
             <div class="col-sm-2 ">
                 <div class="row">
-                    <div class="col-sm-12" style="text-align: center;">
-                        <img style="width:128px;cursor:pointer;" src="/images/foto.jpg" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')">
-                    </div>
+                    <c:if test="${empty imagenBase64}">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <i style="font-size: 8rem;" class="bi bi-person-add" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')"></i>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty imagenBase64}">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <img style="width:128px;cursor:pointer;" src="data:image;base64,${imagenBase64}" id="tab_fotografia" title="Click para subir foto" onclick="setActiveButton('tab_fotografia')">
+                        </div>
+                    </c:if>
                 </div>
                 <br>
                 <div class="row">

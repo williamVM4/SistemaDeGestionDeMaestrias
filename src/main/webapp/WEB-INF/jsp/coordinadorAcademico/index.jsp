@@ -46,13 +46,37 @@
                     </tr>
                 </c:if>
                 <c:if test="${not empty coordinadoresAC}">
-                    <c:forEach items="${coordinadoresAC}" var="elemento" varStatus="status">
+                    <c:forEach items="${coordinadoresAC}" var="elemento" varStatus="i">
                         <tr>
-                            <td width="20%">${status.index + 1}</td>
+                            <td width="20%">${i.index + 1}</td>
                             <td>${elemento.codCa}</td>
                             <td>${elemento.nombresCa}</td>
                             <td>${elemento.apellidosCa}</td>
-                            <td>Ver coordinador</td>
+                            <td>
+                                <a type="button" class="btn btn-outline-secondary" href="/perfilCoordinadorAcademico/${elemento.idCoorAca}"><i class="bi bi-eye"></i></a>
+                                <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${elemento.idCoorAca}">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <!-- Modal de confirmación de eliminación -->
+                                <div class="modal fade" id="confirmarEliminar-${elemento.idCoorAca}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${elemento.idCoorAca}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idCoorAca}">Confirmar eliminación</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>¿Estás seguro de eliminar este aspirante?</strong></p>
+                                                <p>Ten en cuenta que se eliminarán todos los datos relacionados a ${elemento.nombresCa} ${elemento.apellidosCa}.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <a href="/eliminarCoordinadorAcademico/${elemento.idCoorAca}" class="btn btn-danger">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </c:forEach>
                 </c:if>
@@ -87,7 +111,7 @@
               <div class="form-group">
                 <label for="apellidosCa">Apellido:</label>
                 <input type="text" class="form-control" id="apellidosCa" name="apellidosCa" required>
-              </div>
+              </div>              
               <div class="modal-footer">
                 <button type="submit" class="btn btn-outline-success">Guardar</button>
                 <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
