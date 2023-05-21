@@ -17,7 +17,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
-          <br>
+        <br>
 
         <div class="row col-sm-12 d-flex justify-content-end">
             <div class="col-sm-1">
@@ -33,6 +33,7 @@
                     <tr>
                         <th scope="col">N°</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Permisos</th>
                         <th scope="Opciones">Opciones</th>
                     </tr>
                 </thead>
@@ -49,10 +50,13 @@
                             <tr>
                                 <td width="20%">${status.index + 1}</td>
                                 <td>${elemento.nombre}</td>
+                                <td>${elemento.permisos}</td>
                                 <td>
+                                    
                                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${elemento.idRol}">
                                         <i class="bi bi-trash"></i>
                                     </a>
+
 
                                     <!-- Modal de confirmación de eliminación -->
                                     <div class="modal fade" id="confirmarEliminar-${elemento.idRol}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${elemento.idRol}" aria-hidden="true">
@@ -87,15 +91,26 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="crearModalLabel">Agregar Rol</h5>
+                            <h5 class="modal-title" id="crearModalLabel">Agregar Rol</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="/AgregarRol" method="post" accept-charset="UTF-8">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-
+                            
                             <div class="form-group">
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                            </div>
+
+                            <div class="form-group">
+                                <c:forEach items="${Permisos}" var="elementoPermiso" varStatus="status">
+                                    <div>
+                                        <li>
+                                            <input type="checkbox" id="${elementoPermiso.idPermiso}" name="permisos" value="${elementoPermiso.idPermiso}">
+                                            <label for="${elementoPermiso.idPermiso}">${elementoPermiso.nombre}</label>
+                                        </li>
+                                    </div>
+                                </c:forEach>
                             </div>
 
                             <div class="modal-footer">
