@@ -125,7 +125,7 @@ public class AspiranteProfesor implements Serializable {
     private Pais idPais;
     @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO", nullable=true)
     @ManyToOne
-    private Usuario idusuario;*/
+    private Usuario idusuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAspiranteProfesor")
     private Collection<ProfesorCohorte> profesorCohorteCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAspiranteProfesor")
@@ -318,7 +318,7 @@ public class AspiranteProfesor implements Serializable {
     public void setIdListTa(ListadoTitulosAcademicos idListTa) {
         this.idListTa = idListTa;
     }
-
+    
     public Pais getIdPais() {
         return idPais;
     }
@@ -326,7 +326,7 @@ public class AspiranteProfesor implements Serializable {
     public void setIdPais(Pais idPais) {
         this.idPais = idPais;
     }
-
+    
     public Usuario getIdusuario() {
         return idusuario;
     }
