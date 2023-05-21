@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
@@ -65,7 +66,8 @@ public class AspiranteProfesor implements Serializable {
     @Column(name = "GENERO_AP", nullable=true)
     private String generoAp;
     @Column(name = "FECHA_NAC_AP", nullable=true)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yy")
     private Date fechaNacAp;
     @Column(name = "ESTADO_CIVIL_AP", nullable=true)
     private String estadoCivilAp;
@@ -198,7 +200,7 @@ public class AspiranteProfesor implements Serializable {
     public void setGeneroAp(String generoAp) {
         this.generoAp = generoAp;
     }
-
+    */
     public Date getFechaNacAp() {
         return fechaNacAp;
     }
@@ -206,7 +208,7 @@ public class AspiranteProfesor implements Serializable {
     public void setFechaNacAp(Date fechaNacAp) {
         this.fechaNacAp = fechaNacAp;
     }
-
+    /*
     public String getEstadoCivilAp() {
         return estadoCivilAp;
     }
@@ -374,6 +376,5 @@ public class AspiranteProfesor implements Serializable {
     @Override
     public String toString() {
         return "com.gl05.bad.domain.AspiranteProfesor[ idAspiranteProfesor=" + idAspiranteProfesor + " ]";
-    }
-    
+    }    
 }
