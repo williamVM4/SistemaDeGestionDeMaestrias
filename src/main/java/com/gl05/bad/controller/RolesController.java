@@ -1,8 +1,10 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.dao.RolesDao;
+import com.gl05.bad.dao.UsuarioDao;
 import com.gl05.bad.domain.Permisos;
 import com.gl05.bad.domain.Roles;
+import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.PermisosService;
 import com.gl05.bad.servicio.RolesService;
 import java.util.List;
@@ -60,7 +62,7 @@ public class RolesController {
             rolesService.eliminarRol(rol);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el rol correctamente.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e);
+            redirectAttributes.addFlashAttribute("error", "No se puede eliminar el rol porque lo tienen un usuario");
         }
         return "redirect:/viewRoles";
     }

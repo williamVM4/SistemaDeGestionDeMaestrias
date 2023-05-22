@@ -37,7 +37,7 @@
                 <a href="#Administracion" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
                 <ul class="collapse list-unstyled" id="Administracion">
                     <li>
-                        <a href="#">Usuarios</a>
+                        <a href="/viewUsuarios">Usuarios</a>
                     </li>
                     <li>
                         <a href="/viewRoles">Roles</a>
