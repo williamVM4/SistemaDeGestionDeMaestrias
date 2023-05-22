@@ -25,9 +25,38 @@ public class DocumentoServiceImp implements DocumentoService{
   }
 
   @Override
+  public List<Documento> listarDocumentoPorListado(ListadoDocumentacionPersonal listDoc) {
+   return docDao.findByIdListDp(listDoc);
+  }
+  
+  @Override
+  public List<Documento> listarTipoFile(List<Documento> listDoc) {
+    return docDao.findByTipoFile(listDoc);
+  }
+  
+  @Override
   @Transactional
   public void agregarDocumento(Documento doc) {
-    docDao.save(doc);
+    List<Documento> documentosExistentes = docDao.findByIdListDp(doc.getIdListDp());
+    boolean documentoEncontrado = false;
+
+    for (Documento documentoExistente : documentosExistentes) {
+      if (documentoExistente.getTipoFile().equals(doc.getTipoFile())) {
+        Documento mismoTipoDoc=documentoExistente;
+        mismoTipoDoc.setDocFile(doc.getDocFile());
+        docDao.save(mismoTipoDoc);
+        documentoEncontrado = true;
+      }
+    }
+
+    if (!documentoEncontrado) {
+      docDao.save(doc);
+    }
+  }
+  
+  @Override
+  public void eliminarDocumento(Documento doc) {
+    docDao.delete(doc);
   }
 
 }

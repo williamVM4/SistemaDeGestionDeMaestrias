@@ -66,7 +66,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p><strong>¿Estás seguro de eliminar este aspirante?</strong></p>
+                                                <p><strong>¿Estás seguro de eliminar este coordinador?</strong></p>
                                                 <p>Ten en cuenta que se eliminarán todos los datos relacionados a ${elemento.nombresCa} ${elemento.apellidosCa}.</p>
                                             </div>
                                             <div class="modal-footer">

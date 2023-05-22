@@ -12,6 +12,10 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Base64Utils;
@@ -39,6 +43,9 @@ public class CoordinadorAcademicoController {
         model.addAttribute("pageTitle", "PerfilCoordinadorAcademico");
         
         var elemento = coordinadorService.encontrarCA(coordinador);
+        ListadoDocumentacionPersonal ldp= new ListadoDocumentacionPersonal();
+        ldp.setIdListDp(Long.valueOf(elemento.getIdListDp()));        
+        var documentos = docService.listarDocumentoPorListado(ldp);
       
         Blob imagenBlob = elemento.getFotografiaCa();
         String imagenBase64 = null;
@@ -54,6 +61,7 @@ public class CoordinadorAcademicoController {
         }
         model.addAttribute("imagenBase64", imagenBase64);
         model.addAttribute("coordinadorCA", elemento);
+        model.addAttribute("documentos", documentos);
         return "/coordinadorAcademico/perfilCoordinadorAcademico";
     }
 
@@ -121,6 +129,7 @@ public class CoordinadorAcademicoController {
         return "redirect:/perfilCoordinadorAcademico/" + coordinador.getIdCoorAca();  
     }
 
+    
     @PostMapping("/actualizarDocumento/{idCoorAca}")
     public String actualizarDocumento(
         @RequestParam("tipoDocumento") String tipoDocumento,
@@ -162,7 +171,46 @@ public class CoordinadorAcademicoController {
 
         return "redirect:/perfilCoordinadorAcademico/" + coordinadorExistente.getIdCoorAca();  
     }
-    
+
+    @GetMapping("/eliminarDocumento/{idCoorAca}/{IdDocumento}")
+    public String eliminarDocumento(
+            Documento doc, 
+            @PathVariable("idCoorAca") Long idCoorAca,
+            RedirectAttributes redirectAttributes) {
+        try {
+            docService.eliminarDocumento(doc);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el documento.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el documento.");
+        }
+        return "redirect:/perfilCoordinadorAcademico/" + idCoorAca;
+    }
+
+    @GetMapping("/archivo/{IdDocumento}")
+    public ResponseEntity <byte[]> mostrarArchivoPDF(@PathVariable("IdDocumento") Long id) {
+        Documento archivo = new Documento();
+        archivo.setIdDocumento(id);
+        Documento archivoExistente = docService.encontrarDoc(archivo);
+
+        Blob pdfBlob = archivoExistente.getDocFile();
+        byte[] pdfBytes;
+
+        try {
+            if (pdfBlob != null && pdfBlob.length() > 0) {
+                pdfBytes = pdfBlob.getBytes(1, (int) pdfBlob.length());
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+        
+
   /*@PostMapping("/guardarCA")
   public String guardarCoordinadorAcademico(CoordinadorAcademico coordinador) {
       coordinadorService.agregarCA(coordinador);
