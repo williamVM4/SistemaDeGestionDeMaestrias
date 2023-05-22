@@ -23,8 +23,8 @@ import lombok.Data;
 @NamedQueries({
     @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
     @NamedQuery(name = "Documento.findByIdDocumento", query = "SELECT d FROM Documento d WHERE d.idDocumento = :idDocumento"),
-    @NamedQuery(name = "Documento.findBytipoFile", query = "SELECT d FROM Documento d WHERE d.tipoFile = :tipoFile"),
-    @NamedQuery(name = "Documento.findBydocFile", query = "SELECT d FROM Documento d WHERE d.docFile = :docFile")})
+    @NamedQuery(name = "Documento.findByTipoFile", query = "SELECT d FROM Documento d WHERE d.tipoFile = :tipoFile"),
+    @NamedQuery(name = "Documento.findByDocFile", query = "SELECT d FROM Documento d WHERE d.docFile = :docFile")})
 public class Documento implements Serializable {
 
     private static final long serialVersionUID = 1L;

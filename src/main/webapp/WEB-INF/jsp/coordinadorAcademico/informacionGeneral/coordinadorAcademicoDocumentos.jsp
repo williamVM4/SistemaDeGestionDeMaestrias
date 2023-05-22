@@ -1,3 +1,5 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="perfil-documento-personal">
     <div class="subtitulo-Perfil"><h3>Documentos Personales
             <span title="Editar datos" onclick="" class="text-info puntero pull-right">
@@ -6,80 +8,227 @@
         </h3>
     </div>
 
-    <table style="width:100%; " class="table table-bordered table-striped small">
+    <table style="width:100%; " class="table table-bordered table-striped small">${documentos}
         <tbody>
             <tr>
                 <td width="50%">DUI</td>
                 <td>
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDui"><i class="bi bi-upload"></i></a>
-                  <c:if test="${not empty documentos}">
-                      <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
-                      <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
+                <c:set var="tieneDui" value="false" />
+                <c:forEach items="${documentos}" var="doc" varStatus="i">
+                  <c:if test="${fn:trim(doc.tipoFile) eq 'DUI'}">
+                    <c:set var="tieneDui" value="true" />
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <br>
+                    <!--Modal de confirmación de eliminación-->
+                    <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmarEliminarLabel-${doc.idDocumento}">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>¿Estás seguro de eliminar el ${doc.tipoFile}?</strong></p>
+                                    <p>Ten en cuenta que no podras recuperarlo.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                   </c:if>
+                </c:forEach>
+                <c:if test="${not tieneDui}">
+                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDui"><i class="bi bi-upload"></i></a>
+                </c:if>
                 </td>
             </tr>
             <tr>
                 <td>NIT</td>
                 <td>
+                <c:set var="tieneNit" value="false" />
+                <c:forEach items="${documentos}" var="doc" varStatus="i">
+                  <c:if test="${fn:trim(doc.tipoFile) eq 'NIT'}">
+                    <c:set var="tieneNit" value="true" />
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <br>
+                    <!--Modal de confirmación de eliminación-->
+                    <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmarEliminarLabel-${doc.idDocumento}">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>¿Estás seguro de eliminar el ${doc.tipoFile}?</strong></p>
+                                    <p>Ten en cuenta que no podras recuperarlo.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </c:if>
+                </c:forEach>
+                <c:if test="${not tieneNit}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNit"><i class="bi bi-upload"></i></a>
-                  <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
-                  <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
-                </td>            </tr>
+                </c:if>
+                </td>
+            </tr>
             <tr>
                 <td>NUP</td>
                 <td>
+                <c:set var="tieneNup" value="false" />
+                <c:forEach items="${documentos}" var="doc" varStatus="i">
+                  <c:if test="${fn:trim(doc.tipoFile) eq 'NUP'}">
+                    <c:set var="tieneNup" value="true" />
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <br>
+                    <!--Modal de confirmación de eliminación-->
+                    <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmarEliminarLabel-${doc.idDocumento}">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>¿Estás seguro de eliminar el ${doc.tipoFile}?</strong></p>
+                                    <p>Ten en cuenta que no podras recuperarlo.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </c:if>
+                </c:forEach>
+                <c:if test="${not tieneNup}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNup"><i class="bi bi-upload"></i></a>
-                  <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
-                  <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
-                </td>            </tr>
+                </c:if>
+                </td>            
+            </tr>
             <tr>
                 <td>CURRICULUM</td>
                 <td>
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirCV"><i class="bi bi-upload"></i></a>
-                  <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
-                  <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
-                </td>            </tr>
+                <c:set var="tieneCv" value="false" />
+                <c:forEach items="${documentos}" var="doc" varStatus="i">
+                  <c:if test="${fn:trim(doc.tipoFile) eq 'CURRICULUM'}">
+                    <c:set var="tieneCv" value="true" />
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <br>
+                    <!--Modal de confirmación de eliminación-->
+                    <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmarEliminarLabel-${doc.idDocumento}">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>¿Estás seguro de eliminar el ${doc.tipoFile}?</strong></p>
+                                    <p>Ten en cuenta que no podras recuperarlo.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </c:if>
+                </c:forEach>
+                <c:if test="${not tieneCv}">
+                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirCv"><i class="bi bi-upload"></i></a>
+                </c:if>
+                </td>            
+            </tr>
             <tr>
                 <td>PASAPORTE</td>
                  <td>
+                <c:set var="tienePasaporte" value="false" />
+                <c:forEach items="${documentos}" var="doc" varStatus="i">
+                  <c:if test="${fn:trim(doc.tipoFile) eq 'PASAPORTE'}">
+                    <c:set var="tienePasaporte" value="true" />
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <br>
+                    <!--Modal de confirmación de eliminación-->
+                    <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmarEliminarLabel-${doc.idDocumento}">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>¿Estás seguro de eliminar el ${doc.tipoFile}?</strong></p>
+                                    <p>Ten en cuenta que no podras recuperarlo.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </c:if>
+                </c:forEach>
+                <c:if test="${not tienePasaporte}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirPasaporte"><i class="bi bi-upload"></i></a>
-                  <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
-                  <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
-                </td>            </tr>
+                </c:if>
+                </td>            
+            </tr>
             <tr>
                 <td>DOCUMENTO DE IDENTIFICACION EXTRANJERO</td>
                 <td>
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDocExtranjero"><i class="bi bi-upload"></i></a>
-                  <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
-                  <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
-                </td>            </tr>
-        </tbody>
-    </table>
-                        <!--<a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${elemento.idCoorAca}">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                        Modal de confirmación de eliminación
-                        <div class="modal fade" id="confirmarEliminar-${elemento.idCoorAca}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${elemento.idCoorAca}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idCoorAca}">Confirmar eliminación</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p><strong>¿Estás seguro de eliminar este aspirante?</strong></p>
-                                        <p>Ten en cuenta que se eliminarán todos los datos relacionados a ${elemento.nombresCa} ${elemento.apellidosCa}.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <a href="/eliminarCoordinadorAcademico/${elemento.idCoorAca}" class="btn btn-danger">Eliminar</a>
-                                    </div>
+                <c:set var="tieneDP" value="false" />
+                <c:forEach items="${documentos}" var="doc" varStatus="i">
+                  <c:if test="${fn:trim(doc.tipoFile) eq 'DOCUMENTO DE IDENTIFICACION EXTRANJERO'}">
+                    <c:set var="tieneDP" value="true" />
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <br>
+                    <!--Modal de confirmación de eliminación-->
+                    <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmarEliminarLabel-${doc.idDocumento}">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>¿Estás seguro de eliminar el ${doc.tipoFile}?</strong></p>
+                                    <p>Ten en cuenta que no podras recuperarlo.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
-                        </div>-->
-
-
-
+                        </div>
+                    </div>
+                  </c:if>
+                </c:forEach>
+                <c:if test="${not tieneDP}">
+                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDocExtranjero"><i class="bi bi-upload"></i></a>
+                </c:if>
+                </td>            
+            </tr>
+        </tbody>
+    </table>
+    
     <!-- Modal para agregar dui -->
     <div class="modal fade" id="subirDui" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -99,7 +248,7 @@
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
-                        <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                       </div>
                     </form>
                 </div>
@@ -136,7 +285,7 @@
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
-                        <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                       </div>
                     </form>
                 </div>
@@ -173,7 +322,7 @@
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
-                        <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                       </div>
                     </form>
                 </div>
@@ -210,7 +359,7 @@
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
-                        <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                       </div>
                     </form>
                 </div>
@@ -247,7 +396,7 @@
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
-                        <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                       </div>
                     </form>
                 </div>
@@ -278,13 +427,13 @@
                 <div class="col">
                     <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                      <input type="hidden" name="tipoDocumento" value="DOCUMENTO-EXTRANJERO">
+                      <input type="hidden" name="tipoDocumento" value="DOCUMENTO DE IDENTIFICACION EXTRANJERO">
                       <div class="input-group mb-3">
                         <input type="file" class="form-control" id="docPersonalFile" name="docPersonalFile" aria-hidden="true" accept=".pdf" required>
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
-                        <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                       </div>
                     </form>
                 </div>
@@ -302,9 +451,5 @@
         </div>
       </div>
     </div>
-
-
-
-
 </div>
                 
