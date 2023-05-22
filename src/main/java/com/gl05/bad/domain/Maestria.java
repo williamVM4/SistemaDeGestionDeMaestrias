@@ -38,14 +38,6 @@ public class Maestria implements Serializable {
     @JoinColumn(name = "ID_LIST_COHORTE", referencedColumnName = "ID_LIST_COHORTE")
     @ManyToOne
     private ListadoCohorte idListCohorte;
-    
-    @JoinColumn(name = "ID_LPA", referencedColumnName = "ID_LPA")
-    @ManyToOne
-    private ListadoPerfilAspirante idLpa;
-    
-    @JoinColumn(name = "ID_LPC", referencedColumnName = "ID_LPC")
-    @ManyToOne
-    private ListadoPerfilCoordinadorac idLpc;
 
     public Maestria() {
     }
@@ -107,21 +99,6 @@ public class Maestria implements Serializable {
         this.idListCohorte = idListCohorte;
     }
 
-    public ListadoPerfilAspirante getIdLpa() {
-        return idLpa;
-    }
-
-    public void setIdLpa(ListadoPerfilAspirante idLpa) {
-        this.idLpa = idLpa;
-    }
-
-    public ListadoPerfilCoordinadorac getIdLpc() {
-        return idLpc;
-    }
-
-    public void setIdLpc(ListadoPerfilCoordinadorac idLpc) {
-        this.idLpc = idLpc;
-    }
 
     @Override
     public int hashCode() {
