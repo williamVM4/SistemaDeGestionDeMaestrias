@@ -1,9 +1,11 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.CoordinadorAcademico;
+import com.gl05.bad.domain.Documento;
 import com.gl05.bad.domain.ListadoDocumentacionPersonal;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.DocumentacionPersonalService;
+import com.gl05.bad.servicio.DocumentoService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
@@ -27,13 +29,17 @@ public class CoordinadorAcademicoController {
   private CoordinadorAcademicoService coordinadorService;
 
   @Autowired
-  private DocumentacionPersonalService docService;
+  private DocumentoService docService;
+
+  @Autowired
+  private DocumentacionPersonalService listDocService;
   
     @GetMapping("/perfilCoordinadorAcademico/{idCoorAca}")
     public String perfilCoordinadorAcademico(Model model, CoordinadorAcademico coordinador) {
         model.addAttribute("pageTitle", "PerfilCoordinadorAcademico");
-      
+        
         var elemento = coordinadorService.encontrarCA(coordinador);
+      
         Blob imagenBlob = elemento.getFotografiaCa();
         String imagenBase64 = null;
 
@@ -116,31 +122,37 @@ public class CoordinadorAcademicoController {
     }
 
     @PostMapping("/actualizarDocumento/{idCoorAca}")
-    public String actualizarDocumentoPersonal(
+    public String actualizarDocumento(
+        @RequestParam("tipoDocumento") String tipoDocumento,
         @RequestParam Map<String, MultipartFile> campos,
         @PathVariable("idCoorAca") Long idCoorAca,
         RedirectAttributes redirectAttributes) {
       
+        Documento documento = new Documento();
         CoordinadorAcademico coordinador = new CoordinadorAcademico();
         CoordinadorAcademico coordinadorExistente = new CoordinadorAcademico();
-        ListadoDocumentacionPersonal documento = new ListadoDocumentacionPersonal();
+        ListadoDocumentacionPersonal listaDoc = new ListadoDocumentacionPersonal();
         
         try {
             coordinador.setIdCoorAca(idCoorAca);
             coordinadorExistente=coordinadorService.encontrarCA(coordinador);
-            documento.setIdListDp(Long.valueOf(coordinadorExistente.getIdListDp()));
+            listaDoc.setIdListDp(Long.valueOf(coordinadorExistente.getIdListDp()));
             
+            documento.setIdListDp(listaDoc);
+            documento.setTipoFile(tipoDocumento);
             for (Map.Entry<String, MultipartFile> entry : campos.entrySet()) {
               try{
-                String nombreCampo = entry.getKey();
+                String tipoCampo = entry.getKey();
                 MultipartFile campo = entry.getValue();
 
                 byte[] fileBytes = campo.getBytes();
                 Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+                
+                documento.setDocFile(blob);
 
-                docService.actualizarCampo(documento, nombreCampo, blob);
+                docService.agregarDocumento(documento);
               }catch(IOException e){
-                e.printStackTrace();
+                redirectAttributes.addFlashAttribute("error", "El documento no cumple con las especificaciones dadas");
               }
             }
             redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado sus documentos.");

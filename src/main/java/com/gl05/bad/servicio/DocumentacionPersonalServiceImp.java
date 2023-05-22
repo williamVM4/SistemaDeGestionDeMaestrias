@@ -2,11 +2,9 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.DocumentacionPersonalDao;
 import com.gl05.bad.domain.ListadoDocumentacionPersonal;
-import java.sql.Blob;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DocumentacionPersonalServiceImp implements DocumentacionPersonalService{
@@ -24,7 +22,7 @@ public class DocumentacionPersonalServiceImp implements DocumentacionPersonalSer
     return docPersonalDao.findById(doc.getIdListDp()).orElse(null);
   }
 
-  @Override
+  /*@Override
   @Transactional
   public void actualizarCampo(ListadoDocumentacionPersonal doc, String nombreCampo, Blob blob) {
     ListadoDocumentacionPersonal docExistente = docPersonalDao.findById(doc.getIdListDp()).orElse(null);
@@ -51,6 +49,6 @@ public class DocumentacionPersonalServiceImp implements DocumentacionPersonalSer
     }
 
     docPersonalDao.save(docExistente);
-  }
+  }*/
   
 }

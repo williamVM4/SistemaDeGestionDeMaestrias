@@ -12,8 +12,10 @@
                 <td width="50%">DUI</td>
                 <td>
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDui"><i class="bi bi-upload"></i></a>
-                  <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
-                  <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
+                  <c:if test="${not empty documentos}">
+                      <a type="button" class="btn btn-outline-secondary" href=""><i class="bi bi-eye"></i></a>
+                      <a type="button" class="btn btn-outline-danger" href=""><i class="bi bi-trash"></i></a>
+                  </c:if>
                 </td>
             </tr>
             <tr>
@@ -91,8 +93,9 @@
                 <div class="col">
                     <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                      <input type="hidden" name="tipoDocumento" value="DUI">
                       <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="duiFile" name="duiFile" aria-hidden="true" accept=".pdf">
+                        <input type="file" class="form-control" id="docFile" name="docFile" aria-hidden="true" accept=".pdf" required>
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
@@ -127,8 +130,9 @@
                 <div class="col">
                     <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                      <input type="hidden" name="tipoDocumento" value="NIT">
                       <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="nitFile" name="nitFile" aria-hidden="true" accept=".pdf">
+                        <input type="file" class="form-control" id="nitFile" name="nitFile" aria-hidden="true" accept=".pdf" required>
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
@@ -163,8 +167,9 @@
                 <div class="col">
                     <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                      <input type="hidden" name="tipoDocumento" value="NUP">
                       <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="nupFile" name="nupFile" aria-hidden="true" accept=".pdf">
+                        <input type="file" class="form-control" id="nupFile" name="nupFile" aria-hidden="true" accept=".pdf" required>
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
@@ -199,8 +204,9 @@
                 <div class="col">
                     <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                      <input type="hidden" name="tipoDocumento" value="CURRICULUM">
                       <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="cvFile" name="cvFile" aria-hidden="true" accept=".pdf">
+                        <input type="file" class="form-control" id="cvFile" name="cvFile" aria-hidden="true" accept=".pdf" required>
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
@@ -235,8 +241,9 @@
                 <div class="col">
                     <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                      <input type="hidden" name="tipoDocumento" value="PASAPORTE">
                       <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="pasaporteFile" name="pasaporteFile" aria-hidden="true" accept=".pdf">
+                        <input type="file" class="form-control" id="pasaporteFile" name="pasaporteFile" aria-hidden="true" accept=".pdf" required>
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
@@ -271,8 +278,9 @@
                 <div class="col">
                     <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                      <input type="hidden" name="tipoDocumento" value="DOCUMENTO-EXTRANJERO">
                       <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="docPersonalFile" name="docPersonalFile" aria-hidden="true" accept=".pdf">
+                        <input type="file" class="form-control" id="docPersonalFile" name="docPersonalFile" aria-hidden="true" accept=".pdf" required>
                       </div>              
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success">Subir</button>
