@@ -1,0 +1,127 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div id="perfil-experiencia-laboral">
+    <div class="subtitulo-Perfil">
+        <div class="row col-sm-12 d-flex justify-content-end">
+            <div class="col-sm-11">
+                <h3>Experiencia Laboral</h3>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#agregarExperienciaLaboralModal">Agregar</button>
+            </div>
+        </div>
+    </div>
+    <div class="overflow-auto" style="max-height: 55vh;">
+        <table style="width:100%; " class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">N°</th>
+                    <th scope="col">Nombre Istitución</th>
+                    <th scope="col">Cargo</th>
+                    <th scope="col">Funciones</th>
+                    <th scope="col">Periodo Inicio</th>
+                    <th scope="col">Periodo Fin</th>
+                    <th scope="col" width="10%">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:if test="${empty experienciasLaborales}">
+                    <tr>
+                        <td colspan="7">No hay registros</td>
+                    </tr>
+                </c:if>
+                <c:if test="${not empty experienciasLaborales}">
+                    <c:forEach items="${experienciasLaborales}" var="eExperienciaLaboral" varStatus="numeroExperienciaLaboral">
+                        <tr>
+                            <td>${numeroExperienciaLaboral.index+1}</td>
+                            <td>${eExperienciaLaboral.nombreInstitucion}</td>
+                            <td>${eExperienciaLaboral.cargo}</td>
+                            <td>${eExperienciaLaboral.funciones}</td>
+                            <td>${eExperienciaLaboral.periodoInicio}</td>
+                            <td>${eExperienciaLaboral.periodoFin}</td>
+                            <td>
+                                <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarExperienciaLaboral-${eRedSocial.idEl}">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <!-- Modal de confirmación de eliminación -->
+                                <div class="modal fade" id="confirmarEliminarExperienciaLaboral-${eRedSocial.idRs}" tabindex="-1" aria-labelledby="confirmarEliminarExperienciaLaboralLabel-${eExperienciaLaboral.idEl}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmarEliminarExperienciaLaboralLabel-${eRedSocial.idEl}">Confirmar eliminación</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <strong>¿Estás seguro de eliminar la experiencia laboral?</strong>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <a href="/EliminarExperienciaLaboralAspiranteProfesor/${eRedSocial.idEl}/${aspiranteAP.idAspiranteProfesor}" class="btn btn-danger">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="text-align: left;">
+    <!-- Modal para crear aspirantes -->
+    <div class="modal fade" id="agregarExperienciaLaboralModal" tabindex="-1" aria-labelledby="crearModalExperienciaLaboralLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearModalExperienciaLaboralLabel">Agregar Experiencia Laboral</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/AgregarExperienciaLaboralAspiranteProfesor/${aspiranteAP.idAspiranteProfesor}/${aspiranteAP.idListEl}" method="post" accept-charset="UTF-8" >
+                    <div class="modal-body">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <div id="MensajeErrorPeriodoInicio" class="d-none">
+                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El formato del periodo de inicio no es válido.
+                                <button id="btnAlertaPeriodoInicio" type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div id="MensajeErrorPeriodoFin" class="d-none">
+                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El formato del perdio de fin no es válido.
+                                <button id="btnAlertaPeriodoFin" type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="overflow-auto" style="max-height:55vh;">
+                            <div class="form-group">
+                                <label for="link" class="form-label">Nombre de Institución:</label>
+                                <input type="text" class="form-control" id="nombreInstitucion" name="nombreInstitucion" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="link" class="form-label">Cargo:</label>
+                                <input type="text" class="form-control" id="cargo" name="cargo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="link" class="form-label">Funciones:</label>
+                                <input type="text" class="form-control" id="funciones" name="funciones" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="link" class="form-label">Periodo de Inicio:</label>
+                                <input type="text" class="form-control" id="periodoInicio" name="periodoFin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="link" class="form-label">Periodo de Fin:</label>
+                                <input type="text" class="form-control" id="periodoFin" name="periodoFin" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-success">Guardar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                                  
+                            
