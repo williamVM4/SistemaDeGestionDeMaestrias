@@ -15,8 +15,8 @@
             <br>Tipo de archivo *.jpg, *.png
             <br>El tamaño debería; tener de ancho 128px, como mínimo.
             <br>El nombre del archivo no debe contener espacios, ni tildes.
-            <br>La fotografía debe de tener un solo fondo, donde resalte el rostro del estudiante.
-            <br>Subir fotografías ajenas al estudiante será considerado como una falta.</p>
+            <br>La fotografía debe de tener un solo fondo, donde resalte el rostro.
+            <br>Subir fotografías ajenas será considerado como una falta.</p>
         </div>
     </div>
 </div>                   

@@ -1,13 +1,14 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.CoordinadorAcademico;
+import com.gl05.bad.domain.ListadoDocumentacionPersonal;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
-import java.io.InputStream;
+import com.gl05.bad.servicio.DocumentacionPersonalService;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Base64;
-import org.apache.commons.io.IOUtils;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +19,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 public class CoordinadorAcademicoController {
 
   @Autowired
   private CoordinadorAcademicoService coordinadorService;
+
+  @Autowired
+  private DocumentacionPersonalService docService;
   
     @GetMapping("/perfilCoordinadorAcademico/{idCoorAca}")
     public String perfilCoordinadorAcademico(Model model, CoordinadorAcademico coordinador) {
-      model.addAttribute("pageTitle", "PerfilCoordinadorAcademico");
+        model.addAttribute("pageTitle", "PerfilCoordinadorAcademico");
       
         var elemento = coordinadorService.encontrarCA(coordinador);
         Blob imagenBlob = elemento.getFotografiaCa();
@@ -88,25 +91,64 @@ public class CoordinadorAcademicoController {
 
     @PostMapping("/actualizarFoto/{idCoorAca}")
     public String actualizarFoto(
-        @RequestParam("fotografiaCa") MultipartFile foto, 
-        @PathVariable("idCoorAca") Long idCoorAca, 
+        @RequestParam Map<String, MultipartFile> campos,
+        @PathVariable("idCoorAca") Long idCoorAca,
         RedirectAttributes redirectAttributes) {
         CoordinadorAcademico coordinador = new CoordinadorAcademico();
         try {
-            byte[] fileBytes = foto.getBytes();
-            Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
-            
             coordinador.setIdCoorAca(idCoorAca);
-            coordinador.setFotografiaCa(blob);
-            
-            coordinadorService.actualizarFoto(coordinador);
-            
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado su fotografía.");
+            for (Map.Entry<String, MultipartFile> entry : campos.entrySet()) {
+                String nombreCampo = entry.getKey();
+                MultipartFile campo = entry.getValue();
+
+                byte[] fileBytes = campo.getBytes();
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+
+                coordinadorService.actualizarCampo(coordinador, nombreCampo, blob);
+            }
+
+            redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado los campos correctamente.");
         } catch(Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Sucedió un error, verifique las indicaciones para subir su fotografía.");
+            redirectAttributes.addFlashAttribute("error", "Sucedió un error al actualizar los campos.");
         }
-        
+
         return "redirect:/perfilCoordinadorAcademico/" + coordinador.getIdCoorAca();  
+    }
+
+    @PostMapping("/actualizarDocumento/{idCoorAca}")
+    public String actualizarDocumentoPersonal(
+        @RequestParam Map<String, MultipartFile> campos,
+        @PathVariable("idCoorAca") Long idCoorAca,
+        RedirectAttributes redirectAttributes) {
+      
+        CoordinadorAcademico coordinador = new CoordinadorAcademico();
+        CoordinadorAcademico coordinadorExistente = new CoordinadorAcademico();
+        ListadoDocumentacionPersonal documento = new ListadoDocumentacionPersonal();
+        
+        try {
+            coordinador.setIdCoorAca(idCoorAca);
+            coordinadorExistente=coordinadorService.encontrarCA(coordinador);
+            documento.setIdListDp(Long.valueOf(coordinadorExistente.getIdListDp()));
+            
+            for (Map.Entry<String, MultipartFile> entry : campos.entrySet()) {
+              try{
+                String nombreCampo = entry.getKey();
+                MultipartFile campo = entry.getValue();
+
+                byte[] fileBytes = campo.getBytes();
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+
+                docService.actualizarCampo(documento, nombreCampo, blob);
+              }catch(IOException e){
+                e.printStackTrace();
+              }
+            }
+            redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado sus documentos.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Sucedió un error al subir el documento");
+        }
+
+        return "redirect:/perfilCoordinadorAcademico/" + coordinadorExistente.getIdCoorAca();  
     }
     
   /*@PostMapping("/guardarCA")
@@ -114,6 +156,6 @@ public class CoordinadorAcademicoController {
       coordinadorService.agregarCA(coordinador);
       return "redirect:/viewCoordinadoresAcademicos";
   }actualizarFoto*/
-    
+  
 }
 
