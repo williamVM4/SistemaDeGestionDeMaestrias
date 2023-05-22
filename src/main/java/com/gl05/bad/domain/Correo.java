@@ -8,16 +8,17 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import lombok.Data;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Correo.findAll", query = "SELECT c FROM Correo c"),
@@ -28,62 +29,16 @@ public class Correo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @Column(name = "ID_CORREO")
+    @SequenceGenerator(name = "S_CORREO", sequenceName = "S_CORREO", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_CORREO")
     private Long idCorreo;
-    @Basic(optional = false)
-    @Column(name = "TIPO_CORREO")
+    @Column(name = "TIPO_CORREO", nullable=true)
     private String tipoCorreo;
-    @Basic(optional = false)
+    @Column(name = "CORREO", nullable=true)
     private String correo;
-    @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO")
-    @ManyToOne(optional = false)
-    private ListadoCorreo idListCorreo;
-
-    public Correo() {
-    }
-
-    public Correo(Long idCorreo) {
-        this.idCorreo = idCorreo;
-    }
-
-    public Correo(Long idCorreo, String tipoCorreo, String correo) {
-        this.idCorreo = idCorreo;
-        this.tipoCorreo = tipoCorreo;
-        this.correo = correo;
-    }
-
-    public Long getIdCorreo() {
-        return idCorreo;
-    }
-
-    public void setIdCorreo(Long idCorreo) {
-        this.idCorreo = idCorreo;
-    }
-
-    public String getTipoCorreo() {
-        return tipoCorreo;
-    }
-
-    public void setTipoCorreo(String tipoCorreo) {
-        this.tipoCorreo = tipoCorreo;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public ListadoCorreo getIdListCorreo() {
-        return idListCorreo;
-    }
-
-    public void setIdListCorreo(ListadoCorreo idListCorreo) {
-        this.idListCorreo = idListCorreo;
-    }
+    @Column(name = "ID_LIST_CORREO", nullable=true)
+    private Integer idListCorreo;
 
     @Override
     public int hashCode() {

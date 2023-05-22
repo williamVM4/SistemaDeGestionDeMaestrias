@@ -49,7 +49,7 @@
                         <a href="#">Escuelas de Posgrado</a>
                     </li>
                     <li>
-                        <a href="#">Áreas del Conocimiento</a>
+                        <a href="/GestionarAreaConocimiento">Áreas del Conocimiento</a>
                     </li>
                 </ul>
             </li>

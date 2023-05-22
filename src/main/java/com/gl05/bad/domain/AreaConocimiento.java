@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -10,18 +6,20 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import lombok.Data;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
-@Table(name = "AREA_CONOCIMIENTO")
+@Table(name = "AREA_CONOCIMIENTO" , uniqueConstraints = @UniqueConstraint(columnNames = "NOMBRE_AREA"))
 @NamedQueries({
     @NamedQuery(name = "AreaConocimiento.findAll", query = "SELECT a FROM AreaConocimiento a"),
     @NamedQuery(name = "AreaConocimiento.findByIdAreaConocimiento", query = "SELECT a FROM AreaConocimiento a WHERE a.idAreaConocimiento = :idAreaConocimiento"),
@@ -31,11 +29,12 @@ public class AreaConocimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_AREA_CONOCIMIENTO")
+    @SequenceGenerator(name = "S_AREA_CONOCIMIENTO", sequenceName = "S_AREA_CONOCIMIENTO", allocationSize = 1)
     @Column(name = "ID_AREA_CONOCIMIENTO")
     private Long idAreaConocimiento;
     @Basic(optional = false)
-    @Column(name = "NOMBRE_AREA")
+    @Column(name = "NOMBRE_AREA", unique = true)
     private String nombreArea;
     @Basic(optional = false)
     private String descripcion;
@@ -48,9 +47,9 @@ public class AreaConocimiento implements Serializable {
     public AreaConocimiento(Long idAreaConocimiento) {
         this.idAreaConocimiento = idAreaConocimiento;
     }
-
-    public AreaConocimiento(Long idAreaConocimiento, String nombreArea, String descripcion) {
-        this.idAreaConocimiento = idAreaConocimiento;
+    //Long idAreaConocimiento,
+    public AreaConocimiento( String nombreArea, String descripcion) {
+        //this.idAreaConocimiento = idAreaConocimiento;
         this.nombreArea = nombreArea;
         this.descripcion = descripcion;
     }

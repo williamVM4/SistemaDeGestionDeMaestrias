@@ -143,12 +143,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="fechaNacAp" class="form-label">Fecha Nacimiento:</label>
-                                <input type="text" class="form-control" id="fechaNacAp" name="fechaNacAp" placeholder="dd - mm - yyyy" value="<fmt:formatDate value="${aspiranteAP.fechaNacAp}" pattern="dd/MM/yyyy" />">
+                                <input type="text" class="form-control" id="fechaNacAp" name="fechaNacAp" placeholder="dd - mm - yyyy" maxlength="10" value="<fmt:formatDate value="${aspiranteAP.fechaNacAp}" pattern="dd/MM/yyyy" />">
                             </div>
                             <div class="form-group">
                                 <label for="estadoCivilAp" class="form-label">Estado Civil:</label>
                                 <select type="text" class="form-select" id="estadoCivilAp" name="estadoCivilAp">
-                                    <option>Seleccione una opción</option>
+                                    <option value="">Seleccione una opción</option>
                                     <c:forEach items="${estadosCiviles}" var="eEstadoCivil">
                                         <option value="${eEstadoCivil}" <c:if test="${aspiranteAP.estadoCivilAp == eEstadoCivil}">selected</c:if>>${eEstadoCivil}</option>
                                     </c:forEach>
@@ -157,7 +157,7 @@
                             <div class="form-group">
                                 <label for="idPais" class="form-label">País:</label>
                                 <select class="form-select" id="idPais" name="idPais" onchange="mostrarOcultarSelect()">
-                                    <option>Seleccione una opción</option>
+                                    <option value="">Seleccione una opción</option>
                                     <c:forEach items="${paises}" var="ePais">
                                         <option value="${ePais.idPais}" <c:if test="${aspiranteAP.idPais == ePais.idPais}">selected</c:if>>${ePais.nombrePais}</option>
                                     </c:forEach>
@@ -166,7 +166,7 @@
                             <div class="form-group">
                                 <label for="nacionalidadAp" class="form-label">Nacionalidad:</label>
                                 <select class="form-select" id="nacionalidadAp" name="nacionalidadAp">
-                                    <option>Seleccione una opción</option>
+                                    <option value="">Seleccione una opción</option>
                                     <c:forEach items="${nacionalidades}" var="eNacionalidad">
                                         <option value="${eNacionalidad}" <c:if test="${aspiranteAP.nacionalidadAp == eNacionalidad}">selected</c:if>>${eNacionalidad}</option>
                                     </c:forEach>
@@ -174,23 +174,23 @@
                             </div>
                             <div id="group-duiAp" class="form-group">
                                 <label for="duiAp" class="form-label">DUI:</label>
-                                <input type="text" class="form-control" id="duiAp" name="duiAp" placeholder="######## - #" value="${aspiranteAP.duiAp}">
+                                <input type="text" class="form-control" id="duiAp" name="duiAp" maxlength="10" placeholder="######## - #" value="${aspiranteAP.duiAp}">
                             </div>
                             <div id="group-nitAp" class="form-group">
                                 <label for="nitAp" class="form-label">NIT:</label>
-                                <input type="text" class="form-control" id="nitAp" name="nitAp" placeholder="#### - #### - ### - #" value="${aspiranteAP.nitAp}">
+                                <input type="text" class="form-control" id="nitAp" name="nitAp" maxlength="17" placeholder="#### - #### - ### - #" value="${aspiranteAP.nitAp}">
                             </div>
                             <div id="group-nupAp" class="form-group">
                                 <label for="nupAp" class="form-label">NUP:</label>
-                                <input type="text" class="form-control" id="nupAp" name="nupAp" placeholder="############" value="${aspiranteAP.nupAp}">
+                                <input type="text" class="form-control" id="nupAp" name="nupAp" maxlength="15" placeholder="############" value="${aspiranteAP.nupAp}">
                             </div>
                             <div id="group-pasaporteAp" class="form-group">
                                 <label for="pasaporteAp" class="form-label">Pasaporte:</label>
-                                <input type="text" class="form-control" id="pasaporteAp" name="pasaporteAp" placeholder="*********" value="${aspiranteAP.pasaporteAp}">
+                                <input type="text" class="form-control" id="pasaporteAp" name="pasaporteAp" maxlength="9" placeholder="*********" value="${aspiranteAP.pasaporteAp}">
                             </div>
                             <div id="group-docPersonalAp" class="form-group">
                                 <label for="docPersonalAp" class="form-label">Documento Personal:</label>
-                                <input type="text" class="form-control" id="docPersonalAp" name="docPersonalAp" placeholder="####################" value="${aspiranteAP.docPersonalAp}">
+                                <input type="text" class="form-control" id="docPersonalAp" name="docPersonalAp" maxlength="20" placeholder="####################" value="${aspiranteAP.docPersonalAp}">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -206,63 +206,69 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script>
-    //Manejo de mascaras
-    var inputDocPersonal = document.getElementById('docPersonalAp');
-    var inputPasaporte = document.getElementById("pasaporteAp");
-    var inputDui = document.getElementById("duiAp");
-    var inputNit = document.getElementById("nitAp");
-    var inputNup = document.getElementById("nupAp");
-    var inputFechaNac = document.getElementById("fechaNacAp");
-    $(inputDocPersonal).inputmask('9999999999999999999999999999', {
-        showMaskOnFocus: false,
-        showMaskOnHover: false
-    });
-    $(inputPasaporte).inputmask('*********', {
-        showMaskOnFocus: false,
-        showMaskOnHover: false
-    });
-    $(inputDui).inputmask('99999999-9', {
-        showMaskOnFocus: false,
-        showMaskOnHover: false
-    });
-    $(inputNit).inputmask('9999-999999-999-9', {
-        showMaskOnFocus: false,
-        showMaskOnHover: false
-    });
-    $(inputNup).inputmask('999999999999', {
-        showMaskOnFocus: false,
-        showMaskOnHover: false
-    });
-    $(inputFechaNac).inputmask('99/99/9999', {
-        showMaskOnFocus: false,
-        showMaskOnHover: false
-    });
-    //Alerta de Fecha
-    var mensajeErrorFecha = document.getElementById("MensajeErrorFecha");
-    var botonAlertaFecha= document.getElementById("btnAlertaFecha");
-    botonAlertaFecha.addEventListener("click", function() {
-      mensajeErrorFecha.classList.add("d-none");
-    });
-    //Alerta de Dui
-    var mensajeErrorDui = document.getElementById("MensajeErrorDui");
-    var botonAlertaDui= document.getElementById("btnAlertaDui");
-    botonAlertaDui.addEventListener("click", function() {
-      mensajeErrorDui.classList.add("d-none");
-    });
-    //Alerta de Nit
-    var mensajeErrorNit = document.getElementById("MensajeErrorNit");
-    var botonAlertaNit= document.getElementById("btnAlertaNit");
-    botonAlertaNit.addEventListener("click", function() {
-      mensajeErrorNit.classList.add("d-none");
-    });
-    //Alerta de Nup
-    var mensajeErrorNup = document.getElementById("MensajeErrorNup");
-    var botonAlertaNup= document.getElementById("btnAlertaNup");
-    botonAlertaNup.addEventListener("click", function() {
-      mensajeErrorNup.classList.add("d-none");
+    document.addEventListener("DOMContentLoaded", function() {
+        //Manejo de mascaras
+        var inputDocPersonal = document.getElementById('docPersonalAp');
+        var inputPasaporte = document.getElementById("pasaporteAp");
+        var inputDui = document.getElementById("duiAp");
+        var inputNit = document.getElementById("nitAp");
+        var inputNup = document.getElementById("nupAp");
+        var inputFechaNac = document.getElementById("fechaNacAp");
+        $(inputDocPersonal).inputmask('9999999999999999999999999999', {
+            showMaskOnFocus: false,
+            showMaskOnHover: false
+        });
+        $(inputPasaporte).inputmask('*********', {
+            showMaskOnFocus: false,
+            showMaskOnHover: false
+        });
+        $(inputDui).inputmask('99999999-9', {
+            showMaskOnFocus: false,
+            showMaskOnHover: false
+        });
+        $(inputNit).inputmask('9999-999999-999-9', {
+            showMaskOnFocus: false,
+            showMaskOnHover: false
+        });
+        $(inputNup).inputmask('999999999999', {
+            showMaskOnFocus: false,
+            showMaskOnHover: false
+        });
+        $(inputFechaNac).inputmask('99/99/9999', {
+            showMaskOnFocus: false,
+            showMaskOnHover: false
+        });
+        //Alerta de Fecha
+        var mensajeErrorFecha = document.getElementById("MensajeErrorFecha");
+        var botonAlertaFecha= document.getElementById("btnAlertaFecha");
+        botonAlertaFecha.addEventListener("click", function() {
+          mensajeErrorFecha.classList.add("d-none");
+        });
+        //Alerta de Dui
+        var mensajeErrorDui = document.getElementById("MensajeErrorDui");
+        var botonAlertaDui= document.getElementById("btnAlertaDui");
+        botonAlertaDui.addEventListener("click", function() {
+          mensajeErrorDui.classList.add("d-none");
+        });
+        //Alerta de Nit
+        var mensajeErrorNit = document.getElementById("MensajeErrorNit");
+        var botonAlertaNit= document.getElementById("btnAlertaNit");
+        botonAlertaNit.addEventListener("click", function() {
+          mensajeErrorNit.classList.add("d-none");
+        });
+        //Alerta de Nup
+        var mensajeErrorNup = document.getElementById("MensajeErrorNup");
+        var botonAlertaNup= document.getElementById("btnAlertaNup");
+        botonAlertaNup.addEventListener("click", function() {
+          mensajeErrorNup.classList.add("d-none");
+        });
     });
     function validarParametros() {
         var resultado = true;
+        var mensajeErrorFecha = document.getElementById("MensajeErrorFecha");
+        var mensajeErrorDui = document.getElementById("MensajeErrorDui");
+        var mensajeErrorNit = document.getElementById("MensajeErrorNit");
+        var mensajeErrorNup = document.getElementById("MensajeErrorNup");
         var fechaNacimiento = document.getElementById('fechaNacAp').value;
         var duiInput= document.getElementById('duiAp').value;
         duiInput=duiInput.replace("_", "");
@@ -298,6 +304,11 @@
         return resultado;
     }
     function mostrarOcultarSelect() {
+        var inputDocPersonal = document.getElementById('docPersonalAp');
+        var inputPasaporte = document.getElementById("pasaporteAp");
+        var inputDui = document.getElementById("duiAp");
+        var inputNit = document.getElementById("nitAp");
+        var inputNup = document.getElementById("nupAp");
         var selectPais = document.getElementById("idPais");
         var docPersonal= document.getElementById("group-docPersonalAp");
         var pasaporte = document.getElementById("group-pasaporteAp");
@@ -305,7 +316,18 @@
         var nit = document.getElementById("group-nitAp");
         var nup = document.getElementById("group-nupAp");
 
-        if (selectPais.options[selectPais.selectedIndex].text === "El Salvador") {
+        if (selectPais.options[selectPais.selectedIndex].text === "Seleccione una opción"){
+            docPersonal.classList.add("d-none");
+            pasaporte.classList.add("d-none");
+            dui.classList.add("d-none");
+            nit.classList.add("d-none");
+            nup.classList.add("d-none");
+            inputDocPersonal.value="";
+            inputPasaporte.value="";
+            inputDui.value="";
+            inputNit.value="";
+            inputNup.value="";
+        }else if (selectPais.options[selectPais.selectedIndex].text === "El Salvador") {
             docPersonal.classList.add("d-none");
             pasaporte.classList.add("d-none");
             dui.classList.remove("d-none");

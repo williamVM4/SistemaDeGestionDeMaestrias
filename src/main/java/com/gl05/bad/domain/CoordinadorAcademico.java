@@ -5,7 +5,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
 
 @Data
 @Entity
@@ -93,7 +95,8 @@ public class CoordinadorAcademico implements Serializable{
   @Column(name="IDUSUARIO", nullable=true)
     private Integer idusuario;
   
-  /*@JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO", nullable=true)
+  /*@JsonIgnore
+  @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO", nullable=true)
   @ManyToOne(optional = false)
     private ListadoCorreo idListCorreo;
 
@@ -109,10 +112,12 @@ public class CoordinadorAcademico implements Serializable{
   @ManyToOne
     private ListadoTitulosAcademicos idListTa;
 
+  @JsonIgnore
   @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS", nullable=true)
   @ManyToOne(optional = false)
     private Pais idPais;
-
+  
+  @JsonIgnore
   @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO", nullable=true)
   @ManyToOne
     private Usuario idusuario;*/
@@ -210,7 +215,8 @@ public class CoordinadorAcademico implements Serializable{
   public void setNacionalidadCa(String nacionalidadCa) {
     this.nacionalidadCa = nacionalidadCa;
   }
-
+  
+  @JsonIgnore
   public Blob getFotografiaCa() {
     return fotografiaCa;
   }

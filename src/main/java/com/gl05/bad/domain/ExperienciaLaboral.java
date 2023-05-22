@@ -9,19 +9,21 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
 @Table(name = "EXPERIENCIA_LABORAL")
 @NamedQueries({
@@ -36,99 +38,26 @@ public class ExperienciaLaboral implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @Column(name = "ID_EL")
+    @SequenceGenerator(name = "S_EXPERIENCIA_LABORAL", sequenceName = "S_EXPERIENCIA_LABORAL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_EXPERIENCIA_LABORAL")
     private Long idEl;
-    @Basic(optional = false)
-    @Column(name = "NOMBRE_INSTITUCION")
+    @Column(name = "NOMBRE_INSTITUCION", nullable=true)
     private String nombreInstitucion;
-    @Basic(optional = false)
+    @Column(name = "CARGO", nullable=true)
     private String cargo;
-    @Basic(optional = false)
+    @Column(name = "FUNCIONES", nullable=true)
     private String funciones;
-    @Basic(optional = false)
-    @Column(name = "PERIODO_INICIO")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "PERIODO_INICIO", nullable=true)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yy")
     private Date periodoInicio;
-    @Basic(optional = false)
-    @Column(name = "PERIODO_FIN")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "PERIODO_FIN", nullable=true)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yy")
     private Date periodoFin;
-    @JoinColumn(name = "ID_LIST_EL", referencedColumnName = "ID_LIST_EL")
-    @ManyToOne(optional = false)
-    private ListadoExperienciaLaboral idListEl;
-
-    public ExperienciaLaboral() {
-    }
-
-    public ExperienciaLaboral(Long idEl) {
-        this.idEl = idEl;
-    }
-
-    public ExperienciaLaboral(Long idEl, String nombreInstitucion, String cargo, String funciones, Date periodoInicio, Date periodoFin) {
-        this.idEl = idEl;
-        this.nombreInstitucion = nombreInstitucion;
-        this.cargo = cargo;
-        this.funciones = funciones;
-        this.periodoInicio = periodoInicio;
-        this.periodoFin = periodoFin;
-    }
-
-    public Long getIdEl() {
-        return idEl;
-    }
-
-    public void setIdEl(Long idEl) {
-        this.idEl = idEl;
-    }
-
-    public String getNombreInstitucion() {
-        return nombreInstitucion;
-    }
-
-    public void setNombreInstitucion(String nombreInstitucion) {
-        this.nombreInstitucion = nombreInstitucion;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getFunciones() {
-        return funciones;
-    }
-
-    public void setFunciones(String funciones) {
-        this.funciones = funciones;
-    }
-
-    public Date getPeriodoInicio() {
-        return periodoInicio;
-    }
-
-    public void setPeriodoInicio(Date periodoInicio) {
-        this.periodoInicio = periodoInicio;
-    }
-
-    public Date getPeriodoFin() {
-        return periodoFin;
-    }
-
-    public void setPeriodoFin(Date periodoFin) {
-        this.periodoFin = periodoFin;
-    }
-
-    public ListadoExperienciaLaboral getIdListEl() {
-        return idListEl;
-    }
-
-    public void setIdListEl(ListadoExperienciaLaboral idListEl) {
-        this.idListEl = idListEl;
-    }
+    @Column(name = "ID_LIST_EL", nullable=true)
+    private Integer idListEl;
 
     @Override
     public int hashCode() {
