@@ -1,24 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
-/**
- *
- * @author william
- */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Facultad.findAll", query = "SELECT f FROM Facultad f"),
@@ -28,32 +14,34 @@ public class Facultad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_FACULTAD", sequenceName = "S_FACULTAD", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_FACULTAD")
     @Column(name = "ID_FACULTAD")
-    private Long idFacultad;
+    private Integer idFacultad;
     @Basic(optional = false)
     @Column(name = "NOMBRE_FACULTAD")
     private String nombreFacultad;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFacultad")
     private Collection<EscuelaPostgrado> escuelaPostgradoCollection;
 
     public Facultad() {
     }
 
-    public Facultad(Long idFacultad) {
+    public Facultad(Integer idFacultad) {
         this.idFacultad = idFacultad;
     }
 
-    public Facultad(Long idFacultad, String nombreFacultad) {
+    public Facultad(Integer idFacultad, String nombreFacultad) {
         this.idFacultad = idFacultad;
         this.nombreFacultad = nombreFacultad;
     }
 
-    public Long getIdFacultad() {
+    public Integer getIdFacultad() {
         return idFacultad;
     }
 
-    public void setIdFacultad(Long idFacultad) {
+    public void setIdFacultad(Integer idFacultad) {
         this.idFacultad = idFacultad;
     }
 
@@ -72,7 +60,7 @@ public class Facultad implements Serializable {
     public void setEscuelaPostgradoCollection(Collection<EscuelaPostgrado> escuelaPostgradoCollection) {
         this.escuelaPostgradoCollection = escuelaPostgradoCollection;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -92,10 +80,10 @@ public class Facultad implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        return "com.gl05.bad.domain.Facultad[ idFacultad=" + idFacultad + " ]";
+        return "Facultad[ idFacultad=" + idFacultad + " ]";
     }
     
 }

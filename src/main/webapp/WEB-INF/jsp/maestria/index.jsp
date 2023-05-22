@@ -12,22 +12,22 @@
         <div class="row">
             <div class="col-md-12 pt-4">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
+                    <table id="maestriasTable" class="table table-bordered table-striped small">
+                        <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Escuela de Posgrado</th>
-                                <th>Facultad</th>
-                                <th>Opciones</th>
+                                <!-- Otros campos de la maestría -->
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>John Doe</td>
-                                <td>Escuela A</td>
-                                <td>Facultad 1</td>
-                                <td>Botones</td>
-                            </tr>
+                            <c:forEach items="${maestrias}" var="maestria">
+                                <tr>
+                                    <td>${maestria.idMaestria}</td>
+                                    <td>${maestria.nombreMaestria}</td>
+                                    <!-- Otros campos de la maestría -->
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
