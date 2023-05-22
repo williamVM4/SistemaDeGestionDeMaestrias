@@ -1,14 +1,34 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
 <div align="center">
     <div class="titulo-Perfil"><h3>Perfil del Coordinador Académico</h3></div>
     <div id="container-datos">
+        <c:if test="${not empty mensaje}">
+            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Éxito! </strong>${mensaje}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-exclamation-triangle"></i> Error! </strong>${error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
         <div class="row">
             <div class="col-sm-2 ">
                 <div class="row">
-                    <div class="col-sm-12" style="text-align: center;">
-                        <img style="width:128px;cursor:pointer;" src="/images/foto.jpg" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')">
-                    </div>
+                    <c:if test="${empty imagenBase64}">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <i style="font-size: 8rem;" class="bi bi-person-add" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')"></i>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty imagenBase64}">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <img style="width:128px;cursor:pointer;" src="data:image;base64,${imagenBase64}" id="tab_fotografia" title="Click para subir foto" onclick="setActiveButton('tab_fotografia')">
+                        </div>
+                    </c:if>
                 </div>
                 <br>
                 <div class="row">
@@ -28,12 +48,6 @@
                             </button>
                             <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_correos" data-url="#" title="Correos" type="button" onclick="setActiveButton('tab_correos')">
                                 Correos
-                            </button>
-                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_redes_sociales" data-url="#" title="Correos" type="button" onclick="setActiveButton('tab_redes_sociales')">
-                                Redes Sociales
-                            </button>
-                            <button class="tab-perfil list-group-item list-group-item-info btn-info" id="tab_experiencia_laboral" data-url="#" title="Correos" type="button" onclick="setActiveButton('tab_experiencia_laboral')">
-                                Experiencia Laboral
                             </button>
                         </div>
                   </div>
@@ -59,12 +73,6 @@
                         </div>
                         <div id="content_tab_correos" class="row d-none content_tab tab_correos">
                             <jsp:include page="informacionGeneral/coordinadorAcademicoCorreos.jsp" />
-                        </div>
-                        <div id="content_tab_redes_sociales" class="row d-none content_tab tab_redes_sociales">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoRedes.jsp" />
-                        </div>
-                        <div id="content_tab_experiencia_laboral" class="row d-none content_tab tab_experiencia_laboral">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoExperiencia.jsp" />
                         </div>
                     </div>
                 </div>

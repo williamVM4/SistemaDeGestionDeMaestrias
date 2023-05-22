@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -19,14 +21,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
 @Table(name = "ASPIRANTE_PROFESOR")
 @NamedQueries({
@@ -49,35 +51,28 @@ public class AspiranteProfesor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @Column(name = "ID_ASPIRANTE_PROFESOR")
+    @SequenceGenerator(name = "S_ASPIRANTE_PROFESOR", sequenceName = "S_ASPIRANTE_PROFESOR", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ASPIRANTE_PROFESOR")
     private Long idAspiranteProfesor;
-    @Basic(optional = false)
     @Column(name = "COD_AP", nullable=true)
     private String codAp;
-    @Basic(optional = false)
     @Column(name = "NOMBRES_AP", nullable=true)
     private String nombresAp;
-    @Basic(optional = false)
     @Column(name = "APELLIDOS_AP", nullable=true)
     private String apellidosAp;
-    @Basic(optional = false)
     @Column(name = "SEXO_AP", nullable=true)
     private String sexoAp;
-    @Basic(optional = false)
     @Column(name = "GENERO_AP", nullable=true)
     private String generoAp;
-    @Basic(optional = false)
     @Column(name = "FECHA_NAC_AP", nullable=true)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yy")
     private Date fechaNacAp;
-    @Basic(optional = false)
     @Column(name = "ESTADO_CIVIL_AP", nullable=true)
     private String estadoCivilAp;
-    @Basic(optional = false)
     @Column(name = "NACIONALIDAD_AP", nullable=true)
     private String nacionalidadAp;
-    @Basic(optional = false)
     @Lob
     @Column(name = "FOTOGRAFIA_AP", nullable=true)
     private Blob fotografiaAp;
@@ -91,28 +86,46 @@ public class AspiranteProfesor implements Serializable {
     private String pasaporteAp;
     @Column(name = "DOC_PERSONAL_AP", nullable=true)
     private String docPersonalAp;
-    @JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO")
+    
+    @Column(name = "ID_LIST_CORREO", nullable=true)
+    private Integer idListCorreo;
+    @Column(name = "ID_LIST_DP", nullable=true)
+    private Integer idListDp;
+    @Column(name = "ID_LIST_EL", nullable=true)
+    private Integer idListEl;
+    @Column(name = "ID_LIST_RS", nullable=true)
+    private Integer idListRs;
+    @Column(name = "ID_LIST_TELEFONO", nullable=true)
+    private Integer idListTelefono;
+    @Column(name = "ID_LIST_TA", nullable=true)
+    private Integer idListTa;
+    @Column(name = "ID_PAIS", nullable=true)
+    private Integer idPais;
+    @Column(name = "IDUSUARIO", nullable=true)
+    private Integer idusuario;
+    
+    /*@JoinColumn(name = "ID_LIST_CORREO", referencedColumnName = "ID_LIST_CORREO", nullable=true)
     @ManyToOne
     private ListadoCorreo idListCorreo;
-    @JoinColumn(name = "ID_LIST_DP", referencedColumnName = "ID_LIST_DP")
+    @JoinColumn(name = "ID_LIST_DP", referencedColumnName = "ID_LIST_DP", nullable=true)
     @ManyToOne
     private ListadoDocumentacionPersonal idListDp;
-    @JoinColumn(name = "ID_LIST_EL", referencedColumnName = "ID_LIST_EL")
+    @JoinColumn(name = "ID_LIST_EL", referencedColumnName = "ID_LIST_EL", nullable=true)
     @ManyToOne
     private ListadoExperienciaLaboral idListEl;
-    @JoinColumn(name = "ID_LIST_RS", referencedColumnName = "ID_LIST_RS")
+    @JoinColumn(name = "ID_LIST_RS", referencedColumnName = "ID_LIST_RS", nullable=true)
     @ManyToOne
     private ListadoRedSocial idListRs;
-    @JoinColumn(name = "ID_LIST_TELEFONO", referencedColumnName = "ID_LIST_TELEFONO")
+    @JoinColumn(name = "ID_LIST_TELEFONO", referencedColumnName = "ID_LIST_TELEFONO", nullable=true)
     @ManyToOne
     private ListadoTelefono idListTelefono;
-    @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA")
+    @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA", nullable=true)
     @ManyToOne
     private ListadoTitulosAcademicos idListTa;
-    @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
+    @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS", nullable=true)
     @ManyToOne(optional = false)
     private Pais idPais;
-    @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO")
+    @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO", nullable=true)
     @ManyToOne
     private Usuario idusuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAspiranteProfesor")
@@ -139,7 +152,7 @@ public class AspiranteProfesor implements Serializable {
         this.nacionalidadAp = nacionalidadAp;
         this.fotografiaAp = fotografiaAp;
     }
-
+    /*
     public Long getIdAspiranteProfesor() {
         return idAspiranteProfesor;
     }
@@ -187,7 +200,7 @@ public class AspiranteProfesor implements Serializable {
     public void setGeneroAp(String generoAp) {
         this.generoAp = generoAp;
     }
-
+    */
     public Date getFechaNacAp() {
         return fechaNacAp;
     }
@@ -195,7 +208,7 @@ public class AspiranteProfesor implements Serializable {
     public void setFechaNacAp(Date fechaNacAp) {
         this.fechaNacAp = fechaNacAp;
     }
-
+    /*
     public String getEstadoCivilAp() {
         return estadoCivilAp;
     }
@@ -307,7 +320,7 @@ public class AspiranteProfesor implements Serializable {
     public void setIdListTa(ListadoTitulosAcademicos idListTa) {
         this.idListTa = idListTa;
     }
-
+    
     public Pais getIdPais() {
         return idPais;
     }
@@ -315,7 +328,7 @@ public class AspiranteProfesor implements Serializable {
     public void setIdPais(Pais idPais) {
         this.idPais = idPais;
     }
-
+    
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -323,7 +336,7 @@ public class AspiranteProfesor implements Serializable {
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
-
+    
     public Collection<ProfesorCohorte> getProfesorCohorteCollection() {
         return profesorCohorteCollection;
     }
@@ -338,7 +351,7 @@ public class AspiranteProfesor implements Serializable {
 
     public void setPostulacionCohorteCollection(Collection<PostulacionCohorte> postulacionCohorteCollection) {
         this.postulacionCohorteCollection = postulacionCohorteCollection;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -363,6 +376,5 @@ public class AspiranteProfesor implements Serializable {
     @Override
     public String toString() {
         return "com.gl05.bad.domain.AspiranteProfesor[ idAspiranteProfesor=" + idAspiranteProfesor + " ]";
-    }
-    
+    }    
 }

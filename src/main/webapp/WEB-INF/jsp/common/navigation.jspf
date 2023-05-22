@@ -20,7 +20,7 @@
                 <a href="#Perfiles" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfiles</a>
                 <ul class="collapse list-unstyled" id="Perfiles">
                     <li>
-                        <a href="/viewCoordinadoresAcademicos">Gestionar Coordinadores</a>
+                        <a href="/gestionarCoordinadorAcademico">Gestionar Coordinadores</a>
                     </li>
                     <li>
                         <a href="/CoordinadorAcademico">Coordinadores</a>
@@ -40,10 +40,7 @@
                         <a href="#">Usuarios</a>
                     </li>
                     <li>
-                        <a href="#">Roles</a>
-                    </li>
-                    <li>
-                        <a href="#">Privilegios</a>
+                        <a href="/viewRoles">Roles</a>
                     </li>
                     <li>
                         <a href="#">Facultades</a>
@@ -90,7 +87,7 @@
                         <div class="nav-link">
                             <form method="POST" action="/logout">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <a onclick="" href="#"><i class="fa bi-power"></i>  Salir</i>
+                            <a onclick="this.parentNode.submit()" href="#"><i class="fa bi-power"></i>  Salir</i></a>
                         </form>
                         </div>
                     </li>

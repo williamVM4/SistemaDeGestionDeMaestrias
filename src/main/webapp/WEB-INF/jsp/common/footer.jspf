@@ -6,7 +6,7 @@
     <script>
         //Script para ocultar el navbar
         document.getElementById('sidebarCollapse').addEventListener('click', function() {
-          document.getElementById('sidebar').classList.toggle('d-none');
+            document.getElementById('sidebar').classList.toggle('d-none');
         });
     </script>
     <script type="text/javascript">

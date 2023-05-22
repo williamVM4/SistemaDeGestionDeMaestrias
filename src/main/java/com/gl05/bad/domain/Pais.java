@@ -38,8 +38,8 @@ public class Pais implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE_PAIS")
     private String nombrePais;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
-    private Collection<AspiranteProfesor> aspiranteProfesorCollection;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
+    //private Collection<AspiranteProfesor> aspiranteProfesorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
     private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPais")
@@ -82,13 +82,13 @@ public class Pais implements Serializable {
         this.nombrePais = nombrePais;
     }
 
-    public Collection<AspiranteProfesor> getAspiranteProfesorCollection() {
+   /* public Collection<AspiranteProfesor> getAspiranteProfesorCollection() {
         return aspiranteProfesorCollection;
     }
 
     public void setAspiranteProfesorCollection(Collection<AspiranteProfesor> aspiranteProfesorCollection) {
         this.aspiranteProfesorCollection = aspiranteProfesorCollection;
-    }
+    }*/
 
     public Collection<CoordinadorAcademico> getCoordinadorAcademicoCollection() {
         return coordinadorAcademicoCollection;
