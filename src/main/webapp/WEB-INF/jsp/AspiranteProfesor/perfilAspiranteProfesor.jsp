@@ -55,28 +55,28 @@
                 <div class="col-sm-12">
                     <div id="contenido-perfil" class="contenido">
                         <div id="content_tab_fotografia" class="row d-none content_tab tab_fotografia">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorFotografia.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorFotografia.jspf"%>
                         </div>
                         <div id="content_tab_generales" class="row content_tab tab_generales">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorGenerales.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorGenerales.jspf"%>
                         </div>
                         <div id="content_tab_documentos_personales" class="row d-none content_tab tab_documentos_personales">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorDocumentos.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorDocumentos.jspf"%>
                         </div>
                         <div id="content_tab_titulos_academicos" class="row d-none content_tab tab_titulos_academicos">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorTitulos.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorTitulos.jspf"%>
                         </div>
                         <div id="content_tab_telefonos" class="row d-none content_tab tab_telefonos">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorTelefonos.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorTelefonos.jspf"%>
                         </div>
                         <div id="content_tab_correos" class="row d-none content_tab tab_correos">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorCorreos.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorCorreos.jspf"%>
                         </div>
                         <div id="content_tab_redes_sociales" class="row d-none content_tab tab_redes_sociales">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorRedes.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorRedes.jspf"%>
                         </div>
                         <div id="content_tab_experiencia_laboral" class="row d-none content_tab tab_experiencia_laboral">
-                            <jsp:include page="informacionGeneral/aspiranteProfesorExperiencia.jsp" />
+                            <%@ include file="informacionGeneral/aspiranteProfesorExperiencia.jspf"%>
                         </div>
                     </div>
                 </div>
@@ -85,6 +85,8 @@
     </div>
 </div>
 <%@ include file="../common/footer.jspf"%>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script>
     // Función que se ejecuta cuando se hace clic en un botón
     function setActiveButton(buttonId) {

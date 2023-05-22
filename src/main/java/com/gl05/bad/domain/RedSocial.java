@@ -8,17 +8,18 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import lombok.Data;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
 @Table(name = "RED_SOCIAL")
 @NamedQueries({
@@ -30,62 +31,16 @@ public class RedSocial implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @Column(name = "ID_RS")
+    @SequenceGenerator(name = "S_RED_SOCIAL", sequenceName = "S_RED_SOCIAL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_RED_SOCIAL")
     private Long idRs;
-    @Basic(optional = false)
-    @Column(name = "NOMBRE_RS")
+    @Column(name = "NOMBRE_RS", nullable=true)
     private String nombreRs;
-    @Basic(optional = false)
+    @Column(name = "LINK", nullable=true)
     private String link;
-    @JoinColumn(name = "ID_LIST_RS", referencedColumnName = "ID_LIST_RS")
-    @ManyToOne(optional = false)
-    private ListadoRedSocial idListRs;
-
-    public RedSocial() {
-    }
-
-    public RedSocial(Long idRs) {
-        this.idRs = idRs;
-    }
-
-    public RedSocial(Long idRs, String nombreRs, String link) {
-        this.idRs = idRs;
-        this.nombreRs = nombreRs;
-        this.link = link;
-    }
-
-    public Long getIdRs() {
-        return idRs;
-    }
-
-    public void setIdRs(Long idRs) {
-        this.idRs = idRs;
-    }
-
-    public String getNombreRs() {
-        return nombreRs;
-    }
-
-    public void setNombreRs(String nombreRs) {
-        this.nombreRs = nombreRs;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public ListadoRedSocial getIdListRs() {
-        return idListRs;
-    }
-
-    public void setIdListRs(ListadoRedSocial idListRs) {
-        this.idListRs = idListRs;
-    }
+    @Column(name = "ID_LIST_RS", nullable=true)
+    private Integer idListRs;
 
     @Override
     public int hashCode() {

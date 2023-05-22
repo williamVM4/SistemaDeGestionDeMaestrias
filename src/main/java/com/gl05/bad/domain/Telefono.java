@@ -8,16 +8,17 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import lombok.Data;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Telefono.findAll", query = "SELECT t FROM Telefono t"),
@@ -28,62 +29,16 @@ public class Telefono implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @Column(name = "ID_TELEFONO")
+    @SequenceGenerator(name = "S_TELEFONO", sequenceName = "S_TELEFONO", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_TELEFONO")
     private Long idTelefono;
-    @Basic(optional = false)
-    @Column(name = "TIPO_TELEFONO")
+    @Column(name = "TIPO_TELEFONO", nullable=true)
     private String tipoTelefono;
-    @Basic(optional = false)
+    @Column(name = "NUMERO", nullable=true)
     private String numero;
-    @JoinColumn(name = "ID_LIST_TELEFONO", referencedColumnName = "ID_LIST_TELEFONO")
-    @ManyToOne(optional = false)
-    private ListadoTelefono idListTelefono;
-
-    public Telefono() {
-    }
-
-    public Telefono(Long idTelefono) {
-        this.idTelefono = idTelefono;
-    }
-
-    public Telefono(Long idTelefono, String tipoTelefono, String numero) {
-        this.idTelefono = idTelefono;
-        this.tipoTelefono = tipoTelefono;
-        this.numero = numero;
-    }
-
-    public Long getIdTelefono() {
-        return idTelefono;
-    }
-
-    public void setIdTelefono(Long idTelefono) {
-        this.idTelefono = idTelefono;
-    }
-
-    public String getTipoTelefono() {
-        return tipoTelefono;
-    }
-
-    public void setTipoTelefono(String tipoTelefono) {
-        this.tipoTelefono = tipoTelefono;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public ListadoTelefono getIdListTelefono() {
-        return idListTelefono;
-    }
-
-    public void setIdListTelefono(ListadoTelefono idListTelefono) {
-        this.idListTelefono = idListTelefono;
-    }
+    @Column(name = "ID_LIST_TELEFONO", nullable=true)
+    private Integer idListTelefono;
 
     @Override
     public int hashCode() {

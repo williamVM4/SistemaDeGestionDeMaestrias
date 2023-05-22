@@ -1,5 +1,5 @@
-<div id="perfil-correo-electronico">
-    <div class="subtitulo-Perfil"><h3>Correos Eléctronicos
+<div id="perfil-documento-personal">
+    <div class="subtitulo-Perfil"><h3>Documentos Personales
             <span title="Editar datos" onclick="" class="text-info puntero pull-right">
                 <i class="fa bi-pencil-square"></i>
             </span>
@@ -22,4 +22,4 @@
             </tr>
         </tbody>
     </table>
-</div>                   
+</div>  
