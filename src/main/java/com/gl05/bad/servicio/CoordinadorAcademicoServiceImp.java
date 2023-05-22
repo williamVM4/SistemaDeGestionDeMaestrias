@@ -2,6 +2,8 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.CoordinadorAcademicoDao;
 import com.gl05.bad.domain.CoordinadorAcademico;
+import java.lang.reflect.Field;
+import java.sql.Blob;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,16 +41,18 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
     coordinadorDao.sp_insert_coordinador(cod, nombre, apellido);
   }
   
-      
-  /*  public void actualizarFoto(CoordinadorAcademico c){
-      String sql = "UPDATE COORDINADOR_ACADEMICO SET FOTOGRAFIA_CA = (?) WHERE ID_COOR_ACA = (?)";
-    }*/
-
   @Override
-  public void actualizarFoto(CoordinadorAcademico coordinador) {
-    CoordinadorAcademico coordinadorExistente = coordinadorDao.findById(coordinador.getIdCoorAca()).orElse(null);
-    coordinadorExistente.setFotografiaCa(coordinador.getFotografiaCa());
-    coordinadorDao.save(coordinadorExistente);
-    
+  @Transactional
+  public void actualizarCampo(CoordinadorAcademico coordinador, String nombreCampo, Blob valorCampo) {
+      CoordinadorAcademico coordinadorExistente = coordinadorDao.findById(coordinador.getIdCoorAca()).orElse(null);
+
+      switch (nombreCampo) {
+          case "fotografiaCa":
+              coordinadorExistente.setFotografiaCa(valorCampo);
+              break;
+      }
+
+      coordinadorDao.save(coordinadorExistente);
   }
+
 }

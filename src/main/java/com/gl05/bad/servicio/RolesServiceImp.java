@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RolesServiceImp implements RolesService{
+public class RolesServiceImp implements RolesService {
 
-     @Autowired
-     private RolesDao rolDao;
-    
+    @Autowired
+    private RolesDao rolDao;
+
     @Override
     public List<Roles> listaRoles() {
         return (List<Roles>) rolDao.findAll();
@@ -19,7 +19,7 @@ public class RolesServiceImp implements RolesService{
 
     @Override
     public void AgregarRol(Roles rol) {
-       rolDao.save(rol);
+        rolDao.save(rol);
     }
 
     @Override

@@ -1,24 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "LISTADO_PERFIL_COORDINADORAC")
 @NamedQueries({
@@ -28,26 +14,29 @@ public class ListadoPerfilCoordinadorac implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_LISTADO_PERFIL_COORDINADORAC", sequenceName = "S_LISTADO_PERFIL_COORDINADORAC", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_LISTADO_PERFIL_COORDINADORAC")
     @Column(name = "ID_LPC")
-    private Long idLpc;
+    private Integer idLpc;
+    @JsonIgnore
     @OneToMany(mappedBy = "idLpc")
     private Collection<PerfilCoordinadorac> perfilCoordinadoracCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "idLpc")
     private Collection<Maestria> maestriaCollection;
 
     public ListadoPerfilCoordinadorac() {
     }
 
-    public ListadoPerfilCoordinadorac(Long idLpc) {
+    public ListadoPerfilCoordinadorac(Integer idLpc) {
         this.idLpc = idLpc;
     }
 
-    public Long getIdLpc() {
+    public Integer getIdLpc() {
         return idLpc;
     }
 
-    public void setIdLpc(Long idLpc) {
+    public void setIdLpc(Integer idLpc) {
         this.idLpc = idLpc;
     }
 
@@ -66,7 +55,7 @@ public class ListadoPerfilCoordinadorac implements Serializable {
     public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
         this.maestriaCollection = maestriaCollection;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -86,10 +75,10 @@ public class ListadoPerfilCoordinadorac implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        return "com.gl05.bad.domain.ListadoPerfilCoordinadorac[ idLpc=" + idLpc + " ]";
+        return "ListadoPerfilCoordinadorac[ idLpc=" + idLpc + " ]";
     }
     
 }

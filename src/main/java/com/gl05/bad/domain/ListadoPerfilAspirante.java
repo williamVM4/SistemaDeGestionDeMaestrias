@@ -1,24 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "LISTADO_PERFIL_ASPIRANTE")
 @NamedQueries({
@@ -28,26 +14,29 @@ public class ListadoPerfilAspirante implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_LISTADO_PERFIL_ASPIRANTE", sequenceName = "S_LISTADO_PERFIL_ASPIRANTE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_LISTADO_PERFIL_ASPIRANTE")
     @Column(name = "ID_LPA")
-    private Long idLpa;
+    private Integer idLpa;
+    @JsonIgnore
     @OneToMany(mappedBy = "idLpa")
     private Collection<PerfilAspirante> perfilAspiranteCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "idLpa")
     private Collection<Maestria> maestriaCollection;
 
     public ListadoPerfilAspirante() {
     }
 
-    public ListadoPerfilAspirante(Long idLpa) {
+    public ListadoPerfilAspirante(Integer idLpa) {
         this.idLpa = idLpa;
     }
 
-    public Long getIdLpa() {
+    public Integer getIdLpa() {
         return idLpa;
     }
 
-    public void setIdLpa(Long idLpa) {
+    public void setIdLpa(Integer idLpa) {
         this.idLpa = idLpa;
     }
 
@@ -66,7 +55,7 @@ public class ListadoPerfilAspirante implements Serializable {
     public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
         this.maestriaCollection = maestriaCollection;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -89,7 +78,7 @@ public class ListadoPerfilAspirante implements Serializable {
 
     @Override
     public String toString() {
-        return "com.gl05.bad.domain.ListadoPerfilAspirante[ idLpa=" + idLpa + " ]";
+        return "ListadoPerfilAspirante[ idLpa=" + idLpa + " ]";
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -31,8 +32,10 @@ public class ListadoCohorte implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_LIST_COHORTE")
     private Long idListCohorte;
+    @JsonIgnore
     @OneToMany(mappedBy = "idListCohorte")
     private Collection<Cohorte> cohorteCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "idListCohorte")
     private Collection<Maestria> maestriaCollection;
 

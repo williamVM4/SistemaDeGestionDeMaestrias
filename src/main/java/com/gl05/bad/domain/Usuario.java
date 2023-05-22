@@ -41,7 +41,7 @@ public class Usuario implements Serializable{
             joinColumns = @JoinColumn(name="IDUSUARIO"),
             inverseJoinColumns = @JoinColumn(name="IDROL")
     )
-    private Collection<Roles> roles;
+    private Set<Roles> roles = new HashSet<>();
     
     @OneToMany(mappedBy = "idusuario")
     private Collection<AspiranteProfesor> aspiranteProfesorCollection;
@@ -49,8 +49,29 @@ public class Usuario implements Serializable{
     private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
     @OneToMany(mappedBy = "idusuario")
     private Collection<Bitacora> bitacoraCollection;
- 
-    
+
+    public Usuario(Long idUsuario, String username, String email, String password, boolean enabled, int numerointentos, int usuarioBloqueado) {
+        this.idUsuario = idUsuario;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.numerointentos = numerointentos;
+        this.usuarioBloqueado = usuarioBloqueado;
+    }
+
+    public Usuario(String username, String email, String password, boolean enabled, int numerointentos, int usuarioBloqueado) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.numerointentos = numerointentos;
+        this.usuarioBloqueado = usuarioBloqueado;
+    }
+
+    public Usuario() {
+    }
+
     public Long getIdUsuario() {
         return idUsuario;
     }
@@ -91,11 +112,11 @@ public class Usuario implements Serializable{
         this.enabled = enabled;
     }
 
-    public Collection<Roles> getRoles() {
+    public Set<Roles> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Roles> roles) {
+    public void setRoles(Set<Roles> roles) {
         this.roles = roles;
     }
 
@@ -139,5 +160,9 @@ public class Usuario implements Serializable{
         this.bitacoraCollection = bitacoraCollection;
     }
 
+    //Añade roles al usuario
+    public void añadirRol(Roles rol){
+        this.roles.add(rol);
+    }
     
 }
