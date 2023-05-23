@@ -18,7 +18,7 @@ public class EscuelaPostgrado implements Serializable {
     @SequenceGenerator(name = "S_ESCUELA_POSTGRADO", sequenceName = "S_ESCUELA_POSTGRADO", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ESCUELA_POSTGRADO")
     @Column(name = "ID_POSTGRADO")
-    private Integer idPostgrado;
+    private Long idPostgrado;
     @Basic(optional = false)
     @Column(name = "NOMBRE_POSTGRADO")
     private String nombrePostgrado;
@@ -32,20 +32,20 @@ public class EscuelaPostgrado implements Serializable {
     public EscuelaPostgrado() {
     }
 
-    public EscuelaPostgrado(Integer idPostgrado) {
+    public EscuelaPostgrado(Long idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 
-    public EscuelaPostgrado(Integer idPostgrado, String nombrePostgrado) {
+    public EscuelaPostgrado(Long idPostgrado, String nombrePostgrado) {
         this.idPostgrado = idPostgrado;
         this.nombrePostgrado = nombrePostgrado;
     }
 
-    public Integer getIdPostgrado() {
+    public Long getIdPostgrado() {
         return idPostgrado;
     }
 
-    public void setIdPostgrado(Integer idPostgrado) {
+    public void setIdPostgrado(Long idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 

@@ -11,4 +11,11 @@ public interface DocumentoService {
   public Documento encontrarDoc(Documento doc);
   
   public void agregarDocumento(Documento doc);
+  
+  public void eliminarDocumento(Documento doc);
+  
+  public List<Documento> listarDocumentoPorListado(ListadoDocumentacionPersonal ldp);
+  
+  public List<Documento> listarTipoFile(List<Documento> listDoc);
+
 }
