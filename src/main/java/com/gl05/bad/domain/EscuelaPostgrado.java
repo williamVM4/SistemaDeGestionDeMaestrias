@@ -18,34 +18,34 @@ public class EscuelaPostgrado implements Serializable {
     @SequenceGenerator(name = "S_ESCUELA_POSTGRADO", sequenceName = "S_ESCUELA_POSTGRADO", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ESCUELA_POSTGRADO")
     @Column(name = "ID_POSTGRADO")
-    private Integer idPostgrado;
+    private Long idPostgrado;
     @Basic(optional = false)
     @Column(name = "NOMBRE_POSTGRADO")
     private String nombrePostgrado;
     @JoinColumn(name = "ID_FACULTAD", referencedColumnName = "ID_FACULTAD")
     @ManyToOne(optional = false)
     private Facultad idFacultad;
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPostgrado")
     private Collection<Maestria> maestriaCollection;
 
     public EscuelaPostgrado() {
     }
 
-    public EscuelaPostgrado(Integer idPostgrado) {
+    public EscuelaPostgrado(Long idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 
-    public EscuelaPostgrado(Integer idPostgrado, String nombrePostgrado) {
+    public EscuelaPostgrado(Long idPostgrado, String nombrePostgrado) {
         this.idPostgrado = idPostgrado;
         this.nombrePostgrado = nombrePostgrado;
     }
 
-    public Integer getIdPostgrado() {
+    public Long getIdPostgrado() {
         return idPostgrado;
     }
 
-    public void setIdPostgrado(Integer idPostgrado) {
+    public void setIdPostgrado(Long idPostgrado) {
         this.idPostgrado = idPostgrado;
     }
 

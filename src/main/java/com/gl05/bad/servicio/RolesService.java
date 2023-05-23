@@ -9,7 +9,9 @@ public interface RolesService {
    
     public void AgregarRol(Roles rol);
     
-    public Roles encontrarRol(Roles rol);
+    public Roles encontrarRol(Long rol);
     
     public void eliminarRol(Roles rol);
+    
+    public void actualizarRol(Roles rol);
 }

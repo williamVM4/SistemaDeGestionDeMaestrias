@@ -43,10 +43,10 @@
                         <a href="/viewRoles">Roles</a>
                     </li>
                     <li>
-                        <a href="#">Facultades</a>
+                        <a href="/viewFacultad">Facultades</a>
                     </li>
                     <li>
-                        <a href="#">Escuelas de Posgrado</a>
+                        <a href="/viewEscuelaPosgrado">Escuelas de Posgrado</a>
                     </li>
                     <li>
                         <a href="/GestionarAreaConocimiento">Áreas del Conocimiento</a>

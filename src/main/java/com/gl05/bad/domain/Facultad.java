@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "FACULTAD")
 @NamedQueries({
     @NamedQuery(name = "Facultad.findAll", query = "SELECT f FROM Facultad f"),
     @NamedQuery(name = "Facultad.findByIdFacultad", query = "SELECT f FROM Facultad f WHERE f.idFacultad = :idFacultad"),
@@ -17,31 +18,30 @@ public class Facultad implements Serializable {
     @SequenceGenerator(name = "S_FACULTAD", sequenceName = "S_FACULTAD", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_FACULTAD")
     @Column(name = "ID_FACULTAD")
-    private Integer idFacultad;
-    @Basic(optional = false)
+    private Long idFacultad;
     @Column(name = "NOMBRE_FACULTAD")
     private String nombreFacultad;
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFacultad")
     private Collection<EscuelaPostgrado> escuelaPostgradoCollection;
 
     public Facultad() {
     }
 
-    public Facultad(Integer idFacultad) {
+    public Facultad(Long idFacultad) {
         this.idFacultad = idFacultad;
     }
 
-    public Facultad(Integer idFacultad, String nombreFacultad) {
+    public Facultad(Long idFacultad, String nombreFacultad) {
         this.idFacultad = idFacultad;
         this.nombreFacultad = nombreFacultad;
     }
 
-    public Integer getIdFacultad() {
+    public Long getIdFacultad() {
         return idFacultad;
     }
 
-    public void setIdFacultad(Integer idFacultad) {
+    public void setIdFacultad(Long idFacultad) {
         this.idFacultad = idFacultad;
     }
 

@@ -23,13 +23,25 @@ public class RolesServiceImp implements RolesService {
     }
 
     @Override
-    public Roles encontrarRol(Roles rol) {
-        return rolDao.findById(rol.getIdRol()).orElse(null);
+    public void eliminarRol(Roles rol) {
+        rolDao.delete(rol);
     }
 
     @Override
-    public void eliminarRol(Roles rol) {
-        rolDao.delete(rol);
+    public Roles encontrarRol(Long rol) {
+        return rolDao.findById(rol).orElse(null);
+    }
+
+    @Override
+    public void actualizarRol(Roles rol) {
+//        System.out.println(1);
+        // Verifica si el rol existe en la base de datos
+        if (rolDao.existsById(rol.getIdRol())) {
+            // Actualiza el rol en la base de datos
+            rolDao.save(rol);
+        } else {
+            throw new IllegalArgumentException("El rol no existe.");
+        }
     }
     
 }
