@@ -15,19 +15,12 @@
                     <table id="maestriasTable" class="table table-bordered table-striped small">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
-                                <!-- Otros campos de la maestría -->
+                                <th>Escuela de Posgrado</th>
+                                <th>Facultad</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${maestrias}" var="maestria">
-                                <tr>
-                                    <td>${maestria.idMaestria}</td>
-                                    <td>${maestria.nombreMaestria}</td>
-                                    <!-- Otros campos de la maestría -->
-                                </tr>
-                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
