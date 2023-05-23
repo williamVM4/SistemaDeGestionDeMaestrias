@@ -73,16 +73,6 @@ public class CoordinadorAcademicoController {
         ldp.setIdListDp(Long.valueOf(elemento.getIdListDp()));        
         var documentos = docService.listarDocumentoPorListado(ldp);
         
-        //Manejo de atestados academicos
-        List<String> tiposTitulos = listarTipoTitulos();
-        var atestados = atestadoService.listarAtestados();
-        List<AtestadoTa> atestadoCoordinador = new ArrayList();
-        for (var a : atestados) {
-            if(a.getIdListTa() == (int) elemento.getIdListTa()){
-                atestadoCoordinador.add(a);
-            }
-        }
-        
         Blob imagenBlob = elemento.getFotografiaCa();
         String imagenBase64 = null;
 
@@ -90,9 +80,21 @@ public class CoordinadorAcademicoController {
             try {
                 byte[] bytes = imagenBlob.getBytes(1, (int) imagenBlob.length());
                 String base64Encoded = Base64Utils.encodeToString(bytes);
+                bytes = null;
                 imagenBase64 = new String(base64Encoded.getBytes(StandardCharsets.UTF_8));
+                base64Encoded = "";
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+        
+        //Manejo de atestados academicos
+        List<String> tiposTitulos = listarTipoTitulos();
+        var atestados = atestadoService.listarAtestados();
+        List<AtestadoTa> atestadoCoordinador = new ArrayList();
+        for (var a : atestados) {
+            if(a.getIdListTa() == (int) elemento.getIdListTa()){
+                atestadoCoordinador.add(a);
             }
         }
         
@@ -521,7 +523,7 @@ public class CoordinadorAcademicoController {
     @PostMapping("/ActualizarCoordinadorAcademico/{idCoorAca}")
     public String actualizarCoordinadorAcademico (CoordinadorAcademico coordinadorAcademico, @PathVariable("idCoorAca") int idCoorAca, RedirectAttributes redirectAttributes) throws ParseException{
         
-        //try {
+        try {
             //Arreglando formato del DUI, NIT, NUP, DOC PERSONAL, PASAPORTE
             String dui=coordinadorAcademico.getDuiCa();
             dui=dui.replace("-","");
@@ -543,10 +545,10 @@ public class CoordinadorAcademicoController {
             int idPais = (int)(coordinadorAcademico.getIdPais());
             coordinadorAcademico.setIdPais(idPais);
             coordinadorService.actualizarCA(coordinadorAcademico);
-            //redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado la información general del coordinador académico.");
-        /*} catch(Exception e) {
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado la información general del coordinador académico.");
+        } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "No se actualizó la información general del coordinador académico.");
-        }*/
+        }
         String redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/perfilCoordinadorAcademico/{idCoorAca}").buildAndExpand(idCoorAca).toUriString();
         return "redirect:" + redirectUrl;  
     } 

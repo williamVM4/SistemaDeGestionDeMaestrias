@@ -70,7 +70,7 @@
                         </tr>
                         <tr>
                             <td>Documento Personal</td>
-                            <td><c:if test="${not empty coordinadorCA.docPersonalCa}">${aspiranteAP.docPersonalCa}</c:if></td>
+                            <td><c:if test="${not empty coordinadorCA.docPersonalCa}">${coordinadorCA.docPersonalCa}</c:if></td>
                         </tr>
                     </c:otherwise>
                 </c:choose>
