@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,21 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
         coordinadorExistente.setNupCa(coordinador.getNupCa());
         coordinadorExistente.setPasaporteCa(coordinador.getPasaporteCa());
         coordinadorExistente.setDocPersonalCa(coordinador.getDocPersonalCa());
+        
+        Blob fotoActual = coordinadorExistente.getFotografiaCa();
+        
+        if (coordinador.getFotografiaCa() == null && fotoActual != null) {
+          byte[] fotoBytes;
+          try {
+            fotoBytes = fotoActual.getBytes(1, (int) fotoActual.length());
+            coordinadorExistente.setFotografiaCa(new javax.sql.rowset.serial.SerialBlob(fotoBytes));
+          } catch (SQLException ex) {
+            Logger.getLogger(AtestadoTaServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        } else {
+          coordinadorExistente.setFotografiaCa(null);
+        }
+        
         coordinadorDao.save(coordinadorExistente);
     }
 
@@ -66,22 +83,12 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
     @Transactional
     public void actualizarCampo(CoordinadorAcademico coordinador, String nombreCampo, Blob valorCampo) {
         CoordinadorAcademico coordinadorExistente = coordinadorDao.findById(coordinador.getIdCoorAca()).orElse(null);
-
         switch (nombreCampo) {
             case "fotografiaCa":
                 coordinadorExistente.setFotografiaCa(valorCampo);
                 break;
         }
-
         coordinadorDao.save(coordinadorExistente);
-        
-        try {
-            // Cerrar el Blob después de su uso
-            valorCampo.free();
-        } catch (SQLException e) {
-            // Manejar la excepción si no se puede liberar el Blob
-            e.printStackTrace();
-        }
     }
 
 }

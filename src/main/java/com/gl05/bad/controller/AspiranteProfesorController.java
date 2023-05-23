@@ -11,19 +11,25 @@ import com.gl05.bad.servicio.CorreoService;
 import com.gl05.bad.servicio.ExperienciaLaboralService;
 import com.gl05.bad.servicio.RedSocialService;
 import com.gl05.bad.servicio.TelefonoService;
+import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -107,6 +113,26 @@ public class AspiranteProfesorController {
                 }
             }
         }
+        
+        //Manejo de imagenes
+        Blob imagenBlob = aspiranteNew.getFotografiaAp();
+        String imagenBase64 = null;
+
+        if (imagenBlob != null) {
+            try {
+                byte[] bytes = imagenBlob.getBytes(1, (int) imagenBlob.length());
+                String base64Encoded = Base64Utils.encodeToString(bytes);
+                bytes = null;
+                imagenBase64 = new String(base64Encoded.getBytes(StandardCharsets.UTF_8));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        //model.addAttribute("atestados", atestadoCoordinador);
+        //model.addAttribute("tiposTitulos", tiposTitulos);
+        model.addAttribute("imagenBase64", imagenBase64);
+        //model.addAttribute("documentos", documentos);
         model.addAttribute("aspiranteAP", aspiranteNew);
         model.addAttribute("paises", paises);
         model.addAttribute("sexos", sexos);
@@ -328,6 +354,32 @@ public class AspiranteProfesorController {
         }
         String redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/PerfilAspiranteProfesor/{idAspiranteProfesor}").buildAndExpand(idAspiranteProfesor).toUriString();
         return "redirect:" + redirectUrl;
+    }
+    
+    @PostMapping("/actualizarFotoAP/{idAspiranteProfesor}")
+    public String actualizarFoto(
+        @RequestParam Map<String, MultipartFile> campos,
+        @PathVariable("idAspiranteProfesor") Long idAspiranteProfesor,
+        RedirectAttributes redirectAttributes) {
+        AspiranteProfesor aspirante = new AspiranteProfesor();
+        try {
+            aspirante.setIdAspiranteProfesor(idAspiranteProfesor);
+            for (Map.Entry<String, MultipartFile> entry : campos.entrySet()) {
+                String nombreCampo = entry.getKey();
+                MultipartFile campo = entry.getValue();
+
+                byte[] fileBytes = campo.getBytes();
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+
+                aspiranteService.actualizarFoto(aspirante, nombreCampo, blob);
+            }
+
+            redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado los campos correctamente.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Sucedió un error al actualizar los campos.");
+        }
+
+        return "redirect:/PerfilAspiranteProfesor/" + aspirante.getIdAspiranteProfesor();  
     }
 
     public List<String> listarGeneros() {

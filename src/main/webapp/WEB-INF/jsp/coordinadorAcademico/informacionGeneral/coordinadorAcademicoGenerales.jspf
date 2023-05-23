@@ -162,7 +162,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="idPais" class="form-label">País:</label>
-                                <select class="form-select" id="idPais" name="idPais" onchange="mostrarOcultarSelect()" required>
+                                <select class="form-select" id="idPais" name="idPais" onchange="mostrarOcultarSelect()">
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${paises}" var="ePais">
                                         <option value="${ePais.idPais}" <c:if test="${coordinadorCA.idPais == ePais.idPais}">selected</c:if>>${ePais.nombrePais}</option>

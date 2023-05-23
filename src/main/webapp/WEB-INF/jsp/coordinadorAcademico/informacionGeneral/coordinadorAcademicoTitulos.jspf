@@ -20,7 +20,6 @@
                     <th scope="col">Nombre Título</th>
                     <th scope="col">Institución</th>
                     <th scope="col">Año titulación</th>
-                    <th scope="col">Documento</th>
                     <th scope="col" width="15%">Opciones</th>
                 </tr>
             </thead>
@@ -44,11 +43,9 @@
                                         <a type="button" class="btn btn-outline-secondary" href="/archivoCA/${atestado.idAtestadoTa}" target="_blank"><i class="bi bi-eye"></i></a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a>No se ha guardado el atestado.</a>
+                                        <a type="button" class="btn btn-outline-secondary"><i class="bi bi-eye-slash"></i></a>
                                     </c:otherwise>
                                 </c:choose>
-                            </td>
-                            <td>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modificarTitulo-${atestado.idAtestadoTa}"><i class="bi bi-pencil-square"></i></button>
                                 <div class="modal fade" id="modificarTitulo-${atestado.idAtestadoTa}" tabindex="-1" aria-labelledby="modificarTituloLabel-${atestado.idAtestadoTa}" aria-hidden="true">
                                     <div class="modal-dialog">

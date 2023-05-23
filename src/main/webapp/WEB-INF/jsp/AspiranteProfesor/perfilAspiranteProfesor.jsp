@@ -18,10 +18,18 @@
         <div class="row">
             <div class="col-sm-2 ">
                 <div class="row">
-                    <div class="col-sm-12" style="text-align: center;">
-                        <img style="width:128px;cursor:pointer;" src="/images/foto.jpg" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')">
-                    </div>
+                    <c:if test="${empty imagenBase64}">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <i style="font-size: 8rem;" class="bi bi-person-add" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')"></i>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty imagenBase64}">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <img style="width:128px;cursor:pointer;" src="data:image;base64,${imagenBase64}" id="tab_fotografia" title="Click para subir foto" onclick="setActiveButton('tab_fotografia')">
+                        </div>
+                    </c:if>
                 </div>
+                <br>
                 <br>
                 <div class="row">
                   <div class="col-sm-12 ">
