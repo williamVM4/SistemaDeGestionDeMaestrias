@@ -72,7 +72,17 @@ public class CoordinadorAcademicoController {
         ListadoDocumentacionPersonal ldp= new ListadoDocumentacionPersonal();
         ldp.setIdListDp(Long.valueOf(elemento.getIdListDp()));        
         var documentos = docService.listarDocumentoPorListado(ldp);
-        
+
+        //Manejo de atestados academicos
+        List<String> tiposTitulos = listarTipoTitulos();
+        var atestados = atestadoService.listarAtestados();
+        List<AtestadoTa> atestadoCoordinador = new ArrayList();
+        for (var a : atestados) {
+            if(a.getIdListTa() == (int) elemento.getIdListTa()){                
+                atestadoCoordinador.add(a);
+            }
+        }
+      
         Blob imagenBlob = elemento.getFotografiaCa();
         String imagenBase64 = null;
 
@@ -327,199 +337,79 @@ public class CoordinadorAcademicoController {
         }
         return "redirect:/perfilCoordinadorAcademico/" + idCoorAca;   
     }
-    
-    public List<String> listarTipoTitulos() {
-        List<String> tipoTitulos = Arrays.asList("Título Pregrado", "Maestría", "Postgrado", "Doctorado", "Especialidad", "Certificación", "Apostilla");
-        return tipoTitulos;
-    }
+  
+    @PostMapping("/modificarTituloAcademicoCA/{idCoorAca}/{idAtestadoTa}")
+    public String modificarTituloAcademicoCA(
+        @RequestParam ("tipoAta") String tipoAta,
+        @RequestParam ("nombreAta") String nombreAta,
+        @RequestParam ("institucion") String institucion,
+        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("archivoAta") MultipartFile archivo,
+        @PathVariable("idAtestadoTa") Long idAtestadoTa, 
+        @PathVariable("idCoorAca")int idCoorAca, 
+        RedirectAttributes redirectAttributes) {
         
+        AtestadoTa atestadoActualizar = new AtestadoTa();
+        atestadoActualizar.setIdAtestadoTa(idAtestadoTa);
+        atestadoActualizar.setTipoAta(tipoAta);
+        atestadoActualizar.setNombreAta(nombreAta);
+        atestadoActualizar.setInstitucion(institucion);
+        atestadoActualizar.setAnioTitulacion(anioTitulacion);
+                   
+        if(archivo == null || archivo.isEmpty()){
+          atestadoActualizar.setArchivoAta(null);
+          atestadoService.actualizarAtestado(atestadoActualizar);
+          redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
+        }else{
+          try {
+            byte[] fileBytes = archivo.getBytes();
+            Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+            atestadoActualizar.setArchivoAta(blob);
+            atestadoService.actualizarAtestado(atestadoActualizar);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
+          } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha sucedido un error al actualizar el titulo. Intentelo de nuevo");
+          }
+        }
+        
+        return "redirect:/perfilCoordinadorAcademico/" + idCoorAca;   
+    }
+    
+    @GetMapping("/eliminarTituloAcademico/{idCoorAca}/{idAtestadoTa}")
+    public String eliminarAtestadoTitulo(AtestadoTa atestado, @PathVariable("idCoorAca")int idCoorAca, RedirectAttributes redirectAttributes) {
+        try {
+            atestadoService.eliminarAtestado(atestado);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el título académico.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el título académico.");
+        }
+        return "redirect:/perfilCoordinadorAcademico/" + idCoorAca;
+    }
+    
+    @GetMapping("/archivoCA/{idAtestadoTa}")
+    public ResponseEntity <byte[]> mostrarTituloAcademico(@PathVariable("idAtestadoTa") Long id) {
+        AtestadoTa archivo = new AtestadoTa();
+        archivo.setIdAtestadoTa(id);
+        AtestadoTa archivoExistente = atestadoService.encontrarAtestado(archivo);
 
-  /*@PostMapping("/guardarCA")
-  public String guardarCoordinadorAcademico(CoordinadorAcademico coordinador) {
-      coordinadorService.agregarCA(coordinador);
-      return "redirect:/viewCoordinadoresAcademicos";
-  }actualizarFoto*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        Blob pdfBlob = archivoExistente.getArchivoAta();
+        byte[] pdfBytes;
+
+        try {
+            if (pdfBlob != null && pdfBlob.length() > 0) {
+                pdfBytes = pdfBlob.getBytes(1, (int) pdfBlob.length());
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                archivoExistente=null;
+                return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+  
     @PostMapping("/ActualizarCoordinadorAcademico/{idCoorAca}")
     public String actualizarCoordinadorAcademico (CoordinadorAcademico coordinadorAcademico, @PathVariable("idCoorAca") int idCoorAca, RedirectAttributes redirectAttributes) throws ParseException{
         
@@ -642,6 +532,11 @@ public class CoordinadorAcademicoController {
     public List<String> listarTipoTelefono() {
         List<String> tipoTelefono = Arrays.asList("Casa", "Oficina","Fijo", "Móvil");
         return tipoTelefono;
+    }
+      
+    public List<String> listarTipoTitulos() {
+        List<String> tipoTitulos = Arrays.asList("Título Pregrado", "Maestría", "Postgrado", "Doctorado", "Especialidad", "Certificación", "Apostilla");
+        return tipoTitulos;
     }
 }
 
