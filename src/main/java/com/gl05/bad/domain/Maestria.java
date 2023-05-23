@@ -17,7 +17,7 @@ public class Maestria implements Serializable {
     @SequenceGenerator(name = "S_MAESTRIA", sequenceName = "S_MAESTRIA", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_MAESTRIA")
     @Column(name = "ID_MAESTRIA")
-    private Integer idMaestria;
+    private Long idMaestria;
     
     @Basic(optional = false)
     @Column(name = "NOMBRE_MAESTRIA")
@@ -42,20 +42,20 @@ public class Maestria implements Serializable {
     public Maestria() {
     }
 
-    public Maestria(Integer idMaestria) {
+    public Maestria(Long idMaestria) {
         this.idMaestria = idMaestria;
     }
 
-    public Maestria(Integer idMaestria, String nombreMaestria) {
+    public Maestria(Long idMaestria, String nombreMaestria) {
         this.idMaestria = idMaestria;
         this.nombreMaestria = nombreMaestria;
     }
 
-    public Integer getIdMaestria() {
+    public Long getIdMaestria() {
         return idMaestria;
     }
 
-    public void setIdMaestria(Integer idMaestria) {
+    public void setIdMaestria(Long idMaestria) {
         this.idMaestria = idMaestria;
     }
 

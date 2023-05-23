@@ -60,7 +60,7 @@
                             <jsp:include page="informacionGeneral/coordinadorAcademicoFotografia.jsp" />
                         </div>
                         <div id="content_tab_generales" class="row content_tab tab_generales">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoGenerales.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoGenerales.jspf"%>
                         </div>
                         <div id="content_tab_documentos_personales" class="row d-none content_tab tab_documentos_personales">
                             <jsp:include page="informacionGeneral/coordinadorAcademicoDocumentos.jsp" />
@@ -69,10 +69,10 @@
                             <%@ include file="informacionGeneral/coordinadorAcademicoTitulos.jspf"%>
                         </div>
                         <div id="content_tab_telefonos" class="row d-none content_tab tab_telefonos">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoTelefonos.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoTelefonos.jspf"%>
                         </div>
                         <div id="content_tab_correos" class="row d-none content_tab tab_correos">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoCorreos.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoCorreos.jspf"%>
                         </div>
                     </div>
                 </div>

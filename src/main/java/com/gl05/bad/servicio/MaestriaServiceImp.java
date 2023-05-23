@@ -6,6 +6,8 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,38 +19,33 @@ public class MaestriaServiceImp implements MaestriaService{
     
     @Override
     @Transactional(readOnly=true)
-    public Collection<Maestria> findAll() {
+    public Collection<Maestria> listarMaestrias() {
         return (Collection<Maestria>)maestriaDao.findAll();
     }
     
     @Override
     @Transactional(readOnly=true)
-    public Page<Maestria> findAll(Pageable pageable) {
-        return maestriaDao.findAll(pageable);
+    public DataTablesOutput<Maestria> listarMaestrias(DataTablesInput input) {
+        return (DataTablesOutput<Maestria>)maestriaDao.findAll(input);
     }
 
     @Override
     @Transactional
-    public void save(Maestria maestria) {
+    public void agregar(Maestria maestria) {
         maestriaDao.save(maestria);
     }
 
     @Override
     @Transactional
-    public void delete(Maestria maestria) {
+    public void eliminar(Maestria maestria) {
         maestriaDao.delete(maestria);
     }
 
     @Override
     @Transactional(readOnly=true)
-    public Maestria findMaestria(Maestria maestria) {
+    public Maestria encontrarMaestria(Maestria maestria) {
         return maestriaDao.findById(maestria.getIdMaestria()).orElse(null);
     }
     
-    @Override
-    @Transactional(readOnly = true)
-    public Collection<Maestria> findBySearchValue(String searchValue) {
-        return maestriaDao.findBySearchValue(searchValue);
-    }
     
 }

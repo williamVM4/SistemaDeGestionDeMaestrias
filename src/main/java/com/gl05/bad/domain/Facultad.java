@@ -17,7 +17,7 @@ public class Facultad implements Serializable {
     @SequenceGenerator(name = "S_FACULTAD", sequenceName = "S_FACULTAD", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_FACULTAD")
     @Column(name = "ID_FACULTAD")
-    private Integer idFacultad;
+    private Long idFacultad;
     @Basic(optional = false)
     @Column(name = "NOMBRE_FACULTAD")
     private String nombreFacultad;
@@ -28,20 +28,20 @@ public class Facultad implements Serializable {
     public Facultad() {
     }
 
-    public Facultad(Integer idFacultad) {
+    public Facultad(Long idFacultad) {
         this.idFacultad = idFacultad;
     }
 
-    public Facultad(Integer idFacultad, String nombreFacultad) {
+    public Facultad(Long idFacultad, String nombreFacultad) {
         this.idFacultad = idFacultad;
         this.nombreFacultad = nombreFacultad;
     }
 
-    public Integer getIdFacultad() {
+    public Long getIdFacultad() {
         return idFacultad;
     }
 
-    public void setIdFacultad(Integer idFacultad) {
+    public void setIdFacultad(Long idFacultad) {
         this.idFacultad = idFacultad;
     }
 
