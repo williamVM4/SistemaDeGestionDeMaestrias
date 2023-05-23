@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -16,10 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "LISTADO_TITULOS_ACADEMICOS")
 @NamedQueries({
@@ -32,10 +24,13 @@ public class ListadoTitulosAcademicos implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_LIST_TA")
     private Long idListTa;
+    
     @OneToMany(mappedBy = "idListTa")
     private Collection<AspiranteProfesor> aspiranteProfesorCollection;
+    
     @OneToMany(mappedBy = "idListTa")
     private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idListTa")
     private Collection<AtestadoTa> atestadoTaCollection;
 

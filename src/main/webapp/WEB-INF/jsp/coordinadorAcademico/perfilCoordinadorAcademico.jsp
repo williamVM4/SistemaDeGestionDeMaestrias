@@ -66,7 +66,7 @@
                             <jsp:include page="informacionGeneral/coordinadorAcademicoDocumentos.jsp" />
                         </div>
                         <div id="content_tab_titulos_academicos" class="row d-none content_tab tab_titulos_academicos">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoTitulos.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoTitulos.jspf"%>
                         </div>
                         <div id="content_tab_telefonos" class="row d-none content_tab tab_telefonos">
                             <%@ include file="informacionGeneral/coordinadorAcademicoTelefonos.jspf"%>

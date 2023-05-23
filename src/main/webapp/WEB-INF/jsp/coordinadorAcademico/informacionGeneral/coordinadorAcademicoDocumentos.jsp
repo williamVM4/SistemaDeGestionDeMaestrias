@@ -1,14 +1,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="perfil-documento-personal">
-    <div class="subtitulo-Perfil"><h3>Documentos Personales
-            <span title="Editar datos" onclick="" class="text-info puntero pull-right">
-                <i class="fa bi-pencil-square"></i>
-            </span>
-        </h3>
+    <div class="subtitulo-Perfil"><h3>Documentos Personales</h3>
     </div>
 
-    <table style="width:100%; " class="table table-bordered table-striped small">${documentos}
+    <table style="width:100%; " class="table table-bordered small">
         <tbody>
             <tr>
                 <td width="50%">DUI</td>
