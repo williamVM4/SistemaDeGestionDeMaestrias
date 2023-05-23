@@ -1,9 +1,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="../common/header.jspf"%>
-<%@ include file="../common/navigation.jspf"%>
-<div align="center">
-    <div class="titulo-Perfil"><h3>Perfil del Coordinador Académico</h3></div>
-    <div id="container-datos">
+<%@ include file="../common/header1.jspf"%>
+<%@ include file="../common/navigation1.jspf"%>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12">
+            <div class="titulo-Perfil"><h3>Perfil del Coordinador Académico</h3></div>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
         <c:if test="${not empty mensaje}">
             <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
                 <strong><i class="bi bi-check-circle"></i> Éxito! </strong>${mensaje}
@@ -78,9 +92,12 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<%@ include file="../common/footer.jspf"%>
+    </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<%@ include file="../common/footer1.jspf"%>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script>

@@ -97,16 +97,7 @@ public class CoordinadorAcademicoController {
                 e.printStackTrace();
             }
         }
-        
-        //Manejo de atestados academicos
-        List<String> tiposTitulos = listarTipoTitulos();
-        var atestados = atestadoService.listarAtestados();
-        List<AtestadoTa> atestadoCoordinador = new ArrayList();
-        for (var a : atestados) {
-            if(a.getIdListTa() == (int) elemento.getIdListTa()){
-                atestadoCoordinador.add(a);
-            }
-        }
+
         
         //Manejo de correos
         var correos = correoService.listarCorreos();

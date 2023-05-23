@@ -1,6 +1,11 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
+body{
+    overflow-x: hidden;
+    background-color: #fff;
+}
+
 .btn-add {
   color: #004077 !Important;
   background-color: transparent !Important;
@@ -53,3 +58,6 @@ text-decoration:none;
   color: #004077 !Important;
 }
 
+.content-wrapper{
+    background-color: #fff;
+}
