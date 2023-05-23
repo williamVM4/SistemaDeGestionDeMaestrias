@@ -1,37 +1,16 @@
             </div>
         </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.spring-friendly.min.js" />
+    <script src="${pageContext.request.contextPath}/js/jquery.spring-friendly.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/maestria.js"></script>
     <script>
         //Script para ocultar el navbar
         document.getElementById('sidebarCollapse').addEventListener('click', function() {
             document.getElementById('sidebar').classList.toggle('d-none');
         });
     </script>
-    <script type="text/javascript"> 
-        $(document).ready(function() {
-            console.log("aqui");
-            var table = $('#maestriasTable').DataTable({
-              ajax : '/maestria/data',
-              processing: true,
-              serverSide : true,
-              columns : [{
-                data : 'nombreMaestria'
-              }, {
-                data : 'idPostgrado.nombrePostgrado',
-                render: function (data, type, row) {
-                  return data || '';
-                }
-              }, {
-                data : 'idPostgrado.idFacultad.nombreFacultad',
-                render: function (data, type, row) {
-                  return data || '';
-                }
-              }]
-            });
-          });
-    </script>
+    
     </body>
 </html>
