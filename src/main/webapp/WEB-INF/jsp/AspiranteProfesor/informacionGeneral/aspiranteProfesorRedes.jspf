@@ -14,24 +14,22 @@
         <table style="width:100%; " class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" width="10%">N°</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Link</th>
-                    <th scope="col" width="15%">Opciones</th>
+                    <th scope="col" width="2%">N°</th>
+                    <th scope="col" width="10%">Nombre</th>
+                    <th scope="col" width="2%">Opciones</th>
                 </tr>
             </thead>
             <tbody>
                 <c:if test="${empty redesSociales}">
                     <tr>
-                        <td colspan="4">No hay registros</td>
+                        <td colspan="3">No hay registros</td>
                     </tr>
                 </c:if>
                 <c:if test="${not empty redesSociales}">
                     <c:forEach items="${redesSociales}" var="eRedSocial" varStatus="numeroRedSocial">
                         <tr>
                             <td>${numeroRedSocial.index+1}</td>
-                            <td>${eRedSocial.nombreRs}</td>
-                            <td>${eRedSocial.link}</td>
+                            <td><a href="${eRedSocial.link}">${eRedSocial.nombreRs}</a></td>
                             <td>
                                 <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarRedSocial-${eRedSocial.idRs}">
                                     <i class="bi bi-trash"></i>
@@ -71,19 +69,19 @@
                     <h5 class="modal-title" id="crearModalRedSocialLabel">Agregar Red Social</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/AgregarRedSocialAspiranteProfesor/${aspiranteAP.idAspiranteProfesor}/${aspiranteAP.idListRs}" method="post" accept-charset="UTF-8" >
+                <form action="/AgregarRedSocialAspiranteProfesor/${aspiranteAP.idAspiranteProfesor}/${aspiranteAP.idListRs}" method="post" accept-charset="UTF-8" onsubmit="return validarEnlace()">
                     <div class="modal-body">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                        <div id="MensajeErrorRedSocial" class="d-none">
+                        <div id="MensajeErrorLink" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El formato del teléfono no es válido.
-                                <button id="btnAlertaRedSocial" type="button" class="btn-close" aria-label="Close"></button>
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El link no es un formato válido.
+                                <button id="btnAlertaLink" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
                         <div class="overflow-auto" style="max-height:55vh;">
                             <div class="form-group">
                                 <label for="nombreRs" class="form-label">Nombre:</label>
-                                <select type="text" class="form-select" id="nombreRs" name="nombreRs" maxlength="150" required>
+                                <select type="text" class="form-select" id="nombreRs" name="nombreRs" maxlength="100" required>
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${tiposRedesSociales}" var="eRedSocial" varStatus="status">
                                         <option value="${eRedSocial}">${eRedSocial}</option>
@@ -92,7 +90,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="link" class="form-label">Link:</label>
-                                <input type="text" class="form-control" id="link" name="link" required>
+                                <input type="text" class="form-control" id="link" name="link" maxlength="500" required>
                             </div>
                         </div>
                     </div>
@@ -104,4 +102,28 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
+<script>
+    const linkInput = document.getElementById('link');
+    document.addEventListener("DOMContentLoaded", function() {
+        //Alerta de Link
+        var mensajeErrorLink = document.getElementById("MensajeErrorLink");
+        var botonAlertaLink=document.getElementById("btnAlertaLink");
+        botonAlertaLink.addEventListener("click", function() {
+          mensajeErrorLink.classList.add("d-none");
+        });
+    });
+    function validarEnlace() {
+        var resultado = true;
+        const enlace = linkInput.value;
+        var mensajeErrorLink = document.getElementById("MensajeErrorLink");
+        const patronEnlace = /^(https?:\/\/)?[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+
+        if (!patronEnlace.test(enlace)) {
+            mensajeErrorLink.classList.remove("d-none");
+            resultado = false;
+        }
+        
+        return resultado;
+    }
+</script>
