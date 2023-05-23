@@ -62,6 +62,7 @@ public class FacultadController {
     @GetMapping("/ObtenerFacultad/{id}")
     public ResponseEntity<Facultad> obtenerFacultad(@PathVariable Long id) {
         Facultad facultad = facultadService.encontrarFacultad(id);
+        System.out.println(facultad);
         if (facultad != null) {
             return ResponseEntity.ok(facultad);
         } else {

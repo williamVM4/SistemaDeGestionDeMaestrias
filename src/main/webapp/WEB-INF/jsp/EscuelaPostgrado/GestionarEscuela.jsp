@@ -109,8 +109,14 @@
                     </div>
                     
                      <div class="form-group">
-                        <input type="text" class="form-control" id="idFacultad" name="idFacultad" placeholder="Facultad" required>
-                    </div>
+                         <select class="form-control" id="idFacultad" name="idFacultad" required>
+                            <option value="">Seleccione una facultad</option>
+                            <c:forEach items="${facultad}" var="elementoFacultad" varStatus="status">
+                                <option value="${elementoFacultad.idFacultad}">${elementoFacultad.nombreFacultad}</option>
+                            </c:forEach>
+                            
+                        </select>
+                     </div>
 
                     <div class="modal-footer">
                         <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
@@ -172,7 +178,8 @@
                     type: 'GET',
                     success: function (response) {
                         $('#nombrePostgrado').val(response.nombrePostgrado);
-                        $('#idFacultad').val(response.idFacultad);
+                        console.log(response.idFacultad.idFacultad);
+                        $('#idFacultad').val(response.idFacultad.idFacultad);
                         $('#EscuelaId').val(idPostgrado);
                     },
                     error: function () {

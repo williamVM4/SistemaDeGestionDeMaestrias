@@ -7,7 +7,9 @@ import com.gl05.bad.domain.Roles;
 import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.PermisosService;
 import com.gl05.bad.servicio.RolesService;
+import java.util.Arrays;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,13 +41,14 @@ public class RolesController {
 
         var elementoPermiso = permisosService.listaPermisos();
         model.addAttribute("Permisos", elementoPermiso);
-        model.addAttribute("rol", new Roles());
+        //model.addAttribute("rol", new Roles());
 
         return "/Roles/GestionarRoles";
     }
 
     @PostMapping("/AgregarRol")
-    public String AgregarRol(Roles rol, RedirectAttributes redirectAttributes) {
+    public String AgregarRol(Roles rol, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+         
         try {
             rolesService.AgregarRol(rol);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un rol.");
@@ -78,7 +81,7 @@ public class RolesController {
     }
     
     @PostMapping("/ActualizarRol")
-    public String ActualizarRol(Roles rol, RedirectAttributes redirectAttributes) {
+    public String ActualizarRol(Roles rol, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
             rolesService.actualizarRol(rol);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado el Rol.");

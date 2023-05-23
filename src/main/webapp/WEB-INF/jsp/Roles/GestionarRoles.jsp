@@ -21,7 +21,7 @@
 
         <div class="row col-sm-12 d-flex justify-content-end">
             <div class="col-sm-1">
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
+                <button type="button" class="btn btn-outline-primary btn-sm abrirModal-btn" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
             </div>
         </div>
 
@@ -94,118 +94,137 @@
         </div>
     </div>
 </div>
-        <!-- Modal para roles -->
-        <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearModalLabel">Agregar Rol</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal para roles -->
+<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearModalLabel">Agregar Rol</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id='formGuardar' accept-charset="UTF-8">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <input type="hidden" id="rolId">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
                     </div>
-                    <div class="modal-body">
-                        <form id='formGuardar' accept-charset="UTF-8">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                            <input type="hidden" id="rolId">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
-                            </div>
 
-                            <div class="form-group">
-                                <c:forEach items="${Permisos}" var="elementoPermiso" varStatus="status">
-                                    <div>
-                                        <li>
-                                            <input type="checkbox" id="${elementoPermiso.idPermiso}" name="permisos[]" value="${elementoPermiso.idPermiso}">
-                                            <label for="${elementoPermiso.idPermiso}">${elementoPermiso.nombre}</label>
-                                        </li>
-                                    </div>
-                                </c:forEach>
+                    <div class="form-group">
+                        <c:forEach items="${Permisos}" var="elementoPermiso" varStatus="status">
+                            <div>
+                                <li>
+                                    <input class="checkClean" type="checkbox" id="permiso${elementoPermiso.idPermiso}" name="permisos[]" value="${elementoPermiso.idPermiso}">
+                                    <label for="permiso${elementoPermiso.idPermiso}">${elementoPermiso.nombre}</label>
+                                </li>
                             </div>
-
-                            <div class="modal-footer">
-                                <button id='btnSumit' type="submit" class="btn btn-outline-success">Guardar</button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                            </div>
-                        </form>
+                        </c:forEach>
                     </div>
-                </div>
+
+                    <div class="modal-footer">
+                        <button id='btnSumit' type="submit" class="btn btn-outline-success">Guardar</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            $('#formGuardar').submit(function (event) {
-                event.preventDefault();//detiene el evento del envio del form 
-                var idRol = $('#rolId').val();//tomo la id
+<script>
+    $(document).ready(function () {
+        $('#formGuardar').submit(function (event) {
+            event.preventDefault();//detiene el evento del envio del form 
+            var idRol = $('#rolId').val();//tomo la id
 
-                var formDataArray = $(this).serializeArray();//tomo los datos del array
+            var formDataArray = $(this).serializeArray();//tomo los datos del array
 
-                var url;//valido el tipo de url si editar o crear
-                if (idRol) {
-                    url = '/ActualizarRol';
-                    //meto la id en el campo de envio
-                    formDataArray.push({name: 'idRol', value: idRol});
-                } else {
-                    url = '/AgregarRol';
+            console.log(formDataArray);
+            var url;//valido el tipo de url si editar o crear
+            if (idRol) {
+                url = '/ActualizarRol';
+                //meto la id en el campo de envio
+                formDataArray.push({name: 'idRol', value: idRol});
+            } else {
+                url = '/AgregarRol';
+            }
+            //console.log(formDataArray);
+            // Convertir el arreglo en un objeto
+            //var formData = {};
+            //$.map(formDataArray, function (n, i) {
+            //    formData[n['name']] = n['value'];
+            //});
+            //console.log(formData);
+            //realizo el guardado mediante ajax
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formDataArray,
+                success: function (response) {
+                    $('#crearModal').modal('hide');  // Cierra el modal
+                    location.reload();  // Recarga la página
+                },
+                error: function (error) {
+                    //console.log(error);
                 }
-                // Convertir el arreglo en un objeto
-                var formData = {};
-                $.map(formDataArray, function (n, i) {
-                    formData[n['name']] = n['value'];
-                });
-                //realizo el guardado mediante ajax
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        $('#crearModal').modal('hide');  // Cierra el modal
-                        location.reload();  // Recarga la página
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-            });
-
-            // metodo para mostrar el modal segun sea si editar o nuevo registro
-            $(document).on('click', '.abrirModal-btn', function () {
-                var idRol = $(this).data('id');
-                var modal = $('#crearModal');
-                var tituloModal = modal.find('.modal-title');
-                var form = modal.find('form');
-                var btnSumit = document.getElementById('btnSumit');
-
-                if (idRol) {
-                    tituloModal.text('Editar Rol');//titulo del modal
-                    $.ajax({//utilizo ajax para obtener los datos
-                        url: '/ObtenerRol/' + idRol,
-                        type: 'GET',
-                        success: function (response) {
-                            $('#nombre').val(response.nombre);
-                            //$('#permisos').val(response.permisos);
-                            $.each(response.permisos, function (index, valor) {
-                                $('#permisos').val(valor);
-                            });
-                            $('#rolId').val(idRol);
-
-
-                        },
-                        error: function () {
-                            alert('Error al obtener los datos del rol.');
-                        }
-                    });
-                } else {
-                    // en caso de presionar el boton de nuevo solo se abrira el modal
-                    tituloModal.text('Agregar Rol');
-                    form.attr('action', '/AgregarRol');
-                    $('#nombre').val('');
-                    $('#permisos').val('');
-                    $('#rolId').val('');
-                }
-                modal.modal('show');
             });
         });
 
-    </script>                        
+        // metodo para mostrar el modal segun sea si editar o nuevo registro
+        $(document).on('click', '.abrirModal-btn', function () {
+            var idRol = $(this).data('id');
+            var modal = $('#crearModal');
+            var tituloModal = modal.find('.modal-title');
+            var form = modal.find('form');
+            var btnSumit = document.getElementById('btnSumit');
 
-    <%@ include file="../common/footer.jspf"%>
+            if (idRol) {
+                tituloModal.text('Editar Rol');//titulo del modal
+                $.ajax({//utilizo ajax para obtener los datos
+                    url: '/ObtenerRol/' + idRol,
+                    type: 'GET',
+                    success: function (response) {
+
+                        var checkboxes = document.querySelectorAll(".checkClean");
+
+                        for (var i = 0; i < checkboxes.length; i++) {
+                            checkboxes[i].checked = false;
+                        }
+                        $('#nombre').val(response.nombre);
+                        //$('#permisos').val(response.permisos);
+                        $.each(response.permisos, function (index, valor) {
+                            var miCheckbox = document.getElementById('permiso' + valor.idPermiso);
+                            if (miCheckbox !== null) {
+                                miCheckbox.checked = true;
+                            } else {
+                                console.log("El checkbox no se encontró en el documento.");
+                            }
+                        });
+                        $('#rolId').val(idRol);
+
+
+                    },
+                    error: function () {
+                        alert('Error al obtener los datos del rol.');
+                    }
+                });
+            } else {
+                var checkboxes = document.querySelectorAll(".checkClean");
+
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+                // en caso de presionar el boton de nuevo solo se abrira el modal
+                tituloModal.text('Agregar Rol');
+                form.attr('action', '/AgregarRol');
+                $('#nombre').val('');
+                $('#permisos').val('');
+                $('#rolId').val('');
+            }
+            modal.modal('show');
+        });
+    });
+
+</script>                        
+
+<%@ include file="../common/footer.jspf"%>

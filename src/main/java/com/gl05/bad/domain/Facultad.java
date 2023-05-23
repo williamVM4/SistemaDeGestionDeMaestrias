@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "FACULTAD")
 @NamedQueries({
@@ -22,8 +24,8 @@ public class Facultad implements Serializable {
     @Column(name = "NOMBRE_FACULTAD")
     private String nombreFacultad;
 //    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFacultad")
-    private Collection<EscuelaPostgrado> escuelaPostgradoCollection;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFacultad")
+    //private Collection<EscuelaPostgrado> escuelaPostgradoCollection;
 
     public Facultad() {
     }
@@ -53,13 +55,13 @@ public class Facultad implements Serializable {
         this.nombreFacultad = nombreFacultad;
     }
 
-    public Collection<EscuelaPostgrado> getEscuelaPostgradoCollection() {
+    /*public Collection<EscuelaPostgrado> getEscuelaPostgradoCollection() {
         return escuelaPostgradoCollection;
     }
 
     public void setEscuelaPostgradoCollection(Collection<EscuelaPostgrado> escuelaPostgradoCollection) {
         this.escuelaPostgradoCollection = escuelaPostgradoCollection;
-    }
+    }*/
     
     @Override
     public int hashCode() {

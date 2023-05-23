@@ -34,6 +34,12 @@ public class Roles implements Serializable {
     )
     private Set<Permisos> permisos = new HashSet<>();
 
+    /*private Collection<Permisos> permiso;
+
+    public Roles(String nombre, Collection<Permisos> permiso) {
+        this.nombre = nombre;
+        this.permiso = permiso;
+    }*/
     public Roles() {
     
     }
