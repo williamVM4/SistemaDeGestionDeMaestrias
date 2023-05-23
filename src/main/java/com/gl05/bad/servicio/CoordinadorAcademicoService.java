@@ -10,6 +10,8 @@ public interface CoordinadorAcademicoService {
   
   public void agregarCA(CoordinadorAcademico coordinador);
   
+  public void actualizarCA(CoordinadorAcademico coordinador);
+  
   public void eliminarCA(CoordinadorAcademico coordinador);
   
   public CoordinadorAcademico encontrarCA(CoordinadorAcademico coordinador);

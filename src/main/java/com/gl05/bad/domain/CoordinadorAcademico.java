@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Data
@@ -54,7 +55,8 @@ public class CoordinadorAcademico implements Serializable{
     private String generoCa;
   
   @Column(name="FECHA_NAC_CA", nullable=true)
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
+  @DateTimeFormat(pattern = "dd/MM/yy")
     private Date fechaNacCa;  
 
   @Column(name="ESTADO_CIVIL_CA", nullable=true)
@@ -120,12 +122,12 @@ public class CoordinadorAcademico implements Serializable{
   @JsonIgnore
   @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO", nullable=true)
   @ManyToOne
-    private Usuario idusuario;*/
-
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCoorAca")
-    private Collection<Maestria> maestriaCollection;
+    private Usuario idusuario;
   
-  public CoordinadorAcademico() {}
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCoorAca")
+    private Collection<Maestria> maestriaCollection;*/
+  
+  /*public CoordinadorAcademico() {}
 
   public CoordinadorAcademico(Long idCoorAca) {
     this.idCoorAca = idCoorAca;
@@ -142,7 +144,7 @@ public class CoordinadorAcademico implements Serializable{
     this.estadoCivilCa = estadoCivilCa;
     this.nacionalidadCa = nacionalidadCa;
     this.fotografiaCa = fotografiaCa;
-  }
+  }*/
 
   /*public Long getIdCoorAca() {
     return idCoorAca;

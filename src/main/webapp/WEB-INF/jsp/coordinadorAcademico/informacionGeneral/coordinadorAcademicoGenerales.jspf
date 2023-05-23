@@ -12,31 +12,31 @@
             <tbody>
                 <tr>
                     <td width="20%">Carné</td>
-                    <td><c:if test="${not empty aspiranteAP.codAp}">${aspiranteAP.codAp}</c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.codCa}">${coordinadorCA.codCa}</c:if></td>
                 </tr>
                 <tr>
                     <td>Nombres</td>
-                    <td><c:if test="${not empty aspiranteAP.nombresAp}">${aspiranteAP.nombresAp}</c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.nombresCa}">${coordinadorCA.nombresCa}</c:if></td>
                 </tr>
                 <tr>
                     <td>Apellidos</td>
-                    <td><c:if test="${not empty aspiranteAP.apellidosAp}">${aspiranteAP.apellidosAp}</c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.apellidosCa}">${coordinadorCA.apellidosCa}</c:if></td>
                 </tr>
                 <tr>
                     <td>Sexo</td>
-                    <td><c:if test="${not empty aspiranteAP.sexoAp}">${aspiranteAP.sexoAp}</c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.sexoCa}">${coordinadorCA.sexoCa}</c:if></td>
                 </tr>
                 <tr>
                     <td>Género</td>
-                    <td><c:if test="${not empty aspiranteAP.generoAp}">${aspiranteAP.generoAp}</c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.generoCa}">${coordinadorCA.generoCa}</c:if></td>
                 </tr>
                 <tr>
                     <td>Fecha Nacimiento</td>
-                    <td><c:if test="${not empty aspiranteAP.fechaNacAp}"><fmt:formatDate value="${aspiranteAP.fechaNacAp}" pattern="dd/MM/yyyy" /></c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.fechaNacCa}"><fmt:formatDate value="${coordinadorCA.fechaNacCa}" pattern="dd/MM/yyyy" /></c:if></td>
                 </tr>
                 <tr>
                     <td>Estado Civil</td>
-                    <td><c:if test="${not empty aspiranteAP.estadoCivilAp}">${aspiranteAP.estadoCivilAp}</c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.estadoCivilCa}">${coordinadorCA.estadoCivilCa}</c:if></td>
                 </tr>
                 <tr>
                     <td>Pais</td>
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>Nacionalidad</td>
-                    <td><c:if test="${not empty aspiranteAP.nacionalidadAp}">${aspiranteAP.nacionalidadAp}</c:if></td>
+                    <td><c:if test="${not empty coordinadorCA.nacionalidadCa}">${coordinadorCA.nacionalidadCa}</c:if></td>
                 </tr>
                 <c:choose>
                     <c:when test="${paisSeleccionado eq ''}">
@@ -52,25 +52,25 @@
                     <c:when test="${paisSeleccionado eq 'El Salvador'}">
                         <tr>
                             <td>DUI</td>
-                            <td><c:if test="${not empty aspiranteAP.duiAp}">${aspiranteAP.duiAp}</c:if></td>
+                            <td><c:if test="${not empty coordinadorCA.duiCa}">${coordinadorCA.duiCa}</c:if></td>
                         </tr>
                         <tr>
                             <td>NIT</td>
-                            <td><c:if test="${not empty aspiranteAP.nitAp}">${aspiranteAP.nitAp}</c:if></td>
+                            <td><c:if test="${not empty coordinadorCA.nitCa}">${coordinadorCA.nitCa}</c:if></td>
                         </tr>
                         <tr>
                             <td>NUP</td>
-                            <td><c:if test="${not empty aspiranteAP.nupAp}">${aspiranteAP.nupAp}</c:if></td>
+                            <td><c:if test="${not empty coordinadorCA.nupCa}">${coordinadorCA.nupCa}</c:if></td>
                         </tr>
                     </c:when>
                     <c:otherwise>
                         <tr>
                             <td>Pasaporte</td>
-                            <td><c:if test="${not empty aspiranteAP.pasaporteAp}">${aspiranteAP.pasaporteAp}</c:if></td>
+                            <td><c:if test="${not empty coordinadorCA.pasaporteCa}">${coordinadorCA.pasaporteCa}</c:if></td>
                         </tr>
                         <tr>
                             <td>Documento Personal</td>
-                            <td><c:if test="${not empty aspiranteAP.docPersonalAp}">${aspiranteAP.docPersonalAp}</c:if></td>
+                            <td><c:if test="${not empty coordinadorCA.docPersonalCa}">${aspiranteAP.docPersonalCa}</c:if></td>
                         </tr>
                     </c:otherwise>
                 </c:choose>
@@ -88,7 +88,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/ActualizarAspiranteProfesor/${aspiranteAP.idAspiranteProfesor}" method="post" accept-charset="UTF-8" onsubmit="return validarParametros()">
+                    <form action="/ActualizarCoordinadorAcademico/${coordinadorCA.idCoorAca}" method="post" accept-charset="UTF-8" onsubmit="return validarParametros()">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <div id="MensajeErrorFecha" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
@@ -122,41 +122,41 @@
                         </div>
                         <div class="overflow-auto" style="max-height:55vh;">
                             <div class="form-group">
-                                <label for="apellidosAp" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="nombresAp" name="nombresAp" value="${aspiranteAP.nombresAp}" required>
+                                <label for="nombresCa" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombresCa" name="nombresCa" value="${coordinadorCA.nombresCa}" required>
                             </div>
                             <div class="form-group">
-                                <label for="apellidosAp" class="form-label">Apellido:</label>
-                                <input type="text" class="form-control" id="apellidosAp" name="apellidosAp" value="${aspiranteAP.apellidosAp}" required>
+                                <label for="apellidosCa" class="form-label">Apellido:</label>
+                                <input type="text" class="form-control" id="apellidosCa" name="apellidosCa" value="${coordinadorCA.apellidosCa}" required>
                             </div>
                             <div class="form-group">
-                                <label for="sexoAp" class="form-label">Sexo:</label>
-                                <select type="text" class="form-select" id="sexoAp" name="sexoAp" required>
+                                <label for="sexoCa" class="form-label">Sexo:</label>
+                                <select type="text" class="form-select" id="sexoCa" name="sexoCa" required>
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${sexos}" var="eSexo" varStatus="status">
-                                        <option value="${eSexo}" <c:if test="${aspiranteAP.sexoAp == eSexo}">selected</c:if>>${eSexo}</option>
+                                        <option value="${eSexo}" <c:if test="${coordinadorCA.sexoCa == eSexo}">selected</c:if>>${eSexo}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="generoAp" class="form-label">Genero:</label>
-                                <select type="text" class="form-select" id="generoAp" name="generoAp" required>
+                                <label for="generoCa" class="form-label">Genero:</label>
+                                <select type="text" class="form-select" id="generoCa" name="generoCa" required>
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${generos}" var="eGenero">
-                                        <option value="${eGenero}" <c:if test="${aspiranteAP.generoAp == eGenero}">selected</c:if>>${eGenero}</option>
+                                        <option value="${eGenero}" <c:if test="${coordinadorCA.generoCa == eGenero}">selected</c:if>>${eGenero}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="fechaNacAp" class="form-label">Fecha Nacimiento:</label>
-                                <input type="text" class="form-control" id="fechaNacAp" name="fechaNacAp" placeholder="dd - mm - yyyy" maxlength="10" value="<fmt:formatDate value="${aspiranteAP.fechaNacAp}" pattern="dd/MM/yyyy" />" required>
+                                <label for="fechaNacCa" class="form-label">Fecha Nacimiento:</label>
+                                <input type="text" class="form-control" id="fechaNacCa" name="fechaNacCa" placeholder="dd - mm - yyyy" maxlength="10" value="<fmt:formatDate value="${coordinadorCA.fechaNacCa}" pattern="dd/MM/yyyy" />" required>
                             </div>
                             <div class="form-group">
-                                <label for="estadoCivilAp" class="form-label">Estado Civil:</label>
-                                <select type="text" class="form-select" id="estadoCivilAp" name="estadoCivilAp" required>
+                                <label for="estadoCivilCa" class="form-label">Estado Civil:</label>
+                                <select type="text" class="form-select" id="estadoCivilCa" name="estadoCivilCa" required>
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${estadosCiviles}" var="eEstadoCivil">
-                                        <option value="${eEstadoCivil}" <c:if test="${aspiranteAP.estadoCivilAp == eEstadoCivil}">selected</c:if>>${eEstadoCivil}</option>
+                                        <option value="${eEstadoCivil}" <c:if test="${coordinadorCA.estadoCivilCa == eEstadoCivil}">selected</c:if>>${eEstadoCivil}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -165,38 +165,38 @@
                                 <select class="form-select" id="idPais" name="idPais" onchange="mostrarOcultarSelect()" required>
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${paises}" var="ePais">
-                                        <option value="${ePais.idPais}" <c:if test="${aspiranteAP.idPais == ePais.idPais}">selected</c:if>>${ePais.nombrePais}</option>
+                                        <option value="${ePais.idPais}" <c:if test="${coordinadorCA.idPais == ePais.idPais}">selected</c:if>>${ePais.nombrePais}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="nacionalidadAp" class="form-label">Nacionalidad:</label>
-                                <select class="form-select" id="nacionalidadAp" name="nacionalidadAp" required>
+                                <label for="nacionalidadCa" class="form-label">Nacionalidad:</label>
+                                <select class="form-select" id="nacionalidadCa" name="nacionalidadCa" required>
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${nacionalidades}" var="eNacionalidad">
-                                        <option value="${eNacionalidad}" <c:if test="${aspiranteAP.nacionalidadAp == eNacionalidad}">selected</c:if>>${eNacionalidad}</option>
+                                        <option value="${eNacionalidad}" <c:if test="${coordinadorCA.nacionalidadCa == eNacionalidad}">selected</c:if>>${eNacionalidad}</option>
                                     </c:forEach>
                                 </select>
                             </div>
-                            <div id="group-duiAp" class="form-group">
-                                <label for="duiAp" class="form-label">DUI:</label>
-                                <input type="text" class="form-control" id="duiAp" name="duiAp" maxlength="10" placeholder="######## - #" value="${aspiranteAP.duiAp}">
+                            <div id="group-duiCa" class="form-group">
+                                <label for="duiCa" class="form-label">DUI:</label>
+                                <input type="text" class="form-control" id="duiCa" name="duiCa" maxlength="10" placeholder="######## - #" value="${coordinadorCA.duiCa}">
                             </div>
-                            <div id="group-nitAp" class="form-group">
-                                <label for="nitAp" class="form-label">NIT:</label>
-                                <input type="text" class="form-control" id="nitAp" name="nitAp" maxlength="17" placeholder="#### - #### - ### - #" value="${aspiranteAP.nitAp}">
+                            <div id="group-nitCa" class="form-group">
+                                <label for="nitCa" class="form-label">NIT:</label>
+                                <input type="text" class="form-control" id="nitCa" name="nitCa" maxlength="17" placeholder="#### - #### - ### - #" value="${coordinadorCA.nitCa}">
                             </div>
-                            <div id="group-nupAp" class="form-group">
-                                <label for="nupAp" class="form-label">NUP:</label>
-                                <input type="text" class="form-control" id="nupAp" name="nupAp" maxlength="15" placeholder="############" value="${aspiranteAP.nupAp}">
+                            <div id="group-nupCa" class="form-group">
+                                <label for="nupCa" class="form-label">NUP:</label>
+                                <input type="text" class="form-control" id="nupCa" name="nupCa" maxlength="15" placeholder="############" value="${coordinadorCA.nupCa}">
                             </div>
-                            <div id="group-pasaporteAp" class="form-group">
-                                <label for="pasaporteAp" class="form-label">Pasaporte:</label>
-                                <input type="text" class="form-control" id="pasaporteAp" name="pasaporteAp" maxlength="9" placeholder="*********" value="${aspiranteAP.pasaporteAp}">
+                            <div id="group-pasaporteCa" class="form-group">
+                                <label for="pasaporteCa" class="form-label">Pasaporte:</label>
+                                <input type="text" class="form-control" id="pasaporteCa" name="pasaporteCa" maxlength="9" placeholder="*********" value="${coordinadorCA.pasaporteCa}">
                             </div>
-                            <div id="group-docPersonalAp" class="form-group">
-                                <label for="docPersonalAp" class="form-label">Documento Personal:</label>
-                                <input type="text" class="form-control" id="docPersonalAp" name="docPersonalAp" maxlength="20" placeholder="####################" value="${aspiranteAP.docPersonalAp}">
+                            <div id="group-docPersonalCa" class="form-group">
+                                <label for="docPersonalCa" class="form-label">Documento Personal:</label>
+                                <input type="text" class="form-control" id="docPersonalCa" name="docPersonalCa" maxlength="20" placeholder="####################" value="${coordinadorCA.docPersonalCa}">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -214,12 +214,12 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         //Manejo de mascaras
-        var inputDocPersonal = document.getElementById('docPersonalAp');
-        var inputPasaporte = document.getElementById("pasaporteAp");
-        var inputDui = document.getElementById("duiAp");
-        var inputNit = document.getElementById("nitAp");
-        var inputNup = document.getElementById("nupAp");
-        var inputFechaNac = document.getElementById("fechaNacAp");
+        var inputDocPersonal = document.getElementById('docPersonalCa');
+        var inputPasaporte = document.getElementById("pasaporteCa");
+        var inputDui = document.getElementById("duiCa");
+        var inputNit = document.getElementById("nitCa");
+        var inputNup = document.getElementById("nupCa");
+        var inputFechaNac = document.getElementById("fechaNacCa");
         $(inputDocPersonal).inputmask('9999999999999999999999999999', {
             showMaskOnFocus: false,
             showMaskOnHover: false
@@ -282,14 +282,14 @@
         var mensajeErrorDui = document.getElementById("MensajeErrorDui");
         var mensajeErrorNit = document.getElementById("MensajeErrorNit");
         var mensajeErrorNup = document.getElementById("MensajeErrorNup");
-        var fechaNacimiento = document.getElementById('fechaNacAp').value;
-        var fechaInput= document.getElementById('fechaNacAp').value;
+        var fechaNacimiento = document.getElementById('fechaNacCa').value;
+        var fechaInput= document.getElementById('fechaNacCa').value;
         fechaInput=fechaInput.replace("_", "");
-        var duiInput= document.getElementById('duiAp').value;
+        var duiInput= document.getElementById('duiCa').value;
         duiInput=duiInput.replace("_", "");
-        var nitInput= document.getElementById('nitAp').value;
+        var nitInput= document.getElementById('nitCa').value;
         nitInput=nitInput.replace("_", "");
-        var nupInput= document.getElementById('nupAp').value;
+        var nupInput= document.getElementById('nupCa').value;
         nupInput=nupInput.replace("_", "");
         var partesFecha = fechaNacimiento.split("/"); // Suponiendo que el formato de fecha es "dd-mm-yyyy"
         var dia = parseInt(partesFecha[0], 10);
@@ -323,17 +323,17 @@
         return resultado;
     }
     function mostrarOcultarSelect() {
-        var inputDocPersonal = document.getElementById('docPersonalAp');
-        var inputPasaporte = document.getElementById("pasaporteAp");
-        var inputDui = document.getElementById("duiAp");
-        var inputNit = document.getElementById("nitAp");
-        var inputNup = document.getElementById("nupAp");
+        var inputDocPersonal = document.getElementById('docPersonalCa');
+        var inputPasaporte = document.getElementById("pasaporteCa");
+        var inputDui = document.getElementById("duiCa");
+        var inputNit = document.getElementById("nitCa");
+        var inputNup = document.getElementById("nupCa");
         var selectPais = document.getElementById("idPais");
-        var docPersonal= document.getElementById("group-docPersonalAp");
-        var pasaporte = document.getElementById("group-pasaporteAp");
-        var dui = document.getElementById("group-duiAp");
-        var nit = document.getElementById("group-nitAp");
-        var nup = document.getElementById("group-nupAp");
+        var docPersonal= document.getElementById("group-docPersonalCa");
+        var pasaporte = document.getElementById("group-pasaporteCa");
+        var dui = document.getElementById("group-duiCa");
+        var nit = document.getElementById("group-nitCa");
+        var nup = document.getElementById("group-nupCa");
 
         if (selectPais.options[selectPais.selectedIndex].text === "Seleccione una opción"){
             docPersonal.classList.add("d-none");
@@ -381,17 +381,17 @@
         }
     }
     function cargarSelect() {
-        var inputDocPersonal = document.getElementById('docPersonalAp');
-        var inputPasaporte = document.getElementById("pasaporteAp");
-        var inputDui = document.getElementById("duiAp");
-        var inputNit = document.getElementById("nitAp");
-        var inputNup = document.getElementById("nupAp");
+        var inputDocPersonal = document.getElementById('docPersonalCa');
+        var inputPasaporte = document.getElementById("pasaporteCa");
+        var inputDui = document.getElementById("duiCa");
+        var inputNit = document.getElementById("nitCa");
+        var inputNup = document.getElementById("nupCa");
         var selectPais = document.getElementById("idPais");
-        var docPersonal= document.getElementById("group-docPersonalAp");
-        var pasaporte = document.getElementById("group-pasaporteAp");
-        var dui = document.getElementById("group-duiAp");
-        var nit = document.getElementById("group-nitAp");
-        var nup = document.getElementById("group-nupAp");
+        var docPersonal= document.getElementById("group-docPersonalCa");
+        var pasaporte = document.getElementById("group-pasaporteCa");
+        var dui = document.getElementById("group-duiCa");
+        var nit = document.getElementById("group-nitCa");
+        var nup = document.getElementById("group-nupCa");
 
         if (selectPais.options[selectPais.selectedIndex].text === "Seleccione una opción"){
             docPersonal.classList.add("d-none");

@@ -12,6 +12,7 @@ import com.gl05.bad.servicio.ExperienciaLaboralService;
 import com.gl05.bad.servicio.RedSocialService;
 import com.gl05.bad.servicio.TelefonoService;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -154,7 +155,6 @@ public class AspiranteProfesorController {
             nit=nit.replace("-","");
             aspirante.setNitAp(nit);
             String nup=aspirante.getNupAp();
-            dui=nup.replace("-","");
             aspirante.setNupAp(nup);
             String pasaporte=aspirante.getPasaporteAp();
             pasaporte=pasaporte.replace("-","");
@@ -235,23 +235,27 @@ public class AspiranteProfesorController {
         @RequestParam("nombreInstitucion") String nombreInstitucion,
         @RequestParam("cargo") String cargo,
         @RequestParam("funciones") String funciones,
-        @RequestParam("periodoInicio") Date periodoInicio,
-        @RequestParam("periodoFin") Date periodoFin,
+        @RequestParam("periodoInicio") String periodoInicio,
+        @RequestParam("periodoFin") String periodoFin,
         @PathVariable("idListEl") int idListEl, 
         @PathVariable("idAspiranteProfesor")int idAspiranteProfesor, 
-        RedirectAttributes redirectAttributes) {
+        RedirectAttributes redirectAttributes) throws ParseException {
         try {
+            SimpleDateFormat fechaInicio = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaInicioC = fechaInicio.parse(periodoInicio);
+            SimpleDateFormat fechaFin = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaFinC = fechaFin.parse(periodoFin);
             ExperienciaLaboral experienciaLaboralNew = new ExperienciaLaboral();
             experienciaLaboralNew.setIdListEl(idListEl);
             experienciaLaboralNew.setNombreInstitucion(nombreInstitucion);
             experienciaLaboralNew.setCargo(cargo);
             experienciaLaboralNew.setFunciones(funciones);
-            experienciaLaboralNew.setPeriodoInicio(periodoInicio);
-            experienciaLaboralNew.setPeriodoFin(periodoFin);
+            experienciaLaboralNew.setPeriodoInicio(fechaInicioC);
+            experienciaLaboralNew.setPeriodoFin(fechaFinC);
             experienciaLaboralService.agregarEL(experienciaLaboralNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado una experiencia laboral.");
-        } catch(Exception e) {
-            redirectAttributes.addFlashAttribute("error", "No se ingresó la experiencia laboral .");
+        } catch(ParseException e) {
+            redirectAttributes.addFlashAttribute("error", "No en el ingreso de la experiencia laboral .");
         }
         String redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/PerfilAspiranteProfesor/{idAspiranteProfesor}").buildAndExpand(idAspiranteProfesor).toUriString();
         return "redirect:" + redirectUrl;   
