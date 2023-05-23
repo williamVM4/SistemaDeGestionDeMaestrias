@@ -10,6 +10,5 @@
             document.getElementById('sidebar').classList.toggle('d-none');
         });
     </script>
-
     </body>
 </html>

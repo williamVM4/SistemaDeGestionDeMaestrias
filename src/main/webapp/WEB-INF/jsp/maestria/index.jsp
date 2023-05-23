@@ -45,4 +45,8 @@
         </div>
     </div>
 </div>
+<sec:authorize access="hasAuthority('VER_ADMIN_PRIVILEGE')" var="hasPrivilegeAdmin"></sec:authorize>
+<script>
+    var hasPrivilegeAdmin = ${hasPrivilegeAdmin};
+</script>
 <%@ include file="../common/footer.jspf"%>
