@@ -1,25 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import lombok.Data;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
 @Table(name = "ATESTADO_TA")
 @NamedQueries({
@@ -33,100 +31,30 @@ public class AtestadoTa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @Column(name = "ID_ATESTADO_TA")
+    @SequenceGenerator(name = "S_ATESTADO_TA", sequenceName = "S_ATESTADO_TA", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ATESTADO_TA")
     private Long idAtestadoTa;
-    @Basic(optional = false)
+  
     @Column(name = "NOMBRE_ATA")
     private String nombreAta;
-    @Basic(optional = false)
+    
     @Column(name = "TIPO_ATA")
     private String tipoAta;
-    @Basic(optional = false)
+    
+    @Column(name = "INSTITUCION")
     private String institucion;
-    @Basic(optional = false)
+    
     @Lob
     @Column(name = "ARCHIVO_ATA")
-    private Serializable archivoAta;
-    @Basic(optional = false)
-    @Column(name = "ANIO_TITULACION")
-    private short anioTitulacion;
-    @JoinColumn(name = "ID_LIST_TA", referencedColumnName = "ID_LIST_TA")
-    @ManyToOne(optional = false)
-    private ListadoTitulosAcademicos idListTa;
-
-    public AtestadoTa() {
-    }
-
-    public AtestadoTa(Long idAtestadoTa) {
-        this.idAtestadoTa = idAtestadoTa;
-    }
-
-    public AtestadoTa(Long idAtestadoTa, String nombreAta, String tipoAta, String institucion, Serializable archivoAta, short anioTitulacion) {
-        this.idAtestadoTa = idAtestadoTa;
-        this.nombreAta = nombreAta;
-        this.tipoAta = tipoAta;
-        this.institucion = institucion;
-        this.archivoAta = archivoAta;
-        this.anioTitulacion = anioTitulacion;
-    }
-
-    public Long getIdAtestadoTa() {
-        return idAtestadoTa;
-    }
-
-    public void setIdAtestadoTa(Long idAtestadoTa) {
-        this.idAtestadoTa = idAtestadoTa;
-    }
-
-    public String getNombreAta() {
-        return nombreAta;
-    }
-
-    public void setNombreAta(String nombreAta) {
-        this.nombreAta = nombreAta;
-    }
-
-    public String getTipoAta() {
-        return tipoAta;
-    }
-
-    public void setTipoAta(String tipoAta) {
-        this.tipoAta = tipoAta;
-    }
-
-    public String getInstitucion() {
-        return institucion;
-    }
-
-    public void setInstitucion(String institucion) {
-        this.institucion = institucion;
-    }
-
-    public Serializable getArchivoAta() {
-        return archivoAta;
-    }
-
-    public void setArchivoAta(Serializable archivoAta) {
-        this.archivoAta = archivoAta;
-    }
-
-    public short getAnioTitulacion() {
-        return anioTitulacion;
-    }
-
-    public void setAnioTitulacion(short anioTitulacion) {
-        this.anioTitulacion = anioTitulacion;
-    }
-
-    public ListadoTitulosAcademicos getIdListTa() {
-        return idListTa;
-    }
-
-    public void setIdListTa(ListadoTitulosAcademicos idListTa) {
-        this.idListTa = idListTa;
-    }
-
+    private Blob archivoAta;
+    
+     @Column(name = "ANIO_TITULACION")
+    private Integer anioTitulacion;
+    
+    @Column(name = "ID_LIST_TA")
+    private Integer idListTa;
+    
     @Override
     public int hashCode() {
         int hash = 0;

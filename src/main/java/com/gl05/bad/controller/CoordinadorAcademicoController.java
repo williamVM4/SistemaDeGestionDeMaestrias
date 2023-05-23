@@ -1,8 +1,10 @@
 package com.gl05.bad.controller;
 
+import com.gl05.bad.domain.AtestadoTa;
 import com.gl05.bad.domain.CoordinadorAcademico;
 import com.gl05.bad.domain.Documento;
 import com.gl05.bad.domain.ListadoDocumentacionPersonal;
+import com.gl05.bad.servicio.AtestadoTaService;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.DocumentacionPersonalService;
 import com.gl05.bad.servicio.DocumentoService;
@@ -10,6 +12,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +35,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CoordinadorAcademicoController {
 
   @Autowired
+  private AtestadoTaService atestadoService;
+  
+  @Autowired
   private CoordinadorAcademicoService coordinadorService;
 
   @Autowired
@@ -46,7 +54,17 @@ public class CoordinadorAcademicoController {
         ListadoDocumentacionPersonal ldp= new ListadoDocumentacionPersonal();
         ldp.setIdListDp(Long.valueOf(elemento.getIdListDp()));        
         var documentos = docService.listarDocumentoPorListado(ldp);
-      
+        
+        //Manejo de atestados academicos
+        List<String> tiposTitulos = listarTipoTitulos();
+        var atestados = atestadoService.listarAtestados();
+        List<AtestadoTa> atestadoCoordinador = new ArrayList();
+        for (var a : atestados) {
+            if(a.getIdListTa() == (int) elemento.getIdListTa()){
+                atestadoCoordinador.add(a);
+            }
+        }
+        
         Blob imagenBlob = elemento.getFotografiaCa();
         String imagenBase64 = null;
 
@@ -59,6 +77,8 @@ public class CoordinadorAcademicoController {
                 e.printStackTrace();
             }
         }
+        model.addAttribute("atestados", atestadoCoordinador);
+        model.addAttribute("tiposTitulos", tiposTitulos);
         model.addAttribute("imagenBase64", imagenBase64);
         model.addAttribute("coordinadorCA", elemento);
         model.addAttribute("documentos", documentos);
@@ -209,6 +229,41 @@ public class CoordinadorAcademicoController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/agregarTituloAcademicoCA/{idCoorAca}/{idListTa}")
+    public String agregarTituloAcademicoCA(
+        @RequestParam ("tipoAta") String tipoAta,
+        @RequestParam ("nombreAta") String nombreAta,
+        @RequestParam ("institucion") String institucion,
+        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("archivoAta") MultipartFile archivo,
+        @PathVariable("idListTa") int idListTa, 
+        @PathVariable("idCoorAca")int idCoorAca, 
+        RedirectAttributes redirectAttributes) {
+        
+        AtestadoTa atestadoNew = new AtestadoTa();
+        try {
+            byte[] fileBytes = archivo.getBytes();
+            Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+            
+            atestadoNew.setIdListTa(idListTa);
+            atestadoNew.setTipoAta(tipoAta);
+            atestadoNew.setNombreAta(nombreAta);
+            atestadoNew.setInstitucion(institucion);
+            atestadoNew.setAnioTitulacion(anioTitulacion);
+            atestadoNew.setArchivoAta(blob);
+            
+            atestadoService.agregarAtestado(atestadoNew);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un título académico.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha sucedido un error, vuelva a intentarlo");
+        }
+        return "redirect:/perfilCoordinadorAcademico/" + idCoorAca;   
+    }
+    
+    public List<String> listarTipoTitulos() {
+        List<String> tipoTitulos = Arrays.asList("Título Pregrado", "Maestría", "Postgrado", "Doctorado", "Especialidad", "Certificación", "Apostilla");
+        return tipoTitulos;
+    }
         
 
   /*@PostMapping("/guardarCA")

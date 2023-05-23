@@ -66,7 +66,7 @@
                             <jsp:include page="informacionGeneral/coordinadorAcademicoDocumentos.jsp" />
                         </div>
                         <div id="content_tab_titulos_academicos" class="row d-none content_tab tab_titulos_academicos">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoTitulos.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoTitulos.jspf"%>
                         </div>
                         <div id="content_tab_telefonos" class="row d-none content_tab tab_telefonos">
                             <jsp:include page="informacionGeneral/coordinadorAcademicoTelefonos.jsp" />
@@ -81,6 +81,8 @@
     </div>
 </div>
 <%@ include file="../common/footer.jspf"%>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script>
     // Función que se ejecuta cuando se hace clic en un botón
     function setActiveButton(buttonId) {
