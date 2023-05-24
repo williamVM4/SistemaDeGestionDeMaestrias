@@ -1,23 +1,9 @@
-<%@ include file="../common/header1.jspf"%>
-<%@ include file="../common/navigation1.jspf"%>
+<%@ include file="../common/header.jspf"%>
+<%@ include file="../common/navigation.jspf"%>
 
-<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-12">
-            <div class="titulo-Perfil"><h3>Coordinadores Académicos</h3></div>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-  
-  
-  <!-- Main content -->
-<section class="content">
-    <div class="container">
+<div align="center">
+  <div class="titulo-Perfil"><h3>Coordinadores Académicos</h3></div>
+  <div id="container-datos">
     <div class="row">
       <div class="col-sm-10 ">
         <div class="row">
@@ -101,11 +87,8 @@
         </div>
       </div>
     </div>
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+</div>
     <!-- Modal para crear coordinadores -->
    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -138,7 +121,7 @@
         </div>
       </div>
     </div>
-<%@ include file="../common/footer1.jspf"%>
+<%@ include file="../common/footer.jspf"%>
 
 
 
