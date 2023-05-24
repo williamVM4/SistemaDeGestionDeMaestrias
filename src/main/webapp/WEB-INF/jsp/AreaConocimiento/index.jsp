@@ -4,12 +4,12 @@
 
 
 <div align="center">
-    <div class="titulo-Perfil"><h3>Ã€rea de Conocimientos</h3></div>
+    <div class="titulo-Perfil"><h3>Área de Conocimientos</h3></div>
     <div id="container-datos">
 
         <c:if test="${not empty mensaje}">
             <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-check-circle"></i> Ã‰xito!  </strong> ${mensaje}
+                <strong><i class="bi bi-check-circle"></i> Éxito!  </strong> ${mensaje}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
@@ -35,9 +35,9 @@
             <table class="table">
                 <thead class="table">
                     <tr>
-                        <th scope="col">NÂ°</th>
+                        <th scope="col">N°</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">DescripciÃ²n</th>
+                        <th scope="col">Descripción</th>
                         <th scope="Opciones">Opciones</th>
                     </tr>
                 </thead>
@@ -68,8 +68,8 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <strong>Â¿EstÃ¡s seguro de eliminar el Ã rea seleccionada?</strong>
-                                                    <p>Ten en cuenta que se eliminarÃ¡n los datos relacionados a el area de ${elemento.nombreArea}.</p>
+                                                    <strong>Â¿EstÃ¡s seguro de eliminar el Área seleccionada?</strong>
+                                                    <p>Ten en cuenta que se eliminarán los datos relacionados a el area de ${elemento.nombreArea}.</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <a href="/EliminarAreaConocimiento/${elemento.idAreaConocimiento}" class="btn btn-danger">Eliminar</a>
@@ -125,6 +125,7 @@
 <script>
     $(document).ready(function () {
         var idAreaConocimiento = $('#areaId').val();
+        var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
         $('#formGuardar').validate({
             rules: {// reglas
                 nombreArea: {
@@ -148,7 +149,7 @@
                 event.preventDefault();
                 var idAreaConocimiento = $('#areaId').val();//tomo la id
 
-                var formDataArray = $(this).serializeArray();//tomo los datos del array
+                var formDataArray = formGuardar.serializeArray();//tomo los datos del array
 
                 var url;//valido el tipo de url si editar o crear
                 if (idAreaConocimiento) {
