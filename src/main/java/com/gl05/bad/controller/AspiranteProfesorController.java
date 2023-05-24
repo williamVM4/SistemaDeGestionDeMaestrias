@@ -1,29 +1,45 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.AspiranteProfesor;
+import com.gl05.bad.domain.AtestadoTa;
 import com.gl05.bad.domain.Correo;
+import com.gl05.bad.domain.Documento;
 import com.gl05.bad.domain.ExperienciaLaboral;
+import com.gl05.bad.domain.ListadoDocumentacionPersonal;
 import com.gl05.bad.domain.RedSocial;
 import com.gl05.bad.domain.Telefono;
 import com.gl05.bad.servicio.AspiranteProfesorService;
+import com.gl05.bad.servicio.AtestadoTaService;
 import com.gl05.bad.servicio.PaisService;
 import com.gl05.bad.servicio.CorreoService;
+import com.gl05.bad.servicio.DocumentoService;
 import com.gl05.bad.servicio.ExperienciaLaboralService;
 import com.gl05.bad.servicio.RedSocialService;
 import com.gl05.bad.servicio.TelefonoService;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -48,6 +64,12 @@ public class AspiranteProfesorController {
     @Autowired
     private TelefonoService telefonoService;
     
+    @Autowired
+    private DocumentoService docService;
+    
+    @Autowired
+    private AtestadoTaService atestadoService;
+
     @GetMapping("/PerfilAspiranteProfesor/{idAspiranteProfesor}")
     public String perfilAspiranteProfesor(Model model, AspiranteProfesor aspirante) {
         model.addAttribute("pageTitle", "PerfilAspiranteProfesor");
@@ -107,6 +129,41 @@ public class AspiranteProfesorController {
                 }
             }
         }
+        
+        //Manejo de imagenes
+        Blob imagenBlob = aspiranteNew.getFotografiaAp();
+        String imagenBase64 = null;
+
+        if (imagenBlob != null) {
+            try {
+                byte[] bytes = imagenBlob.getBytes(1, (int) imagenBlob.length());
+                String base64Encoded = Base64Utils.encodeToString(bytes);
+                bytes = null;
+                imagenBase64 = new String(base64Encoded.getBytes(StandardCharsets.UTF_8));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        //Manejo de documentacion personal
+        ListadoDocumentacionPersonal ldp= new ListadoDocumentacionPersonal();
+        ldp.setIdListDp(Long.valueOf(aspiranteNew.getIdListDp()));
+        var documentos = docService.listarDocumentoPorListado(ldp);
+        
+        //Manejo de atestados academicos
+        List<String> tiposTitulos = listarTipoTitulos();
+        var atestados = atestadoService.listarAtestados();
+        List<AtestadoTa> atestadoAspirante = new ArrayList();
+        for (var a : atestados) {
+            if(a.getIdListTa() == (int) aspiranteNew.getIdListTa()){
+                atestadoAspirante.add(a);
+            }
+        }
+
+        model.addAttribute("atestados", atestadoAspirante);
+        model.addAttribute("tiposTitulos", tiposTitulos);
+        model.addAttribute("imagenBase64", imagenBase64);
+        model.addAttribute("documentos", documentos);
         model.addAttribute("aspiranteAP", aspiranteNew);
         model.addAttribute("paises", paises);
         model.addAttribute("sexos", sexos);
@@ -329,7 +386,216 @@ public class AspiranteProfesorController {
         String redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/PerfilAspiranteProfesor/{idAspiranteProfesor}").buildAndExpand(idAspiranteProfesor).toUriString();
         return "redirect:" + redirectUrl;
     }
+    
+    @PostMapping("/actualizarFotoAP/{idAspiranteProfesor}")
+    public String actualizarFoto(
+        @RequestParam Map<String, MultipartFile> campos,
+        @PathVariable("idAspiranteProfesor") Long idAspiranteProfesor,
+        RedirectAttributes redirectAttributes) {
+        AspiranteProfesor aspirante = new AspiranteProfesor();
+        try {
+            aspirante.setIdAspiranteProfesor(idAspiranteProfesor);
+            for (Map.Entry<String, MultipartFile> entry : campos.entrySet()) {
+                String nombreCampo = entry.getKey();
+                MultipartFile campo = entry.getValue();
 
+                byte[] fileBytes = campo.getBytes();
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+
+                aspiranteService.actualizarFoto(aspirante, nombreCampo, blob);
+            }
+
+            redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado los campos correctamente.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Sucedió un error al actualizar los campos.");
+        }
+
+        return "redirect:/PerfilAspiranteProfesor/" + aspirante.getIdAspiranteProfesor();  
+    }
+
+    @PostMapping("/actualizarDocumentoAP/{idAspiranteProfesor}")
+    public String actualizarDocumento(
+        @RequestParam("tipoDocumento") String tipoDocumento,
+        @RequestParam Map<String, MultipartFile> campos,
+        @PathVariable("idAspiranteProfesor") Long idAspiranteProfesor,
+        RedirectAttributes redirectAttributes) {
+      
+        Documento documento = new Documento();
+        AspiranteProfesor aspirante = new AspiranteProfesor();
+        AspiranteProfesor aspiranteExistente = new AspiranteProfesor();
+        ListadoDocumentacionPersonal listaDoc = new ListadoDocumentacionPersonal();
+        
+        try {
+            aspirante.setIdAspiranteProfesor(idAspiranteProfesor);
+            aspiranteExistente=aspiranteService.encontrarAP(aspirante);
+            listaDoc.setIdListDp(Long.valueOf(aspiranteExistente.getIdListDp()));
+            
+            documento.setIdListDp(listaDoc);
+            documento.setTipoFile(tipoDocumento);
+            for (Map.Entry<String, MultipartFile> entry : campos.entrySet()) {
+              try{
+                String tipoCampo = entry.getKey();
+                MultipartFile campo = entry.getValue();
+
+                byte[] fileBytes = campo.getBytes();
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+                
+                documento.setDocFile(blob);
+
+                docService.agregarDocumento(documento);
+              }catch(IOException e){
+                redirectAttributes.addFlashAttribute("error", "El documento no cumple con las especificaciones dadas");
+              }
+            }
+            redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado sus documentos.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Sucedió un error al subir el documento");
+        }
+
+        return "redirect:/PerfilAspiranteProfesor/" + aspiranteExistente.getIdAspiranteProfesor();  
+    }
+
+    @GetMapping("/eliminarDocumentoAP/{idAspiranteProfesor}/{IdDocumento}")
+    public String eliminarDocumento(
+            Documento doc, 
+            @PathVariable("idAspiranteProfesor") Long idAspiranteProfesor,
+            RedirectAttributes redirectAttributes) {
+        try {
+            docService.eliminarDocumento(doc);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el documento.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el documento.");
+        }
+        return "redirect:/PerfilAspiranteProfesor/" + idAspiranteProfesor;
+    }
+
+    @GetMapping("/archivoAP/{IdDocumento}")
+    public ResponseEntity <byte[]> mostrarArchivoPDF(@PathVariable("IdDocumento") Long id) {
+        Documento archivo = new Documento();
+        archivo.setIdDocumento(id);
+        Documento archivoExistente = docService.encontrarDoc(archivo);
+
+        Blob pdfBlob = archivoExistente.getDocFile();
+        byte[] pdfBytes;
+
+        try {
+            if (pdfBlob != null && pdfBlob.length() > 0) {
+                pdfBytes = pdfBlob.getBytes(1, (int) pdfBlob.length());
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @PostMapping("/agregarTituloAcademicoAP/{idAspiranteProfesor}/{idListTa}")
+    public String agregarTituloAcademicoAP(
+        @RequestParam ("tipoAta") String tipoAta,
+        @RequestParam ("nombreAta") String nombreAta,
+        @RequestParam ("institucion") String institucion,
+        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("archivoAta") MultipartFile archivo,
+        @PathVariable("idListTa") int idListTa, 
+        @PathVariable("idAspiranteProfesor")int idAspiranteProfesor, 
+        RedirectAttributes redirectAttributes) {
+        
+        AtestadoTa atestadoNew = new AtestadoTa();
+        try {
+            byte[] fileBytes = archivo.getBytes();
+            Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+            
+            atestadoNew.setIdListTa(idListTa);
+            atestadoNew.setTipoAta(tipoAta);
+            atestadoNew.setNombreAta(nombreAta);
+            atestadoNew.setInstitucion(institucion);
+            atestadoNew.setAnioTitulacion(anioTitulacion);
+            atestadoNew.setArchivoAta(blob);
+            
+            atestadoService.agregarAtestado(atestadoNew);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un título académico.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha sucedido un error, vuelva a intentarlo");
+        }
+        return "redirect:/PerfilAspiranteProfesor/" + idAspiranteProfesor;   
+    }
+  
+    @PostMapping("/modificarTituloAcademicoAP/{idAspiranteProfesor}/{idAtestadoTa}")
+    public String modificarTituloAcademicoAP(
+        @RequestParam ("tipoAta") String tipoAta,
+        @RequestParam ("nombreAta") String nombreAta,
+        @RequestParam ("institucion") String institucion,
+        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("archivoAta") MultipartFile archivo,
+        @PathVariable("idAtestadoTa") Long idAtestadoTa, 
+        @PathVariable("idAspiranteProfesor")int idAspiranteProfesor, 
+        RedirectAttributes redirectAttributes) {
+        
+        AtestadoTa atestadoActualizar = new AtestadoTa();
+        atestadoActualizar.setIdAtestadoTa(idAtestadoTa);
+        atestadoActualizar.setTipoAta(tipoAta);
+        atestadoActualizar.setNombreAta(nombreAta);
+        atestadoActualizar.setInstitucion(institucion);
+        atestadoActualizar.setAnioTitulacion(anioTitulacion);
+                   
+        if(archivo == null || archivo.isEmpty()){
+          atestadoActualizar.setArchivoAta(null);
+          atestadoService.actualizarAtestado(atestadoActualizar);
+          redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
+        }else{
+          try {
+            byte[] fileBytes = archivo.getBytes();
+            Blob blob = new javax.sql.rowset.serial.SerialBlob(fileBytes);
+            atestadoActualizar.setArchivoAta(blob);
+            atestadoService.actualizarAtestado(atestadoActualizar);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
+          } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha sucedido un error al actualizar el titulo. Intentelo de nuevo");
+          }
+        }
+        
+        return "redirect:/PerfilAspiranteProfesor/" + idAspiranteProfesor;   
+    }
+    
+    @GetMapping("/eliminarTituloAcademicoAP/{idAspiranteProfesor}/{idAtestadoTa}")
+    public String eliminarAtestadoTitulo(AtestadoTa atestado, @PathVariable("idAspiranteProfesor")int idAspiranteProfesor, RedirectAttributes redirectAttributes) {
+        try {
+            atestadoService.eliminarAtestado(atestado);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el título académico.");
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el título académico.");
+        }
+        return "redirect:/PerfilAspiranteProfesor/" + idAspiranteProfesor;
+    }
+    
+    @GetMapping("/archivoAP/tituloAcademico/{idAtestadoTa}")
+    public ResponseEntity <byte[]> mostrarTituloAcademico(@PathVariable("idAtestadoTa") Long id) {
+        AtestadoTa archivo = new AtestadoTa();
+        archivo.setIdAtestadoTa(id);
+        AtestadoTa archivoExistente = atestadoService.encontrarAtestado(archivo);
+
+        Blob pdfBlob = archivoExistente.getArchivoAta();
+        byte[] pdfBytes;
+
+        try {
+            if (pdfBlob != null && pdfBlob.length() > 0) {
+                pdfBytes = pdfBlob.getBytes(1, (int) pdfBlob.length());
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                archivoExistente=null;
+                return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+   
     public List<String> listarGeneros() {
         List<String> generos = Arrays.asList("Masculino", "Femenino","LGBTIQ+","Prefiero no decirlo");        
         return generos;
@@ -357,6 +623,10 @@ public class AspiranteProfesorController {
     public List<String> listarTipoTelefono() {
         List<String> tipoTelefono = Arrays.asList("Casa", "Oficina","Fijo", "Móvil");
         return tipoTelefono;
+    }
+    public List<String> listarTipoTitulos() {
+        List<String> tipoTitulos = Arrays.asList("Título Pregrado", "Maestría", "Postgrado", "Doctorado", "Especialidad", "Certificación", "Apostilla");
+        return tipoTitulos;
     }
     
 }

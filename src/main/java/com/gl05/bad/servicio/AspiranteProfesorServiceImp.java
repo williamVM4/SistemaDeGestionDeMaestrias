@@ -2,7 +2,11 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.AspiranteProfesorDao;
 import com.gl05.bad.domain.AspiranteProfesor;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +45,21 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
         aspiranteExistente.setNupAp(aspirante.getNupAp());
         aspiranteExistente.setPasaporteAp(aspirante.getPasaporteAp());
         aspiranteExistente.setDocPersonalAp(aspirante.getDocPersonalAp());
+        
+        Blob fotoActual = aspiranteExistente.getFotografiaAp();
+        
+        if (aspirante.getFotografiaAp() == null && fotoActual != null) {
+          byte[] fotoBytes;
+          try {
+            fotoBytes = fotoActual.getBytes(1, (int) fotoActual.length());
+            aspiranteExistente.setFotografiaAp(new javax.sql.rowset.serial.SerialBlob(fotoBytes));
+          } catch (SQLException ex) {
+            Logger.getLogger(AtestadoTaServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        } else {
+          aspiranteExistente.setFotografiaAp(null);
+        }
+        
         aspiranteDao.save(aspiranteExistente);
     }
 
@@ -52,5 +71,16 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     @Override
     public AspiranteProfesor encontrarAP(AspiranteProfesor aspirante) {
         return aspiranteDao.findById(aspirante.getIdAspiranteProfesor()).orElse(null);
+    }
+    
+    @Override
+    @Transactional
+    public void actualizarFoto(AspiranteProfesor aspirante, String nombreCampo, Blob valorCampo) {
+        AspiranteProfesor coordinadorExistente = aspiranteDao.findById(aspirante.getIdAspiranteProfesor()).orElse(null);
+        switch (nombreCampo) {
+          case "fotografiaCa":
+            coordinadorExistente.setFotografiaAp(valorCampo);
+            break;}
+        aspiranteDao.save(coordinadorExistente);
     }
 }
