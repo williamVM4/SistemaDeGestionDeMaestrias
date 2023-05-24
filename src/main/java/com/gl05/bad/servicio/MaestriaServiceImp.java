@@ -34,6 +34,11 @@ public class MaestriaServiceImp implements MaestriaService{
     public void agregar(Maestria maestria) {
         maestriaDao.save(maestria);
     }
+    
+    @Override
+    public void proAgregar(String nombre, String posgrado) {
+      maestriaDao.sp_insert_maestria(nombre, posgrado);
+    }
 
     @Override
     @Transactional

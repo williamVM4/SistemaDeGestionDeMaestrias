@@ -3,9 +3,9 @@ $(document).ready(function() {
         ajax: '/maestria/data',
         processing: true,
         serverSide: true,
-        dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-             "<'row'<'col-sm-12 my-5'tr>>" +
-             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        dom: "<'row w-100'<'col-sm-6'l><'col-sm-6'f>>" +
+             "<'row w-100'<'col-sm-12 my-5'tr>>" +
+             "<'row w-100'<'col-sm-5'i><'col-sm-7'p>>",
         columns: [
             { data: 'nombreMaestria' },
             { 
