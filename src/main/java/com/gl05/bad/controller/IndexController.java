@@ -31,10 +31,22 @@ public class IndexController {
         return "errorPage";
     }
     
-      @GetMapping("/usuariobloqueado")
+    @GetMapping("/usuariobloqueado")
     public String correctDisable(Model model) {
         model.addAttribute("pageTitle", "welcome2");
         return "usuariobloqueado";
+    }
+    
+    @GetMapping("/usuarioinhabilitado")
+    public String usernothabilitate(Model model) {
+        model.addAttribute("pageTitle", "welcome2");
+        return "usuarioinhabilitado";
+    }
+    
+    @GetMapping("/usuariodeshabilitadobloqueado")
+    public String usernothabilitateblocked(Model model) {
+        model.addAttribute("pageTitle", "welcome2");
+        return "usuariobloqdes";
     }
     
 }

@@ -39,10 +39,16 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
         //Base
         Usuario usuario = usuarioDao.findByUsername(username);
 
+         if (username.equals(usuario.getUsername()) && usuario.getUsuarioBloqueado() == 1 && usuario.isEnabled() == false) {
+            response.sendRedirect("/usuariodeshabilitadobloqueado");
+         } else    
+        
         //Cuando el usuario esta bloqueado por los 3 intentos
-        if (username.equals(usuario.getUsername()) && usuario.getUsuarioBloqueado() == 1) {
+        if (username.equals(usuario.getUsername()) && usuario.getUsuarioBloqueado() == 1 ) {
             response.sendRedirect("/usuariobloqueado");
-        } else if (username.equals(usuario.getUsername()) || usuario.getUsuarioBloqueado() == 0) {
+        } else if (username.equals(usuario.getUsername()) && usuario.isEnabled() == false) {
+             response.sendRedirect("/usuarioinhabilitado");
+         } else if (username.equals(usuario.getUsername()) || usuario.getUsuarioBloqueado() == 0) {
             //Incrementamos el contador de intentos fallidos
             int intentos = usuario.getNumerointentos() + 1;
             usuario.setNumerointentos(intentos);
@@ -61,15 +67,15 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
                 response.sendRedirect("/errorpage");
             } else {
                 // Redirigir al usuario a la página de inicio de sesión
-                response.sendRedirect("/login?error=true");
+                response.sendRedirect("/login");
             }
+  
         }
         }catch (NullPointerException e){
            System.out.println("usuario nulo");
            response.sendRedirect("/login");
         }
-           
-        
+   
         
     }
 
