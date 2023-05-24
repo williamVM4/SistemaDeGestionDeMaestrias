@@ -94,6 +94,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal para roles -->
 <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -131,6 +132,8 @@
     </div>
 </div>
 
+<%@ include file="../common/footer.jspf"%>
+                    
 <script>
     $(document).ready(function () {
         $('#formGuardar').submit(function (event) {
@@ -227,4 +230,3 @@
 
 </script>                        
 
-<%@ include file="../common/footer.jspf"%>
