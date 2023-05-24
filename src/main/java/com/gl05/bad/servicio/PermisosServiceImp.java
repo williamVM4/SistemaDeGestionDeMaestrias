@@ -16,6 +16,11 @@ public class PermisosServiceImp implements PermisosService {
     public List<Permisos> listaPermisos() {
        return (List<Permisos>) permisoDao.findAll();
     }
+
+    @Override
+    public void AgregarPermiso(Permisos permiso) {
+        permisoDao.save(permiso);
+    }
     
     
 }

@@ -25,7 +25,7 @@ public class EscuelaPostgrado implements Serializable {
     @JoinColumn(name = "ID_FACULTAD", referencedColumnName = "ID_FACULTAD")
     @ManyToOne(optional = false)
     private Facultad idFacultad;
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPostgrado")
     private Collection<Maestria> maestriaCollection;
 
