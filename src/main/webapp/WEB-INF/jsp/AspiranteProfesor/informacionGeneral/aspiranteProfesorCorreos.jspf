@@ -11,13 +11,13 @@
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
-        <table style="width:100%; " class="table table-bordered">
+        <table style="width:100%; " class="table table-bordered small">
             <thead>
                 <tr>
-                    <th scope="col" width="5%">N°</th>
+                    <th scope="col">N°</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Correo</th>
-                    <th scope="col" width="10%">Opciones</th>
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
