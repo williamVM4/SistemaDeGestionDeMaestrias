@@ -13,7 +13,7 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DUI'}">
                     <c:set var="tieneDui" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivoAP/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
                     <br>
                     <!--Modal de confirmación de eliminación-->
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <a href="/eliminarDocumentoAP/${aspiranteAP.idAspiranteProfesor}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NIT'}">
                     <c:set var="tieneNit" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivoAP/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
                     <br>
                     <!--Modal de confirmación de eliminación-->
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <a href="/eliminarDocumentoAP/${aspiranteAP.idAspiranteProfesor}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NUP'}">
                     <c:set var="tieneNup" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivoAP/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
                     <br>
                     <!--Modal de confirmación de eliminación-->
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <a href="/eliminarDocumentoAP/${aspiranteAP.idAspiranteProfesor}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'CURRICULUM'}">
                     <c:set var="tieneCv" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivoAP/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
                     <br>
                     <!--Modal de confirmación de eliminación-->
@@ -138,7 +138,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <a href="/eliminarDocumentoAP/${aspiranteAP.idAspiranteProfesor}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +157,7 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'PASAPORTE'}">
                     <c:set var="tienePasaporte" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivoAP/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
                     <br>
                     <!--Modal de confirmación de eliminación-->
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <a href="/eliminarDocumentoAP/${aspiranteAP.idAspiranteProfesor}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DOCUMENTO DE IDENTIFICACION EXTRANJERO'}">
                     <c:set var="tieneDP" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivoAP/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
                     <br>
                     <!--Modal de confirmación de eliminación-->
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <a href="/eliminarDocumentoAP/${aspiranteAP.idAspiranteProfesor}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/eliminarDocumento/${coordinadorCA.idCoorAca}/${doc.idDocumento}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>
@@ -236,7 +236,7 @@
           <div class="modal-body">
             <div class="row align-items-start">
                 <div class="col">
-                    <form action="/actualizarDocumentoAP/${aspiranteAP.idAspiranteProfesor}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <input type="hidden" name="tipoDocumento" value="DUI">
                       <div class="input-group mb-3">
@@ -273,7 +273,7 @@
           <div class="modal-body">
             <div class="row align-items-start">
                 <div class="col">
-                    <form action="/actualizarDocumentoAP/${aspiranteAP.idAspiranteProfesor}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <input type="hidden" name="tipoDocumento" value="NIT">
                       <div class="input-group mb-3">
@@ -310,7 +310,7 @@
           <div class="modal-body">
             <div class="row align-items-start">
                 <div class="col">
-                    <form action="/actualizarDocumentoAP/${aspiranteAP.idAspiranteProfesor}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <input type="hidden" name="tipoDocumento" value="NUP">
                       <div class="input-group mb-3">
@@ -347,7 +347,7 @@
           <div class="modal-body">
             <div class="row align-items-start">
                 <div class="col">
-                    <form action="/actualizarDocumentoAP/${aspiranteAP.idAspiranteProfesor}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <input type="hidden" name="tipoDocumento" value="CURRICULUM">
                       <div class="input-group mb-3">
@@ -384,7 +384,7 @@
           <div class="modal-body">
             <div class="row align-items-start">
                 <div class="col">
-                    <form action="/actualizarDocumentoAP/${aspiranteAP.idAspiranteProfesor}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <input type="hidden" name="tipoDocumento" value="PASAPORTE">
                       <div class="input-group mb-3">
@@ -421,7 +421,7 @@
           <div class="modal-body">
             <div class="row align-items-start">
                 <div class="col">
-                    <form action="/actualizarDocumentoAP/${aspiranteAP.idAspiranteProfesor}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    <form action="/actualizarDocumento/${coordinadorCA.idCoorAca}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <input type="hidden" name="tipoDocumento" value="DOCUMENTO DE IDENTIFICACION EXTRANJERO">
                       <div class="input-group mb-3">
@@ -448,4 +448,4 @@
       </div>
     </div>
 </div>
-                  
+                

@@ -57,22 +57,22 @@
                 <div class="col-sm-12">
                     <div id="contenido-perfil" class="contenido">
                         <div id="content_tab_fotografia" class="row d-none content_tab tab_fotografia">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoFotografia.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoFotografia.jspf" %>
                         </div>
                         <div id="content_tab_generales" class="row content_tab tab_generales">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoGenerales.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoGenerales.jspf"%>
                         </div>
                         <div id="content_tab_documentos_personales" class="row d-none content_tab tab_documentos_personales">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoDocumentos.jsp" />
+                            <%@include file="informacionGeneral/coordinadorAcademicoDocumentos.jspf" %>
                         </div>
                         <div id="content_tab_titulos_academicos" class="row d-none content_tab tab_titulos_academicos">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoTitulos.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoTitulos.jspf"%>
                         </div>
                         <div id="content_tab_telefonos" class="row d-none content_tab tab_telefonos">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoTelefonos.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoTelefonos.jspf"%>
                         </div>
                         <div id="content_tab_correos" class="row d-none content_tab tab_correos">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoCorreos.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoCorreos.jspf"%>
                         </div>
                     </div>
                 </div>
@@ -81,6 +81,8 @@
     </div>
 </div>
 <%@ include file="../common/footer.jspf"%>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script>
     // Función que se ejecuta cuando se hace clic en un botón
     function setActiveButton(buttonId) {

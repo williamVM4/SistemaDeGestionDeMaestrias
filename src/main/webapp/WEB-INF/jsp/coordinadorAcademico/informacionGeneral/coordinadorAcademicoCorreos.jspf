@@ -11,13 +11,13 @@
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
-        <table style="width:100%; " class="table table-bordered">
+        <table style="width:100%; " class="table table-bordered small">
             <thead>
                 <tr>
-                    <th scope="col" width="5%">N°</th>
+                    <th scope="col">N°</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Correo</th>
-                    <th scope="col" width="10%">Opciones</th>
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <a href="/EliminarCorreoAspiranteProfesor/${eCorreo.idCorreo}/${aspiranteAP.idAspiranteProfesor}" class="btn btn-danger">Eliminar</a>
+                                                <a href="/EliminarCorreoCoordinadorAcademico/${eCorreo.idCorreo}/${coordinadorCA.idCoorAca}" class="btn btn-danger">Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                     <h5 class="modal-title" id="crearModalCorreoLabel">Agregar Correo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/AgregarCorreoAspiranteProfesor/${aspiranteAP.idAspiranteProfesor}/${aspiranteAP.idListCorreo}" method="post" onsubmit="return validarCorreo()" accept-charset="UTF-8" >
+                <form action="/AgregarCorreoCoordinadorAcademico/${coordinadorCA.idCoorAca}/${coordinadorCA.idListCorreo}" method="post" onsubmit="return validarCorreo()" accept-charset="UTF-8" >
                     <div class="modal-body">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <div id="MensajeErrorCorreo" class="d-none">

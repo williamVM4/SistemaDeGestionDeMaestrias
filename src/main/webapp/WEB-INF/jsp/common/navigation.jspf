@@ -20,10 +20,7 @@
                 <a href="#Perfiles" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfiles</a>
                 <ul class="collapse list-unstyled" id="Perfiles">
                     <li>
-                        <a href="/gestionarCoordinadorAcademico">Gestionar Coordinadores</a>
-                    </li>
-                    <li>
-                        <a href="/CoordinadorAcademico">Coordinadores</a>
+                        <a href="/gestionarCoordinadorAcademico">Coordinadores</a>
                     </li>
                     <li>
                         <a href="/GestionarAspiranteProfesor">Aspirantes a Profesor</a>
