@@ -23,12 +23,14 @@ public class Maestria implements Serializable {
     @Column(name = "NOMBRE_MAESTRIA")
     private String nombreMaestria;
     
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMaestria")
-    private Collection<PlanEstudio> planEstudioCollection;
+    @Column(name = "PERFIL_ASP")
+    private String perfilAsp;
+    
+    @Column(name = "PERFIL_COOR")
+    private String perfilCoor;
     
     @JoinColumn(name = "ID_COOR_ACA", referencedColumnName = "ID_COOR_ACA")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private CoordinadorAcademico idCoorAca;
 
     @JoinColumn(name = "ID_POSTGRADO", referencedColumnName = "ID_POSTGRADO")
@@ -65,14 +67,6 @@ public class Maestria implements Serializable {
 
     public void setNombreMaestria(String nombreMaestria) {
         this.nombreMaestria = nombreMaestria;
-    }
-
-    public Collection<PlanEstudio> getPlanEstudioCollection() {
-        return planEstudioCollection;
-    }
-
-    public void setPlanEstudioCollection(Collection<PlanEstudio> planEstudioCollection) {
-        this.planEstudioCollection = planEstudioCollection;
     }
 
     public CoordinadorAcademico getIdCoorAca() {

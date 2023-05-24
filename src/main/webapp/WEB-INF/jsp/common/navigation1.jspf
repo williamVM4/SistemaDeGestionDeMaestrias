@@ -52,7 +52,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/maestria/index" class="nav-link">
+                <a href="/GestionarMaestria" class="nav-link">
                   <i class="far fa-circle nav-icon text-info"></i>
                   <p>Gestionar Maestría</p>
                 </a>

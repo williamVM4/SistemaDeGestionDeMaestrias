@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MaestriaController {
     @Autowired
     private MaestriaService maestriaService;
     
-    @GetMapping("/maestria/index")
+    @GetMapping("/GestionarMaestria")
     public String listarMaestrias(Model model) {
         return "maestria/index";
     }
@@ -30,6 +31,17 @@ public class MaestriaController {
     @ResponseBody
     public DataTablesOutput<Maestria> getMaestrias(@Valid DataTablesInput input) {
       return maestriaService.listarMaestrias(input);
+    }
+    
+    @GetMapping("/EliminarMaestria/{idMaestria}")
+    public String EliminarMaestria(Maestria maestria, RedirectAttributes redirectAttributes) {
+        try {
+            maestriaService.eliminar(maestria);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado la Maestria correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el Area de Conocimiento.");
+        }
+        return "redirect:/GestionarMaestria";
     }
     
 }

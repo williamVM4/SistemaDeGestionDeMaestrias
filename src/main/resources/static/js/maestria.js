@@ -29,13 +29,31 @@ $(document).ready(function() {
                     actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
                     if(hasPrivilegeAdmin == true){
-                        actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
-                        actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.id + '" data-modo="actualizar">';
+                        actionsHtml += '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                        actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idMaestria + '" data-modo="actualizar">';
                         actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
                     }
                     
-                    actionsHtml += '<a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-' + row.id + '">';
+                    actionsHtml += '<a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-' + row.idMaestria + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></a>';
+                    actionsHtml += '<div class="modal fade" id="confirmarEliminar-' + row.idMaestria + '" tabindex="-1" aria-labelledby="confirmarEliminarLabel-' + row.idMaestria + '" aria-hidden="true">';
+                    actionsHtml += '<div class="modal-dialog">';
+                    actionsHtml += '<div class="modal-content">';
+                    actionsHtml += '<div class="modal-header">';
+                    actionsHtml += '<h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idMaestria}">Confirmar eliminación</h5>';
+                    actionsHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+                    actionsHtml += '</div>';
+                    actionsHtml += '<div class="modal-body">';
+                    actionsHtml += '<strong>¿Estás seguro de eliminar la maestria seleccionada?</strong>';
+                    actionsHtml += '<p>Ten en cuenta que se eliminarán los datos relacionados a la maestria de ' + row.nombreMaestria + '.</p>';
+                    actionsHtml += '</div>';
+                    actionsHtml += '<div class="modal-footer">';
+                    actionsHtml += '<a href="/EliminarMaestria/' + row.idMaestria + '" class="btn btn-danger">Eliminar</a>';
+                    actionsHtml += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>';
+                    actionsHtml += '</div>';
+                    actionsHtml += '</div>';
+                    actionsHtml += '</div>';
+                    actionsHtml += '</div>';
               
                     return actionsHtml;
                 }
