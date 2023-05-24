@@ -85,10 +85,8 @@
                     </c:if>      
                  </tbody>
              </table>
-         </div>
-        
+         </div> 
     </div>
-    
 </div>
 
 
@@ -119,6 +117,8 @@
     </div>
 </div>
 
+<%@ include file="../common/footer.jspf"%>                    
+                    
 <script>
     $(document).ready(function () {
         $('#formGuardar').submit(function (event) {
@@ -189,4 +189,3 @@
 </script>
 
 
-<%@ include file="../common/footer.jspf"%>
