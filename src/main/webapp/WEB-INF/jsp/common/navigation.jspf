@@ -34,16 +34,16 @@
                 <a href="#Administracion" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
                 <ul class="collapse list-unstyled" id="Administracion">
                     <li>
-                        <a href="#">Usuarios</a>
+                        <a href="/viewUsuarios">Usuarios</a>
                     </li>
                     <li>
                         <a href="/viewRoles">Roles</a>
                     </li>
                     <li>
-                        <a href="#">Facultades</a>
+                        <a href="/viewFacultad">Facultades</a>
                     </li>
                     <li>
-                        <a href="#">Escuelas de Posgrado</a>
+                        <a href="/viewEscuelaPosgrado">Escuelas de Posgrado</a>
                     </li>
                     <li>
                         <a href="/GestionarAreaConocimiento">Áreas del Conocimiento</a>

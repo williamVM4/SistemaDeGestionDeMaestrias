@@ -71,13 +71,13 @@
                 <div class="col-sm-12">
                     <div id="contenido-perfil" class="contenido">
                         <div id="content_tab_fotografia" class="row d-none content_tab tab_fotografia">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoFotografia.jsp" />
+                            <%@ include file="informacionGeneral/coordinadorAcademicoFotografia.jspf" %>
                         </div>
                         <div id="content_tab_generales" class="row content_tab tab_generales">
                             <%@ include file="informacionGeneral/coordinadorAcademicoGenerales.jspf"%>
                         </div>
                         <div id="content_tab_documentos_personales" class="row d-none content_tab tab_documentos_personales">
-                            <jsp:include page="informacionGeneral/coordinadorAcademicoDocumentos.jsp" />
+                            <%@include file="informacionGeneral/coordinadorAcademicoDocumentos.jspf" %>
                         </div>
                         <div id="content_tab_titulos_academicos" class="row d-none content_tab tab_titulos_academicos">
                             <%@ include file="informacionGeneral/coordinadorAcademicoTitulos.jspf"%>

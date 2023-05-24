@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
+@Table(name = "FACULTAD")
 @NamedQueries({
     @NamedQuery(name = "Facultad.findAll", query = "SELECT f FROM Facultad f"),
     @NamedQuery(name = "Facultad.findByIdFacultad", query = "SELECT f FROM Facultad f WHERE f.idFacultad = :idFacultad"),
@@ -18,12 +21,11 @@ public class Facultad implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_FACULTAD")
     @Column(name = "ID_FACULTAD")
     private Long idFacultad;
-    @Basic(optional = false)
     @Column(name = "NOMBRE_FACULTAD")
     private String nombreFacultad;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFacultad")
-    private Collection<EscuelaPostgrado> escuelaPostgradoCollection;
+//    @JsonIgnore
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idFacultad")
+    //private Collection<EscuelaPostgrado> escuelaPostgradoCollection;
 
     public Facultad() {
     }
@@ -53,13 +55,13 @@ public class Facultad implements Serializable {
         this.nombreFacultad = nombreFacultad;
     }
 
-    public Collection<EscuelaPostgrado> getEscuelaPostgradoCollection() {
+    /*public Collection<EscuelaPostgrado> getEscuelaPostgradoCollection() {
         return escuelaPostgradoCollection;
     }
 
     public void setEscuelaPostgradoCollection(Collection<EscuelaPostgrado> escuelaPostgradoCollection) {
         this.escuelaPostgradoCollection = escuelaPostgradoCollection;
-    }
+    }*/
     
     @Override
     public int hashCode() {
@@ -83,7 +85,7 @@ public class Facultad implements Serializable {
     
     @Override
     public String toString() {
-        return "Facultad[ idFacultad=" + idFacultad + " ]";
+        return nombreFacultad;
     }
     
 }

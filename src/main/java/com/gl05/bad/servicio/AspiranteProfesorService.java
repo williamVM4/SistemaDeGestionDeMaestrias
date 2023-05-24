@@ -1,6 +1,7 @@
 package com.gl05.bad.servicio;
 
 import com.gl05.bad.domain.AspiranteProfesor;
+import java.sql.Blob;
 import java.util.List;
 
 public interface AspiranteProfesorService {
@@ -15,6 +16,6 @@ public interface AspiranteProfesorService {
   
   public AspiranteProfesor encontrarAP(AspiranteProfesor aspirante);
   
-  /*public void proIsertarAP(String cod, String nombre, String apellido);*/
+  public void actualizarFoto(AspiranteProfesor aspirante, String nombreCampo, Blob valorCampo);
 
 }

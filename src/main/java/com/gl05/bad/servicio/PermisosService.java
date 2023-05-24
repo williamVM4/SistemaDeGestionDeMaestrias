@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface PermisosService {
     public List<Permisos> listaPermisos();
- 
+
+    public void AgregarPermiso(Permisos permiso);
 }

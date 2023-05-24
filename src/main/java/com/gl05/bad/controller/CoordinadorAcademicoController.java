@@ -69,20 +69,13 @@ public class CoordinadorAcademicoController {
         model.addAttribute("pageTitle", "PerfilCoordinadorAcademico");
         
         var elemento = coordinadorService.encontrarCA(coordinador);
+        
+        //Manejo de documentacion personal
         ListadoDocumentacionPersonal ldp= new ListadoDocumentacionPersonal();
-        ldp.setIdListDp(Long.valueOf(elemento.getIdListDp()));        
+        ldp.setIdListDp(Long.valueOf(elemento.getIdListDp()));
         var documentos = docService.listarDocumentoPorListado(ldp);
 
-        //Manejo de atestados academicos
-        List<String> tiposTitulos = listarTipoTitulos();
-        var atestados = atestadoService.listarAtestados();
-        List<AtestadoTa> atestadoCoordinador = new ArrayList();
-        for (var a : atestados) {
-            if(a.getIdListTa() == (int) elemento.getIdListTa()){                
-                atestadoCoordinador.add(a);
-            }
-        }
-      
+        //Manejo de imagenes
         Blob imagenBlob = elemento.getFotografiaCa();
         String imagenBase64 = null;
 
@@ -97,7 +90,16 @@ public class CoordinadorAcademicoController {
                 e.printStackTrace();
             }
         }
-
+        
+        //Manejo de atestados academicos
+        List<String> tiposTitulos = listarTipoTitulos();
+        var atestados = atestadoService.listarAtestados();
+        List<AtestadoTa> atestadoCoordinador = new ArrayList();
+        for (var a : atestados) {
+            if(a.getIdListTa() == (int) elemento.getIdListTa()){
+                atestadoCoordinador.add(a);
+            }
+        }
         
         //Manejo de correos
         var correos = correoService.listarCorreos();
@@ -377,7 +379,7 @@ public class CoordinadorAcademicoController {
         return "redirect:/perfilCoordinadorAcademico/" + idCoorAca;
     }
     
-    @GetMapping("/archivoCA/{idAtestadoTa}")
+    @GetMapping("/archivoCA/tituloAcademico/{idAtestadoTa}")
     public ResponseEntity <byte[]> mostrarTituloAcademico(@PathVariable("idAtestadoTa") Long id) {
         AtestadoTa archivo = new AtestadoTa();
         archivo.setIdAtestadoTa(id);
@@ -402,7 +404,10 @@ public class CoordinadorAcademicoController {
     }
   
     @PostMapping("/ActualizarCoordinadorAcademico/{idCoorAca}")
-    public String actualizarCoordinadorAcademico (CoordinadorAcademico coordinadorAcademico, @PathVariable("idCoorAca") int idCoorAca, RedirectAttributes redirectAttributes) throws ParseException{
+    public String actualizarCoordinadorAcademico (
+            CoordinadorAcademico coordinadorAcademico, 
+            @PathVariable("idCoorAca") int idCoorAca, 
+            RedirectAttributes redirectAttributes) throws ParseException{
         
         try {
             //Arreglando formato del DUI, NIT, NUP, DOC PERSONAL, PASAPORTE
