@@ -1,5 +1,8 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
+
+
+
 <div align="center">
     <div class="titulo-Perfil"><h3>Àrea de Conocimientos</h3></div>
     <div id="container-datos">
@@ -102,10 +105,10 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     <input type="hidden" id="areaId">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Àrea" required>
+                        <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Àrea">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripciòn" required>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripciòn">
                     </div>
 
                     <div class="modal-footer">
@@ -117,42 +120,65 @@
         </div>
     </div>
 </div>
+<%@ include file="../common/footer.jspf"%>
 
 <script>
     $(document).ready(function () {
-        $('#formGuardar').submit(function (event) {
-            event.preventDefault();//detiene el evento del envio del form 
-            var idAreaConocimiento = $('#areaId').val();//tomo la id
-
-            var formDataArray = $(this).serializeArray();//tomo los datos del array
-
-            var url;//valido el tipo de url si editar o crear
-            if (idAreaConocimiento) {
-                url = '/ActualizarAreaConocimiento';
-                //meto la id en el campo de envio
-                formDataArray.push({name: 'idAreaConocimiento', value: idAreaConocimiento});
-            } else {
-                url = '/AgregarAreaConocimiento';
-            }
-            // Convertir el arreglo en un objeto
-            var formData = {};
-            $.map(formDataArray, function (n, i) {
-                formData[n['name']] = n['value'];
-            });
-            //realizo el guardado mediante ajax
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    $('#crearModal').modal('hide');  // Cierra el modal
-                    location.reload();  // Recarga la página
+        var idAreaConocimiento = $('#areaId').val();
+        $('#formGuardar').validate({
+            rules: {// reglas
+                nombreArea: {
+                    required: true
                 },
-                error: function (error) {
-                    console.log(error);
+                descripcion:{
+                    required: true
                 }
-            });
+                
+            },
+            messages: {// mensajes
+                nombreArea: {
+                    required: 'Este campo es requerido'
+                },
+                descripcion: {
+                    required: 'Este campo es requerido'
+                },
+                
+            },
+            submitHandler: function (form) {
+                event.preventDefault();
+                var idAreaConocimiento = $('#areaId').val();//tomo la id
+
+                var formDataArray = $(this).serializeArray();//tomo los datos del array
+
+                var url;//valido el tipo de url si editar o crear
+                if (idAreaConocimiento) {
+                    url = '/ActualizarAreaConocimiento';
+                    //meto la id en el campo de envio
+                    formDataArray.push({name: 'idAreaConocimiento', value: idAreaConocimiento});
+                } else {
+                    url = '/AgregarAreaConocimiento';
+                }
+                // Convertir el arreglo en un objeto
+                var formData = {};
+                $.map(formDataArray, function (n, i) {
+                    formData[n['name']] = n['value'];
+                });
+                //realizo el guardado mediante ajax
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        $('#crearModal').modal('hide');  // Cierra el modal
+                        location.reload();  // Recarga la página
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
         });
+
         // metodo para mostrar el modal segun sea si editar o nuevo registro
         $(document).on('click', '.abrirModal-btn', function () {
             var idAreaConocimiento = $(this).data('id');
@@ -160,7 +186,7 @@
             var tituloModal = modal.find('.modal-title');
             var form = modal.find('form');
             var btnSumit = document.getElementById('btnSumit');
-
+            $('#formGuardar').validate().resetForm();//quita los mensajes de error 
             if (idAreaConocimiento) {
                 tituloModal.text('Editar Area de Conocimiento');//titulo del modal
                 $.ajax({//utilizo ajax para obtener los datos
@@ -189,4 +215,3 @@
 
 </script>
 
-<%@ include file="../common/footer.jspf"%>
