@@ -4,12 +4,12 @@
 
 
 <div align="center">
-    <div class="titulo-Perfil"><h3>Àrea de Conocimientos</h3></div>
+    <div class="titulo-Perfil"><h3>Ã€rea de Conocimientos</h3></div>
     <div id="container-datos">
 
         <c:if test="${not empty mensaje}">
             <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-check-circle"></i> Éxito!  </strong> ${mensaje}
+                <strong><i class="bi bi-check-circle"></i> Ã‰xito!  </strong> ${mensaje}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
@@ -35,9 +35,9 @@
             <table class="table">
                 <thead class="table">
                     <tr>
-                        <th scope="col">N°</th>
+                        <th scope="col">NÂ°</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Descripciòn</th>
+                        <th scope="col">DescripciÃ²n</th>
                         <th scope="Opciones">Opciones</th>
                     </tr>
                 </thead>
@@ -59,17 +59,17 @@
                                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${elemento.idAreaConocimiento}">
                                         <i class="bi bi-trash"></i>
                                     </a>
-                                    <!-- Modal de confirmación de eliminación -->
+                                    <!-- Modal de confirmaciÃ³n de eliminaciÃ³n -->
                                     <div class="modal fade" id="confirmarEliminar-${elemento.idAreaConocimiento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${elemento.idAreaConocimiento}" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idAreaConocimiento}">Confirmar eliminación</h5>
+                                                    <h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idAreaConocimiento}">Confirmar eliminaciÃ³n</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <strong>¿Estás seguro de eliminar el àrea seleccionada?</strong>
-                                                    <p>Ten en cuenta que se eliminarán los datos relacionados a el area de ${elemento.nombreArea}.</p>
+                                                    <strong>Â¿EstÃ¡s seguro de eliminar el Ã rea seleccionada?</strong>
+                                                    <p>Ten en cuenta que se eliminarÃ¡n los datos relacionados a el area de ${elemento.nombreArea}.</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <a href="/EliminarAreaConocimiento/${elemento.idAreaConocimiento}" class="btn btn-danger">Eliminar</a>
@@ -91,35 +91,35 @@
             </table>
         </div>
     </div>
-</div>
-<!-- Modal para roles -->
-<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="crearModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id='formGuardar' accept-charset="UTF-8">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                    <input type="hidden" id="areaId">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Àrea">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripciòn">
-                    </div>
 
-                    <div class="modal-footer">
-                        <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
+    <!-- Modal para roles -->
+    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id='formGuardar' accept-charset="UTF-8">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <input type="hidden" id="areaId">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Ã€rea">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="DescripciÃ²n">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <%@ include file="../common/footer.jspf"%>
 
 <script>
@@ -170,7 +170,7 @@
                     data: formData,
                     success: function (response) {
                         $('#crearModal').modal('hide');  // Cierra el modal
-                        location.reload();  // Recarga la página
+                        location.reload();  // Recarga la pÃ¡gina
                     },
                     error: function (error) {
                         console.log(error);
@@ -198,7 +198,7 @@
                         $('#areaId').val(idAreaConocimiento);
                     },
                     error: function () {
-                        alert('Error al obtener los datos del área de conocimiento.');
+                        alert('Error al obtener los datos del Ã¡rea de conocimiento.');
                     }
                 });
             } else {
