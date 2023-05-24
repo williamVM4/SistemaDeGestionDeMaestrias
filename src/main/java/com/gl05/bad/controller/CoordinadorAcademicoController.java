@@ -379,7 +379,7 @@ public class CoordinadorAcademicoController {
         return "redirect:/perfilCoordinadorAcademico/" + idCoorAca;
     }
     
-    @GetMapping("/archivoCA/{idAtestadoTa}")
+    @GetMapping("/archivoCA/tituloAcademico/{idAtestadoTa}")
     public ResponseEntity <byte[]> mostrarTituloAcademico(@PathVariable("idAtestadoTa") Long id) {
         AtestadoTa archivo = new AtestadoTa();
         archivo.setIdAtestadoTa(id);

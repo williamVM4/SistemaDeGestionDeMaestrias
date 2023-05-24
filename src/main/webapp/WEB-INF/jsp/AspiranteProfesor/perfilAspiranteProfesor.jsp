@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
 <div align="center">

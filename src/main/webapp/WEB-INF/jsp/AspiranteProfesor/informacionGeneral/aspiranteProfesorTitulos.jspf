@@ -40,7 +40,7 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${not empty atestado.archivoAta}">
-                                        <a type="button" class="btn btn-outline-secondary" href="/archivoAP/${atestado.idAtestadoTa}" target="_blank"><i class="bi bi-eye"></i></a>
+                                        <a type="button" class="btn btn-outline-secondary" href="/archivoAP/tituloAcademico/${atestado.idAtestadoTa}" target="_blank"><i class="bi bi-eye"></i></a>
                                     </c:when>
                                     <c:otherwise>
                                         <a type="button" class="btn btn-outline-secondary"><i class="bi bi-eye-slash"></i></a>
@@ -54,7 +54,7 @@
                                                 <h5 class="modal-title" id="modificarTituloLabel-${atestado.idAtestadoTa}">Modificar Título Académico</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form action="/modificarTituloAcademicoAP/${aspiranteAP.idAspiranteProfesor}/${atestado.idAtestadoTa}" method="post" onsubmit="return validarFormularioEditar();" enctype="multipart/form-data" accept-charset="UTF-8" >
+                                            <form action="/modificarTituloAcademicoAP/${aspiranteAP.idAspiranteProfesor}/${atestado.idAtestadoTa}" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="return validarFormularioEditar();">
                                                 <div class="modal-body">
                                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                                     <div id="MensajeErrorTituloAcademicoEditar" class="d-none">
@@ -89,7 +89,7 @@
                                                           <label class="form-label">Archivo Actual: </label>
                                                               <c:choose>
                                                                   <c:when test="${not empty atestado.archivoAta}">
-                                                                    <a href="/archivoAP/${atestado.idAtestadoTa}" target="_blank">Puede ver el archivo PDF aquí</a>.
+                                                                    <a href="/archivoAP/tituloAcademico/${atestado.idAtestadoTa}" target="_blank">Puede ver el archivo PDF aquí</a>.
                                                                   </c:when>
                                                                   <c:otherwise>
                                                                       <a>No se ha guardado el atestado.</a>
@@ -124,7 +124,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <a href="/eliminarTituloAcademico/${aspiranteAP.idAspiranteProfesor}/${atestado.idAtestadoTa}" class="btn btn-danger">Eliminar</a>
+                                                <a href="/eliminarTituloAcademicoAP/${aspiranteAP.idAspiranteProfesor}/${atestado.idAtestadoTa}" class="btn btn-danger">Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +145,7 @@
                     <h5 class="modal-title" id="crearModalTituloLabel">Agregar Titulo Académico</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/agregarTituloAcademicoAP/${aspiranteAP.idAspiranteProfesor}/${aspiranteAP.idListTa}" method="post" onsubmit="return validarFormularioAgregar();" enctype="multipart/form-data" accept-charset="UTF-8" >
+                <form action="/agregarTituloAcademicoAP/${aspiranteAP.idAspiranteProfesor}/${aspiranteAP.idListTa}" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="return validarFormularioAgregar();">
                     <div class="modal-body">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <div id="MensajeErrorTituloAcademicoAgregar" class="d-none">
@@ -226,6 +226,7 @@
     return true;
   }
   function validarFormularioEditar() {
+    console.log("");
     var anioInput = document.getElementById("anioTitulacion");
     var anioActual = new Date().getFullYear();
     
