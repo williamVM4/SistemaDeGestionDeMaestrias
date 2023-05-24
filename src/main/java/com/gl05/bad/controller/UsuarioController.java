@@ -3,8 +3,9 @@ package com.gl05.bad.controller;
 import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.RolesService;
 import com.gl05.bad.servicio.UserService;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,12 +42,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/AgregarUsuario")
-    public String AgregarUsuario(Usuario usuario, RedirectAttributes redirectAttributes) {
+    public String AgregarUsuario(Usuario usuario, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
             String password = usuario.getPassword();
             String encryptedPassword = passwordEncoder.encode(password);
             usuario.setPassword(encryptedPassword);
-
             userService.AgregarUsuarios(usuario);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un Usuario.");
         } catch (Exception e) {
@@ -66,6 +66,38 @@ public class UsuarioController {
         }
         return "redirect:/viewUsuarios";
     }
-    
+
+    @GetMapping("/ObtenerUsuario/{id}")
+    public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) {
+        Usuario usuario = userService.encontrarUsuario(id);
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/ActualizarUsuario")
+    public String ActualizarUsuario(Usuario usuario, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        try {
+            String password = usuario.getPassword();
+
+            if (password != null && !password.isEmpty()) {
+                // Se proporcionó una nueva contraseña, realizar validación y encriptación
+                String encryptedPassword = passwordEncoder.encode(password);
+                usuario.setPassword(encryptedPassword);
+            } else {
+                // No se proporcionó una nueva contraseña, mantener la existente en la base de datos
+                Usuario existingUsuario = userService.encontrarUsuario(usuario.getIdUsuario());
+                usuario.setPassword(existingUsuario.getPassword());
+            }
+
+            userService.actualizarUsuario(usuario);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado el usuario.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al actualizar el usuario.");
+        }
+        return "redirect:/viewUsuarios";
+    }
 
 }

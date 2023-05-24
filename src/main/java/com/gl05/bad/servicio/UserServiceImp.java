@@ -22,10 +22,6 @@ public class UserServiceImp implements UserService {
         usuarioDao.save(usuario);
     }
 
-//    @Override
-//    public Usuario encontrarUsuario(Usuario usuario) {
-//        return usuarioDao.findById(usuario.getIdUsuario()).orElse(null);
-//    }
     @Override
     public void eliminarUsuario(Usuario usuario) {
         usuarioDao.delete(usuario);
@@ -34,6 +30,16 @@ public class UserServiceImp implements UserService {
     @Override
     public Usuario encontrarUsuario(Long idUsuario) {
         return usuarioDao.findById(idUsuario).orElse(null);
+    }
+
+    @Override
+    public void actualizarUsuario(Usuario usuario) {
+        if (usuarioDao.existsById(usuario.getIdUsuario())) {
+            // Actualiza el rol en la base de datos
+            usuarioDao.save(usuario);
+        } else {
+            throw new IllegalArgumentException("El usuario no existe.");
+        }
     }
 
 }

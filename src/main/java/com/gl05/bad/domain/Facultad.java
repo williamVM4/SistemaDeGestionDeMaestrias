@@ -85,7 +85,7 @@ public class Facultad implements Serializable {
     
     @Override
     public String toString() {
-        return "Facultad[ idFacultad=" + idFacultad + " ]";
+        return nombreFacultad;
     }
     
 }

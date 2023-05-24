@@ -8,12 +8,12 @@ public interface UserService {
     public List<Usuario> listaUsuarios();
    
     public void AgregarUsuarios(Usuario usuario);
-    
-//    public Usuario encontrarUsuario(Usuario usuario);
-    
+        
     public void eliminarUsuario(Usuario usuario);
     
-    public Usuario encontrarUsuario(Long idUsuario);
+    public Usuario encontrarUsuario(Long usuario);
+    
+    public void actualizarUsuario(Usuario usuario);
     
     
 }
