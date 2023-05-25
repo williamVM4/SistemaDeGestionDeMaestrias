@@ -52,5 +52,10 @@ public class MaestriaServiceImp implements MaestriaService{
         return maestriaDao.findById(maestria.getIdMaestria()).orElse(null);
     }
     
+    @Override
+    @Transactional(readOnly=true)
+    public Collection<Maestria> encontrarMaestria(Integer idUsuario) {
+        return maestriaDao.findMaestriasByUsuarioId(idUsuario);
+    }
     
 }

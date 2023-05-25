@@ -65,4 +65,9 @@ public class MaestriaController {
         return "redirect:/GestionarMaestria";
     }
     
+    @GetMapping("/DetalleMaestria/{idMaestria}")
+    public String EliminarMaestria(Model model) {
+        return "maestria/detalleMaestria";
+    }
+    
 }

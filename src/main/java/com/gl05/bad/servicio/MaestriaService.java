@@ -20,4 +20,6 @@ public interface MaestriaService {
     public void eliminar(Maestria maestria);
     
     public Maestria encontrarMaestria(Maestria maestria);
+    
+    public Collection<Maestria> encontrarMaestria(Integer idUsuario);
 }
