@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Maestria;
+import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
 import java.util.Collection;
 import javax.validation.Valid;
@@ -22,8 +23,13 @@ public class MaestriaController {
     @Autowired
     private MaestriaService maestriaService;
     
+    @Autowired
+    private EscuelaPostgradoService escuelaPostgradoService;
+    
     @GetMapping("/GestionarMaestria")
     public String listarMaestrias(Model model) {
+        var escuelas = escuelaPostgradoService.listarEscuelaPostgrado();
+        model.addAttribute("escuelas", escuelas);
         return "maestria/index";
     }
     
@@ -31,6 +37,21 @@ public class MaestriaController {
     @ResponseBody
     public DataTablesOutput<Maestria> getMaestrias(@Valid DataTablesInput input) {
       return maestriaService.listarMaestrias(input);
+    }
+    
+    @PostMapping("/AgregarMaestria")
+    public String AgregarMaestria(
+        @RequestParam("nombreMaestria") String nombreMaestria,
+        @RequestParam("escuelaPostgrado") String escuelaPostgrado,
+        RedirectAttributes redirectAttributes) {     
+        try {
+            maestriaService.proAgregar(nombreMaestria,escuelaPostgrado);
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha Agregado una Maestria.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ya existe una Maestria con ese nombre en la escuela de posgrado seleccionada.");
+        }
+
+        return "redirect:/GestionarAreaConocimiento";
     }
     
     @GetMapping("/EliminarMaestria/{idMaestria}")
@@ -42,6 +63,11 @@ public class MaestriaController {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el Area de Conocimiento.");
         }
         return "redirect:/GestionarMaestria";
+    }
+    
+    @GetMapping("/DetalleMaestria/{idMaestria}")
+    public String EliminarMaestria(Model model) {
+        return "maestria/detalleMaestria";
     }
     
 }

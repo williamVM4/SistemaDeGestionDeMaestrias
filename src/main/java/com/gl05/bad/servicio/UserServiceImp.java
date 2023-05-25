@@ -31,6 +31,11 @@ public class UserServiceImp implements UserService {
     public Usuario encontrarUsuario(Long idUsuario) {
         return usuarioDao.findById(idUsuario).orElse(null);
     }
+    
+    @Override
+    public Usuario encontrarUsuarioPorUsername(String username){
+        return usuarioDao.findByUsername(username);
+    }
 
     @Override
     public void actualizarUsuario(Usuario usuario) {
