@@ -1641,9 +1641,11 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 }
 
 .nav-sidebar .nav-link p {
-  display: inline;
+  display: inline-block;
   margin: 0;
   white-space: normal;
+  word-break: break-word;
+  max-width: 10rem;
 }
 
 .sidebar-is-opening .sidebar .nav-sidebar .nav-link p {
@@ -3117,6 +3119,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 .sidebar-mini-xs .main-sidebar .nav-link {
   width: calc(250px - 0.5rem * 2);
   transition: width ease-in-out 0.3s;
+  background-color: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3361,6 +3364,8 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .nav-sidebar .nav-item > .nav-link {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .nav-sidebar .nav-item > .nav-link > .float-right {

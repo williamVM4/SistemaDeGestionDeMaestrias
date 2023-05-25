@@ -9,22 +9,25 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/adminlte.js"></script>
     <script>
-        $(function() {
-            var url = window.location;
+        var csrfToken = '${_csrf.token}';
+       function logout() {
+           // Crear un formulario dinámicamente
+           var form = document.createElement('form');
+           form.method = 'POST';
+           form.action = '/logout';  
+           // Agregar el token CSRF como campo oculto en el formulario
+           var csrfTokenInput = document.createElement('input');
+           csrfTokenInput.type = 'hidden';
+           csrfTokenInput.name = '_csrf';
+           csrfTokenInput.value = csrfToken;
+           form.appendChild(csrfTokenInput);
 
-            var element = $('ul.nav a').filter(function() {
-                return this.href == url || url.href.indexOf(this.href) == 0;
-            }).addClass('active').parent().parent().parent();
-            if (element.is('li')) {
-              //select the a element and add the open class to it
-              element.addClass('menu-open');
-              element.children('a').addClass('active');
-            }
+           // Agregar el formulario al cuerpo del documento
+           document.body.appendChild(form);
 
-            $('#li-inicio-menu').removeClass('active');
-            $('#a-inicio-menu').removeClass('active');
-
-          });
+           // Enviar el formulario
+           form.submit();
+       }
     </script>
     </body>
 </html>
