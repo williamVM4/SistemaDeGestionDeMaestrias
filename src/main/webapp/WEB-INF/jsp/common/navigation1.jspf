@@ -16,7 +16,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-light-lightblue elevation-2">
+  <aside class="main-sidebar sidebar-light-lightblue elevation-1">
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
       <img src="${pageContext.request.contextPath}/images/AdminLTELogo.webp" alt="AdminLTE Logo" class="brand-image img-circle elevation-1">
@@ -53,19 +53,19 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="/GestionarMaestria" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                  <i class="fas fa-graduation-cap nav-icon text-warning"></i>
                   <p>Gestionar Maestría</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                  <i class="far fa-clipboard nav-icon text-warning"></i>
                   <p>Inscribir Maestria</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                  <i class="far fa-user nav-icon text-warning"></i>
                   <p>Postular a Profesor</p>
                 </a>
               </li>
@@ -83,19 +83,19 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="/gestionarCoordinadorAcademico" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                  <i class="far fa-user nav-icon text-warning"></i>
                   <p>Coordinadores</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/GestionarAspiranteProfesor" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                  <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Aspirantes a Profesor</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                  <i class="far fa-user nav-icon text-warning"></i>
                   <p>Estudiantes</p>
                 </a>
               </li>
@@ -112,33 +112,33 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                <a href="/viewUsuarios" class="nav-link">
+                  <i class="far fa-user nav-icon text-warning"></i>
                   <p>Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/viewRoles"class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                  <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Roles</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                <a href="/viewFacultad" class="nav-link">
+                  <i class="far fa-building nav-icon text-warning"></i>
                   <p>Facultades</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                <a href="/viewEscuelaPosgrado" class="nav-link">
+                  <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Escuelas de Posgrado</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/GestionarAreaConocimiento" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
-                  <p>Áreas del Conocimiento</p>
+                  <i class="far fa-circle nav-icon text-warning"></i>
+                  <p>Áreas de conocimiento</p>
                 </a>
               </li>
             </ul>
@@ -154,14 +154,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                <a href="/GestionarPlanEstudio" class="nav-link">
+                  <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Asignaturas</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#"class="nav-link">
-                  <i class="far fa-circle nav-icon text-info"></i>
+                <a href="/GestionarCohorte"class="nav-link">
+                  <i class="far fa-circle  nav-icon text-warning"></i>
                   <p>Gestión de Cohorte</p>
                 </a>
               </li>

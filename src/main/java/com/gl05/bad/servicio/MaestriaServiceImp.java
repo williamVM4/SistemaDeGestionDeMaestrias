@@ -34,6 +34,11 @@ public class MaestriaServiceImp implements MaestriaService{
     public void agregar(Maestria maestria) {
         maestriaDao.save(maestria);
     }
+    
+    @Override
+    public void proAgregar(String nombre, String posgrado) {
+      maestriaDao.sp_insert_maestria(nombre, posgrado);
+    }
 
     @Override
     @Transactional
@@ -47,5 +52,10 @@ public class MaestriaServiceImp implements MaestriaService{
         return maestriaDao.findById(maestria.getIdMaestria()).orElse(null);
     }
     
+    @Override
+    @Transactional(readOnly=true)
+    public Collection<Maestria> encontrarMaestria(Integer idUsuario) {
+        return maestriaDao.findMaestriasByUsuarioId(idUsuario);
+    }
     
 }
