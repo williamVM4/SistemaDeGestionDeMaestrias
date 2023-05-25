@@ -26,7 +26,7 @@
                         <a href="/GestionarAspiranteProfesor">Aspirantes a Profesor</a>
                     </li>
                     <li>
-                        <a href="#">Estudiantes</a>
+                        <a href="/viewEstudiantes">Estudiantes</a>
                     </li>
                 </ul>
             </li>
