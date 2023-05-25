@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class CohorteController {
@@ -21,20 +22,9 @@ public class CohorteController {
     @Autowired
     private UserService userService;
     
-     @GetMapping("/GestionarCohorte")
-    public String listarCohortes(Model model, Authentication authentication) {
-        // Obtener el nombre del usuario autenticado
-        String username = authentication.getName();
-        // Obtener el ID del usuario autenticado desde tu servicio de seguridad
-        Usuario usuario = userService.encontrarUsuarioPorUsername(username);
-        Long idUsuarioLong = usuario.getIdUsuario();
-        Integer idUsuario = idUsuarioLong.intValue();
-        // Buscar las maestrías asociadas al ID del usuario
-        Collection<Maestria> maestrias = maestriaService.encontrarMaestria(idUsuario);
-
-        // Agregar las maestrías al modelo para mostrar en la vista
-        model.addAttribute("maestrias", maestrias);
-
+     @GetMapping("/GestionarCohorte/{idMaestria}")
+    public String listarCohortes(Model model,@PathVariable("idMaestria") Long idMaestria) {
+        model.addAttribute("idMaestria", idMaestria);
         return "Cohorte/GestionarCohorte";
     }
     
