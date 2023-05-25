@@ -112,7 +112,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/viewUsuarios" class="nav-link">
                   <i class="far fa-user nav-icon text-warning"></i>
                   <p>Usuarios</p>
                 </a>
@@ -124,19 +124,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/viewFacultad" class="nav-link">
                   <i class="far fa-building nav-icon text-warning"></i>
                   <p>Facultades</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/viewEscuelaPosgrado" class="nav-link">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Escuelas de Posgrado</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/GestionarAreaConocimiento" class="nav-link">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Áreas de conocimiento</p>
                 </a>
@@ -154,7 +154,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/GestionarPlanEstudio" class="nav-link">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Asignaturas</p>
                 </a>
