@@ -30,7 +30,7 @@ public class IndexController {
         Long idUsuarioLong = usuario.getIdUsuario();
         Integer idUsuario = idUsuarioLong.intValue();
         // Buscar las maestrías asociadas al ID del usuario
-        Collection<Maestria> maestriasCoordinador = maestriaService.encontrarMaestria(idUsuario);
+        Collection<Maestria> maestriasCoordinador = maestriaService.encontrarMaestrias(idUsuario);
 
         // Guardar las maestrías en la sesión del usuario
         session.setAttribute("maestriasCoordinador", maestriasCoordinador);
