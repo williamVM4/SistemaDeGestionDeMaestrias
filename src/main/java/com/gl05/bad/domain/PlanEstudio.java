@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -10,18 +6,19 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "PLAN_ESTUDIO")
 @NamedQueries({
@@ -41,7 +38,8 @@ public class PlanEstudio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_PLAN_ESTUDIO", sequenceName = "S_PLAN_ESTUDIO", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_PLAN_ESTUDIO")
     @Column(name = "ID_PLAN_ESTUDIO")
     private Long idPlanEstudio;
     @Basic(optional = false)
@@ -49,13 +47,16 @@ public class PlanEstudio implements Serializable {
     private String codPlan;
     @Basic(optional = false)
     private String modalidad;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Max(value=(long) 10.0)  
+    @Min(value=(long) 0.0)
     @Basic(optional = false)
     @Column(name = "CUM_MINIMO")
-    private BigDecimal cumMinimo;
+    private long cumMinimo;
+    @Max(value=(long) 10.0)  
+    @Min(value=(long) 0.0)
     @Basic(optional = false)
     @Column(name = "NOTA_MINIMA_APROBACION")
-    private BigDecimal notaMinimaAprobacion;
+    private long notaMinimaAprobacion;
     @Basic(optional = false)
     @Column(name = "TOTAL_ASIGNATURAS")
     private short totalAsignaturas;
@@ -73,8 +74,8 @@ public class PlanEstudio implements Serializable {
     @Basic(optional = false)
     @Column(name = "PLAN_ESTADO")
     private short planEstado;
-    @OneToMany(mappedBy = "idPlanEstudio")
-    private Collection<MallaCurricular> mallaCurricularCollection;
+    /*@OneToMany(mappedBy = "idPlanEstudio")
+    private Collection<MallaCurricular> mallaCurricularCollection;*/
     @JoinColumn(name = "ID_MAESTRIA", referencedColumnName = "ID_MAESTRIA")
     @ManyToOne(optional = false)
     private Maestria idMaestria;
@@ -86,7 +87,7 @@ public class PlanEstudio implements Serializable {
         this.idPlanEstudio = idPlanEstudio;
     }
 
-    public PlanEstudio(Long idPlanEstudio, String codPlan, String modalidad, BigDecimal cumMinimo, BigDecimal notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracionCarrera, String tituloOrtorgar, short anio, short planEstado) {
+    public PlanEstudio(Long idPlanEstudio, String codPlan, String modalidad, long cumMinimo, long notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracionCarrera, String tituloOrtorgar, short anio, short planEstado) {
         this.idPlanEstudio = idPlanEstudio;
         this.codPlan = codPlan;
         this.modalidad = modalidad;
@@ -124,19 +125,19 @@ public class PlanEstudio implements Serializable {
         this.modalidad = modalidad;
     }
 
-    public BigDecimal getCumMinimo() {
+    public long getCumMinimo() {
         return cumMinimo;
     }
 
-    public void setCumMinimo(BigDecimal cumMinimo) {
+    public void setCumMinimo(long cumMinimo) {
         this.cumMinimo = cumMinimo;
     }
 
-    public BigDecimal getNotaMinimaAprobacion() {
+    public long getNotaMinimaAprobacion() {
         return notaMinimaAprobacion;
     }
 
-    public void setNotaMinimaAprobacion(BigDecimal notaMinimaAprobacion) {
+    public void setNotaMinimaAprobacion(long notaMinimaAprobacion) {
         this.notaMinimaAprobacion = notaMinimaAprobacion;
     }
 
@@ -188,13 +189,13 @@ public class PlanEstudio implements Serializable {
         this.planEstado = planEstado;
     }
 
-    public Collection<MallaCurricular> getMallaCurricularCollection() {
+    /*public Collection<MallaCurricular> getMallaCurricularCollection() {
         return mallaCurricularCollection;
     }
 
     public void setMallaCurricularCollection(Collection<MallaCurricular> mallaCurricularCollection) {
         this.mallaCurricularCollection = mallaCurricularCollection;
-    }
+    }*/
 
     public Maestria getIdMaestria() {
         return idMaestria;
@@ -226,7 +227,7 @@ public class PlanEstudio implements Serializable {
 
     @Override
     public String toString() {
-        return "com.gl05.bad.domain.PlanEstudio[ idPlanEstudio=" + idPlanEstudio + " ]";
+        return "PlanEstudio[ idPlanEstudio=" + idPlanEstudio + " ]";
     }
     
 }
