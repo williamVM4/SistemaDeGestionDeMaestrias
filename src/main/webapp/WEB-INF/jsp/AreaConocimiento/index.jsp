@@ -1,55 +1,68 @@
-<%@ include file="../common/header.jspf"%>
-<%@ include file="../common/navigation.jspf"%>
+<%@ include file="../common/header1.jspf"%>
+<%@ include file="../common/navigation1.jspf"%>
 
-<div align="center">
-    <div class="titulo-Perfil"><h3>Área de Conocimientos</h3></div>
-    <div id="container-datos">
 
-        <c:if test="${not empty mensaje}">
-            <div id="mensajeExito" class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-check-circle"></i> Éxito!  </strong> ${mensaje}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong> ${error}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
-        
-
-        <br>
-        <div class="row col-sm-12 d-flex justify-content-end">
-            <div class="col-sm-1">
-                <button type="button" class="btn btn-outline-primary btn-sm abrirModal-btn" 
-                        data-bs-toggle="modal" data-bs-target="#crearModal" 
-                        data-action="agregar">Agregar</button>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="titulo-Perfil">
+                        <div class="container">
+                            <h1>Área de Conocimientos</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <br>
-
-        <div class="pt-4">
-            <div class="table-responsive">
-                <table id="areaConocimientoTable" class="table table-bordered dtr-inline">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center">N°</th>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center">Descripción</th>
-                            <th class="text-center"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+    <!-- Main content -->
+    <section class="content pb-5">
+        <div class="container">
+            <c:if test="${not empty mensaje}">
+                <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                    <strong><i class="bi bi-check-circle"></i> Éxito!&nbsp;</strong> ${mensaje}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                    <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong> ${error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+            <div class="row col-sm-12 d-flex justify-content-end">
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-outline-primary btn-sm abrirModal-btn" 
+                            data-bs-toggle="modal" data-bs-target="#crearModal" 
+                            data-action="agregar">Agregar</button>
+                </div>
             </div>
-        </div>
 
-    </div>
+            <br>
 
-    <!-- Modal para roles -->
+            <div class="pt-4">
+                <div class="table-responsive">
+                    <table id="areaConocimientoTable" class="table table-bordered dtr-inline">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">N°</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Descripción</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Modal para agregar -->
     <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
         <div class="modal-dialog">
             <div class="modal-content">
@@ -77,7 +90,7 @@
             </div>
         </div>
     </div>
-    <%@ include file="../common/footer.jspf"%>
+    <%@ include file="../common/footer1.jspf"%>
     <script src="${pageContext.request.contextPath}/js/areaConocimiento.js"></script>
     <script>
         $(document).ready(function () {
@@ -101,7 +114,7 @@
                 },
                 submitHandler: function (form) {
                     event.preventDefault();
-                    
+
                     var idAreaConocimiento = $('#areaId').val();//tomo la id
                     var formDataArray = $('#formGuardar').serializeArray();//tomo los datos del array
 
@@ -125,7 +138,7 @@
                         data: formData,
                         success: function (response) {
                             $('#crearModal').modal('hide');  // Cierra el modal
-                            //location.reload();  // Recarga la pÃ¡gina
+                            location.reload();  // Recarga la pÃ¡gina
                             console.log(response.mensaje);
                         },
                         error: function (error) {
