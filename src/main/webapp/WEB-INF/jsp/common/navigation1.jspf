@@ -9,14 +9,14 @@
         <a href="#" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+         <a href="#" class="nav-link" onclick="logout()">Salir</a>
       </li>
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-light-lightblue elevation-1">
+  <aside class="main-sidebar sidebar-light-navy elevation-1">
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
       <img src="${pageContext.request.contextPath}/images/AdminLTELogo.webp" alt="AdminLTE Logo" class="brand-image img-circle elevation-1">
@@ -36,45 +36,45 @@
       </div>
 
 
-
+        
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') ? 'menu-open' : ''}">
+            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') ? 'active' : ''}">
+              <i class="nav-icon fas fa-cogs"></i>
               <p>
                 Procesos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/GestionarMaestria" class="nav-link">
-                  <i class="fas fa-graduation-cap nav-icon text-warning"></i>
-                  <p>Gestionar Maestría</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-clipboard nav-icon text-warning"></i>
-                  <p>Inscribir Maestria</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-user nav-icon text-warning"></i>
-                  <p>Postular a Profesor</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="/GestionarMaestria" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') ? 'active' : ''}">
+                        <i class="fas fa-graduation-cap nav-icon text-warning"></i>
+                        <p>Gestionar Maestría</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="far fa-clipboard nav-icon text-warning"></i>
+                        <p>Inscribir Maestria</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="far fa-user nav-icon text-warning"></i>
+                        <p>Postular a Profesor</p>
+                    </a>
+                </li>
             </ul>
           </li>
           
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/gestionarCoordinadorAcademico' || requestScope['javax.servlet.forward.request_uri'] == '/GestionarAspiranteProfesor' ? 'menu-open' : ''}">
+            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/gestionarCoordinadorAcademico' || requestScope['javax.servlet.forward.request_uri'] == '/GestionarAspiranteProfesor' ? 'active' : ''}">
+              <i class="nav-icon far fa-user"></i>
               <p>
                 Perfiles
                 <i class="right fas fa-angle-left"></i>
@@ -82,13 +82,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/gestionarCoordinadorAcademico" class="nav-link">
+                <a href="/gestionarCoordinadorAcademico" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/gestionarCoordinadorAcademico' ? 'active' : ''}">
                   <i class="far fa-user nav-icon text-warning"></i>
                   <p>Coordinadores</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/GestionarAspiranteProfesor" class="nav-link">
+                <a href="/GestionarAspiranteProfesor" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarAspiranteProfesor' ? 'active' : ''}">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Aspirantes a Profesor</p>
                 </a>
@@ -102,9 +102,9 @@
             </ul>
           </li>
           
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/viewUsuarios' || requestScope['javax.servlet.forward.request_uri'] == '/viewRoles' || requestScope['javax.servlet.forward.request_uri'] == '/viewFacultad' || requestScope['javax.servlet.forward.request_uri'] == '/viewEscuelaPosgrado' || requestScope['javax.servlet.forward.request_uri'] == '/GestionarAreaConocimiento' ? 'menu-open' : ''}">
+            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewUsuarios' || requestScope['javax.servlet.forward.request_uri'] == '/viewRoles' || requestScope['javax.servlet.forward.request_uri'] == '/viewFacultad' || requestScope['javax.servlet.forward.request_uri'] == '/viewEscuelaPosgrado' || requestScope['javax.servlet.forward.request_uri'] == '/GestionarAreaConocimiento' ? 'active' : ''}">
+              <i class="nav-icon fas fa-unlock"></i>
               <p>
                 Administración
                 <i class="right fas fa-angle-left"></i>
@@ -112,63 +112,76 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/viewUsuarios" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewUsuarios' ? 'active' : ''}">
                   <i class="far fa-user nav-icon text-warning"></i>
                   <p>Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/viewRoles"class="nav-link">
+                <a href="/viewRoles"class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewRoles' ? 'active' : ''}">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Roles</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/viewFacultad" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewFacultad' ? 'active' : ''}">
                   <i class="far fa-building nav-icon text-warning"></i>
                   <p>Facultades</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/viewEscuelaPosgrado" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewEscuelaPosgrado' ? 'active' : ''}">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Escuelas de Posgrado</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/GestionarAreaConocimiento" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarAreaConocimiento' ? 'active' : ''}">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Áreas de conocimiento</p>
                 </a>
               </li>
             </ul>
           </li>
-          
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Maestría
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon text-warning"></i>
-                  <p>Asignaturas</p>
+          <c:if test="${not empty sessionScope.maestriasCoordinador}">
+            <li class="nav-header">MAESTRÍAS</li>
+            <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarPlanEstudio/\\d+$') || requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarCohorte/\\d+$') ? 'menu-open' : ''}">
+                <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarPlanEstudio/\\d+$') || requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarCohorte/\\d+$') ? 'active' : ''}">
+                    <i class="nav-icon fas fa-building-columns"></i>
+                    <p>
+                      Mis Maestrías
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="/GestionarCohorte"class="nav-link">
-                  <i class="far fa-circle  nav-icon text-warning"></i>
-                  <p>Gestión de Cohorte</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          
-
+                <ul class="nav nav-treeview">
+                    <c:forEach var="maestria" items="${sessionScope.maestriasCoordinador}">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="far fa-circle nav-icon text-info"></i>
+                                <p>
+                                ${maestria.nombreMaestria}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/GestionarPlanEstudio/${maestria.idMaestria}" class="nav-link">
+                                  <i class="far fa-circle nav-icon text-warning"></i>
+                                  <p>Asignaturas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/GestionarCohorte/${maestria.idMaestria}"class="nav-link">
+                                  <i class="far fa-circle  nav-icon text-warning"></i>
+                                  <p>Gestión de Cohorte</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                     </c:forEach>
+                </ul>
+            </li>
+          </c:if>  
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

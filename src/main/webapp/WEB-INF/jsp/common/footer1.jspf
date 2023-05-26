@@ -1,27 +1,33 @@
 
     </div>
     <!-- ./wrapper -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.spring-friendly.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/adminlte.js"></script>
     <script>
-        $(function() {
-            var url = window.location;
+        var csrfToken = '${_csrf.token}';
+       function logout() {
+           // Crear un formulario dinámicamente
+           var form = document.createElement('form');
+           form.method = 'POST';
+           form.action = '/logout';  
+           // Agregar el token CSRF como campo oculto en el formulario
+           var csrfTokenInput = document.createElement('input');
+           csrfTokenInput.type = 'hidden';
+           csrfTokenInput.name = '_csrf';
+           csrfTokenInput.value = csrfToken;
+           form.appendChild(csrfTokenInput);
 
-            var element = $('ul.nav a').filter(function() {
-                return this.href == url || url.href.indexOf(this.href) == 0;
-            }).addClass('active').parent().parent().parent();
-            if (element.is('li')) {
-              //select the a element and add the open class to it
-              element.addClass('menu-open');
-              element.children('a').addClass('active');
-            }
+           // Agregar el formulario al cuerpo del documento
+           document.body.appendChild(form);
 
-            $('#li-inicio-menu').removeClass('active');
-            $('#a-inicio-menu').removeClass('active');
-
-          });
+           // Enviar el formulario
+           form.submit();
+       }
     </script>
     </body>
 </html>

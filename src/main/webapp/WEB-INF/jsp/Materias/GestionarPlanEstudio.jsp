@@ -8,7 +8,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <div class="titulo-Perfil"><h3>Cohortes</h3></div>
+          <div class="titulo-Perfil"><h3>Planes de estudio</h3></div>
         </div>
       </div>
     </div><!-- /.container-fluid -->

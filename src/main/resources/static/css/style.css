@@ -4,6 +4,10 @@
 body{
     overflow-x: hidden;
     background-color: #fff;
+    font-family: "Poppins", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    font-weight: normal;
 }
 
 .btn-add {
@@ -61,3 +65,4 @@ text-decoration:none;
 .content-wrapper{
     background-color: #fff;
 }
+

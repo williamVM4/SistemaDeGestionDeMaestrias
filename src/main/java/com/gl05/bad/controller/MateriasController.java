@@ -6,26 +6,25 @@ import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.UserService;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-public class CohorteController {
-    
+public class MateriasController {
+
     @Autowired
     private MaestriaService maestriaService;
     
     @Autowired
     private UserService userService;
     
-     @GetMapping("/GestionarCohorte/{idMaestria}")
+     @GetMapping("/GestionarPlanEstudio/{idMaestria}")
     public String listarCohortes(Model model,@PathVariable("idMaestria") Long idMaestria) {
         model.addAttribute("idMaestria", idMaestria);
-        return "Cohorte/GestionarCohorte";
+        return "Materias/GestionarPlanEstudio";
     }
     
 }

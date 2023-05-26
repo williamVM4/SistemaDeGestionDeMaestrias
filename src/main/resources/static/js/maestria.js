@@ -4,39 +4,38 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         dom: "<'row w-100'<'col-sm-6'l><'col-sm-6'f>>" +
-             "<'row w-100'<'col-sm-12 my-5'tr>>" +
+             "<'row w-100'<'col-sm-12 my-4'tr>>" +
              "<'row w-100'<'col-sm-5'i><'col-sm-7'p>>",
         columns: [
-            { data: 'nombreMaestria' },
+            { data: 'nombreMaestria', width: '25%' },
             { 
                 data: 'idPostgrado.nombrePostgrado',
                 render: function(data, type, row) {
                     return data || '';
-                }
+                }, width: '33%'
             },
             { 
                 data: 'idPostgrado.idFacultad.nombreFacultad',
                 render: function(data, type, row) {
                     return data || '';
-                }
+                }, width: '30%'
             },
             {
                 data: null,
                 title: 'Acciones',
                 sortable: false,
                 searchable: false,
-                className: 'd-flex justify-content-around',
+                width: '12%',
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
                     var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
                     actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
                     if(hasPrivilegeAdmin == true){
-                        actionsHtml += '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                        actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
                         actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idMaestria + '" data-modo="actualizar">';
                         actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
                     }
-                    
                     actionsHtml += '<a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-' + row.idMaestria + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></a>';
                     actionsHtml += '<div class="modal fade" id="confirmarEliminar-' + row.idMaestria + '" tabindex="-1" aria-labelledby="confirmarEliminarLabel-' + row.idMaestria + '" aria-hidden="true">';
