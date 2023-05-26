@@ -45,7 +45,19 @@ public class MaestriaServiceImp implements MaestriaService{
     public void eliminar(Maestria maestria) {
         maestriaDao.delete(maestria);
     }
-
+    
+    @Override
+    @Transactional
+    public void actualizar(Maestria maestria) {
+         
+        if (maestriaDao.existsById(maestria.getIdMaestria())) {
+            System.out.println(maestria.getNombreMaestria() +""+ maestria.getIdMaestria()+""+maestria.getIdPostgrado());
+            maestriaDao.save(maestria);
+        } else {
+            throw new IllegalArgumentException("La maestria especificada no existe.");
+        }
+    }
+    
     @Override
     @Transactional(readOnly=true)
     public Maestria encontrarMaestria(Maestria maestria) {
@@ -54,7 +66,7 @@ public class MaestriaServiceImp implements MaestriaService{
     
     @Override
     @Transactional(readOnly=true)
-    public Collection<Maestria> encontrarMaestria(Integer idUsuario) {
+    public Collection<Maestria> encontrarMaestrias(Integer idUsuario) {
         return maestriaDao.findMaestriasByUsuarioId(idUsuario);
     }
     

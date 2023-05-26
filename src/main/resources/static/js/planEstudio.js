@@ -3,6 +3,7 @@ $(document).ready(function() {
         ajax: '/planEstudio/data',
         processing: true,
         serverSide: true,
+        order: [[2, 'desc']],
         dom: "<'row w-100'<'col-sm-6'l><'col-sm-6'f>>" +
              "<'row w-100'<'col-sm-12 my-4'tr>>" +
              "<'row w-100'<'col-sm-5'i><'col-sm-7'p>>",
@@ -12,7 +13,12 @@ $(document).ready(function() {
                 data: 'modalidad',width: '33%'
             },
             { 
-                data: 'planEstado', width: '30%'
+                data: 'planEstado',
+                width: '30%',
+                render: function (data, type, row) {
+                    var estado = (data === 1) ? 'Activo' : 'Inactivo';
+                    return estado;
+                }
             },
             {
                 data: null,

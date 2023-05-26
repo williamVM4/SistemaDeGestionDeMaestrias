@@ -46,7 +46,7 @@
                   <table id="maestriasTable" class="table table-striped" style="width:100%">
                       <thead class="table-light">
                           <tr>
-                              <th class="text-center">Nombre</th>
+                              <th class="text-center">Código del plan de estudios</th>
                               <th class="text-center">Modalidad</th>
                               <th class="text-center">Estado</th>
                               <th class="text-center">Acciones</th>
