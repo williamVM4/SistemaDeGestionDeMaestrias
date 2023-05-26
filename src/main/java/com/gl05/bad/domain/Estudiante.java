@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -51,7 +52,8 @@ public class Estudiante implements Serializable {
     private String sexoE;
     
     @Column(name = "FECHA_NAC_E")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yy")
     private Date fechaNacE;
     
     @Column(name = "NACIONALIDAD_E")
@@ -76,8 +78,8 @@ public class Estudiante implements Serializable {
     @ManyToOne(optional = false)
     private Pais idPais;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstudiante")
-    private Collection<EstudianteCohorte> estudianteCohorteCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstudiante")
+//    private Collection<EstudianteCohorte> estudianteCohorteCollection;
 
     public Estudiante() {
     }
@@ -200,13 +202,13 @@ public class Estudiante implements Serializable {
         this.idPais = idPais;
     }
 
-    public Collection<EstudianteCohorte> getEstudianteCohorteCollection() {
-        return estudianteCohorteCollection;
-    }
-
-    public void setEstudianteCohorteCollection(Collection<EstudianteCohorte> estudianteCohorteCollection) {
-        this.estudianteCohorteCollection = estudianteCohorteCollection;
-    }
+//    public Collection<EstudianteCohorte> getEstudianteCohorteCollection() {
+//        return estudianteCohorteCollection;
+//    }
+//
+//    public void setEstudianteCohorteCollection(Collection<EstudianteCohorte> estudianteCohorteCollection) {
+//        this.estudianteCohorteCollection = estudianteCohorteCollection;
+//    }
 
     @Override
     public int hashCode() {
