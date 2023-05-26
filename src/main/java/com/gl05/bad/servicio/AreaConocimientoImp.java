@@ -2,9 +2,13 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.AreaConocimientoDao;
 import com.gl05.bad.domain.AreaConocimiento;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AreaConocimientoImp implements AreaConocimientoService{
@@ -12,10 +16,16 @@ public class AreaConocimientoImp implements AreaConocimientoService{
     @Autowired
     private AreaConocimientoDao areaConocimientoDao;
     
+    @Override
+    @Transactional(readOnly=true)
+    public Collection<AreaConocimiento> listarAreaConocimientos() {
+        return (Collection<AreaConocimiento>)areaConocimientoDao.findAll();
+    }
     
     @Override
-    public List<AreaConocimiento> listarAreaConocimientos() {
-       return (List<AreaConocimiento>) areaConocimientoDao.findAll();
+    @Transactional(readOnly=true)
+    public DataTablesOutput<AreaConocimiento> listarAreaConocimientos(DataTablesInput input) {
+       return (DataTablesOutput<AreaConocimiento>)areaConocimientoDao.findAll(input);
     }
 
     @Override

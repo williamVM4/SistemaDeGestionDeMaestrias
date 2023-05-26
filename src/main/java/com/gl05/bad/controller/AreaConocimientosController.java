@@ -1,15 +1,20 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.AreaConocimiento;
+import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.servicio.AreaConocimientoService;
+import javax.validation.Valid;
 import static oracle.jdbc.OracleType.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -24,6 +29,12 @@ public class AreaConocimientosController {
         model.addAttribute("AreaConocimiento", elemento);
         return "AreaConocimiento/index";
     }
+    @GetMapping("/areaConocimiento/data")
+    @ResponseBody
+    public DataTablesOutput<AreaConocimiento> getAreaConocimiento(@Valid DataTablesInput input) {
+      System.out.println(areaConocimientoService.listarAreaConocimientos(input));
+        return areaConocimientoService.listarAreaConocimientos(input);
+    }
     @PostMapping("/AgregarAreaConocimiento")
     public String AgregarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {     
         try {
@@ -32,14 +43,12 @@ public class AreaConocimientosController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya existe una Àrea de Conocimiento con ese Nombre.");
         }
-
         return "redirect:/GestionarAreaConocimiento";
     }
     //ObtenerAreaConocimiento
     
     @GetMapping("/EliminarAreaConocimiento/{idAreaConocimiento}")
     public String EliminarRol(AreaConocimiento area, RedirectAttributes redirectAttributes) {
-        System.out.println(area);
         try {
             areaConocimientoService.eliminarAC(area);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el Area de Conocimiento correctamente.");

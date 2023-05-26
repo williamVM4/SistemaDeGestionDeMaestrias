@@ -1,10 +1,15 @@
 package com.gl05.bad.servicio;
 
 import com.gl05.bad.domain.AreaConocimiento;
-import java.util.List;
+import java.util.Collection;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 
 public interface AreaConocimientoService {
-  public List<AreaConocimiento> listarAreaConocimientos();
+    
+  public DataTablesOutput<AreaConocimiento> listarAreaConocimientos(DataTablesInput input);
+  
+  public Collection<AreaConocimiento> listarAreaConocimientos();
   
   public void agregarAC(AreaConocimiento area);
   
