@@ -105,7 +105,7 @@
                     
                 </div>
                 <div class="modal-footer">
-                  <button id="eliminarMaestriaBtn" class="btn btn-danger">Eliminar</button>
+                  <button id="eliminarAreaBtn" class="btn btn-danger">Eliminar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
