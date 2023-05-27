@@ -64,7 +64,8 @@ public class CoordinadorAcademico implements Serializable{
   
   @Column(name="NACIONALIDAD_CA", nullable=true)
     private String nacionalidadCa;
-
+  
+  @JsonIgnore
   @Lob
   @Column(name="FOTOGRAFIA_CA", nullable=true)
     private Blob fotografiaCa;

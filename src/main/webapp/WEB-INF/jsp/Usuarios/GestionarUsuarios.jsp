@@ -1,7 +1,7 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
 
-
+<div align="center">
 <div class="titulo-Perfil"><h3>Usuarios</h3></div>
 <div id="container-datos">
 
@@ -108,10 +108,10 @@
                 </c:if>    
 
             </tbody>
-
         </table>
-
+        </div>
     </div>
+</div>
 
     <!-- Modal para Usuarios -->
     <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
@@ -156,7 +156,7 @@
                         </div>
 
                         <div class="form-group">
-                            <c:forEach items="${roles}" var="elementoRol" varStatus="status">
+                            <c:forEach items="${roles}" var="elementoRol" varStatus="status" >
                                 <div>
                                     <li>
                                         <input class="checkClean" type="checkbox" id="rol${elementoRol.idRol}" name="roles[]" value="${elementoRol.idRol}">
@@ -175,8 +175,10 @@
             </div>
         </div>
     </div>
-</div>
 
+
+<%@ include file="../common/footer.jspf"%>                        
+                        
 <script>
     $(document).ready(function () {
         $('#formGuardar').submit(function (event) {
@@ -288,4 +290,3 @@
 </script>                             
 
 
-<%@ include file="../common/footer.jspf"%>

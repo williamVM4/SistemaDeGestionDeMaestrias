@@ -98,6 +98,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests()
                 .antMatchers("/welcome2")
                 .hasAuthority("VER_ADMIN_PRIVILEGE")             
+                //Aqui debo de poner todos los permisos de ver privilage para que haga el bloqueo al estar
+                //deshabilitado/bloqueado o ambos
                 .antMatchers("/login", "/logout", "/")
                 .hasAnyAuthority("VER_ADMIN_PRIVILEGE", "VER_USUARIO_PRIVILEGE")
                 .antMatchers("/welcome3")

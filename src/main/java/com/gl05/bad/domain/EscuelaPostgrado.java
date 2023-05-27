@@ -25,9 +25,9 @@ public class EscuelaPostgrado implements Serializable {
     @JoinColumn(name = "ID_FACULTAD", referencedColumnName = "ID_FACULTAD")
     @ManyToOne(optional = false)
     private Facultad idFacultad;
-//    @JsonIgnore
+   /*@JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPostgrado")
-    private Collection<Maestria> maestriaCollection;
+    private Collection<Maestria> maestriaCollection; */
 
     public EscuelaPostgrado() {
     }
@@ -65,13 +65,13 @@ public class EscuelaPostgrado implements Serializable {
         this.idFacultad = idFacultad;
     }
 
-    public Collection<Maestria> getMaestriaCollection() {
+    /*public Collection<Maestria> getMaestriaCollection() {
         return maestriaCollection;
-    }
+    }*/
 
-    public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
+    /*public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
         this.maestriaCollection = maestriaCollection;
-    }
+    }*/
     
     @Override
     public int hashCode() {

@@ -15,7 +15,13 @@ public interface MaestriaService {
     
     public void agregar(Maestria maestria);
     
+    public void proAgregar(String nombre, String posgrado);
+    
     public void eliminar(Maestria maestria);
     
     public Maestria encontrarMaestria(Maestria maestria);
+    
+    public Collection<Maestria> encontrarMaestrias(Integer idUsuario);
+    
+    public void actualizar(Maestria maestria);
 }

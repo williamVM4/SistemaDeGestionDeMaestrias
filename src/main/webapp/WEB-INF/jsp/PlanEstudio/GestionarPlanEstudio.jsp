@@ -10,7 +10,7 @@
           <div class="col-sm-12">
             <div class="titulo-Perfil">
                 <div class="container">
-                    <h1>Maestrias</h1>
+                    <h1>Planes de estudio</h1>
                 </div>
             </div>
           </div>
@@ -39,25 +39,25 @@
             </div>
 
             <div class="pt-4">
-                <div class="table-responsive-md">
-                    <table id="maestriasTable" class="table table-striped" style="width:100%">
-                        <thead class="table-light">
-                            <tr>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Escuela de Posgrado</th>
-                                <th class="text-center">Facultad</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+              <div class="table-responsive-md">
+                  <table id="planEstudioTable" class="table table-striped" style="width:100%">
+                      <thead class="table-light">
+                          <tr>
+                              <th class="text-center">Código del plan de estudios</th>
+                              <th class="text-center">Año</th>
+                              <th class="text-center">Estado</th>
+                              <th class="text-center">Acciones</th>
+                          </tr>
+                      </thead>
+                      <tbody class="text-center">
+                      </tbody>
+                  </table>
+              </div>
             </div>
-        </div><!-- /.container-->
+        </div><!-- /.container-fluid -->
     </section>
     <!-- /.Main content -->
-
+    
     <!-- Modal de agregar y editar -->
     <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
         <div class="modal-dialog">
@@ -69,17 +69,34 @@
                 <div class="modal-body">
                     <form id='formGuardar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <input type="hidden" id="idPlanEstudio">
                         <input type="hidden" id="idMaestria">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nombreMaestria" name="nombreMaestria" placeholder="Nombre de la maestria" required>
+                            <input type="text" class="form-control" id="codPlan" name="codPlan" placeholder="Código del plan de estudio" required>
                         </div>
                         <div class="form-group">
-                              <select class="form-select form-select-sm" id="idPostgrado" name="idPostgrado" required>
-                                  <option value="">Seleccione una escuela de postgrado</option>
-                                  <c:forEach items="${escuelas}" var="elementoEscuela" varStatus="status">
-                                      <option value="${elementoEscuela.idPostgrado}">${elementoEscuela.nombrePostgrado}</option>
-                                  </c:forEach>
-                              </select>
+                            <input type="text" class="form-control" id="modalidad" name="modalidad" placeholder="Modalidad" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="cumMinimo" name="cumMinimo" placeholder="CUM Mínimo" min="0" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="notaMinimaAprobacion" name="notaMinimaAprobacion" placeholder="Nota Mínima de Aprobación" min="0" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="totalAsignaturas" name="totalAsignaturas" placeholder="Total de Asignaturas" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="totalUv" name="totalUv" placeholder="Total de UV" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="duracionCarrera" name="duracionCarrera" placeholder="Duración de la Carrera" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="tituloOrtorgar" name="tituloOrtorgar" placeholder="Título a Otorgar" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="anio" name="anio" placeholder="Año" required>
                         </div>
                         <div class="modal-footer">
                             <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
@@ -90,7 +107,7 @@
             </div>
         </div>
     </div>
-            
+                        
     <!-- Modal de eliminar -->
     <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -100,29 +117,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <strong>¿Estás seguro de eliminar la maestría seleccionada?</strong>
-                    <p>Ten en cuenta que se eliminarán los datos relacionados a la maestría de <span id="nombreMaestriaEliminar"></span>.</p>
+                    <strong>¿Estás seguro de eliminar el plan de estudio seleccionado?</strong>
+                    <p>Ten en cuenta que se eliminarán los datos relacionados a la plan de estudio de código <span id="codPlanEliminar"></span>.</p>
                     
                 </div>
                 <div class="modal-footer">
-                  <button id="eliminarMaestriaBtn" class="btn btn-danger">Eliminar</button>
+                  <button id="eliminarPlanEstudioBtn" class="btn btn-danger">Eliminar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
     
-    <form id="eliminarMaestriaForm" method="post" action="/EliminarMaestria/{idMaestria}">
+    <form id="eliminarPlanEstudioForm" method="post" action="/EliminarPlanEstudio/{idPlanEstudio}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
     <!-- /.Modal de eliminar -->
+
 </div>
-<!-- /.content-wrapper -->
+  <!-- /.content-wrapper -->
   
-<sec:authorize access="hasAuthority('VER_ADMIN_PRIVILEGE')" var="hasPrivilegeAdmin"></sec:authorize>
 <script>
-    var hasPrivilegeAdmin = ${hasPrivilegeAdmin};
+    var idMaestria = "${idMaestria}";
 </script>
 <%@ include file="../common/footer1.jspf"%>
-<script src="${pageContext.request.contextPath}/js/maestria.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/planEstudio.js"></script>

@@ -1,31 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- *
- * @author william
- */
+
 @Entity
+@Table(name = "ESTUDIANTE")
 @NamedQueries({
     @NamedQuery(name = "Estudiante.findAll", query = "SELECT e FROM Estudiante e"),
     @NamedQuery(name = "Estudiante.findByIdEstudiante", query = "SELECT e FROM Estudiante e WHERE e.idEstudiante = :idEstudiante"),
@@ -44,47 +41,52 @@ public class Estudiante implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_ESTUDIANTE", sequenceName = "S_ESTUDIANTE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ESTUDIANTE")
     @Column(name = "ID_ESTUDIANTE")
     private Long idEstudiante;
-    @Basic(optional = false)
+    
     @Column(name = "CARNET_E")
     private String carnetE;
-    @Basic(optional = false)
+    
     @Column(name = "NOMBRES_E")
     private String nombresE;
-    @Basic(optional = false)
+    
     @Column(name = "APELLIDOS_E")
     private String apellidosE;
-    @Basic(optional = false)
+   
     @Column(name = "SEXO_E")
     private String sexoE;
-    @Basic(optional = false)
+    
     @Column(name = "FECHA_NAC_E")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yy")
     private Date fechaNacE;
-    @Basic(optional = false)
+    
     @Column(name = "NACIONALIDAD_E")
     private String nacionalidadE;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "FOTOGRAFIA_E")
-    private Serializable fotografiaE;
+    
     @Column(name = "DUI_E")
     private String duiE;
+    
     @Column(name = "NIT_E")
     private String nitE;
+    
     @Column(name = "NUP_E")
     private String nupE;
+    
     @Column(name = "PASAPORTE_E")
     private String pasaporteE;
+    
     @Column(name = "DOC_PERSONAL_E")
     private String docPersonalE;
+    
     @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
     @ManyToOne(optional = false)
     private Pais idPais;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstudiante")
-    private Collection<EstudianteCohorte> estudianteCohorteCollection;
+    
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstudiante")
+//    private Collection<EstudianteCohorte> estudianteCohorteCollection;
 
     public Estudiante() {
     }
@@ -101,7 +103,6 @@ public class Estudiante implements Serializable {
         this.sexoE = sexoE;
         this.fechaNacE = fechaNacE;
         this.nacionalidadE = nacionalidadE;
-        this.fotografiaE = fotografiaE;
     }
 
     public Long getIdEstudiante() {
@@ -160,14 +161,6 @@ public class Estudiante implements Serializable {
         this.nacionalidadE = nacionalidadE;
     }
 
-    public Serializable getFotografiaE() {
-        return fotografiaE;
-    }
-
-    public void setFotografiaE(Serializable fotografiaE) {
-        this.fotografiaE = fotografiaE;
-    }
-
     public String getDuiE() {
         return duiE;
     }
@@ -216,13 +209,13 @@ public class Estudiante implements Serializable {
         this.idPais = idPais;
     }
 
-    public Collection<EstudianteCohorte> getEstudianteCohorteCollection() {
-        return estudianteCohorteCollection;
-    }
-
-    public void setEstudianteCohorteCollection(Collection<EstudianteCohorte> estudianteCohorteCollection) {
-        this.estudianteCohorteCollection = estudianteCohorteCollection;
-    }
+//    public Collection<EstudianteCohorte> getEstudianteCohorteCollection() {
+//        return estudianteCohorteCollection;
+//    }
+//
+//    public void setEstudianteCohorteCollection(Collection<EstudianteCohorte> estudianteCohorteCollection) {
+//        this.estudianteCohorteCollection = estudianteCohorteCollection;
+//    }
 
     @Override
     public int hashCode() {

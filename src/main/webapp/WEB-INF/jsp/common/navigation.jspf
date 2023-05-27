@@ -6,7 +6,7 @@
                 <a href="#Procesos" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Procesos</a>
                 <ul class="collapse list-unstyled" id="Procesos">
                     <li>
-                        <a href="/maestria/index">Gestionar Maestría</a>
+                        <a href="/GestionarMaestria">Gestionar Maestría</a>
                     </li>
                     <li>
                         <a href="#">Inscribir Maestria</a>
@@ -26,7 +26,7 @@
                         <a href="/GestionarAspiranteProfesor">Aspirantes a Profesor</a>
                     </li>
                     <li>
-                        <a href="#">Estudiantes</a>
+                        <a href="/viewEstudiantes">Estudiantes</a>
                     </li>
                 </ul>
             </li>
@@ -54,10 +54,10 @@
                 <a href="#Maestria" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Maestría</a>
                 <ul class="collapse list-unstyled" id="Maestria">
                     <li>
-                        <a href="#">Asignaturas</a>
+                        <a href="/GestionarPlanEstudio">Asignaturas</a>
                     </li>
                     <li>
-                        <a href="#">Gestión de Cohorte</a>
+                        <a href="/GestionarCohorte">Gestión de Cohorte</a>
                     </li>
                 </ul>
             </li>

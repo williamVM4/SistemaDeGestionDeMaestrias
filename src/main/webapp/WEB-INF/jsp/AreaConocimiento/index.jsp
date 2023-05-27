@@ -1,7 +1,10 @@
 <%@ include file="../common/header.jspf"%>
 <%@ include file="../common/navigation.jspf"%>
+
+
+
 <div align="center">
-    <div class="titulo-Perfil"><h3>Àrea de Conocimientos</h3></div>
+    <div class="titulo-Perfil"><h3>Área de Conocimientos</h3></div>
     <div id="container-datos">
 
         <c:if test="${not empty mensaje}">
@@ -34,7 +37,7 @@
                     <tr>
                         <th scope="col">N°</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Descripciòn</th>
+                        <th scope="col">Descripción</th>
                         <th scope="Opciones">Opciones</th>
                     </tr>
                 </thead>
@@ -56,16 +59,16 @@
                                     <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${elemento.idAreaConocimiento}">
                                         <i class="bi bi-trash"></i>
                                     </a>
-                                    <!-- Modal de confirmación de eliminación -->
+                                    <!-- Modal de confirmaciÃ³n de eliminaciÃ³n -->
                                     <div class="modal fade" id="confirmarEliminar-${elemento.idAreaConocimiento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${elemento.idAreaConocimiento}" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idAreaConocimiento}">Confirmar eliminación</h5>
+                                                    <h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idAreaConocimiento}">Confirmar eliminaciÃ³n</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <strong>¿Estás seguro de eliminar el àrea seleccionada?</strong>
+                                                    <strong>Â¿EstÃ¡s seguro de eliminar el Área seleccionada?</strong>
                                                     <p>Ten en cuenta que se eliminarán los datos relacionados a el area de ${elemento.nombreArea}.</p>
                                                 </div>
                                                 <div class="modal-footer">
@@ -88,71 +91,95 @@
             </table>
         </div>
     </div>
-</div>
-<!-- Modal para roles -->
-<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="crearModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id='formGuardar' accept-charset="UTF-8">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                    <input type="hidden" id="areaId">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Àrea" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripciòn" required>
-                    </div>
 
-                    <div class="modal-footer">
-                        <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
+    <!-- Modal para roles -->
+    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id='formGuardar' accept-charset="UTF-8">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <input type="hidden" id="areaId">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Ã€rea">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="DescripciÃ²n">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+<%@ include file="../common/footer.jspf"%>
 
 <script>
     $(document).ready(function () {
-        $('#formGuardar').submit(function (event) {
-            event.preventDefault();//detiene el evento del envio del form 
-            var idAreaConocimiento = $('#areaId').val();//tomo la id
-
-            var formDataArray = $(this).serializeArray();//tomo los datos del array
-
-            var url;//valido el tipo de url si editar o crear
-            if (idAreaConocimiento) {
-                url = '/ActualizarAreaConocimiento';
-                //meto la id en el campo de envio
-                formDataArray.push({name: 'idAreaConocimiento', value: idAreaConocimiento});
-            } else {
-                url = '/AgregarAreaConocimiento';
-            }
-            // Convertir el arreglo en un objeto
-            var formData = {};
-            $.map(formDataArray, function (n, i) {
-                formData[n['name']] = n['value'];
-            });
-            //realizo el guardado mediante ajax
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    $('#crearModal').modal('hide');  // Cierra el modal
-                    location.reload();  // Recarga la página
+        var idAreaConocimiento = $('#areaId').val();
+        var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
+        $('#formGuardar').validate({
+            rules: {// reglas
+                nombreArea: {
+                    required: true
                 },
-                error: function (error) {
-                    console.log(error);
+                descripcion:{
+                    required: true
                 }
-            });
+                
+            },
+            messages: {// mensajes
+                nombreArea: {
+                    required: 'Este campo es requerido'
+                },
+                descripcion: {
+                    required: 'Este campo es requerido'
+                },
+                
+            },
+            submitHandler: function (form) {
+                event.preventDefault();
+                var idAreaConocimiento = $('#areaId').val();//tomo la id
+
+                var formDataArray = formGuardar.serializeArray();//tomo los datos del array
+
+                var url;//valido el tipo de url si editar o crear
+                if (idAreaConocimiento) {
+                    url = '/ActualizarAreaConocimiento';
+                    //meto la id en el campo de envio
+                    formDataArray.push({name: 'idAreaConocimiento', value: idAreaConocimiento});
+                } else {
+                    url = '/AgregarAreaConocimiento';
+                }
+                // Convertir el arreglo en un objeto
+                var formData = {};
+                $.map(formDataArray, function (n, i) {
+                    formData[n['name']] = n['value'];
+                });
+                //realizo el guardado mediante ajax
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        $('#crearModal').modal('hide');  // Cierra el modal
+                        location.reload();  // Recarga la pÃ¡gina
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
         });
+
         // metodo para mostrar el modal segun sea si editar o nuevo registro
         $(document).on('click', '.abrirModal-btn', function () {
             var idAreaConocimiento = $(this).data('id');
@@ -160,7 +187,7 @@
             var tituloModal = modal.find('.modal-title');
             var form = modal.find('form');
             var btnSumit = document.getElementById('btnSumit');
-
+            $('#formGuardar').validate().resetForm();//quita los mensajes de error 
             if (idAreaConocimiento) {
                 tituloModal.text('Editar Area de Conocimiento');//titulo del modal
                 $.ajax({//utilizo ajax para obtener los datos
@@ -172,7 +199,7 @@
                         $('#areaId').val(idAreaConocimiento);
                     },
                     error: function () {
-                        alert('Error al obtener los datos del área de conocimiento.');
+                        alert('Error al obtener los datos del Ã¡rea de conocimiento.');
                     }
                 });
             } else {
@@ -189,4 +216,3 @@
 
 </script>
 
-<%@ include file="../common/footer.jspf"%>

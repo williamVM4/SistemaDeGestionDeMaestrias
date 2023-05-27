@@ -13,6 +13,8 @@ public interface UserService {
     
     public Usuario encontrarUsuario(Long usuario);
     
+    public Usuario encontrarUsuarioPorUsername(String username);
+    
     public void actualizarUsuario(Usuario usuario);
     
     
