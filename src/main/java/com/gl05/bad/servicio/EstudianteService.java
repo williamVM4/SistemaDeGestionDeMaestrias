@@ -18,5 +18,5 @@ public interface EstudianteService {
     public void eliminarEstudiante(Estudiante estudiante);
     
     public void actualizarEstudiante(Estudiante estudiante);
-    
+   
 }

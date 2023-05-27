@@ -53,5 +53,5 @@ public class EstudianteServiceImp implements EstudianteService{
     public DataTablesOutput<Estudiante> listaEstudiantes(DataTablesInput input) {
         return (DataTablesOutput<Estudiante>)estudianteDao.findAll(input);
     }
-    
+
 }

@@ -38,7 +38,7 @@
                 <div class="col-sm-1">
                     <button type="button" class="btn-add btn abrirModal-btn" 
                             data-bs-toggle="modal" data-bs-target="#crearModal" 
-                            data-action="agregar">Agregar</button>
+                            data-action="agregar" onclick="cargarSelect()" >Agregar</button>
                 </div>
             </div>
 
@@ -71,28 +71,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id='formGuardar' accept-charset="UTF-8">
+                    <form id='formGuardar' accept-charset="UTF-8" >
 
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        
+                        
                         <input type="hidden" id="estudianteId">
 
                         <div class="form-group">
-                            <input type="text" class="form-control" id="carnetE" name="carnetE" placeholder="Carnet" required>
+                            <label for="carnetE" class="form-label">Carnet:</label>
+                            <input type="text" class="form-control" id="carnetE" name="carnetE" maxlength="5" placeholder="Carnet" required>
                         </div>
-
-                        <br>
-
+                        
                         <div class="form-group">
+                            <label for="nombresE" class="form-label">Nombres:</label>
                             <input type="text" class="form-control" id="nombresE" name="nombresE" placeholder="Nombres Estudiante" required>
                         </div>
 
-                        <br>
 
                         <div class="form-group">
+                            <label for="apellidosE" class="form-label">Apellidos:</label>
                             <input type="text" class="form-control" id="apellidosE" name="apellidosE" placeholder="Apellidos Estudiante" required>
                         </div>
-
-                    <br>
 
                         <div class="form-group">
                             <label for="sexoE" class="form-label">Sexo:</label>
@@ -103,16 +103,11 @@
                                 </c:forEach>
                             </select>
                         </div>
-
-                        <br>
-
                         <div class="form-group">
                             <label for="fechaNacE" class="form-label">Fecha Nacimiento:</label>
-                            <input type="text" class="form-control" id="fechaNacE" name="fechaNacE" placeholder="dd-mm-yyyy"/>
+                            <input type="text" class="form-control" id="fechaNacE" name="fechaNacE" placeholder="dd-mm-yyyy" maxlength="10"/>
                         </div>
                         
-                        <br>
-
                         <div class="form-group">
                             <label for="nacionalidadE" class="form-label">Nacionalidad:</label>
                             <select class="form-select" id="nacionalidadE" name="nacionalidadE" required>
@@ -122,50 +117,44 @@
                                 </c:forEach>
                             </select>
                         </div>
-
-                        <br>
-
+                        
                         <div class="form-group">
-                            <select class="form-control" id="idPais" name="idPais" required>
-                                <option value="">Seleccione un pais</option>
+                            <label for="" class="form-label">Pais:</label>
+                            <select class="form-control" id="idPais" name="idPais" onchange="mostrarOcultarSelect()" required>
+                                <option value="">Seleccione una opción</option>
                                 <c:forEach items="${pais}" var="elementoPais">
                                     <option value="${elementoPais.idPais}">${elementoPais.nombrePais}</option>
                                 </c:forEach>
                             </select>
                         </div>
 
-                        <br>
+                        <div id="group-duiE" class="form-group">
+                            <label for="duiE" class="form-label">DUI:</label>
+                            <input type="text" class="form-control" id="duiE" name="duiE" maxlength="10" placeholder="########-#" >
+                        </div>
 
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="duiE" name="duiE" placeholder="DUI" required>
+
+                        <div id="group-nitE" class="form-group">
+                            <label for="nitE" class="form-label">NIT:</label>
+                            <input type="text" class="form-control" id="nitE" name="nitE" maxlength="17" placeholder="#### - #### - ### - #" >
+                        </div>
+
+                        <div id="group-nupE" class="form-group">
+                            <label for="nupE" class="form-label">NUP:</label>
+                            <input type="text" class="form-control" id="nupE" name="nupE" maxlength="14" placeholder="############">
+                        </div>
+
+                        <div id="group-pasaporteE" class="form-group">
+                            <label for="pasaporteE" class="form-label">Pasaporte:</label>
+                            <input type="text" class="form-control" id="pasaporteE" name="pasaporteE" maxlength="9" placeholder="*********" >
+                        </div>
+
+                        <div id="group-docPersonalE" class="form-group">
+                            <label for="docPersonalE" class="form-label">Documento Personal:</label>
+                            <input type="text" class="form-control" id="docPersonalE" name="docPersonalE" maxlength="20" placeholder="####################">
                         </div>
 
                         <br>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="nitE" name="nitE" placeholder="NIT" required>
-                        </div>
-
-                        <br>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="nupE" name="nupE" placeholder="NUP" required>
-                        </div>
-
-                        <br>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="pasaporteE" name="pasaporteE" placeholder="Pasaporte" required>
-                        </div>
-
-                        <br>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="docPersonalE" name="docPersonalE" placeholder="Documento Personal" required>
-                        </div>
-
-                        <br>
-
                         <div class="modal-footer">
                             <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -183,6 +172,9 @@
 <%@ include file="../common/footer1.jspf"%>
 
 <script src="${pageContext.request.contextPath}/js/estudiantes.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/estudianteSelect.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -229,6 +221,14 @@
             var tituloModal = modal.find('.modal-title');
             var form = modal.find('form');
             var btnSumit = document.getElementById('btnSumit');
+            //validator.resetForm();
+            
+           var docPersonal= document.getElementById("group-docPersonalE");
+           var pasaporte = document.getElementById("group-pasaporteE");
+           var dui = document.getElementById("group-duiE");
+           var nit = document.getElementById("group-nitE");
+           var nup = document.getElementById("group-nupE");  
+            
 
             if (idEstudiante) {
                 tituloModal.text('Editar Estudiante');//titulo del modal
@@ -240,15 +240,40 @@
                         $('#nombresE').val(response.nombresE);
                         $('#apellidosE').val(response.apellidosE);
                         $('#sexoE').val(response.sexoE);
-                        $('#fechaNacE').val(response.fechaNacE);
+                        //$('#fechaNacE').val(response.fechaNacE);
+                        var fechaNacE = response.fechaNacE;
+                        var fechaFormateada = formatearFecha(fechaNacE);
+                        $('#fechaNacE').val(fechaFormateada);
                         $('#nacionalidadE').val(response.nacionalidadE);
                         $('#idPais').val(response.idPais.idPais);
                         $('#duiE').val(response.duiE);
                         $('#nitE').val(response.nitE);
                         $('#nupE').val(response.nupE);
                         $('#pasaporteE').val(response.pasaporteE);
-                        $('#docPersonalE').val(response.docPersonalE);
+                        $('#docPersonalE').val(response.docPersonalE); 
                         $('#estudianteId').val(idEstudiante);
+                        
+                        
+                        //console.log(response.idPais.nombrePais);
+                        console.log(response.fechaNacE);
+                        
+                        docPersonal.classList.remove("d-none");
+                        pasaporte.classList.remove("d-none");
+                        dui.classList.remove("d-none");
+                        nit.classList.remove("d-none");
+                        nup.classList.remove("d-none");
+                        
+                        if(response.idPais.nombrePais === "El Salvador"){
+                            //console.log("entro en 1");
+                            docPersonal.classList.add("d-none");
+                            pasaporte.classList.add("d-none");
+                        }else{
+                            dui.classList.add("d-none");
+                            nit.classList.add("d-none");
+                            nup.classList.add("d-none");
+                            //console.log("entro en 2");
+                        }
+                        
                     },
                     error: function () {
                         alert('Error al obtener los datos del estudiante.');
@@ -258,6 +283,13 @@
                 // en caso de presionar el boton de nuevo solo se abrira el modal
                 tituloModal.text('Agregar Estudiante');
                 form.attr('action', '/AgregarEstudiante');
+                
+                 docPersonal.classList.add("d-none");
+                 pasaporte.classList.add("d-none");
+                 dui.classList.add("d-none");
+                 nit.classList.add("d-none");
+                 nup.classList.add("d-none");
+                
                 $('#carnetE').val('');
                 $('#nombresE').val('');
                 $('#apellidosE').val('');
@@ -275,6 +307,27 @@
             modal.modal('show');
         });
     });
+    
+    function formatearFecha(fecha) {
+    //Especifico UTCDate para tomar la fecha del sistema
+        var fechaObjeto = new Date(fecha);
+        var dia = fechaObjeto.getUTCDate();
+        var mes = fechaObjeto.getUTCMonth() + 1;
+        var anio = fechaObjeto.getUTCFullYear();
+        
+        //var fechaObjeto = new Date(fecha);
+        //var dia = fechaObjeto.getDate();
+        //var mes = fechaObjeto.getMonth() + 1;
+        //var anio = fechaObjeto.getFullYear();
 
+    if (dia < 10) {
+        dia = '0' + dia;
+    }
+    if (mes < 10) {
+        mes = '0' + mes;
+    }
+
+    return dia + '/' + mes + '/' + anio;
+}
 </script>
 
