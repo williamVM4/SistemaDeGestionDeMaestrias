@@ -13,4 +13,6 @@ public interface CoordinadorAcademicoDao extends JpaRepository<CoordinadorAcadem
         @Param("p_nombre") String nombre,
         @Param("p_apellido") String apellido
     );
+    
+    CoordinadorAcademico findByIdusuario(Integer idUsuario);
 }

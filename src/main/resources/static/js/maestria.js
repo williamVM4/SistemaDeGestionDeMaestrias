@@ -78,19 +78,20 @@ $(document).ready(function() {
     
     // Agregar regla personalizada para validar el campo nombreMaestria con una expresión regular
     $.validator.addMethod(
-      "validarNombreMaestria",
-      function(value, element) {
-        return this.optional(element) || /^[A-Za-z\s]+$/.test(value);
-      },
-      "No se aceptan números ni caracteres especiales"
-    );
+        "validarNombreMaestria",
+        function(value, element) {
+          return this.optional(element) || /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/.test(value);
+        },
+        "No se aceptan números ni caracteres especiales"
+      );
     
     var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
     var validator = $('#formGuardar').validate({
         rules: {// reglas
             nombreMaestria: {
                 required: true,
-                validarNombreMaestria: true
+                validarNombreMaestria: true,
+                maxlength: 100
             },
             idPostgrado:{
                 required: true
@@ -99,6 +100,7 @@ $(document).ready(function() {
         messages: {// mensajes
             nombreMaestria: {
                 required: 'Este campo es requerido',
+                maxlength: "El número máximo de caracteres es 100"
             },
             idPostgrado: {
                 required: 'Este campo es requerido'

@@ -2,6 +2,7 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.PlanEstudioDao;
 import com.gl05.bad.domain.PlanEstudio;
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
@@ -23,7 +24,7 @@ public class PlanEstudioServiceImp implements PlanEstudioService{
     
     @Override
     @Transactional
-    public void proAgregar(Long idMaestria, String codPlan, String modalidad, long cumMinimo, long notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracion_carrera, String tituloOtorgar, short anio) {
+    public void proAgregar(Long idMaestria, String codPlan, String modalidad, BigDecimal cumMinimo, BigDecimal notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracion_carrera, String tituloOtorgar, short anio) {
       planEstudioDao.sp_insert_planestudio(idMaestria, codPlan, modalidad, cumMinimo, notaMinimaAprobacion, totalAsignaturas, totalUv, duracion_carrera, tituloOtorgar, anio);
     }
     

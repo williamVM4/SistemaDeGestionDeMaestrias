@@ -20,4 +20,6 @@ public interface CoordinadorAcademicoService {
   
   public void actualizarCampo(CoordinadorAcademico coordinador, String nombreCampo, Blob blob);
   
+  public CoordinadorAcademico encontrarPorIdUsuario(Integer idUsuario);
+  
 }

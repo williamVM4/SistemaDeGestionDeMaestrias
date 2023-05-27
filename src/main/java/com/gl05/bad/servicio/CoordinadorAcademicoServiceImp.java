@@ -90,5 +90,11 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
         }
         coordinadorDao.save(coordinadorExistente);
     }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public CoordinadorAcademico encontrarPorIdUsuario(Integer idUsuario) {
+        return coordinadorDao.findByIdusuario(idUsuario);
+    }
 
 }
