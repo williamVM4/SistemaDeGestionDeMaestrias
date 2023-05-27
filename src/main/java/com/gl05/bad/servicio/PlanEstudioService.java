@@ -10,4 +10,12 @@ public interface PlanEstudioService {
     
     public void proAgregar(Long idMaestria, String codPlan, String modalidad, long cumMinimo, long notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracion_carrera, String tituloOtorgar, short anio);
     
+    public void eliminar(PlanEstudio planEstudio);
+    
+    public void actualizar(PlanEstudio planEstudio);
+    
+    public PlanEstudio encontrarPlanEstudio(PlanEstudio planEstudio);
+    
+    public DataTablesOutput<PlanEstudio> listarPlanEstudioFiltrado(DataTablesInput input, Long idMaestria);
+    
 }

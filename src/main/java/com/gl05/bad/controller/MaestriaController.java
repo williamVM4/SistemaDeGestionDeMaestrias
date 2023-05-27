@@ -57,7 +57,10 @@ public class MaestriaController {
     @PostMapping("/ActualizarMaestria")
     public ResponseEntity ActualizarMaestria(Maestria maestria, RedirectAttributes redirectAttributes) {
         try {
-            maestriaService.actualizar(maestria);
+            Maestria maestriaExistente = maestriaService.encontrarMaestria(maestria);
+            maestriaExistente.setNombreMaestria(maestria.getNombreMaestria());
+            maestriaExistente.setIdPostgrado(maestria.getIdPostgrado());
+            maestriaService.actualizar(maestriaExistente);
             String mensaje = "Se ha actualizado la maestria correctamente.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {

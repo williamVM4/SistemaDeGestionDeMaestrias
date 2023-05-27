@@ -51,7 +51,6 @@ public class MaestriaServiceImp implements MaestriaService{
     public void actualizar(Maestria maestria) {
          
         if (maestriaDao.existsById(maestria.getIdMaestria())) {
-            System.out.println(maestria.getNombreMaestria() +""+ maestria.getIdMaestria()+""+maestria.getIdPostgrado());
             maestriaDao.save(maestria);
         } else {
             throw new IllegalArgumentException("La maestria especificada no existe.");
