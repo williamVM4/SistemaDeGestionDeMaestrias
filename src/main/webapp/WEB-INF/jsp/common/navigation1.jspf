@@ -146,47 +146,6 @@
               </li>
             </ul>
           </li>
-          <c:if test="${not empty sessionScope.maestriasCoordinador}">
-            <li class="nav-header">MAESTRÍAS</li>
-            <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarPlanEstudio/\\d+$') || requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarCohorte/\\d+$') ? 'menu-open' : ''}">
-                <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarPlanEstudio/\\d+$') || requestScope['javax.servlet.forward.request_uri'].matches('^/GestionarCohorte/\\d+$') ? 'active' : ''}">
-                    <i class="nav-icon fas fa-building-columns"></i>
-                    <p>
-                      Mis Maestrías
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <c:forEach var="maestria" items="${sessionScope.maestriasCoordinador}">
-                        <c:set var="regexGestionarPlanEstudio" value="^/GestionarPlanEstudio/${maestria.idMaestria}$" />
-                        <c:set var="regexGestionarCohorte" value="^/GestionarCohorte/${maestria.idMaestria}$" />
-                    <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'].matches(regexGestionarPlanEstudio) || requestScope['javax.servlet.forward.request_uri'].matches(regexGestionarCohorte) ? 'menu-open' : ''}">
-                        <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'].matches(regexGestionarPlanEstudio) || requestScope['javax.servlet.forward.request_uri'].matches(regexGestionarCohorte) ? 'active' : ''}">
-                            <i class="far fa-circle nav-icon text-info"></i>
-                                <p>
-                                ${maestria.nombreMaestria}
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item ">
-                                <a href="/GestionarPlanEstudio/${maestria.idMaestria}" class="nav-link ${requestScope['javax.servlet.forward.request_uri'].matches(regexGestionarPlanEstudio) ? 'active' : ''}">
-                                  <i class="far fa-circle nav-icon text-warning"></i>
-                                  <p>Asignaturas</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/GestionarCohorte/${maestria.idMaestria}"class="nav-link ${requestScope['javax.servlet.forward.request_uri'].matches(regexGestionarCohorte) ? 'active' : ''}">
-                                  <i class="far fa-circle  nav-icon text-warning"></i>
-                                  <p>Gestión de Cohorte</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                     </c:forEach>
-                </ul>
-            </li>
-          </c:if>  
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

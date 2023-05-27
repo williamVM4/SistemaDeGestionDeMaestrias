@@ -8,6 +8,7 @@ import static oracle.jdbc.OracleType.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,25 +48,27 @@ public class AreaConocimientosController {
     }
     //ObtenerAreaConocimiento
     
-    @GetMapping("/EliminarAreaConocimiento/{idAreaConocimiento}")
-    public String EliminarRol(AreaConocimiento area, RedirectAttributes redirectAttributes) {
+    @PostMapping("/EliminarAreaConocimiento/{idAreaConocimiento}")
+    public ResponseEntity EliminarAreaConocimiento(AreaConocimiento area) {
         try {
             areaConocimientoService.eliminarAC(area);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el Area de Conocimiento correctamente.");
+            String mensaje = "Se ha eliminado la Maestria correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el Area de Conocimiento.");
+            String error = "Ha ocurrido un error al eliminar la maestria.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/GestionarAreaConocimiento";
     }
     @PostMapping("/ActualizarAreaConocimiento")
-    public String ActualizarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {
+    public ResponseEntity ActualizarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {
         try {
             areaConocimientoService.actualizarAC(area);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado el Área de Conocimiento.");
+            String mensaje = "Se ha actualizado la maestria correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al actualizar el Área de Conocimiento.");
+            String error = "Ha ocurrido un error al actualizar la maestria.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/GestionarAreaConocimiento";
     }
     
     @GetMapping("/ObtenerAreaConocimiento/{id}")

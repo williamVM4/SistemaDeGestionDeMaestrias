@@ -21,14 +21,14 @@
     <!-- Main content -->
     <section class="content pb-5">
         <div class="container">
-                <div class="alert alert-success d-flex align-items-center alert-dismissible fade d-none" role="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <strong><i class="bi bi-check-circle"></i> Éxito!&nbsp;</strong>
-                </div>
-                <div class="alert alert-danger d-flex align-items-center alert-dismissible fade d-none" role="alert">
-                    <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+            <div class="alert alert-success d-flex align-items-center alert-dismissible fade d-none" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><i class="bi bi-check-circle"></i> Éxito!&nbsp;</strong>
+            </div>
+            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade d-none" role="alert">
+                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <div class="row col-sm-12 d-flex justify-content-end">
                 <div class="col-sm-1">
                     <button type="button" class="btn-add btn abrirModal-btn" 
@@ -105,7 +105,7 @@
                     
                 </div>
                 <div class="modal-footer">
-                  <button id="eliminarAreaBtn" class="btn btn-danger">Eliminar</button>
+                  <button id="eliminarMaestriaBtn" class="btn btn-danger">Eliminar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
