@@ -83,4 +83,10 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
             break;}
         aspiranteDao.save(coordinadorExistente);
     }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public AspiranteProfesor encontrarPorIdUsuario(Integer idUsuario) {
+        return aspiranteDao.findByIdusuario(idUsuario);
+    }
 }

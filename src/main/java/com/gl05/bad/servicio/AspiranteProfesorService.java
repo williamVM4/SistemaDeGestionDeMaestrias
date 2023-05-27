@@ -18,4 +18,5 @@ public interface AspiranteProfesorService {
   
   public void actualizarFoto(AspiranteProfesor aspirante, String nombreCampo, Blob valorCampo);
 
+  public AspiranteProfesor encontrarPorIdUsuario(Integer idUsuario);
 }

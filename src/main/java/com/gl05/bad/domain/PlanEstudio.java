@@ -18,6 +18,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.math.BigDecimal;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+
 
 @Entity
 @Table(name = "PLAN_ESTUDIO")
@@ -47,16 +51,14 @@ public class PlanEstudio implements Serializable {
     private String codPlan;
     @Basic(optional = false)
     private String modalidad;
-    @Max(value=(long) 10.0)  
-    @Min(value=(long) 0.0)
-    @Basic(optional = false)
-    @Column(name = "CUM_MINIMO")
-    private long cumMinimo;
-    @Max(value=(long) 10.0)  
-    @Min(value=(long) 0.0)
-    @Basic(optional = false)
-    @Column(name = "NOTA_MINIMA_APROBACION")
-    private long notaMinimaAprobacion;
+    @DecimalMin(value = "0.00", inclusive = true)
+    @DecimalMax(value = "10.00", inclusive = true)
+    @Column(name = "CUM_MINIMO", precision = 4, scale = 2, nullable = false)
+    private BigDecimal cumMinimo;
+    @DecimalMin(value = "0.00", inclusive = true)
+    @DecimalMax(value = "10.00", inclusive = true)
+    @Column(name = "NOTA_MINIMA_APROBACION", precision = 4, scale = 2, nullable = false)
+    private BigDecimal notaMinimaAprobacion;
     @Basic(optional = false)
     @Column(name = "TOTAL_ASIGNATURAS")
     private short totalAsignaturas;
@@ -87,7 +89,7 @@ public class PlanEstudio implements Serializable {
         this.idPlanEstudio = idPlanEstudio;
     }
 
-    public PlanEstudio(Long idPlanEstudio, String codPlan, String modalidad, long cumMinimo, long notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracionCarrera, String tituloOrtorgar, short anio, short planEstado) {
+    public PlanEstudio(Long idPlanEstudio, String codPlan, String modalidad, BigDecimal cumMinimo, BigDecimal notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracionCarrera, String tituloOrtorgar, short anio, short planEstado) {
         this.idPlanEstudio = idPlanEstudio;
         this.codPlan = codPlan;
         this.modalidad = modalidad;
@@ -125,19 +127,19 @@ public class PlanEstudio implements Serializable {
         this.modalidad = modalidad;
     }
 
-    public long getCumMinimo() {
+    public BigDecimal getCumMinimo() {
         return cumMinimo;
     }
 
-    public void setCumMinimo(long cumMinimo) {
+    public void setCumMinimo(BigDecimal cumMinimo) {
         this.cumMinimo = cumMinimo;
     }
 
-    public long getNotaMinimaAprobacion() {
+    public BigDecimal getNotaMinimaAprobacion() {
         return notaMinimaAprobacion;
     }
 
-    public void setNotaMinimaAprobacion(long notaMinimaAprobacion) {
+    public void setNotaMinimaAprobacion(BigDecimal notaMinimaAprobacion) {
         this.notaMinimaAprobacion = notaMinimaAprobacion;
     }
 
