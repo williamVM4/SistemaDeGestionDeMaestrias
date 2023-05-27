@@ -1,4 +1,5 @@
-$(document).ready(function() { 
+$(document).ready(function() {
+    //Cargar dataTable
     $('#maestriasTable').DataTable({
         ajax: '/maestria/data',
         processing: true,
@@ -31,32 +32,13 @@ $(document).ready(function() {
                     var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
                     actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
-                    if(hasPrivilegeAdmin == true){
-                        actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
-                        actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idMaestria + '" data-modo="actualizar">';
-                        actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-                    }
-                    actionsHtml += '<a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-' + row.idMaestria + '">';
-                    actionsHtml += '<i class="bi bi-trash"></i></a>';
-                    actionsHtml += '<div class="modal fade" id="confirmarEliminar-' + row.idMaestria + '" tabindex="-1" aria-labelledby="confirmarEliminarLabel-' + row.idMaestria + '" aria-hidden="true">';
-                    actionsHtml += '<div class="modal-dialog">';
-                    actionsHtml += '<div class="modal-content">';
-                    actionsHtml += '<div class="modal-header">';
-                    actionsHtml += '<h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idMaestria}">Confirmar eliminación</h5>';
-                    actionsHtml += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-                    actionsHtml += '</div>';
-                    actionsHtml += '<div class="modal-body">';
-                    actionsHtml += '<strong>¿Estás seguro de eliminar la maestria seleccionada?</strong>';
-                    actionsHtml += '<p>Ten en cuenta que se eliminarán los datos relacionados a la maestria de ' + row.nombreMaestria + '.</p>';
-                    actionsHtml += '</div>';
-                    actionsHtml += '<div class="modal-footer">';
-                    actionsHtml += '<a href="/EliminarMaestria/' + row.idMaestria + '" class="btn btn-danger">Eliminar</a>';
-                    actionsHtml += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>';
-                    actionsHtml += '</div>';
-                    actionsHtml += '</div>';
-                    actionsHtml += '</div>';
-                    actionsHtml += '</div>';
-              
+                    actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
+                    actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idMaestria + '" data-modo="actualizar">';
+                    actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
+                    
+                    actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idMaestria + '" ';
+                    actionsHtml += 'data-nombre="' + row.nombreMaestria + '">';
+                    actionsHtml += '<i class="bi bi-trash"></i></button>';
                     return actionsHtml;
                 }
             }
@@ -93,6 +75,181 @@ $(document).ready(function() {
             return: true
         }
     });
+    
+    // Agregar regla personalizada para validar el campo nombreMaestria con una expresión regular
+    $.validator.addMethod(
+      "validarNombreMaestria",
+      function(value, element) {
+        return this.optional(element) || /^[A-Za-z\s]+$/.test(value);
+      },
+      "No se aceptan números ni caracteres especiales"
+    );
+    
+    var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
+    var validator = $('#formGuardar').validate({
+        rules: {// reglas
+            nombreMaestria: {
+                required: true,
+                validarNombreMaestria: true
+            },
+            idPostgrado:{
+                required: true
+            }
+        },
+        messages: {// mensajes
+            nombreMaestria: {
+                required: 'Este campo es requerido',
+            },
+            idPostgrado: {
+                required: 'Este campo es requerido'
+            }
+        },
+        highlight: function(element) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element) {
+            $(element).removeClass('is-invalid');
+        },
+        errorPlacement: function(error, element) {
+            if (element.attr("name") === "nombreMaestria") {
+                error.insertAfter(element);
+            } else {
+                if (element.attr("name") === "idPostgrado") {
+                    error.insertAfter(element);
+                }
+            }
+         },
+        errorElement: 'div',
+        errorClass: 'invalid-feedback',
+        submitHandler: function (form) {
+            event.preventDefault();//detiene el evento del envio del form 
+            var idMaestria = $('#idMaestria').val();//tomo la id
+
+            var formDataArray = formGuardar.serializeArray();//tomo los datos del array
+
+            var url;//valido el tipo de url si editar o crear
+            if (idMaestria) {
+                url = '/ActualizarMaestria';
+                //meto la id en el campo de envio
+                formDataArray.push({name: 'idMaestria', value: idMaestria});
+            } else {
+                url = '/AgregarMaestria';
+            }
+            // Convertir el arreglo en un objeto
+            var formData = {};
+            $.map(formDataArray, function (n, i) {
+                formData[n['name']] = n['value'];
+            });
+            //realizo el guardado mediante ajax
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    $('#crearModal').modal('hide');  // Cierra el modal
+                    var table = $('#maestriasTable').DataTable();
+                    table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
+                    mostrarMensaje(response, 'success');
+                },
+                error: function (xhr, status, error) {
+                    $('#crearModal').modal('hide');  // Cierra el modal
+                    var errorMessage = xhr.responseText || 'Error al actualizar la maestría.';
+                    mostrarMensaje(errorMessage, 'danger');
+                }
+            });
+        }
+    });
+    
+    // metodo para mostrar el modal segun sea si editar o nuevo registro
+    $(document).on('click', '.abrirModal-btn', function () {
+        var idMaestria = $(this).data('id');
+        var modal = $('#crearModal');
+        var tituloModal = modal.find('.modal-title');
+        var form = modal.find('form');
+        var btnSumit = document.getElementById('btnSumit');
+        validator.resetForm();  // Restablecer la validación
+        formGuardar.find('.is-invalid').removeClass('is-invalid');
+
+        if (idMaestria) {
+            tituloModal.text('Editar Maestria');//titulo del modal
+            $.ajax({//utilizo ajax para obtener los datos
+                url: '/ObtenerMaestria/' + idMaestria,
+                type: 'GET',
+                success: function (response) {
+                    $('#nombreMaestria').val(response.nombreMaestria);
+                    $('#idMaestria').val(idMaestria);
+                    $('#idPostgrado').val(response.idPostgrado.idPostgrado);
+                },
+                error: function () {
+                    alert('Error al obtener los datos de la maestria.');
+                }
+            });
+        } else {
+            // en caso de presionar el boton de nuevo solo se abrira el modal
+            tituloModal.text('Agregar Maestria');
+            form.attr('action', '/AgregarMaestria');
+            $('#idMaestria').val('');
+            $('#nombreMaestria').val('');
+            $('#idPostgrado').val('');
+        }
+        modal.modal('show');
+    });
+    
+    // Método para mostrar el modal de eliminación
+    $(document).on('click', '.eliminarModal-btn', function () {
+        var idMaestria = $(this).data('id');
+        var nombreMaestria = $(this).data('nombre');
+
+        var modal = $('#confirmarEliminarModal');
+        var tituloModal = modal.find('.modal-title');
+        var cuerpoModal = modal.find('.modal-body');
+        var eliminarBtn = modal.find('#eliminarMaestriaBtn');
+
+        // Actualizar el contenido del modal con los parámetros recibidos
+        tituloModal.text('Confirmar eliminación');
+        cuerpoModal.html('<strong>¿Estás seguro de eliminar la maestría seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a la maestría de ' + nombreMaestria + '.');
+
+        // Actualizar el atributo href del botón de eliminación con el idMaestria
+        eliminarBtn.data('id', idMaestria);
+
+        modal.modal('show');
+    });
+    
+    //Método para enviar la solicitud de eliminar
+    $(document).on('click', '#eliminarMaestriaBtn', function () {
+        
+        var idMaestria = $(this).data('id');
+        // Actualizar la acción del formulario con el idMaestria
+        $('#eliminarMaestriaForm').attr('action', '/EliminarMaestria/' + idMaestria);
+
+        // Realizar la solicitud POST al método de eliminación
+        $.ajax({
+            url: $('#eliminarMaestriaForm').attr('action'),
+            type: 'POST',
+            data: $('#eliminarMaestriaForm').serialize(), // Incluir los datos del formulario en la solicitud
+            success: function (response) {
+              $('#confirmarEliminarModal').modal('hide');
+              // Recargar el DataTable
+              $('#maestriasTable').DataTable().ajax.reload();
+              // Mostrar el mensaje de éxito del controlador
+               mostrarMensaje(response, 'success');
+            },
+            error: function () {
+              $('#confirmarEliminarModal').modal('hide');
+              // Mostrar mensaje de error en caso de que la solicitud falle
+              mostrarMensaje('Error al eliminar la maestría.', 'danger');
+            }
+        });
+        
+    });
+    
+    function mostrarMensaje(mensaje, tipo) {
+        var alertElement = $('.alert-' + tipo);
+        alertElement.text(mensaje).addClass('show').removeClass('d-none');
+        setTimeout(function() {
+          alertElement.removeClass('show').addClass('d-none');
+        }, 5000); // Ocultar el mensaje después de 3 segundos (ajusta el valor según tus necesidades)
+      }
 });
 
 

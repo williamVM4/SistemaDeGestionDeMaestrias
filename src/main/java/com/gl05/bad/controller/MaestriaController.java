@@ -8,11 +8,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,34 +41,59 @@ public class MaestriaController {
     }
     
     @PostMapping("/AgregarMaestria")
-    public String AgregarMaestria(
-        @RequestParam("nombreMaestria") String nombreMaestria,
-        @RequestParam("escuelaPostgrado") String escuelaPostgrado,
-        RedirectAttributes redirectAttributes) {     
+    public ResponseEntity<String> AgregarMaestria(
+            @RequestParam("nombreMaestria") String nombreMaestria,
+            @RequestParam("idPostgrado") String escuelaPostgrado) {     
         try {
-            maestriaService.proAgregar(nombreMaestria,escuelaPostgrado);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha Agregado una Maestria.");
+            maestriaService.proAgregar(nombreMaestria, escuelaPostgrado);
+            String mensaje = "Se ha Agregado una Maestria.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ya existe una Maestria con ese nombre en la escuela de posgrado seleccionada.");
+            String error = "Ya existe una Maestria con ese nombre.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-
-        return "redirect:/GestionarAreaConocimiento";
     }
     
-    @GetMapping("/EliminarMaestria/{idMaestria}")
-    public String EliminarMaestria(Maestria maestria, RedirectAttributes redirectAttributes) {
+    @PostMapping("/ActualizarMaestria")
+    public ResponseEntity ActualizarMaestria(Maestria maestria, RedirectAttributes redirectAttributes) {
+        try {
+            maestriaService.actualizar(maestria);
+            String mensaje = "Se ha actualizado la maestria correctamente.";
+            return ResponseEntity.ok(mensaje);
+        } catch (Exception e) {
+            String error = "Ha ocurrido un error al actualizar la maestria.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+    
+    @PostMapping("/EliminarMaestria/{idMaestria}")
+    public ResponseEntity EliminarMaestria(Maestria maestria) {
         try {
             maestriaService.eliminar(maestria);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado la Maestria correctamente.");
+            String mensaje = "Se ha eliminado la Maestria correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el Area de Conocimiento.");
+            String error = "Ha ocurrido un error al eliminar la maestria.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/GestionarMaestria";
     }
     
     @GetMapping("/DetalleMaestria/{idMaestria}")
-    public String EliminarMaestria(Model model) {
+    public String DetalleMaestria(Model model, Maestria maestria, RedirectAttributes redirectAttributes) {
+        Maestria maestriaEnviar = maestriaService.encontrarMaestria(maestria);
+        model.addAttribute("maestria", maestriaEnviar);
         return "maestria/detalleMaestria";
+    }
+    
+    @GetMapping("/ObtenerMaestria/{id}")
+    public ResponseEntity<Maestria> obtenerMaestria(@PathVariable Long id) {
+        Maestria maestriaPrueba = new Maestria(id);
+        Maestria maestria = maestriaService.encontrarMaestria(maestriaPrueba);
+        if (maestria != null) {
+            return ResponseEntity.ok(maestria);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     
 }

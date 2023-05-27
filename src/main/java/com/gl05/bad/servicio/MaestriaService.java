@@ -21,5 +21,7 @@ public interface MaestriaService {
     
     public Maestria encontrarMaestria(Maestria maestria);
     
-    public Collection<Maestria> encontrarMaestria(Integer idUsuario);
+    public Collection<Maestria> encontrarMaestrias(Integer idUsuario);
+    
+    public void actualizar(Maestria maestria);
 }

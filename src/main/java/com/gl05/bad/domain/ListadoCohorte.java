@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,10 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "LISTADO_COHORTE")
 @NamedQueries({
@@ -32,12 +24,6 @@ public class ListadoCohorte implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_LIST_COHORTE")
     private Long idListCohorte;
-    @JsonIgnore
-    @OneToMany(mappedBy = "idListCohorte")
-    private Collection<Cohorte> cohorteCollection;
-    @JsonIgnore
-    @OneToMany(mappedBy = "idListCohorte")
-    private Collection<Maestria> maestriaCollection;
 
     public ListadoCohorte() {
     }
@@ -52,22 +38,6 @@ public class ListadoCohorte implements Serializable {
 
     public void setIdListCohorte(Long idListCohorte) {
         this.idListCohorte = idListCohorte;
-    }
-
-    public Collection<Cohorte> getCohorteCollection() {
-        return cohorteCollection;
-    }
-
-    public void setCohorteCollection(Collection<Cohorte> cohorteCollection) {
-        this.cohorteCollection = cohorteCollection;
-    }
-
-    public Collection<Maestria> getMaestriaCollection() {
-        return maestriaCollection;
-    }
-
-    public void setMaestriaCollection(Collection<Maestria> maestriaCollection) {
-        this.maestriaCollection = maestriaCollection;
     }
 
     @Override

@@ -491,121 +491,6 @@
     return PushMenu._jQueryInterface;
   };
 
-  
-  /**
-   * --------------------------------------------
-   * AdminLTE TodoList.js
-   * License MIT
-   * --------------------------------------------
-   */
-  /**
-   * Constants
-   * ====================================================
-   */
-
-  var NAME$1 = 'TodoList';
-  var DATA_KEY$1 = 'lte.todolist';
-  var JQUERY_NO_CONFLICT$1 = $__default["default"].fn[NAME$1];
-  var SELECTOR_DATA_TOGGLE = '[data-widget="todo-list"]';
-  var CLASS_NAME_TODO_LIST_DONE = 'done';
-  var Default$1 = {
-    onCheck: function onCheck(item) {
-      return item;
-    },
-    onUnCheck: function onUnCheck(item) {
-      return item;
-    }
-  };
-  /**
-   * Class Definition
-   * ====================================================
-   */
-
-  var TodoList = /*#__PURE__*/function () {
-    function TodoList(element, config) {
-      this._config = config;
-      this._element = element;
-
-      this._init();
-    } // Public
-
-
-    var _proto = TodoList.prototype;
-
-    _proto.toggle = function toggle(item) {
-      item.parents('li').toggleClass(CLASS_NAME_TODO_LIST_DONE);
-
-      if (!$__default["default"](item).prop('checked')) {
-        this.unCheck($__default["default"](item));
-        return;
-      }
-
-      this.check(item);
-    };
-
-    _proto.check = function check(item) {
-      this._config.onCheck.call(item);
-    };
-
-    _proto.unCheck = function unCheck(item) {
-      this._config.onUnCheck.call(item);
-    } // Private
-    ;
-
-    _proto._init = function _init() {
-      var _this = this;
-
-      var $toggleSelector = this._element;
-      $toggleSelector.find('input:checkbox:checked').parents('li').toggleClass(CLASS_NAME_TODO_LIST_DONE);
-      $toggleSelector.on('change', 'input:checkbox', function (event) {
-        _this.toggle($__default["default"](event.target));
-      });
-    } // Static
-    ;
-
-    TodoList._jQueryInterface = function _jQueryInterface(config) {
-      return this.each(function () {
-        var data = $__default["default"](this).data(DATA_KEY$1);
-
-        if (!data) {
-          data = $__default["default"](this).data();
-        }
-
-        var _options = $__default["default"].extend({}, Default$1, typeof config === 'object' ? config : data);
-
-        var plugin = new TodoList($__default["default"](this), _options);
-        $__default["default"](this).data(DATA_KEY$1, typeof config === 'object' ? config : data);
-
-        if (config === 'init') {
-          plugin[config]();
-        }
-      });
-    };
-
-    return TodoList;
-  }();
-  /**
-   * Data API
-   * ====================================================
-   */
-
-
-  $__default["default"](window).on('load', function () {
-    TodoList._jQueryInterface.call($__default["default"](SELECTOR_DATA_TOGGLE));
-  });
-  /**
-   * jQuery API
-   * ====================================================
-   */
-
-  $__default["default"].fn[NAME$1] = TodoList._jQueryInterface;
-  $__default["default"].fn[NAME$1].Constructor = TodoList;
-
-  $__default["default"].fn[NAME$1].noConflict = function () {
-    $__default["default"].fn[NAME$1] = JQUERY_NO_CONFLICT$1;
-    return TodoList._jQueryInterface;
-  };
-
   /**
    * --------------------------------------------
    * AdminLTE Treeview.js
@@ -781,7 +666,6 @@
 
   exports.Layout = Layout;
   exports.PushMenu = PushMenu;
-  exports.TodoList = TodoList;
   exports.Treeview = Treeview;
 
   Object.defineProperty(exports, '__esModule', { value: true });

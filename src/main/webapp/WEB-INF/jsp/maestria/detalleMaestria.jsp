@@ -8,7 +8,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <div class="titulo-Perfil"><h3>Maestrias</h3></div>
+          <div class="titulo-Perfil"><h3>${maestria.nombreMaestria}</h3></div>
         </div>
       </div>
     </div><!-- /.container-fluid -->
