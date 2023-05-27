@@ -37,8 +37,9 @@ public class AsignaturaServiceImp implements AsignaturaService{
     }
 
     @Override
-    public Asignatura encontrarA(Long Asignatura) {
-        return asignaturaDao.findById(Asignatura).orElse(null);
+    @Transactional(readOnly=true)
+    public Asignatura encontrarA(Asignatura asignatura) {
+        return asignaturaDao.findById(asignatura.getIdAsignatura()).orElse(null);
     }
     @Override
     public void actualizarA(Asignatura asignatura) {
@@ -49,7 +50,13 @@ public class AsignaturaServiceImp implements AsignaturaService{
             asignaturaDao.save(asignatura);
         } else {
             // El área de conocimiento no existe, puedes lanzar una excepción o manejar el caso según tus necesidades
-            throw new IllegalArgumentException("El área de conocimiento especificada no existe.");
+            throw new IllegalArgumentException("La Asignatura especificada no existe.");
         }
+    }
+
+    @Override
+    public void AgregarAsig(String codigoAsignatura, String nombreAsignatura, int uv, int numeroCorrelativo, int ciclo, long idAreaC, long idMalla, int duracion, int horasT, int horasP, int horaCiclo, String introduccion, String descipcionPrograma, String objetivo, String metodologia, String sistemaEvaluacion, String bibliografia, String actividad, int ponderacion) {
+        asignaturaDao.sp_insert_asignatura(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC, idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividad, ponderacion);
+            
     }
 }

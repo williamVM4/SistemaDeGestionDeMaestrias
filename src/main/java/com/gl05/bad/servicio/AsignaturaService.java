@@ -11,11 +11,13 @@ public interface AsignaturaService {
   
   public Collection<Asignatura> listarAsignatura();
   
-  public void agregarA(Asignatura area);
+  public void agregarA(Asignatura asignatura);
   
-  public void eliminarA(Asignatura area);
+  public void AgregarAsig(String codigoAsignatura, String nombreAsignatura, int uv, int numeroCorrelativo, int ciclo, long idAreaC, long idMalla, int duracion, int horasT, int horasP, int horaCiclo, String introduccion, String descipcionPrograma, String objetivo, String metodologia, String sistemaEvaluacion, String bibliografia, String actividad, int ponderacion);
   
-  public Asignatura encontrarA(Long area);
+  public void eliminarA(Asignatura asignatura);
   
-  public void actualizarA(Asignatura as);
+  public Asignatura encontrarA(Asignatura asignatura);
+  
+  public void actualizarA(Asignatura asignatura);
 }
