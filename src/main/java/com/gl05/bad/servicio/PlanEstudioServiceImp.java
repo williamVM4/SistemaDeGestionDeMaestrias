@@ -5,7 +5,9 @@ import com.gl05.bad.domain.PlanEstudio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PlanEstudioServiceImp implements PlanEstudioService{
@@ -14,12 +16,45 @@ public class PlanEstudioServiceImp implements PlanEstudioService{
     private PlanEstudioDao planEstudioDao;
     
     @Override
+    @Transactional(readOnly=true)
     public DataTablesOutput<PlanEstudio> listarPlanEstudio(DataTablesInput input){
         return (DataTablesOutput<PlanEstudio>)planEstudioDao.findAll(input);
     }
     
     @Override
+    @Transactional
     public void proAgregar(Long idMaestria, String codPlan, String modalidad, long cumMinimo, long notaMinimaAprobacion, short totalAsignaturas, short totalUv, short duracion_carrera, String tituloOtorgar, short anio) {
       planEstudioDao.sp_insert_planestudio(idMaestria, codPlan, modalidad, cumMinimo, notaMinimaAprobacion, totalAsignaturas, totalUv, duracion_carrera, tituloOtorgar, anio);
     }
+    
+    @Override
+    @Transactional
+    public void eliminar(PlanEstudio planEstudio) {
+        planEstudioDao.delete(planEstudio);
+    }
+    
+    @Override
+    @Transactional
+    public void actualizar(PlanEstudio planEstudio) {
+         
+        if (planEstudioDao.existsById(planEstudio.getIdPlanEstudio())) {
+            planEstudioDao.save(planEstudio);
+        } else {
+            throw new IllegalArgumentException("La maestria especificada no existe.");
+        }
+    }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public PlanEstudio encontrarPlanEstudio(PlanEstudio planEstudio){
+        return planEstudioDao.findById(planEstudio.getIdPlanEstudio()).orElse(null);
+    }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public DataTablesOutput<PlanEstudio> listarPlanEstudioFiltrado(DataTablesInput input, Long idMaestria) {
+        Specification<PlanEstudio> additionalSpecification = (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("idMaestria"), idMaestria);
+        return planEstudioDao.findAll(input, additionalSpecification);
+    }  
 }
