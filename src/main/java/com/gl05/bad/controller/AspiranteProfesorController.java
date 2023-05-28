@@ -8,6 +8,7 @@ import com.gl05.bad.domain.ExperienciaLaboral;
 import com.gl05.bad.domain.ListadoDocumentacionPersonal;
 import com.gl05.bad.domain.RedSocial;
 import com.gl05.bad.domain.Telefono;
+import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.AspiranteProfesorService;
 import com.gl05.bad.servicio.AtestadoTaService;
 import com.gl05.bad.servicio.PaisService;
@@ -16,6 +17,7 @@ import com.gl05.bad.servicio.DocumentoService;
 import com.gl05.bad.servicio.ExperienciaLaboralService;
 import com.gl05.bad.servicio.RedSocialService;
 import com.gl05.bad.servicio.TelefonoService;
+import com.gl05.bad.servicio.UserService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
@@ -27,11 +29,15 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Base64Utils;
@@ -39,12 +45,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 public class AspiranteProfesorController {
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private UserService userService;
     
     @Autowired
     private AspiranteProfesorService aspiranteService;
@@ -180,6 +193,12 @@ public class AspiranteProfesorController {
         model.addAttribute("experienciasLaborales", experienciasLaboralesAspirante);
         return "/AspiranteProfesor/perfilAspiranteProfesor";
     }
+    
+    @GetMapping("/aspirante/data")
+    @ResponseBody
+    public DataTablesOutput<AspiranteProfesor> getAspirantesProfesor(@Valid DataTablesInput input) {
+      return aspiranteService.listarAspirantes(input);
+    }
         
     @GetMapping("/GestionarAspiranteProfesor")
     public String mostrarAspirantesProfesor(Model model) {
@@ -190,14 +209,37 @@ public class AspiranteProfesorController {
     }
     
     @PostMapping("/AgregarAspiranteProfesor")
-    public String agregarAspiranteProfesor(AspiranteProfesor aspirante, RedirectAttributes redirectAttributes) {
-        try {
+    public String agregarAspiranteProfesor(
+        @RequestParam("codAp") String codAp,
+        @RequestParam("nombresAp") String nombresAp,
+        @RequestParam("apellidosAp") String apellidosAp,
+        @RequestParam("correo") String correo,
+        RedirectAttributes redirectAttributes) {
+        //try {
+            //Creación del usuario aspirante a profesor
+            String password = GeneradorPassword.generatePassword(12);
+            String encryptedPassword = passwordEncoder.encode(password);
+            Usuario usuarioAspirante = new Usuario();
+            usuarioAspirante.setUsername(codAp);
+            usuarioAspirante.setEmail(correo);
+            usuarioAspirante.setPassword(encryptedPassword);
+            userService.AgregarUsuarios(usuarioAspirante);
+            Usuario usuario=userService.encontrarUsuarioPorUsername(codAp);
+            
+            //Creación del aspirante a profesor
+            AspiranteProfesor aspirante = new AspiranteProfesor();
+            aspirante.setCodAp(codAp);
+            aspirante.setNombresAp(nombresAp);
+            aspirante.setApellidosAp(apellidosAp);
+            Integer idUsuarioAspirante=usuario.getIdUsuario().intValue();
+            aspirante.setIdusuario(idUsuarioAspirante);
             aspiranteService.agregarAP(aspirante);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un aspirante a profesor.");
+            
+        /*    redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un aspirante a profesor.");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya existe un aspirante a profesor con ese identificador.");
-        }
-        return "redirect:/GestionarAspiranteProfesor";  
+        }*/
+        return "redirect:/GestionarAspiranteProfesor";
     }
     
     @PostMapping("/ActualizarAspiranteProfesor/{idAspiranteProfesor}")
@@ -234,7 +276,7 @@ public class AspiranteProfesorController {
     }
     
     
-    @GetMapping("/EliminarAspiranteProfesor/{idAspiranteProfesor}")
+    /*@GetMapping("/EliminarAspiranteProfesor/{idAspiranteProfesor}")
     public String eliminarAspiranteProfesor(AspiranteProfesor aspirante, RedirectAttributes redirectAttributes) {
         try {
             aspiranteService.eliminarAP(aspirante);
@@ -243,6 +285,18 @@ public class AspiranteProfesorController {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el aspirante a profesor.");
         }
         return "redirect:/GestionarAspiranteProfesor";
+    }*/
+    
+    @PostMapping("/EliminarAspiranteProfesor/{idAspiranteProfesor}")
+    public ResponseEntity EliminarAspiranteProfesor(AspiranteProfesor aspiranteProfesor) {
+        try {
+            aspiranteService.eliminarAP(aspiranteProfesor);
+            String mensaje = "Se ha eliminado el aspirante a profesor correctamente.";
+            return ResponseEntity.ok(mensaje);
+        } catch (Exception e) {
+            String error = "Ha ocurrido un error al eliminar el aspirante a profesor";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
     }
     
     @PostMapping("/AgregarCorreoAspiranteProfesor/{idAspiranteProfesor}/{idListCorreo}")

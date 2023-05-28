@@ -76,7 +76,7 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <div id="MensajeErrorCorreo" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El formato del correo no es válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El formato del correo no es válido.
                                 <button id="btnAlertaCorreo" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>

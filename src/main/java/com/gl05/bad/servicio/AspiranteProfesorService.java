@@ -3,10 +3,17 @@ package com.gl05.bad.servicio;
 import com.gl05.bad.domain.AspiranteProfesor;
 import java.sql.Blob;
 import java.util.List;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import java.util.Collection;
 
 public interface AspiranteProfesorService {
+    
+  public Collection<AspiranteProfesor> listarAspirantes();
+    
+  public DataTablesOutput<AspiranteProfesor> listarAspirantes(DataTablesInput input);
   
-  public List<AspiranteProfesor> listarAspirantes();
+  //public List<AspiranteProfesor> listarAspirantes();
   
   public void agregarAP(AspiranteProfesor aspirante);
   
