@@ -2,6 +2,7 @@ package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.PlanEstudio;
 import com.gl05.bad.servicio.PlanEstudioService;
+import java.math.BigDecimal;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -42,8 +43,8 @@ public class PlanEstudioController {
             @RequestParam("idMaestria") Long idMaestria,
             @RequestParam("codPlan") String codPlan,
             @RequestParam("modalidad") String modalidad,
-            @RequestParam("cumMinimo") long cumMinimo,
-            @RequestParam("notaMinimaAprobacion") long notaMinimaAprobacion,
+            @RequestParam("cumMinimo") BigDecimal cumMinimo,
+            @RequestParam("notaMinimaAprobacion") BigDecimal notaMinimaAprobacion,
             @RequestParam("totalAsignaturas") short totalAsignaturas,
             @RequestParam("totalUv") short totalUv,
             @RequestParam("duracionCarrera") short duracionCarrera,

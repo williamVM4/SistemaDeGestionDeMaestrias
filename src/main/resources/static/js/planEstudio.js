@@ -76,14 +76,135 @@ $(document).ready(function() {
         }
     });
     
+    // Agregar regla personalizada para validar el campo nombreMaestria con una expresión regular
+    $.validator.addMethod(
+        "validarCodPlan",
+        function(value, element) {
+          return this.optional(element) || /^[A-Za-z0-9]{1,6}$/.test(value);
+        },
+        "El campo debe contener como máximo 6 caracteres y solo puede incluir letras y números"
+      );
+      
+    $.validator.addMethod(
+        "maxTwoDecimals",
+        function(value, element) {
+          return this.optional(element) || /^\d+(\.\d{1,2})?$/.test(value);
+        },
+        "Por favor, ingresa un número con máximo 2 decimales"
+      );
+      
+    $.validator.addMethod(
+        "validarTituloOtorgar",
+        function(value, element) {
+          return this.optional(element) || /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/.test(value);
+        },
+        "No se aceptan números ni caracteres especiales"
+      );
+      
+    $.validator.addMethod(
+        "validarMaximoAnioActual",
+        function(value, element) {
+            var anioActual = new Date().getFullYear();
+            return this.optional(element) || (parseInt(value) <= anioActual);
+        },
+        "El año debe ser igual o anterior al año actual"
+    );
+    
     var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
     var validator = $('#formGuardar').validate({
         rules: {// reglas
-
+            codPlan: {
+                required: true,
+                validarCodPlan: true
+            },
+            cumMinimo: {
+                maxTwoDecimals: true
+            },
+            notaMinimaAprobacion: {
+                maxTwoDecimals: true
+            },
+            totalAsignaturas: {
+                required: true
+              },
+            totalUv: {
+                required: true
+              },
+            duracionCarrera: {
+                required: true
+              },
+            tituloOrtorgar: {
+                required: true,
+                validarTituloOtorgar: true,
+                maxlength: 100
+            },
+            anio: {
+                required: true,
+                validarMaximoAnioActual: true
+            }
         },
         messages: {// mensajes
- 
+            codPlan: {
+                required: 'Este campo es requerido'
+            },
+            modalidad: {
+                required: 'Este campo es requerido'
+            },
+            cumMinimo: {
+                required: 'Este campo es requerido',
+                min: 'Por favor, ingresa un valor mayor o igual a 0',
+                max: 'Por favor, ingresa un valor menor o igual a 10',
+                maxTwoDecimals: 'Por favor, ingresa un número con máximo 2 decimales',
+                number: 'Por favor, ingresa un número válido'
+             },
+            notaMinimaAprobacion: {
+                required: 'Este campo es requerido',
+                min: 'Por favor, ingresa un valor mayor o igual a 0',
+                max: 'Por favor, ingresa un valor menor o igual a 10',
+                maxTwoDecimals: 'Por favor, ingresa un número con máximo 2 decimales',
+                number: 'Por favor, ingresa un número válido'
+            },
+            totalAsignaturas: {
+                required: 'Este campo es requerido',
+                min: 'Por favor, ingresa un valor mayor o igual a 0',
+                step: 'Por favor, ingresa un número entero',
+                number: 'Por favor, ingresa un número válido',
+                max: 'Por favor, ingresa un valor menor'
+              },
+            totalUv: {
+                required: 'Este campo es requerido',
+                min: 'Por favor, ingresa un valor mayor o igual a 0',
+                step: 'Por favor, ingresa un número entero',
+                number: 'Por favor, ingresa un número válido',
+                max: 'Por favor, ingresa un valor menor'
+              },
+            duracionCarrera: {
+                required: 'Este campo es requerido',
+                min: 'Por favor, ingresa un valor mayor o igual a 10',
+                step: 'Por favor, ingresa un número entero',
+                number: 'Por favor, ingresa un número válido',
+                max: 'Por favor, ingresa un valor menor'
+              },
+            tituloOrtorgar: {
+                required: 'Este campo es requerido',
+                maxlength: "El número máximo de caracteres es 100"
+            },
+            anio: {
+                required: 'Este campo es requerido',
+                step: 'Por favor, ingresa un número entero',
+                number: 'Por favor, ingresa un número válido',
+            }
         },
+        highlight: function(element) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element) {
+            $(element).removeClass('is-invalid');
+        },
+        errorPlacement: function(error, element) {
+            if (element.attr("name") === "codPlan" || element.attr("name") === "modalidad" || element.attr("name") === "cumMinimo"|| element.attr("name") === "notaMinimaAprobacion"|| element.attr("name") === "totalAsignaturas"|| element.attr("name") === "totalUv"|| element.attr("name") === "duracionCarrera"|| element.attr("name") === "tituloOrtorgar"|| element.attr("name") === "anio") {
+                error.insertAfter(element);
+              }
+         },
         errorElement: 'div',
         errorClass: 'invalid-feedback',
         submitHandler: function(form) {
