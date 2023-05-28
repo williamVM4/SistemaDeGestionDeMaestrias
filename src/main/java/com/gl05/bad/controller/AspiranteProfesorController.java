@@ -7,6 +7,7 @@ import com.gl05.bad.domain.Documento;
 import com.gl05.bad.domain.ExperienciaLaboral;
 import com.gl05.bad.domain.ListadoDocumentacionPersonal;
 import com.gl05.bad.domain.RedSocial;
+import com.gl05.bad.domain.Roles;
 import com.gl05.bad.domain.Telefono;
 import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.AspiranteProfesorService;
@@ -16,6 +17,7 @@ import com.gl05.bad.servicio.CorreoService;
 import com.gl05.bad.servicio.DocumentoService;
 import com.gl05.bad.servicio.ExperienciaLaboralService;
 import com.gl05.bad.servicio.RedSocialService;
+import com.gl05.bad.servicio.RolesService;
 import com.gl05.bad.servicio.TelefonoService;
 import com.gl05.bad.servicio.UserService;
 import java.io.IOException;
@@ -215,18 +217,26 @@ public class AspiranteProfesorController {
         @RequestParam("apellidosAp") String apellidosAp,
         @RequestParam("correo") String correo,
         RedirectAttributes redirectAttributes) {
-        //try {
+        try {
             //Creación del usuario aspirante a profesor
-            String password = GeneradorPassword.generatePassword(12);
+            String password = aspiranteService.generarPassword(12);
             String encryptedPassword = passwordEncoder.encode(password);
             Usuario usuarioAspirante = new Usuario();
             usuarioAspirante.setUsername(codAp);
             usuarioAspirante.setEmail(correo);
             usuarioAspirante.setPassword(encryptedPassword);
+            usuarioAspirante.setEnabled(true);
+            usuarioAspirante.setUsuarioBloqueado(0);
+            usuarioAspirante.setNumerointentos(0);
             userService.AgregarUsuarios(usuarioAspirante);
-            Usuario usuario=userService.encontrarUsuarioPorUsername(codAp);
             
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ya se encuentra registrado un usuario con el código del aspirante a profesor.");
+            return "redirect:/GestionarAspiranteProfesor";
+        }
+        try {
             //Creación del aspirante a profesor
+            Usuario usuario=userService.encontrarUsuarioPorUsername(codAp);
             AspiranteProfesor aspirante = new AspiranteProfesor();
             aspirante.setCodAp(codAp);
             aspirante.setNombresAp(nombresAp);
@@ -235,10 +245,10 @@ public class AspiranteProfesorController {
             aspirante.setIdusuario(idUsuarioAspirante);
             aspiranteService.agregarAP(aspirante);
             
-        /*    redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un aspirante a profesor.");
+            redirectAttributes.addFlashAttribute("mensaje", "Se ha registrado un aspirante a profesor, y se le ha habilitado un usuario.");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya existe un aspirante a profesor con ese identificador.");
-        }*/
+        }
         return "redirect:/GestionarAspiranteProfesor";
     }
     
@@ -269,23 +279,11 @@ public class AspiranteProfesorController {
             aspiranteService.actualizarAP(aspirante);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado la información general del aspirante a profesor.");
         } catch(Exception e) {
-            //redirectAttributes.addFlashAttribute("error", "No se actualizó la información general del aspirante a profesor.");
+            redirectAttributes.addFlashAttribute("error", "No se actualizó la información general del aspirante a profesor.");
         }
         String redirectUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/PerfilAspiranteProfesor/{idAspiranteProfesor}").buildAndExpand(idAspiranteProfesor).toUriString();
         return "redirect:" + redirectUrl;  
     }
-    
-    
-    /*@GetMapping("/EliminarAspiranteProfesor/{idAspiranteProfesor}")
-    public String eliminarAspiranteProfesor(AspiranteProfesor aspirante, RedirectAttributes redirectAttributes) {
-        try {
-            aspiranteService.eliminarAP(aspirante);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado un aspirante a profesor.");
-        } catch(Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el aspirante a profesor.");
-        }
-        return "redirect:/GestionarAspiranteProfesor";
-    }*/
     
     @PostMapping("/EliminarAspiranteProfesor/{idAspiranteProfesor}")
     public ResponseEntity EliminarAspiranteProfesor(AspiranteProfesor aspiranteProfesor) {

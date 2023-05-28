@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import java.util.Collection;
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
@@ -30,11 +34,6 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     public DataTablesOutput<AspiranteProfesor> listarAspirantes(DataTablesInput input) {
         return (DataTablesOutput<AspiranteProfesor>)aspiranteDao.findAll(input);
     }
-
-    /*@Override
-    public List<AspiranteProfesor> listarAspirantes() {
-        return (List<AspiranteProfesor>) aspiranteDao.findAll();S
-    }*/
 
     @Override
     @Transactional
@@ -102,5 +101,27 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     @Transactional(readOnly=true)
     public AspiranteProfesor encontrarPorIdUsuario(Integer idUsuario) {
         return aspiranteDao.findByIdusuario(idUsuario);
+    }
+    
+    @Override
+    public String generarPassword(int length) {
+        String lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
+        String uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numericCharacters = "0123456789";
+        String specialCharacters = "!@#$%^&*()-_=+[]{}\\|;:'\",.<>/?";
+
+        String allCharacters = lowercaseCharacters + uppercaseCharacters + numericCharacters + specialCharacters;
+        List<String> characterList = Arrays.asList(allCharacters.split(""));
+        Collections.shuffle(characterList);
+
+        StringBuilder passwordBuilder = new StringBuilder();
+        SecureRandom random = new SecureRandom();
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(characterList.size());
+            passwordBuilder.append(characterList.get(randomIndex));
+        }
+
+        return passwordBuilder.toString();
     }
 }
