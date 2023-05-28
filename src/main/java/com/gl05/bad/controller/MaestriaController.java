@@ -99,4 +99,18 @@ public class MaestriaController {
         }
     }
     
+    @PostMapping("/AgregarPerfilMaestriaCoordinador")
+    public ResponseEntity<String> AgregarPerfilCoordinador(Maestria maestria) {     
+        try {
+            Maestria maestriaExistente = maestriaService.encontrarMaestria(maestria);
+            maestriaExistente.setPerfilCoor(maestria.getPerfilCoor());
+            maestriaService.actualizar(maestriaExistente);
+            String mensaje = "Se ha agregado el perfil del coordinador a la maestria.";
+            return ResponseEntity.ok(mensaje);
+        } catch (Exception e) {
+            String error = "Ha ocurrido un error al agregar el perfil del coordinador.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+    
 }

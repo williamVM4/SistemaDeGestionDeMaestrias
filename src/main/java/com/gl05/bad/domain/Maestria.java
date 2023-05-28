@@ -69,6 +69,22 @@ public class Maestria implements Serializable {
         this.nombreMaestria = nombreMaestria;
     }
 
+    public String getPerfilAsp() {
+        return perfilAsp;
+    }
+
+    public void setPerfilAsp(String perfilAsp) {
+        this.perfilAsp = perfilAsp;
+    }
+
+    public String getPerfilCoor() {
+        return perfilCoor;
+    }
+
+    public void setPerfilCoor(String perfilCoor) {
+        this.perfilCoor = perfilCoor;
+    }
+    
     public CoordinadorAcademico getIdCoorAca() {
         return idCoorAca;
     }

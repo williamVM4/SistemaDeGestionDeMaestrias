@@ -93,3 +93,10 @@ input[type="number"]::-webkit-outer-spin-button:disabled {
 .img-circle {
     border-radius: 50%;
 }
+
+pre{
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  font-weight: normal;
+}
