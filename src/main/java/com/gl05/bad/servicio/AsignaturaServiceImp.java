@@ -1,7 +1,9 @@
 package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.AsignaturaDao;
+import com.gl05.bad.dao.PlanEstudioDao;
 import com.gl05.bad.domain.Asignatura;
+import com.gl05.bad.domain.MallaCurricular;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -58,5 +60,11 @@ public class AsignaturaServiceImp implements AsignaturaService{
     public void AgregarAsig(String codigoAsignatura, String nombreAsignatura, int uv, int numeroCorrelativo, int ciclo, long idAreaC, long idMalla, int duracion, int horasT, int horasP, int horaCiclo, String introduccion, String descipcionPrograma, String objetivo, String metodologia, String sistemaEvaluacion, String bibliografia, String actividad, String ponderacion) {
         asignaturaDao.sp_insert_asignatura(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC, idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividad, ponderacion);
             
+    }
+
+    @Override
+    @Transactional(readOnly=true)
+    public long encontrarMalla(Long idPlanEstudio) {
+        return asignaturaDao.findMallaByPlanId(idPlanEstudio);
     }
 }

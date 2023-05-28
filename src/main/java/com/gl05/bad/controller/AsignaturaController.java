@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,9 +31,11 @@ public class AsignaturaController {
     private AreaConocimientoService areaConocimientoService;
 
     @GetMapping("/DetallePlanEstudio/{idPlanEstudio}")
-    public String Asignatura(Model model, Asignatura asignatura, RedirectAttributes redirectAttributes) {
+    public String Asignatura(Model model, Asignatura asignatura, RedirectAttributes redirectAttributes, @PathVariable("idPlanEstudio") Long idPlanEstudio) {
         var areaC = areaConocimientoService.listarAreaConocimientos();
+        Long idMallaC = asignaturaService.encontrarMalla(idPlanEstudio);
         model.addAttribute("areaC", areaC);
+        model.addAttribute("idMallaC", idMallaC);
         return "Asignatura/index";
     }
 
@@ -79,6 +82,18 @@ public class AsignaturaController {
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ya existe una Asignatura con ese nombre.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+    
+    @PostMapping("/EliminarAsignatura/{idAsignatura}")
+    public ResponseEntity EliminarPlanEstudio(Asignatura asignatura) {
+        try {
+            asignaturaService.eliminarA(asignatura);
+            String mensaje = "Se ha eliminado el plan de estudio correctamente.";
+            return ResponseEntity.ok(mensaje);
+        } catch (Exception e) {
+            String error = "Ha ocurrido un error al eliminar el plan de estudio.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }

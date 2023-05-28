@@ -69,77 +69,95 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id='formGuardar' accept-charset="UTF-8">
+                    <form class="form-floating" id='formGuardar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" id="asignaturaId">
-                        <input type="text" id="mallaId" name="idMalla" value="1">
+                        <input type="hidden" id="mallaId" name="idMalla" value="${idMallaC}">
                         <div class="row">
                             <div class="row">
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="codigoAsignatura" name="codigoAsignatura" placeholder="Còdigo de la Asignatura">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control custom-input" id="codigoAsignatura" name="codigoAsignatura">
+                                    <label for="codigoAsignatura">Código Asignatura</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="nombreAsignatura" name="nombreAsignatura" placeholder="Nombre de la Asignatura">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="nombreAsignatura" name="nombreAsignatura">
+                                    <label for="nombreAsignatura">Nombre de la Asignatura</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="number" class="form-control" id="uv" name="uv" placeholder="Unidades Valorativas">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="uv" name="uv">
+                                    <label for="uv">Unidades Valorativas</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="numeroCorrelativo" name="numeroCorrelativo" placeholder="Nùmero Correlativo">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="numeroCorrelativo" name="numeroCorrelativo">
+                                    <label for="numeroCorrelativo">Nùmero Correlativo</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="ciclo" name="ciclo" placeholder="Ciclo">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="ciclo" name="ciclo">
+                                    <label for="ciclo">Ciclo</label>
                                 </div>
-                                <div class="form-group col-6">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <select class="form-select form-select-sm" id="idAreaC" name="idAreaC">
                                         <option value="">Seleccione una Área de conocimiento</option>
                                         <c:forEach items="${areaC}" var="elementoArea" varStatus="status">
                                             <option value="${elementoArea.idAreaConocimiento}">${elementoArea.nombreArea}</option>
                                         </c:forEach>
                                     </select>
+                                    <label for="idAreaC">Àrea de Conocimiento</label>
                                 </div>
                             </div>
                             <h6>Programa de la Asignatura</h6>
                             <div class="row">
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="duracion" name="duracion" placeholder="Duraciòn en Semanas">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="duracion" name="duracion">
+                                    <label for="duracion">Duraciòn en Semanas</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="horasT" name="horasT" placeholder="Horas Teorico Semanas">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="horasT" name="horasT" >
+                                    <label for="horasT">Horas Teorico Semanas</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="horasP" name="horasP" placeholder="Horas Practica Semanas">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="horasP" name="horasP">
+                                 <label for="horasP">Horas Practica Semanas</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="horaCiclo" name="horaCiclo" placeholder="Horas Ciclo">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="horaCiclo" name="horaCiclo" readonly>
+                                     <label for="horaCiclo">Horas Ciclo</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="introduccion" name="introduccion" placeholder="Introduccion">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="introduccion" name="introduccion">
+                                     <label for="introduccion">Introduccion</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="descipcionPrograma" name="descipcionPrograma" placeholder="Descriòn del Programa">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="descipcionPrograma" name="descipcionPrograma">
+                                     <label for="descipcionPrograma">Descriòn del Programa</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Objetivo">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="objetivo" name="objetivo">
+                                    <label for="objetivo">Objetivo</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="metodologia" name="metodologia" placeholder="Metodologia de Enseñanza">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="metodologia" name="metodologia">
+                                     <label for="metodologia">Metodologia de Enseñanza</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="sistemaEvaluacion" name="sistemaEvaluacion" placeholder="Sistema de Evaluaciòn">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="sistemaEvaluacion" name="sistemaEvaluacion">
+                                     <label for="sistemaEvaluacion">Sistema de Evaluaciòn</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="bibliografia" name="bibliografia" placeholder="Bibliografia">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="bibliografia" name="bibliografia">
+                                     <label for="bibliografia">Bibliografia</label>
                                 </div> 
                             </div>
 
                             <h6>Actividad de la Asignatura</h6>
                             <div class="row">
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="actividad" name="actividad[]" placeholder="Nombre de la Actividad">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="actividad" name="actividad[]">
+                                     <label for="actividad">Nombre de la Actividad</label>
                                 </div>
-                                <div class="form-group col-6">
-                                    <input type="number" class="form-control" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad">
+                                <div class="form-floating mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="ponderacion" name="ponderacion[]">
+                                     <label for="ponderacion">Ponderaciòn de la Actividad</label>
                                 </div>
                             </div>
                             <div id="actividades-extra" class="row">
@@ -170,14 +188,14 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button id="eliminarAreaBtn" class="btn btn-danger">Eliminar</button>
+                    <button id="eliminarAsignaturaBtn" class="btn btn-danger">Eliminar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <form id="eliminarAreaForm" method="post" action="/EliminarAsignatura/{idAsignatura}">
+    <form id="eliminarAsignaturaForm" method="post" action="/EliminarAsignatura/{idAsignatura}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>
@@ -187,7 +205,10 @@
     .modal-dialog {
         max-width: 800px; /* Ajusta el valor según el ancho deseado */
     }
-
+    .custom-input {
+        height: 10px; /* Ajusta la altura según tus necesidades */
+    }
+    s
     .modal-content {
         width: 100%; /* Opcional: haz que el contenido del modal ocupe todo el ancho disponible */
     }

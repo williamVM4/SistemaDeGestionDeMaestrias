@@ -67,17 +67,151 @@ $(document).ready(function () {
             return: true
         }
     });
+    //total horas
+    // Obtener referencias a los elementos de input y resultado
+    var horasT = $('#horasT');
+    var horasP = $('#horasP');
+    var horaCiclo = $('#horaCiclo');
 
+    // Detectar cambios en los inputs
+    horasT.on('change', sumarValores);
+    horasP.on('change', sumarValores);
+
+    // Función para sumar los valores y asignar el resultado
+    function sumarValores() {
+        var valor1 = parseInt(horasT.val()) || 0; // Obtener valor del input 1, convertir a entero
+        var valor2 = parseInt(horasP.val()) || 0; // Obtener valor del input 2, convertir a entero
+        var suma = valor1 + valor2; // Sumar los valores
+
+        horaCiclo.val(suma); // Asignar el resultado al input de resultado
+    }
+
+
+    $.validator.addMethod('positiveInteger', function (value, element) {
+        return this.optional(element) || /^[1-9]\d*$/.test(value);
+    }, 'Ingrese un valor positivo entero válido.');
     var validator = $('#formGuardar').validate({
         rules: {// reglas
-            nombreArea: {
+            codigoAsignatura: {
                 required: true
             },
+            nombreAsignatura: {
+                required: true
+            },
+            uv: {
+                required: true,
+                positiveInteger: true
+            },
+            numeroCorrelativo: {
+                required: true,
+                positiveInteger: true
+            },
+            ciclo: {
+                required: true,
+                positiveInteger: true
+            },
+            idAreaC: {
+                required: true
+            },
+            duracion: {
+                required: true,
+                positiveInteger: true
+            },
+            horasT: {
+                required: true,
+                positiveInteger: true
+            },
+            horasP: {
+                required: true,
+                positiveInteger: true
+            },
+            horaCiclo: {
+                required: true,
+                positiveInteger: true
+            },
+            introduccion: {
+                required: true
+            },
+            descipcionPrograma: {
+                required: true
+            },
+            objetivo: {
+                required: true
+            },
+            metodologia: {
+                required: true
+            },
+            sistemaEvaluacion: {
+                required: true
+            },
+            bibliografia: {
+                required: true
+            },
+            actividad: {
+                required: true,
+                minlength: 1
+            },
+            ponderacion: {
+                required: true,
+                minlength: 1,
+                positiveInteger: true
+            }
         },
         messages: {// mensajes
-            nombreArea: {
-                required: ''
+            codigoAsignatura: {
+                required: 'Campo Requerido'
             },
+            nombreAsignatura: {
+                required: 'Campo Requerido'
+            },
+            uv: {
+                required: 'Campo Requerido'
+            },
+            numeroCorrelativo: {
+                required: 'Campo Requerido'
+            },
+            ciclo: {
+                required: 'Campo Requerido'
+            },
+            idAreaC: {
+                required: 'Campo Requerido'
+            },
+            duracion: {
+                required: 'Campo Requerido'
+            },
+            horasT: {
+                required: 'Campo Requerido'
+            },
+            horasP: {
+                required: 'Campo Requerido'
+            },
+            horaCiclo: {
+                required: 'Campo Requerido'
+            },
+            introduccion: {
+                required: 'Campo Requerido'
+            },
+            descipcionPrograma: {
+                required: 'Campo Requerido'
+            },
+            objetivo: {
+                required: 'Campo Requerido'
+            },
+            metodologia: {
+                required: 'Campo Requerido'
+            },
+            sistemaEvaluacion: {
+                required: 'Campo Requerido'
+            },
+            bibliografia: {
+                required: 'Campo Requerido'
+            },
+            actividad: {
+                required: 'Campo Requerido'
+            },
+            ponderacion: {
+                required: 'Campo Requerido'
+            }
         },
         highlight: function (element) {
             $(element).addClass('is-invalid');
@@ -86,13 +220,7 @@ $(document).ready(function () {
             $(element).removeClass('is-invalid');
         },
         errorPlacement: function (error, element) {
-            if (element.attr("name") === "nombreArea") {
-                error.insertAfter(element);
-            } else {
-                if (element.attr("name") === "descripcion") {
-                    error.insertAfter(element);
-                }
-            }
+            error.insertAfter(element);
         },
         errorElement: 'div',
         errorClass: 'invalid-feedback',
@@ -100,8 +228,9 @@ $(document).ready(function () {
             event.preventDefault();
 
             var idAsignatura = $('#asignaturaId').val();//tomo la id
+            var mallaId = $('#mallaId').val();//tomo la id
             var formData = $('#formGuardar').serializeArray();//tomo los datos del array
-
+            formData.push({name: 'mallaId', value: mallaId});
             var url;//valido el tipo de url si editar o crear
             if (idAsignatura) {
                 url = '/ActualizarAsignatura';
@@ -164,61 +293,61 @@ $(document).ready(function () {
         }
         modal.modal('show');
     });
-    /*
-     // Método para mostrar el modal de eliminación
-     $(document).on('click', '.eliminarModal-btn', function () {
-     var idArea = $(this).data('id');
-     var nombreArea = $(this).data('nombre');
-     
-     var modal = $('#confirmarEliminarModal');
-     var tituloModal = modal.find('.modal-title');
-     var cuerpoModal = modal.find('.modal-body');
-     var eliminarBtn = modal.find('#eliminarAreaBtn');
-     
-     // Actualizar el contenido del modal con los parámetros recibidos
-     tituloModal.text('Confirmar eliminación');
-     cuerpoModal.html('<strong>¿Estás seguro de eliminar la Àrea de Conocimiento seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a la Àrea de Conocimiento ' + nombreArea + '.');
-     
-     // Actualizar el atributo href del botón de eliminación con el idMaestria
-     eliminarBtn.data('id', idArea);
-     
-     modal.modal('show');
-     });
-     
-     //Método para enviar la solicitud de eliminar
-     $(document).on('click', '#eliminarAreaBtn', function () {
-     var idArea = $(this).data('id');
-     // Actualizar la acción del formulario con el idMaestria
-     $('#eliminarAreaForm').attr('action', '/EliminarAreaConocimiento/' + idArea);
-     
-     // Realizar la solicitud POST al método de eliminación
-     $.ajax({
-     url: $('#eliminarAreaForm').attr('action'),
-     type: 'POST',
-     data: $('#eliminarAreaForm').serialize(), // Incluir los datos del formulario en la solicitud
-     success: function (response) {
-     $('#confirmarEliminarModal').modal('hide');
-     // Recargar el DataTable
-     $('#areaConocimientoTable').DataTable().ajax.reload();
-     // Mostrar el mensaje de éxito del controlador
-     mostrarMensaje(response, 'success');
-     },
-     error: function () {
-     $('#confirmarEliminarModal').modal('hide');
-     // Mostrar mensaje de error en caso de que la solicitud falle
-     mostrarMensaje('Error al eliminar la Àrea de Conocimiento.', 'danger');
-     }
-     });
-     
-     });
-     
-     function mostrarMensaje(mensaje, tipo) {
-     var alertElement = $('.alert-' + tipo);
-     alertElement.text(mensaje).addClass('show').removeClass('d-none');
-     setTimeout(function () {
-     alertElement.removeClass('show').addClass('d-none');
-     }, 5000); // Ocultar el mensaje después de 3 segundos (ajusta el valor según tus necesidades)
-     }*/
+
+    // Método para mostrar el modal de eliminación
+    $(document).on('click', '.eliminarModal-btn', function () {
+        var idAsignatura = $(this).data('id');
+        var nombreAsignatura = $(this).data('nombre');
+
+        var modal = $('#confirmarEliminarModal');
+        var tituloModal = modal.find('.modal-title');
+        var cuerpoModal = modal.find('.modal-body');
+        var eliminarBtn = modal.find('#eliminarAsignaturaBtn');
+
+        // Actualizar el contenido del modal con los parámetros recibidos
+        tituloModal.text('Confirmar eliminación');
+        cuerpoModal.html('<strong>¿Estás seguro de eliminar la Àrea de Conocimiento seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a la Àrea de Conocimiento ' + nombreAsignatura + '.');
+
+        // Actualizar el atributo href del botón de eliminación con el idMaestria
+        eliminarBtn.data('id', idAsignatura);
+
+        modal.modal('show');
+    });
+
+    //Método para enviar la solicitud de eliminar
+    $(document).on('click', '#eliminarAsignaturaBtn', function () {
+        var idAsignatura = $(this).data('id');
+        // Actualizar la acción del formulario con el idMaestria
+        $('#eliminarAsignaturaForm').attr('action', '/EliminarAsignatura/' + idAsignatura);
+
+        // Realizar la solicitud POST al método de eliminación
+        $.ajax({
+            url: $('#eliminarAsignaturaForm').attr('action'),
+            type: 'POST',
+            data: $('#eliminarAsignaturaForm').serialize(), // Incluir los datos del formulario en la solicitud
+            success: function (response) {
+                $('#confirmarEliminarModal').modal('hide');
+                // Recargar el DataTable
+                $('#asignaturaTable').DataTable().ajax.reload();
+                // Mostrar el mensaje de éxito del controlador
+                mostrarMensaje(response, 'success');
+            },
+            error: function () {
+                $('#confirmarEliminarModal').modal('hide');
+                // Mostrar mensaje de error en caso de que la solicitud falle
+                mostrarMensaje('Error al eliminar la Asignatura.', 'danger');
+            }
+        });
+
+    });
+
+    function mostrarMensaje(mensaje, tipo) {
+        var alertElement = $('.alert-' + tipo);
+        alertElement.text(mensaje).addClass('show').removeClass('d-none');
+        setTimeout(function () {
+            alertElement.removeClass('show').addClass('d-none');
+        }, 5000); // Ocultar el mensaje después de 3 segundos (ajusta el valor según tus necesidades)
+    }
 });
 
 

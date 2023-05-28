@@ -1,7 +1,10 @@
 package com.gl05.bad.dao;
 
 import com.gl05.bad.domain.Asignatura;
+import com.gl05.bad.domain.MallaCurricular;
+import java.util.List;
 import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
@@ -29,4 +32,8 @@ public interface AsignaturaDao extends DataTablesRepository<Asignatura, Long> {
             @Param("p_actividad") String actividad,
             @Param("p_ponderacion") String ponderacion
     );
+
+    @Query("SELECT mc.idMallaCurricular FROM MallaCurricular mc WHERE mc.idPlanEstudio.id = :idPlanEstudio")
+    Long findMallaByPlanId(@Param("idPlanEstudio") Long idPlanEstudio);
+
 }
