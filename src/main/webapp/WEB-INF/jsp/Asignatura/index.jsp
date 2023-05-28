@@ -72,7 +72,7 @@
                     <form id='formGuardar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" id="asignaturaId">
-                        <input type="text" id="mallaId" value="1">
+                        <input type="text" id="mallaId" name="idMalla" value="1">
                         <div class="row">
                             <div class="row">
                                 <div class="form-group col-6">
@@ -136,10 +136,10 @@
                             <h6>Actividad de la Asignatura</h6>
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="actividad" name="actividad" placeholder="Nombre de la Actividad">
+                                    <input type="text" class="form-control" id="actividad" name="actividad[]" placeholder="Nombre de la Actividad">
                                 </div>
                                 <div class="form-group col-6">
-                                    <input type="text" class="form-control" id="ponderacion" name="ponderacion" placeholder="Ponderaciòn de la Actividad">
+                                    <input type="number" class="form-control" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad">
                                 </div>
                             </div>
                             <div id="actividades-extra" class="row">
@@ -204,10 +204,12 @@
             type: "text",
             class: "form-control",
             name: "actividad[]",
+            id: "actividad",
             placeholder: "Nombre de la Actividad"
         });
         var ponderacion = $("<input>").attr({
-            type: "text",
+            type: "number",
+            id: "ponderacion",
             class: "form-control",
             name: "ponderacion[]",
             placeholder: "Ponderaciòn de la Actividad"

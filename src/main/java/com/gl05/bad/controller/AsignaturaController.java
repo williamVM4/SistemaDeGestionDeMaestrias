@@ -3,6 +3,8 @@ package com.gl05.bad.controller;
 import com.gl05.bad.domain.Asignatura;
 import com.gl05.bad.servicio.AreaConocimientoService;
 import com.gl05.bad.servicio.AsignaturaService;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +29,7 @@ public class AsignaturaController {
     @Autowired
     private AreaConocimientoService areaConocimientoService;
 
-    @GetMapping("/Asignaturas/{idPlanEstudio}")
+    @GetMapping("/DetallePlanEstudio/{idPlanEstudio}")
     public String Asignatura(Model model, Asignatura asignatura, RedirectAttributes redirectAttributes) {
         var areaC = areaConocimientoService.listarAreaConocimientos();
         model.addAttribute("areaC", areaC);
@@ -44,29 +47,35 @@ public class AsignaturaController {
     public ResponseEntity<String> AgregarAsignatura(
             @RequestParam("codigoAsignatura") String codigoAsignatura,
             @RequestParam("nombreAsignatura") String nombreAsignatura,
-            @RequestParam("uv") int uv,
-            @RequestParam("numeroCorrelativo") int numeroCorrelativo,
-            @RequestParam("ciclo") int ciclo,
+            @RequestParam("uv") Integer uv,
+            @RequestParam("numeroCorrelativo") Integer numeroCorrelativo,
+            @RequestParam("ciclo") Integer ciclo,
             @RequestParam("idAreaC") long idAreaC,
             @RequestParam("idMalla") long idMalla,
-            @RequestParam("duracion") int duracion,
-            @RequestParam("horasT") int horasT,
-            @RequestParam("horasP") int horasP,
-            @RequestParam("horaCiclo") int horaCiclo,
+            @RequestParam("duracion") Integer duracion,
+            @RequestParam("horasT") Integer horasT,
+            @RequestParam("horasP") Integer horasP,
+            @RequestParam("horaCiclo") Integer horaCiclo,
             @RequestParam("introduccion") String introduccion,
             @RequestParam("descipcionPrograma") String descipcionPrograma,
             @RequestParam("objetivo") String objetivo,
             @RequestParam("metodologia") String metodologia,
             @RequestParam("sistemaEvaluacion") String sistemaEvaluacion,
             @RequestParam("bibliografia") String bibliografia,
-            @RequestParam("actividad") String actividad,
-            @RequestParam("ponderacion") int ponderacion
-            ) {
-        System.out.println(1);
+            @RequestParam MultiValueMap<String, String> formData
+    ) {
         try {
-            //System.out.println(1);
-            asignaturaService.AgregarAsig(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC,  idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividad, ponderacion);
-            String mensaje = "Se ha Agregado una Asignatura.";
+            String[] actividad = formData.get("actividad[]").toArray(new String[0]);
+            int[] ponderacion = formData.get("ponderacion[]").stream().mapToInt(Integer::parseInt).toArray();
+            String ponderacionString = Arrays.stream(ponderacion)
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.joining(","));
+            String actividadString = String.join(",", actividad);
+
+            System.out.println(actividadString);
+            System.out.println(ponderacionString);
+            asignaturaService.AgregarAsig(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC, idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividadString, ponderacionString);
+            String mensaje = "Se ha Agregado una Asignatura." + Arrays.toString(actividad);
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ya existe una Asignatura con ese nombre.";

@@ -13,7 +13,7 @@ public interface AsignaturaService {
   
   public void agregarA(Asignatura asignatura);
   
-  public void AgregarAsig(String codigoAsignatura, String nombreAsignatura, int uv, int numeroCorrelativo, int ciclo, long idAreaC, long idMalla, int duracion, int horasT, int horasP, int horaCiclo, String introduccion, String descipcionPrograma, String objetivo, String metodologia, String sistemaEvaluacion, String bibliografia, String actividad, int ponderacion);
+  public void AgregarAsig(String codigoAsignatura, String nombreAsignatura, int uv, int numeroCorrelativo, int ciclo, long idAreaC, long idMalla, int duracion, int horasT, int horasP, int horaCiclo, String introduccion, String descipcionPrograma, String objetivo, String metodologia, String sistemaEvaluacion, String bibliografia, String actividad, String ponderacion);
   
   public void eliminarA(Asignatura asignatura);
   

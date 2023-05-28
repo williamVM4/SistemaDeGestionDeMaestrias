@@ -100,21 +100,16 @@ $(document).ready(function () {
             event.preventDefault();
 
             var idAsignatura = $('#asignaturaId').val();//tomo la id
-            var formDataArray = $('#formGuardar').serializeArray();//tomo los datos del array
+            var formData = $('#formGuardar').serializeArray();//tomo los datos del array
 
             var url;//valido el tipo de url si editar o crear
             if (idAsignatura) {
                 url = '/ActualizarAsignatura';
                 //meto la id en el campo de envio
-                formDataArray.push({name: 'idAsignatura', value: idAsignatura});
+                formData.push({name: 'idAsignatura', value: idAsignatura});
             } else {
                 url = '/AgregarAsignatura';
             }
-            // Convertir el arreglo en un objeto
-            var formData = {};
-            $.map(formDataArray, function (n, i) {
-                formData[n['name']] = n['value'];
-            });
             //realizo el guardado mediante ajax
             $.ajax({
                 url: url,
@@ -124,12 +119,14 @@ $(document).ready(function () {
                     $('#crearModal').modal('hide');  // Cierra el modal
                     var table = $('#asignaturaTable').DataTable();
                     table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
-                    mostrarMensaje(response, 'success');
+                    //mostrarMensaje(response, 'success');
+                    console.log(response);
                 },
                 error: function (xhr, status, error) {
                     $('#crearModal').modal('hide');  // Cierra el modal
-                    var errorMessage = xhr.responseText || 'Error al actualizar la Asignatura.';
-                    mostrarMensaje(errorMessage, 'danger');
+                    console.log(error);
+                    //var errorMessage = xhr.responseText || 'Error al actualizar la Asignatura.';
+                    //mostrarMensaje(errorMessage, 'danger');
                 }
             });
         }

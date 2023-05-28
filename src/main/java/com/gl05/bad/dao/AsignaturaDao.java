@@ -27,6 +27,6 @@ public interface AsignaturaDao extends DataTablesRepository<Asignatura, Long> {
             @Param("p_sistema_evaluacion") String sistemaEvaluacion,
             @Param("p_bibliografia") String bibliografia,
             @Param("p_actividad") String actividad,
-            @Param("p_ponderacion") int ponderacion
+            @Param("p_ponderacion") String ponderacion
     );
 }
