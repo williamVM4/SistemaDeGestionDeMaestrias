@@ -37,9 +37,9 @@ public class Maestria implements Serializable {
     @ManyToOne(optional = false)
     private EscuelaPostgrado idPostgrado;
     
-    @JoinColumn(name = "ID_LIST_COHORTE", referencedColumnName = "ID_LIST_COHORTE")
-    @ManyToOne
-    private ListadoCohorte idListCohorte;
+//    @JoinColumn(name = "ID_LIST_COHORTE", referencedColumnName = "ID_LIST_COHORTE")
+//    @ManyToOne
+//    private ListadoCohorte idListCohorte;
 
     public Maestria() {
     }
@@ -85,13 +85,13 @@ public class Maestria implements Serializable {
         this.idPostgrado = idPostgrado;
     }
 
-    public ListadoCohorte getIdListCohorte() {
-        return idListCohorte;
-    }
-
-    public void setIdListCohorte(ListadoCohorte idListCohorte) {
-        this.idListCohorte = idListCohorte;
-    }
+//    public ListadoCohorte getIdListCohorte() {
+//        return idListCohorte;
+//    }
+//
+//    public void setIdListCohorte(ListadoCohorte idListCohorte) {
+//        this.idListCohorte = idListCohorte;
+//    }
 
 
     @Override
