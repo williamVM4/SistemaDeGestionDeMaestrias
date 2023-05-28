@@ -1,9 +1,9 @@
 package com.gl05.bad.dao;
 
 import com.gl05.bad.domain.AspiranteProfesor;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 
-public interface AspiranteProfesorDao extends JpaRepository<AspiranteProfesor, Long>{
+public interface AspiranteProfesorDao extends DataTablesRepository<AspiranteProfesor, Long>{
     
-   AspiranteProfesor findByIdusuario(Integer idUsuario);
+    AspiranteProfesor findByIdusuario(Integer idUsuario);
 }

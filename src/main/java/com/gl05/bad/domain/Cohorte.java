@@ -11,20 +11,26 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author william
  */
 @Entity
+@Table(name = "COHORTE")
 @NamedQueries({
     @NamedQuery(name = "Cohorte.findAll", query = "SELECT c FROM Cohorte c"),
     @NamedQuery(name = "Cohorte.findByIdCohorte", query = "SELECT c FROM Cohorte c WHERE c.idCohorte = :idCohorte"),
@@ -34,26 +40,38 @@ public class Cohorte implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_COHORTE", sequenceName = "S_COHORTE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_COHORTE")
     @Column(name = "ID_COHORTE")
     private Long idCohorte;
     @Basic(optional = false)
     @Column(name = "FECHA_APERTURA")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yy")
     private Date fechaApertura;
     @Basic(optional = false)
     @Column(name = "ESTADO_COHORTE")
     private short estadoCohorte;
-    @JoinColumn(name = "ID_LIST_COHORTE", referencedColumnName = "ID_LIST_COHORTE")
-    @ManyToOne
-    private ListadoCohorte idListCohorte;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCohorte")
-    private Collection<ProfesorCohorte> profesorCohorteCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCohorte")
-    private Collection<EstudianteCohorte> estudianteCohorteCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCohorte")
-    private Collection<PostulacionCohorte> postulacionCohorteCollection;
-
+    
+    @Basic(optional = false)
+    @Column(name = "NOMBRE_COHORTE")
+    private String nombreCohorte;
+    
+//    @JoinColumn(name = "ID_LIST_COHORTE", referencedColumnName = "ID_LIST_COHORTE")
+//    @ManyToOne
+//    private ListadoCohorte idListCohorte;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCohorte")
+//    private Collection<ProfesorCohorte> profesorCohorteCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCohorte")
+//    private Collection<EstudianteCohorte> estudianteCohorteCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCohorte")
+//    private Collection<PostulacionCohorte> postulacionCohorteCollection;
+    
+    @JoinColumn(name = "ID_MAESTRIA", referencedColumnName = "ID_MAESTRIA")
+    @ManyToOne(optional = false)
+    private Maestria idMaestria;
+    
+    
     public Cohorte() {
     }
 
@@ -91,36 +109,53 @@ public class Cohorte implements Serializable {
         this.estadoCohorte = estadoCohorte;
     }
 
-    public ListadoCohorte getIdListCohorte() {
-        return idListCohorte;
+    public String getNombreCohorte() {
+        return nombreCohorte;
     }
 
-    public void setIdListCohorte(ListadoCohorte idListCohorte) {
-        this.idListCohorte = idListCohorte;
+    public void setNombreCohorte(String nombreCohorte) {
+        this.nombreCohorte = nombreCohorte;
+    }
+    
+
+//    public ListadoCohorte getIdListCohorte() {
+//        return idListCohorte;
+//    }
+//
+//    public void setIdListCohorte(ListadoCohorte idListCohorte) {
+//        this.idListCohorte = idListCohorte;
+//    }
+
+//    public Collection<ProfesorCohorte> getProfesorCohorteCollection() {
+//        return profesorCohorteCollection;
+//    }
+//
+//    public void setProfesorCohorteCollection(Collection<ProfesorCohorte> profesorCohorteCollection) {
+//        this.profesorCohorteCollection = profesorCohorteCollection;
+//    }
+//
+//    public Collection<EstudianteCohorte> getEstudianteCohorteCollection() {
+//        return estudianteCohorteCollection;
+//    }
+//
+//    public void setEstudianteCohorteCollection(Collection<EstudianteCohorte> estudianteCohorteCollection) {
+//        this.estudianteCohorteCollection = estudianteCohorteCollection;
+//    }
+//
+//    public Collection<PostulacionCohorte> getPostulacionCohorteCollection() {
+//        return postulacionCohorteCollection;
+//    }
+//
+//    public void setPostulacionCohorteCollection(Collection<PostulacionCohorte> postulacionCohorteCollection) {
+//        this.postulacionCohorteCollection = postulacionCohorteCollection;
+//    }
+
+    public Maestria getIdMaestria() {
+        return idMaestria;
     }
 
-    public Collection<ProfesorCohorte> getProfesorCohorteCollection() {
-        return profesorCohorteCollection;
-    }
-
-    public void setProfesorCohorteCollection(Collection<ProfesorCohorte> profesorCohorteCollection) {
-        this.profesorCohorteCollection = profesorCohorteCollection;
-    }
-
-    public Collection<EstudianteCohorte> getEstudianteCohorteCollection() {
-        return estudianteCohorteCollection;
-    }
-
-    public void setEstudianteCohorteCollection(Collection<EstudianteCohorte> estudianteCohorteCollection) {
-        this.estudianteCohorteCollection = estudianteCohorteCollection;
-    }
-
-    public Collection<PostulacionCohorte> getPostulacionCohorteCollection() {
-        return postulacionCohorteCollection;
-    }
-
-    public void setPostulacionCohorteCollection(Collection<PostulacionCohorte> postulacionCohorteCollection) {
-        this.postulacionCohorteCollection = postulacionCohorteCollection;
+    public void setIdMaestria(Maestria idMaestria) {
+        this.idMaestria = idMaestria;
     }
 
     @Override
