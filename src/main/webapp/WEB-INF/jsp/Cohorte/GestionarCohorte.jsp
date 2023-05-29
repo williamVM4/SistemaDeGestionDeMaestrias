@@ -58,6 +58,75 @@
     </section>
     <!-- /.Main content -->
     
+    <!-- Modal de agregar y editar -->
+    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id='formGuardar' accept-charset="UTF-8">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        
+                        <input type="hidden" id="idCohorte">
+                        <input type="hidden" id="idMaestria">
+                        
+                        <div class="form-group">
+                            <label for="nombreCohorte" class="form-label">Nombre Cohorte: </label>
+                            <input type="text" class="form-control" id="nombreCohorte" name="nombreCohorte" placeholder="nombre cohorte" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fechaApertura" class="form-label">Fecha Apertura: </label>
+                            <input type="text" class="form-control" id="fechaApertura" name="fechaApertura" placeholder="dd-mm-yyyy" required>
+                        </div>
+                        
+                         <div class="form-group oculto" hidden>
+                             <label for="estadoCohorte" class="form-label">Estado Cohorte: </label>
+                            <select class="form-control" id="estadoCohorte" name="estadoCohorte" required> 
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+                        
+    <!-- Modal de eliminar -->
+    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarEliminarLabel">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <strong>¿Estás seguro de eliminar la cohorte seleccionado?</strong>
+                    <p>Ten en cuenta que se eliminarán los datos relacionados a la cohorte <span id="nombreCohorte"></span>.</p>
+                    
+                </div>
+                <div class="modal-footer">
+                  <button id="eliminarCohorteBtn" class="btn btn-danger">Eliminar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form id="eliminarCohorteForm" method="post" action="/EliminarCohorte/{idCohorte}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    </form>                    
+    
+    
     <!-- /.Modal de eliminar -->
 
 </div>
@@ -67,4 +136,5 @@
     var idMaestria = "${idMaestria}";
 </script>
 <%@ include file="../common/footer1.jspf"%>
+<script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/cohorte.js"></script>
