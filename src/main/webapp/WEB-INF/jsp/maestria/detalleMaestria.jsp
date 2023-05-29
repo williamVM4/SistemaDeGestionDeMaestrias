@@ -65,9 +65,6 @@
                                     </c:if>
                                 </div>
                                 <div class="col-md-6">
-                                    <c:if test="${maestria.idCoorAca != null}">
-                                        <p class="my-3"><strong>Plan de estudio vigente:</strong>&nbsp;</p>
-                                    </c:if>
                                     <c:if test="${planEstudioVigente != null}">
                                         <p class="my-3"><strong>Plan de estudio vigente:</strong>&nbsp;${planEstudioVigente.codPlan}</p>
                                     </c:if>
@@ -138,7 +135,7 @@
                                 <button class="btn btn-outline-primary abrirModal-idCoorAca"><i class="fas fa-plus"></i></button>
                                 </c:if>
                                 <c:if test="${maestria.idCoorAca != null}">
-                                <a href="#" class="btn btn-outline-secondary"<i class="bi bi-eye"></i></a>
+                                <a href="/perfilCoordinadorAcademico/${maestria.idCoorAca.idCoorAca}" class="btn btn-outline-secondary"><i class="bi bi-eye"></i></a>
                                 </c:if> 
                                 <c:if test="${maestria.idCoorAca != null}">
                                 <button class="btn btn-outline-warning abrirModal-idCoorAca" data-tipo="editar" data-id="${maestria.idMaestria}"><i class="bi bi-pencil-square"></i></button>
@@ -216,6 +213,40 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnSumitPerfilAsp" type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+                    
+    <!-- Modal de agregar, editar y eliminar Pefil Aspirante-->
+<div class="modal fade" id="crearModalidCoorAca" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formGuardaridCoorAca" accept-charset="UTF-8">
+                <div class="modal-body">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <input type="hidden" id="idMaestria">
+                    <div id="idCoorAcaGroup" class="form-group">
+                        <label for="idCoorAca" class="form-label">Coordinador Acádemico</label>
+                        <select class="form-select form-select-sm" size="10" id="idCoorAca" name="idCoorAca" required>
+                                  <option value="">Seleccione una coordinador Académico</option>
+                                  <c:forEach items="${coordinadoresAcademicos}" var="coordinador" varStatus="status">
+                                      <option value="${coordinador.idCoorAca}">${coordinador.nombresCa} ${coordinador.apellidosCa}</option>
+                                  </c:forEach>
+                              </select>
+                    </div>
+                    <div class="eliminar-confirmacion d-none">
+                        ¿Estás seguro de que deseas eliminar el Coordinador Academico?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSumitidCoorAca" type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </form>
