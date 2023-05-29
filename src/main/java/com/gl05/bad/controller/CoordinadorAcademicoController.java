@@ -9,12 +9,10 @@ import com.gl05.bad.servicio.AtestadoTaService;
 import com.gl05.bad.domain.Telefono;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.CorreoService;
-import com.gl05.bad.servicio.DocumentacionPersonalService;
 import com.gl05.bad.servicio.DocumentoService;
-import com.gl05.bad.servicio.ExperienciaLaboralService;
 import com.gl05.bad.servicio.PaisService;
-import com.gl05.bad.servicio.RedSocialService;
 import com.gl05.bad.servicio.TelefonoService;
+import com.gl05.bad.servicio.UserService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
@@ -24,7 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -47,13 +49,13 @@ public class CoordinadorAcademicoController {
     private AtestadoTaService atestadoService;
 
     @Autowired
+    private UserService userService;
+    
+    @Autowired
     private CoordinadorAcademicoService coordinadorService;
 
     @Autowired
     private DocumentoService docService;
-
-    @Autowired
-    private DocumentacionPersonalService listDocService;
   
     @Autowired
     private PaisService paisService;
@@ -159,11 +161,13 @@ public class CoordinadorAcademicoController {
     @GetMapping("/gestionarCoordinadorAcademico")
     public String mostrarCoordinadoresAcademicos(Model model) {
         model.addAttribute("pageTitle", "ViewCoordinadoresAcademicos");
-
-        var elementos = coordinadorService.listarCoordinadores();
-
-        model.addAttribute("coordinadoresAC", elementos);
         return "/coordinadorAcademico/index";
+    }
+    
+    @GetMapping("/coordinadores/data")
+    @ResponseBody
+    public DataTablesOutput<CoordinadorAcademico> getMaestrias(@Valid DataTablesInput input) {
+      return coordinadorService.listarCoordinadorAcademico(input);
     }
  
     @PostMapping("/guardarCA")
@@ -171,27 +175,36 @@ public class CoordinadorAcademicoController {
         @RequestParam("codCa") String codCa,
         @RequestParam("nombresCa") String nombresCa,
         @RequestParam("apellidosCa") String apellidosCa,
+        @RequestParam("email") String email,
         RedirectAttributes redirectAttributes) {
 
         try {
-            coordinadorService.proIsertarCA(codCa, nombresCa, apellidosCa);
+            if (userService.encontrarUsuarioPorUsername(codCa) != null) {
+                redirectAttributes.addFlashAttribute("error", "Ya existe un usuario con el mismo código.");
+                return "redirect:/gestionarCoordinadorAcademico";
+            }
+            if (userService.encontrarUsuarioPorEmail(email) != null) {
+                redirectAttributes.addFlashAttribute("error", "Ya existe un usuario con el mismo correo electrónico.");
+                return "redirect:/gestionarCoordinadorAcademico";
+            }
+            coordinadorService.proIsertarCA(codCa, nombresCa, apellidosCa, email);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un coordinador.");
-        } catch(Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ya existe un coordinador con ese identificador.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ocurrió un error al agregar el coordinador académico.");
         }
-
         return "redirect:/gestionarCoordinadorAcademico";  
     }
     
-    @GetMapping("/eliminarCoordinadorAcademico/{idCoorAca}")
-    public String eliminarCoordinadorAcademico(CoordinadorAcademico coordinador, RedirectAttributes redirectAttributes) {
+    @PostMapping("/eliminarCoordinadorAcademico/{idCoorAca}")
+    public ResponseEntity<String> eliminarCoordinadorAcademico(CoordinadorAcademico coordinador, RedirectAttributes redirectAttributes) {
         try {
             coordinadorService.eliminarCA(coordinador);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado un Coordinador Académico.");
+            String mensaje = "Se ha eliminado un Coordinador Académico.";
+            return ResponseEntity.ok(mensaje);
         } catch(Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el Coordinador Académico.");
+          String error = "Ha ocurrido un error al eliminar el Coordinador Académico.";
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/gestionarCoordinadorAcademico";
     }
 
     @PostMapping("/actualizarFoto/{idCoorAca}")

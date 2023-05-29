@@ -1,44 +1,34 @@
-$(document).ready(function() {
-    //Cargar dataTable
-    $('#maestriasTable').DataTable({
-        ajax: '/maestria/data',
+$(document).ready(function () {
+    $('#areaConocimientoTable').DataTable({
+        ajax: '/areaConocimiento/data',
         processing: true,
         serverSide: true,
         dom: "<'row w-100'<'col-sm-6'l><'col-sm-6'f>>" +
-             "<'row w-100'<'col-sm-12 my-4'tr>>" +
-             "<'row w-100'<'col-sm-5'i><'col-sm-7'p>>",
+                "<'row w-100'<'col-sm-12 my-5'tr>>" +
+                "<'row w-100'<'col-sm-5'i><'col-sm-7'p>>",
         columns: [
-            { data: 'nombreMaestria', width: '25%' },
-            { 
-                data: 'idPostgrado.nombrePostgrado',
-                render: function(data, type, row) {
-                    return data || '';
-                }, width: '33%'
-            },
-            { 
-                data: 'idPostgrado.idFacultad.nombreFacultad',
-                render: function(data, type, row) {
-                    return data || '';
-                }, width: '30%'
-            },
+            {data: 'idAreaConocimiento'},
+            {data: 'nombreArea'},
+            {data: 'descripcion'},
             {
                 data: null,
                 title: 'Acciones',
                 sortable: false,
                 searchable: false,
-                width: '12%',
+                className: 'd-flex justify-content-around',
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
-                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
-                    actionsHtml += '<i class="bi bi-eye"></i></a>';
-                    
-                    actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
-                    actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idMaestria + '" data-modo="actualizar">';
+                    var actionsHtml = '';
+
+                    //if(hasPrivilegeAdmin == true){
+                    actionsHtml += '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                    actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idAreaConocimiento + '" data-modo="actualizar">';
                     actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-                    
-                    actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idMaestria + '" ';
-                    actionsHtml += 'data-nombre="' + row.nombreMaestria + '">';
+                    //}
+                    actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idAreaConocimiento + '" ';
+                    actionsHtml += 'data-nombre="' + row.nombreArea + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
+
                     return actionsHtml;
                 }
             }
@@ -75,67 +65,54 @@ $(document).ready(function() {
             return: true
         }
     });
-    
-    // Agregar regla personalizada para validar el campo nombreMaestria con una expresión regular
-    $.validator.addMethod(
-        "validarNombreMaestria",
-        function(value, element) {
-          return this.optional(element) || /^[A-Za-zÁÉÍÓÚáéíóú\s,]+$/.test(value);
-        },
-        "No se aceptan números ni caracteres especiales"
-      );
-    
-    var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
+
     var validator = $('#formGuardar').validate({
         rules: {// reglas
-            nombreMaestria: {
-                required: true,
-                validarNombreMaestria: true,
-                maxlength: 100
+            nombreArea: {
+                required: true
             },
-            idPostgrado:{
+            descripcion: {
                 required: true
             }
         },
         messages: {// mensajes
-            nombreMaestria: {
-                required: 'Este campo es requerido',
-                maxlength: "El número máximo de caracteres es 100"
-            },
-            idPostgrado: {
+            nombreArea: {
                 required: 'Este campo es requerido'
-            }
+            },
+            descripcion: {
+                required: 'Este campo es requerido'
+            },
         },
-        highlight: function(element) {
+        highlight: function (element) {
             $(element).addClass('is-invalid');
         },
-        unhighlight: function(element) {
+        unhighlight: function (element) {
             $(element).removeClass('is-invalid');
         },
-        errorPlacement: function(error, element) {
-            if (element.attr("name") === "nombreMaestria") {
+        errorPlacement: function (error, element) {
+            if (element.attr("name") === "nombreArea") {
                 error.insertAfter(element);
             } else {
-                if (element.attr("name") === "idPostgrado") {
+                if (element.attr("name") === "descripcion") {
                     error.insertAfter(element);
                 }
             }
-         },
+        },
         errorElement: 'div',
         errorClass: 'invalid-feedback',
         submitHandler: function (form) {
-            event.preventDefault();//detiene el evento del envio del form 
-            var idMaestria = $('#idMaestria').val();//tomo la id
+            event.preventDefault();
 
-            var formDataArray = formGuardar.serializeArray();//tomo los datos del array
+            var idAreaConocimiento = $('#areaId').val();//tomo la id
+            var formDataArray = $('#formGuardar').serializeArray();//tomo los datos del array
 
             var url;//valido el tipo de url si editar o crear
-            if (idMaestria) {
-                url = '/ActualizarMaestria';
+            if (idAreaConocimiento) {
+                url = '/ActualizarAreaConocimiento';
                 //meto la id en el campo de envio
-                formDataArray.push({name: 'idMaestria', value: idMaestria});
+                formDataArray.push({name: 'idAreaConocimiento', value: idAreaConocimiento});
             } else {
-                url = '/AgregarMaestria';
+                url = '/AgregarAreaConocimiento';
             }
             // Convertir el arreglo en un objeto
             var formData = {};
@@ -149,7 +126,7 @@ $(document).ready(function() {
                 data: formData,
                 success: function (response) {
                     $('#crearModal').modal('hide');  // Cierra el modal
-                    var table = $('#maestriasTable').DataTable();
+                    var table = $('#areaConocimientoTable').DataTable();
                     table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
                     mostrarMensaje(response, 'success');
                 },
@@ -161,97 +138,96 @@ $(document).ready(function() {
             });
         }
     });
-    
+
     // metodo para mostrar el modal segun sea si editar o nuevo registro
     $(document).on('click', '.abrirModal-btn', function () {
-        var idMaestria = $(this).data('id');
+        var idAreaConocimiento = $(this).data('id');
         var modal = $('#crearModal');
         var tituloModal = modal.find('.modal-title');
         var form = modal.find('form');
         var btnSumit = document.getElementById('btnSumit');
         validator.resetForm();  // Restablecer la validación
-        formGuardar.find('.is-invalid').removeClass('is-invalid');
+        $('#formGuardar').find('.is-invalid').removeClass('is-invalid');
 
-        if (idMaestria) {
-            tituloModal.text('Editar Maestria');//titulo del modal
+        $('#formGuardar').validate().resetForm();//quita los mensajes de error 
+        if (idAreaConocimiento) {
+            tituloModal.text('Editar Area de Conocimiento');//titulo del modal
             $.ajax({//utilizo ajax para obtener los datos
-                url: '/ObtenerMaestria/' + idMaestria,
+                url: '/ObtenerAreaConocimiento/' + idAreaConocimiento,
                 type: 'GET',
                 success: function (response) {
-                    $('#nombreMaestria').val(response.nombreMaestria);
-                    $('#idMaestria').val(idMaestria);
-                    $('#idPostgrado').val(response.idPostgrado.idPostgrado);
+                    $('#nombreArea').val(response.nombreArea);
+                    $('#descripcion').val(response.descripcion);
+                    $('#areaId').val(idAreaConocimiento);
                 },
                 error: function () {
-                    alert('Error al obtener los datos de la maestria.');
+                    alert('Error al obtener los datos del Ã¡rea de conocimiento.');
                 }
             });
         } else {
             // en caso de presionar el boton de nuevo solo se abrira el modal
-            tituloModal.text('Agregar Maestria');
-            form.attr('action', '/AgregarMaestria');
-            $('#idMaestria').val('');
-            $('#nombreMaestria').val('');
-            $('#idPostgrado').val('');
+            tituloModal.text('Agregar Conocimiento');
+            form.attr('action', '/AgregarAreaConocimiento');
+            $('#nombreArea').val('');
+            $('#descripcion').val('');
+            $('#areaId').val('');
         }
         modal.modal('show');
     });
-    
     // Método para mostrar el modal de eliminación
     $(document).on('click', '.eliminarModal-btn', function () {
-        var idMaestria = $(this).data('id');
-        var nombreMaestria = $(this).data('nombre');
+        var idArea = $(this).data('id');
+        var nombreArea = $(this).data('nombre');
 
         var modal = $('#confirmarEliminarModal');
         var tituloModal = modal.find('.modal-title');
         var cuerpoModal = modal.find('.modal-body');
-        var eliminarBtn = modal.find('#eliminarMaestriaBtn');
+        var eliminarBtn = modal.find('#eliminarAreaBtn');
 
         // Actualizar el contenido del modal con los parámetros recibidos
         tituloModal.text('Confirmar eliminación');
-        cuerpoModal.html('<strong>¿Estás seguro de eliminar la maestría seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a la maestría de ' + nombreMaestria + '.');
+        cuerpoModal.html('<strong>¿Estás seguro de eliminar la Àrea de Conocimiento seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a la Àrea de Conocimiento ' + nombreArea + '.');
 
         // Actualizar el atributo href del botón de eliminación con el idMaestria
-        eliminarBtn.data('id', idMaestria);
+        eliminarBtn.data('id', idArea);
 
         modal.modal('show');
     });
-    
+
     //Método para enviar la solicitud de eliminar
-    $(document).on('click', '#eliminarMaestriaBtn', function () {
-        
-        var idMaestria = $(this).data('id');
+    $(document).on('click', '#eliminarAreaBtn', function () {
+        var idArea = $(this).data('id');
         // Actualizar la acción del formulario con el idMaestria
-        $('#eliminarMaestriaForm').attr('action', '/EliminarMaestria/' + idMaestria);
+        $('#eliminarAreaForm').attr('action', '/EliminarAreaConocimiento/' + idArea);
 
         // Realizar la solicitud POST al método de eliminación
         $.ajax({
-            url: $('#eliminarMaestriaForm').attr('action'),
+            url: $('#eliminarAreaForm').attr('action'),
             type: 'POST',
-            data: $('#eliminarMaestriaForm').serialize(), // Incluir los datos del formulario en la solicitud
+            data: $('#eliminarAreaForm').serialize(), // Incluir los datos del formulario en la solicitud
             success: function (response) {
-              $('#confirmarEliminarModal').modal('hide');
-              // Recargar el DataTable
-              $('#maestriasTable').DataTable().ajax.reload();
-              // Mostrar el mensaje de éxito del controlador
-               mostrarMensaje(response, 'success');
+                $('#confirmarEliminarModal').modal('hide');
+                // Recargar el DataTable
+                $('#areaConocimientoTable').DataTable().ajax.reload();
+                // Mostrar el mensaje de éxito del controlador
+                mostrarMensaje(response, 'success');
             },
             error: function () {
-              $('#confirmarEliminarModal').modal('hide');
-              // Mostrar mensaje de error en caso de que la solicitud falle
-              mostrarMensaje('Error al eliminar la maestría.', 'danger');
+                $('#confirmarEliminarModal').modal('hide');
+                // Mostrar mensaje de error en caso de que la solicitud falle
+                mostrarMensaje('Error al eliminar la Àrea de Conocimiento.', 'danger');
             }
         });
-        
+
     });
-    
+
     function mostrarMensaje(mensaje, tipo) {
         var alertElement = $('.alert-' + tipo);
         alertElement.text(mensaje).addClass('show').removeClass('d-none');
-        setTimeout(function() {
-          alertElement.removeClass('show').addClass('d-none');
+        setTimeout(function () {
+            alertElement.removeClass('show').addClass('d-none');
         }, 5000); // Ocultar el mensaje después de 3 segundos (ajusta el valor según tus necesidades)
-      }
+    }
 });
 
 

@@ -19,7 +19,7 @@ function logout() {
 }
 
 $(document).ready(function() {   
-
+    var basePath = window.location.origin;
     // Realizar la petición AJAX al endpoint "/ObtenerUsuarioMenu"
     $.ajax({
         url: "/ObtenerUsuarioMenu",
@@ -36,9 +36,9 @@ $(document).ready(function() {
             var tipoUsuario = response.tipoUsuario;
             var perfilLink = "";
             if (tipoUsuario === "Coordinador Académico") {
-                perfilLink = "perfilCoordinadorAcademico/" + response.idPerfil;
+                perfilLink = basePath + "/perfilCoordinadorAcademico/" + response.idPerfil;
             } else if (tipoUsuario === "Aspirante a Profesor") {
-                perfilLink = "PerfilAspiranteProfesor/" + response.idPerfil;
+                perfilLink = basePath + "/PerfilAspiranteProfesor/" + response.idPerfil;
             }
 
             // Actualizar el enlace del perfil en el menú de la barra lateral

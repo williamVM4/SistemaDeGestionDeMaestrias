@@ -9,8 +9,8 @@ public interface CohorteService {
     
     public DataTablesOutput<Cohorte> listarCohorte(DataTablesInput input);
     
-//    public void proAgregar(short estadoCohorte, Date fechaApertura);
-    
+   public void proAgregar(Long idMaestria, String nombreCohorte,Date fechaApertura, short estadoCohorte);
+      
     public void eliminarCohorte(Cohorte cohorte);
     
     public void actualizarCohorte(Cohorte cohorte);

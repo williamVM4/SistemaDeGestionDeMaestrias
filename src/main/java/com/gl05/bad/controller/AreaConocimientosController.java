@@ -1,15 +1,21 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.AreaConocimiento;
+import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.servicio.AreaConocimientoService;
+import javax.validation.Valid;
 import static oracle.jdbc.OracleType.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -24,6 +30,12 @@ public class AreaConocimientosController {
         model.addAttribute("AreaConocimiento", elemento);
         return "AreaConocimiento/index";
     }
+    @GetMapping("/areaConocimiento/data")
+    @ResponseBody
+    public DataTablesOutput<AreaConocimiento> getAreaConocimiento(@Valid DataTablesInput input) {
+      System.out.println(areaConocimientoService.listarAreaConocimientos(input));
+        return areaConocimientoService.listarAreaConocimientos(input);
+    }
     @PostMapping("/AgregarAreaConocimiento")
     public String AgregarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {     
         try {
@@ -32,31 +44,31 @@ public class AreaConocimientosController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya existe una Àrea de Conocimiento con ese Nombre.");
         }
-
         return "redirect:/GestionarAreaConocimiento";
     }
     //ObtenerAreaConocimiento
     
-    @GetMapping("/EliminarAreaConocimiento/{idAreaConocimiento}")
-    public String EliminarRol(AreaConocimiento area, RedirectAttributes redirectAttributes) {
-        System.out.println(area);
+    @PostMapping("/EliminarAreaConocimiento/{idAreaConocimiento}")
+    public ResponseEntity EliminarAreaConocimiento(AreaConocimiento area) {
         try {
             areaConocimientoService.eliminarAC(area);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el Area de Conocimiento correctamente.");
+            String mensaje = "Se ha eliminado la Maestria correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el Area de Conocimiento.");
+            String error = "Ha ocurrido un error al eliminar la maestria.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/GestionarAreaConocimiento";
     }
     @PostMapping("/ActualizarAreaConocimiento")
-    public String ActualizarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {
+    public ResponseEntity ActualizarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {
         try {
             areaConocimientoService.actualizarAC(area);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado el Área de Conocimiento.");
+            String mensaje = "Se ha actualizado la Area de Conocimiento correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al actualizar el Área de Conocimiento.");
+            String error = "Ha ocurrido un error al actualizar la Area de Conocimiento.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/GestionarAreaConocimiento";
     }
     
     @GetMapping("/ObtenerAreaConocimiento/{id}")
@@ -67,7 +79,7 @@ public class AreaConocimientosController {
         } else {
             return ResponseEntity.notFound().build();
         }
-}
+    }
 
 
 }

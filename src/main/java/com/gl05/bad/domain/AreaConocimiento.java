@@ -15,9 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import lombok.Data;
 
-@Data
+
+
 @Entity
 @Table(name = "AREA_CONOCIMIENTO" , uniqueConstraints = @UniqueConstraint(columnNames = "NOMBRE_AREA"))
 @NamedQueries({
@@ -36,7 +36,7 @@ public class AreaConocimiento implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE_AREA", unique = true)
     private String nombreArea;
-    @Basic(optional = false)
+    @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAreaConocimiento")
     private Collection<Asignatura> asignaturaCollection;
