@@ -23,11 +23,11 @@ public class CohorteServiceImp implements CohorteService {
          return (DataTablesOutput<Cohorte>)cohorteDao.findAll(input);
     }
 
-//    @Override
-//    @Transactional
-//    public void proAgregar(short estadoCohorte, Date fechaApertura) {
-//        cohorteDao.sp_insert_cohorte(estadoCohorte, fechaApertura);
-//    }
+    @Override
+    @Transactional
+    public void proAgregar(Long idMaestria, String nombreCohorte,Date fechaApertura, short estadoCohorte) {
+        cohorteDao.sp_insert_cohorte(idMaestria, nombreCohorte, fechaApertura, estadoCohorte);
+    }
 
     @Override
     @Transactional
