@@ -180,4 +180,9 @@ public class MaestriaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+    
+    @GetMapping("/InscribirMaestria")
+    public String listarMaestriasInscripcion(Model model) {
+        return "maestria/inscribirMaestria";
+    }
 }

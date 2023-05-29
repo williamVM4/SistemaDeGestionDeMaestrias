@@ -4,6 +4,7 @@ import com.gl05.bad.domain.Estudiante;
 import java.util.List;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.data.repository.query.Param;
 
 public interface EstudianteService {
     
@@ -18,5 +19,7 @@ public interface EstudianteService {
     public void eliminarEstudiante(Estudiante estudiante);
     
     public void actualizarEstudiante(Estudiante estudiante);
+    
+    public List<Estudiante> obtenerEstudiantesSinCohorte(@Param("idCohorte") Long idCohorte);
    
 }

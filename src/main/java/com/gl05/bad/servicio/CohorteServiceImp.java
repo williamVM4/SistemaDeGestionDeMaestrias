@@ -3,7 +3,10 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.CohorteDao;
 import com.gl05.bad.domain.Cohorte;
+import com.gl05.bad.domain.Maestria;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
@@ -22,7 +25,7 @@ public class CohorteServiceImp implements CohorteService {
     public DataTablesOutput<Cohorte> listarCohorte(DataTablesInput input) {
          return (DataTablesOutput<Cohorte>)cohorteDao.findAll(input);
     }
-
+  
     @Override
     @Transactional
     public void proAgregar(Long idMaestria, String nombreCohorte,Date fechaApertura, short estadoCohorte) {
@@ -59,4 +62,15 @@ public class CohorteServiceImp implements CohorteService {
         return cohorteDao.findAll(input, additionalSpecification);
     }
     
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cohorte> encontrarCohortesActivasPorIdMaestria(Maestria maestria, short estadoCohorte){
+        return cohorteDao.findByEstadoCohorteAndIdMaestria(estadoCohorte, maestria);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cohorte> encontrarCohortesPorIdMaestria(Maestria maestria){
+        return cohorteDao.findByIdMaestria( maestria);
+    }
 }
