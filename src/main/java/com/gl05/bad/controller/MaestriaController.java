@@ -2,6 +2,7 @@ package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.PlanEstudio;
+import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.PlanEstudioService;
@@ -33,6 +34,9 @@ public class MaestriaController {
     
     @Autowired
     private PlanEstudioService planEstudioService;
+    
+    @Autowired
+    private CoordinadorAcademicoService coordinadorAcademicoService;
     
     @GetMapping("/GestionarMaestria")
     public String listarMaestrias(Model model) {
@@ -93,8 +97,10 @@ public class MaestriaController {
         short estadoPlanVigente = 1;
         Maestria maestriaEnviar = maestriaService.encontrarMaestria(maestria);
         PlanEstudio planEstudioVigente = planEstudioService.encontrarPlanEstudioPorIdMaestria(maestriaEnviar, estadoPlanVigente);
+        var coordinadores = coordinadorAcademicoService.listarCoordinadores();
         model.addAttribute("maestria", maestriaEnviar);
         model.addAttribute("planEstudioVigente", planEstudioVigente);
+        model.addAttribute("coordinadoresAcademicos", coordinadores);
         return "maestria/detalleMaestria";
     }
     
@@ -142,6 +148,28 @@ public class MaestriaController {
             Map<String, String> response = new HashMap<>();
             response.put("redirectUrl", "/DetalleMaestria/" + maestria.getIdMaestria());
             response.put("mensaje", "Se ha agregado el perfil del aspirante a la maestría.");
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            // Manejo del error
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Ha ocurrido un error al agregar el perfil del aspirante.");
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+    
+    @PostMapping("/CoordinadorMaestria")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> agregarCoordinadorMaestria(Maestria maestria) {
+        try {
+            Maestria maestriaExistente = maestriaService.encontrarMaestria(maestria);
+            maestriaExistente.setIdCoorAca(maestria.getIdCoorAca());
+            maestriaService.actualizar(maestriaExistente);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("redirectUrl", "/DetalleMaestria/" + maestria.getIdMaestria());
+            response.put("mensaje", "Se ha actualizado el coordinador Académico.");
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
