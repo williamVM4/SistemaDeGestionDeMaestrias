@@ -195,7 +195,7 @@
                 <div class="modal-body">
                     <form class="form" id='formGuardarEditar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                        <input type="hidden" id="asignaturaId">
+                        <input type="hidden" id="asignaturaIdEditar">
                         <div class="row">
                             <div class="row">
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">

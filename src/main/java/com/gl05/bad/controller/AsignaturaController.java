@@ -76,8 +76,6 @@ public class AsignaturaController {
                     .collect(Collectors.joining(","));
             String actividadString = String.join(",", actividad);
 
-            System.out.println(actividadString);
-            System.out.println(ponderacionString);
             asignaturaService.AgregarAsig(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC, idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividadString, ponderacionString);
             String mensaje = "Se ha Agregado una Asignatura.";
             return ResponseEntity.ok(mensaje);
@@ -101,7 +99,9 @@ public class AsignaturaController {
 
     @PostMapping("/ActualizarAsignatura")
     public ResponseEntity ActualizarAsignatura(Asignatura asignatura, RedirectAttributes redirectAttributes) {
+        System.out.println(asignatura);
         try {
+            
             Asignatura asignaturaExsistente = asignaturaService.encontrarA(asignatura);
             asignaturaExsistente.setCiclo(asignatura.getCiclo());
             asignaturaExsistente.setIdAreaConocimiento(asignatura.getIdAreaConocimiento());

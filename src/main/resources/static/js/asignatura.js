@@ -273,15 +273,15 @@ $(document).ready(function () {
         }
     });
 
-    var validatorEditar = $('#formGuardar').validate({
+    var validatorEditar = $('#formGuardarEditar').validate({
         rules: {// reglas
-            codigoAsignatura: {
+            codAsignatura: {
                 required: true
             },
-            nombreAsignatura: {
+            nombreMateria: {
                 required: true
             },
-            uv: {
+            unidadesValorativas: {
                 required: true,
                 positiveInteger: true
             },
@@ -294,18 +294,18 @@ $(document).ready(function () {
                 positiveInteger: true,
                 soloUnoODos: true
             },
-            idAreaC: {
+            idAreaConocimiento: {
                 required: true
             }
         },
         messages: {// mensajes
-            codigoAsignatura: {
+            codAsignatura: {
                 required: 'Campo Requerido'
             },
-            nombreAsignatura: {
+            nombreMateria: {
                 required: 'Campo Requerido'
             },
-            uv: {
+            unidadesValorativas: {
                 required: 'Campo Requerido'
             },
             numeroCorrelativo: {
@@ -314,7 +314,7 @@ $(document).ready(function () {
             ciclo: {
                 required: 'Campo Requerido'
             },
-            idAreaC: {
+            idAreaConocimiento: {
                 required: 'Campo Requerido'
             }
         },
@@ -331,32 +331,26 @@ $(document).ready(function () {
         errorClass: 'invalid-feedback',
         submitHandler: function (form) {
             event.preventDefault();
-
-            var idAsignatura = $('#asignaturaId').val();//tomo la id
-            var mallaId = $('#mallaId').val();//tomo la id
-            var formData = $('#formGuardar').serializeArray();//tomo los datos del array
-            formData.push({name: 'mallaId', value: mallaId});
+            var id = $('#asignaturaIdEditar').val();//tomo la id
+            var formData = $('#formGuardarEditar').serializeArray();//tomo los datos del array
             var url;//valido el tipo de url si editar o crear
-            if (idAsignatura) {
-                url = '/ActualizarAsignatura';
-                //meto la id en el campo de envio
-                formData.push({name: 'idAsignatura', value: idAsignatura});
-            } else {
-                url = '/AgregarAsignatura';
-            }
+            url = '/ActualizarAsignatura';
+            //meto la id en el campo de envio
+            formData.push({name: 'idAsignatura', value: id});
+
             //realizo el guardado mediante ajax
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: formData,
                 success: function (response) {
-                    $('#crearModal').modal('hide');  // Cierra el modal
+                    $('#editarModal').modal('hide');  // Cierra el modal
                     var table = $('#asignaturaTable').DataTable();
                     table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
                     mostrarMensaje(response, 'success');
                 },
                 error: function (xhr, status, error) {
-                    $('#crearModal').modal('hide');  // Cierra el modal
+                    $('#editarModal').modal('hide');  // Cierra el modal
                     console.log(error);
                     var errorMessage = xhr.responseText || 'Error al actualizar la Asignatura.';
                     mostrarMensaje(errorMessage, 'danger');
@@ -385,6 +379,7 @@ $(document).ready(function () {
                     $('#formGuardarEditar #numeroCorrelativo').val(response.numeroCorrelativo);
                     $('#formGuardarEditar #ciclo').val(response.ciclo);
                     $('#formGuardarEditar #idAreaConocimiento').val(response.idAreaConocimiento.idAreaConocimiento);
+                    $('#formGuardarEditar #asignaturaIdEditar').val(id);
                 },
                 error: function () {
                     alert('Error al obtener los datos de la Asignatura.');

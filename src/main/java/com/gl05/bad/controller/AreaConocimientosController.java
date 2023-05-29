@@ -1,10 +1,8 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.AreaConocimiento;
-import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.servicio.AreaConocimientoService;
 import javax.validation.Valid;
-import static oracle.jdbc.OracleType.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
@@ -37,14 +35,15 @@ public class AreaConocimientosController {
         return areaConocimientoService.listarAreaConocimientos(input);
     }
     @PostMapping("/AgregarAreaConocimiento")
-    public String AgregarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {     
+    public ResponseEntity AgregarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {     
         try {
             areaConocimientoService.agregarAC(area);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha Agregado una Nueva Àrea de Conocimiento.");
+            String mensaje = "Se ha Agregado una Nueva Àrea de Conocimiento.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ya existe una Àrea de Conocimiento con ese Nombre.");
+            String mensaje ="Ya existe una Àrea de Conocimiento con ese Nombre.";
+            return ResponseEntity.ok(mensaje);
         }
-        return "redirect:/GestionarAreaConocimiento";
     }
     //ObtenerAreaConocimiento
     
