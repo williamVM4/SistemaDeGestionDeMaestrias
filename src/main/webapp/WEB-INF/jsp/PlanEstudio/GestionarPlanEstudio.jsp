@@ -101,7 +101,7 @@
                             <input type="number" class="form-control" id="totalUv" name="totalUv" min="0" max="999" step="1" required>
                         </div>
                         <div class="form-group">
-                            <label for="duracionCarrera" class="form-label">Duración de la Carrera</label>
+                            <label for="duracionCarrera" class="form-label">Duración de la Carrera en años</label>
                             <input type="number" class="form-control" id="duracionCarrera" name="duracionCarrera" min="0" max="999" step="1" required>
                         </div>
                         <div class="form-group">

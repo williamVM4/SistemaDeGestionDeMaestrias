@@ -31,9 +31,9 @@
       <!-- Sidebar user (optional) -->
       <div id="userPanel" class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="" class="img-circle elevation-0">
+                <img src="" class="img-circle-perfil elevation-0">
             </div>
-            <div class="info">
+            <div class="info pl-3 d-flex align-items-center justify-content-center">
                 <a href="#" class="d-block"></a>
             </div>
         </div>

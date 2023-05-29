@@ -1,5 +1,6 @@
 package com.gl05.bad.servicio;
 
+import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.PlanEstudio;
 import java.math.BigDecimal;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -18,5 +19,7 @@ public interface PlanEstudioService {
     public PlanEstudio encontrarPlanEstudio(PlanEstudio planEstudio);
     
     public DataTablesOutput<PlanEstudio> listarPlanEstudioFiltrado(DataTablesInput input, Long idMaestria);
+    
+    public PlanEstudio encontrarPlanEstudioPorIdMaestria(Maestria maestria, short planEstado);
     
 }
