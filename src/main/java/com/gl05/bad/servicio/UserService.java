@@ -15,6 +15,8 @@ public interface UserService {
     
     public Usuario encontrarUsuarioPorUsername(String username);
     
+    public Usuario encontrarUsuarioPorEmail(String email);
+    
     public void actualizarUsuario(Usuario usuario);
     
     
