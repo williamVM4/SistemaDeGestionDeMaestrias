@@ -71,9 +71,11 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" id="idMaestria">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nombreMaestria" name="nombreMaestria" placeholder="Nombre de la maestria" required>
+                            <label for="nombreMaestria" class="form-label">Nombre de la maestria</label>
+                            <input type="text" class="form-control" id="nombreMaestria" name="nombreMaestria" required>
                         </div>
                         <div class="form-group">
+                            <label for="idPostgrado" class="form-label">Escuela de Posgrado</label>
                               <select class="form-select form-select-sm" id="idPostgrado" name="idPostgrado" required>
                                   <option value="">Seleccione una escuela de postgrado</option>
                                   <c:forEach items="${escuelas}" var="elementoEscuela" varStatus="status">

@@ -36,6 +36,11 @@ public class UserServiceImp implements UserService {
     public Usuario encontrarUsuarioPorUsername(String username){
         return usuarioDao.findByUsername(username);
     }
+    
+    @Override
+    public Usuario encontrarUsuarioPorEmail(String email){
+        return usuarioDao.findByEmail(email);
+    }
 
     @Override
     public void actualizarUsuario(Usuario usuario) {

@@ -1,114 +1,150 @@
-<%@ include file="../common/header.jspf"%>
-<%@ include file="../common/navigation.jspf"%>
-<div align="center">
-    <div class="titulo-Perfil"><h3>Gestionar Aspirante a Profesor</h3></div>
-    <div id="container-datos">
-        <c:if test="${not empty mensaje}">
-            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-check-circle"></i> Éxito!  </strong>${mensaje}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>${error}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
-        <br>
-        <div class="row col-sm-12 d-flex justify-content-end">
-            <div class="col-sm-1">
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
+<%@ include file="../common/header1.jspf"%>
+<%@ include file="../common/navigation1.jspf"%>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="titulo-Perfil">
+                        <div class="container">
+                            <h1>Gestionar Aspirantes a Profesor</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <br>
-        <div class="row col-sm-12">
-            <table class="table">
-                <thead class="table">
-                    <tr>
-                        <th scope="col">N°</th>
-                        <th scope="col">Carné</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <c:if test="${empty aspirantesAP}">
-                    <tr>
-                        <td colspan="5">No hay registros</td>
-                    </tr>
-                </c:if>
-                <c:if test="${not empty aspirantesAP}">
-                    <c:forEach items="${aspirantesAP}" var="elemento" varStatus="status">
-                        <tr>
-                            <td width="20%">${status.index + 1}</td>
-                            <td>${elemento.codAp}</td>
-                            <td>${elemento.nombresAp}</td>
-                            <td>${elemento.apellidosAp}</td>
-                            <td>
-                                <a type="button" class="btn btn-outline-secondary" href="/PerfilAspiranteProfesor/${elemento.idAspiranteProfesor}"><i class="bi bi-eye"></i></a>
-                                <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${elemento.idAspiranteProfesor}">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                                <!-- Modal de confirmación de eliminación -->
-                                <div class="modal fade" id="confirmarEliminar-${elemento.idAspiranteProfesor}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${elemento.idAspiranteProfesor}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="confirmarEliminarLabel-${elemento.idAspiranteProfesor}">Confirmar eliminación</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <strong>¿Estás seguro de eliminar este aspirante?</strong>
-                                                <p>Ten en cuenta que se eliminarán los datos relacionados a ${elemento.nombresAp} ${elemento.apellidosAp}.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <a href="/EliminarAspiranteProfesor/${elemento.idAspiranteProfesor}" class="btn btn-danger">Eliminar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </c:if>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<!-- Modal para crear aspirantes -->
-<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="crearModalLabel">Agregar Aspirante a Profesor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </section>
+    <!-- Main content -->
+    <section class="content pb-5">
+        <div class="container">
+            <c:if test="${not empty mensaje}">
+                <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                    <strong><i class="bi bi-check-circle"></i> Éxito!&nbsp;</strong>${mensaje}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                    <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>${error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+            <br>
+            <div class="row col-sm-12 d-flex justify-content-end">
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <form action="/AgregarAspiranteProfesor" method="post" accept-charset="UTF-8">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                    <div class="form-group">
-                        <label for="codAp" class="form-label">Carné:</label>
-                        <input type="text" class="form-control" id="codAp" name="codAp" maxlength="5" required>
+            <br>
+            <div class="row col-sm-12">
+                <div class="pt-4">
+                    <div class="table-responsive-md">
+                        <table id="aspirantesTable" class="table table-striped" style="width:100%">
+                            <thead class="table-light">
+                                <tr>
+                                    <!--<th class="text-center">N°</th>-->
+                                    <th class="text-center">Carné</th>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Apellido</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="form-group">
-                        <label for="nombresAp" class="form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="nombresAp" name="nombresAp" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidosAp" class="form-label">Apellido:</label>
-                        <input type="text" class="form-control" id="apellidosAp" name="apellidosAp" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-outline-success">Guardar</button>
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
+                </div>
+            </div>
+        </div><!-- /.container-->
+    </section>
+    <!-- Modal para crear aspirantes -->
+    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearModalLabel">Agregar Aspirante a Profesor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/AgregarAspiranteProfesor" method="post" onsubmit="return validarCorreo()" accept-charset="UTF-8">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <div id="MensajeErrorCorreo" class="d-none">
+                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El formato del correo no es válido.
+                                <button id="btnAlertaCorreo" type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="codAp" class="form-label">Carné:</label>
+                            <input type="text" class="form-control" id="codAp" name="codAp" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombresAp" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombresAp" name="nombresAp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidosAp" class="form-label">Apellido:</label>
+                            <input type="text" class="form-control" id="apellidosAp" name="apellidosAp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo" class="form-label">Correo:</label>
+                            <input type="text" class="form-control" id="correo" name="correo" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-success">Guardar</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+    <!-- Modal de eliminar -->
+    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarEliminarLabel">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <strong>¿Estás seguro de eliminar el aspirante seleccionado?</strong>
+                    <p>Ten en cuenta que se eliminarán los datos relacionados al aspirante <span id="nombreAspiranteEliminar"></span>.</p>
+                    
+                </div>
+                <div class="modal-footer">
+                  <button id="eliminarAspiranteBtn" class="btn btn-danger">Eliminar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="eliminarAspiranteForm" method="post" action="/EliminarAspiranteProfesor/{idAspiranteProfesor}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    </form>
 </div>
-<%@ include file="../common/footer.jspf"%>
+<%@ include file="../common/footer1.jspf"%>
+<script src="${pageContext.request.contextPath}/js/aspiranteProfesor.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        //Alerta de Numero
+        var mensajeErrorCorreo = document.getElementById("MensajeErrorCorreo");
+        var botonAlertaCorreo=document.getElementById("btnAlertaCorreo");
+        botonAlertaCorreo.addEventListener("click", function() {
+          mensajeErrorCorreo.classList.add("d-none");
+        });
+    });
+    function validarCorreo() {
+        var correoInput = document.getElementById("correo").value;
+        var regex = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+        
+        if (!regex.test(correoInput)) {
+            var mensajeErrorCorreo = document.getElementById("MensajeErrorCorreo");
+            mensajeErrorCorreo.classList.remove("d-none");
+            return false;
+        }
+        return true;
+    }
+</script>

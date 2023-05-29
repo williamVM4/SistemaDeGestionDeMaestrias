@@ -1,14 +1,20 @@
 package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.CoordinadorAcademicoDao;
+import com.gl05.bad.dao.UsuarioDao;
 import com.gl05.bad.domain.CoordinadorAcademico;
-import java.lang.reflect.Field;
+import java.security.SecureRandom;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +23,12 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
   
     @Autowired
     private CoordinadorAcademicoDao coordinadorDao;
+        
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Override
     @Transactional
@@ -73,12 +85,7 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
     public CoordinadorAcademico encontrarCA(CoordinadorAcademico coordinador) {
       return coordinadorDao.findById(coordinador.getIdCoorAca()).orElse(null);
     }
-
-    @Override
-    public void proIsertarCA(String cod, String nombre, String apellido) {
-      coordinadorDao.sp_insert_coordinador(cod, nombre, apellido);
-    }
-
+    
     @Override
     @Transactional
     public void actualizarCampo(CoordinadorAcademico coordinador, String nombreCampo, Blob valorCampo) {
@@ -90,5 +97,75 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
         }
         coordinadorDao.save(coordinadorExistente);
     }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public CoordinadorAcademico encontrarPorIdUsuario(Integer idUsuario) {
+        return coordinadorDao.findByIdusuario(idUsuario);
+    }
 
+    @Override
+    public DataTablesOutput<CoordinadorAcademico> listarCoordinadorAcademico(DataTablesInput input) {
+      return (DataTablesOutput<CoordinadorAcademico>)coordinadorDao.findAll(input);
+    }
+  
+    @Override
+    public void proIsertarCA(String cod, String nombre, String apellido, String email) {
+      String password = generarPassword(8);
+      String passwordEncode = passwordEncoder.encode(password);
+      String asunto= "Credenciales de usuario del sistema de gestión de maestrías";
+      String mensaje= "Bienvenid@ " + nombre + " " + apellido + " las credenciciales proporcionadas como candidato a coordinador académico son:\nUsuario: " + cod.toLowerCase() + "\nContraseña: " + password;
+      mensaje = mensaje.replaceAll("\n", System.getProperty("line.separator"));
+      coordinadorDao.sp_insert_coordinador(cod.toLowerCase(), nombre, apellido, email, passwordEncode);
+      enviarCorreo(email, asunto, mensaje);
+    }
+    
+    @Override
+    @Transactional
+    public void enviarCorreo(String correoDestino, String asunto, String mensaje){
+      SimpleMailMessage mailMessage = new SimpleMailMessage();
+      mailMessage.setTo(correoDestino);
+      mailMessage.setSubject(asunto);
+      mailMessage.setText(mensaje);
+
+      mailSender.send(mailMessage);
+    };
+
+    public String generarPassword(int length) {
+        String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+        String numbers = "0123456789";
+        String symbols = "!@#$%^&*()-_+[]{}<>.,?";
+
+        String allCharacters = uppercaseLetters + lowercaseLetters + numbers + symbols;
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(length);
+
+        // Asegura que haya al menos un carácter de cada tipo
+        password.append(getRandomCharacter(uppercaseLetters, random));
+        password.append(getRandomCharacter(lowercaseLetters, random));
+        password.append(getRandomCharacter(numbers, random));
+        password.append(getRandomCharacter(symbols, random));
+
+        // Genera el resto de la contraseña
+        for (int i = 4; i < length; i++) {
+            password.append(getRandomCharacter(allCharacters, random));
+        }
+
+        // Mezcla los caracteres en la contraseña
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(length);
+            char temp = password.charAt(i);
+            password.setCharAt(i, password.charAt(randomIndex));
+            password.setCharAt(randomIndex, temp);
+        }
+
+        return password.toString();
+    }
+
+    private char getRandomCharacter(String characters, SecureRandom random) {
+        int randomIndex = random.nextInt(characters.length());
+        return characters.charAt(randomIndex);
+    }
 }

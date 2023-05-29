@@ -12,16 +12,16 @@
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
-        <table style="width:100%; " class="table table-bordered">
+        <table style="width:100%; " class="table table-bordered small">
             <thead>
                 <tr>
-                    <th scope="col" width="5%">N°</th>
+                    <th scope="col">N°</th>
                     <th scope="col">Nombre Istitución</th>
                     <th scope="col">Cargo</th>
                     <th scope="col">Funciones</th>
-                    <th scope="col" width="10%">Periodo Inicio</th>
-                    <th scope="col" width="10%">Periodo Fin</th>
-                    <th scope="col" width="10%">Opciones</th>
+                    <th scope="col">Periodo Inicio</th>
+                    <th scope="col">Periodo Fin</th>
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,19 +83,19 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <div id="MensajeErrorPeriodo" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El periodo no es válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El periodo no es válido.
                                 <button id="btnAlertaPeriodo" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
                         <div id="MensajeErrorPeriodoInicio" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El formato del periodo de inicio no es válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El formato del periodo de inicio no es válido.
                                 <button id="btnAlertaPeriodoInicio" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
                         <div id="MensajeErrorPeriodoFin" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El formato del periodo de fin no es válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El formato del periodo de fin no es válido.
                                 <button id="btnAlertaPeriodoFin" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>

@@ -92,31 +92,31 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <div id="MensajeErrorFecha" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>La edad debe ser mayor de 18 años.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>La edad debe ser mayor de 18 años.
                                 <button id="btnAlertaFecha" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
                         <div id="MensajeErrorFechaNacimiento" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>La fecha no es un formato válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>La fecha no es un formato válido.
                                 <button id="btnAlertaFechaNacimiento" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
                         <div id="MensajeErrorDui" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El DUI no es un formato válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El DUI no es un formato válido.
                                 <button id="btnAlertaDui" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
                         <div id="MensajeErrorNit" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El NIT no es un formato válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El NIT no es un formato válido.
                                 <button id="btnAlertaNit" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
                         <div id="MensajeErrorNup" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El NUP no es un formato válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El NUP no es un formato válido.
                                 <button id="btnAlertaNup" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>

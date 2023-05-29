@@ -72,31 +72,45 @@
                         <input type="hidden" id="idPlanEstudio">
                         <input type="hidden" id="idMaestria">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="codPlan" name="codPlan" placeholder="Código del plan de estudio" required>
+                            <label for="codPlan" class="form-label">Código del plan de estudio</label>
+                            <input type="text" class="form-control" id="codPlan" name="codPlan" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="modalidad" name="modalidad" placeholder="Modalidad" required>
+                            <label for="modalidad" class="form-label">Modalidad</label>
+                            <select class="form-select" id="modalidad" name="modalidad" required>
+                              <option value="">Seleccionar Modalidad</option>
+                              <option value="Presencial">Presencial</option>
+                              <option value="Semipresencial">Semipresencial</option>
+                              <option value="En línea">En línea</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="cumMinimo" name="cumMinimo" placeholder="CUM Mínimo" min="0" max="10" required>
+                            <label for="cumMinimo" class="form-label">CUM Mínimo</label>
+                            <input type="number" class="form-control" id="cumMinimo" name="cumMinimo" min="0" max="10" step="any" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="notaMinimaAprobacion" name="notaMinimaAprobacion" placeholder="Nota Mínima de Aprobación" min="0" max="10" required>
+                            <label for="notaMinimaAprobacion" class="form-label">Nota Mínima de Aprobación</label>
+                            <input type="number" class="form-control" id="notaMinimaAprobacion" name="notaMinimaAprobacion" min="0" max="10" step="any" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="totalAsignaturas" name="totalAsignaturas" placeholder="Total de Asignaturas" required>
+                            <label for="totalAsignaturas" class="form-label">Total de Asignaturas</label>
+                            <input type="number" class="form-control" id="totalAsignaturas" name="totalAsignaturas" min="0" max="999" step="1" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="totalUv" name="totalUv" placeholder="Total de UV" required>
+                            <label for="totalUv" class="form-label">Total de UV</label>
+                            <input type="number" class="form-control" id="totalUv" name="totalUv" min="0" max="999" step="1" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="duracionCarrera" name="duracionCarrera" placeholder="Duración de la Carrera" required>
+                            <label for="duracionCarrera" class="form-label">Duración de la Carrera en años</label>
+                            <input type="number" class="form-control" id="duracionCarrera" name="duracionCarrera" min="0" max="999" step="1" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="tituloOrtorgar" name="tituloOrtorgar" placeholder="Título a Otorgar" required>
+                            <label for="tituloOrtorgar" class="form-label">Título a Otorgar</label>
+                            <input type="text" class="form-control" id="tituloOrtorgar" name="tituloOrtorgar" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="anio" name="anio" placeholder="Año" required>
+                            <label for="anio" class="form-label">Año</label>
+                            <input type="number" class="form-control" id="anio" name="anio" min="0" required>
                         </div>
                         <div class="modal-footer">
                             <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>

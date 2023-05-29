@@ -37,9 +37,9 @@ public class Maestria implements Serializable {
     @ManyToOne(optional = false)
     private EscuelaPostgrado idPostgrado;
     
-    @JoinColumn(name = "ID_LIST_COHORTE", referencedColumnName = "ID_LIST_COHORTE")
-    @ManyToOne
-    private ListadoCohorte idListCohorte;
+//    @JoinColumn(name = "ID_LIST_COHORTE", referencedColumnName = "ID_LIST_COHORTE")
+//    @ManyToOne
+//    private ListadoCohorte idListCohorte;
 
     public Maestria() {
     }
@@ -69,6 +69,22 @@ public class Maestria implements Serializable {
         this.nombreMaestria = nombreMaestria;
     }
 
+    public String getPerfilAsp() {
+        return perfilAsp;
+    }
+
+    public void setPerfilAsp(String perfilAsp) {
+        this.perfilAsp = perfilAsp;
+    }
+
+    public String getPerfilCoor() {
+        return perfilCoor;
+    }
+
+    public void setPerfilCoor(String perfilCoor) {
+        this.perfilCoor = perfilCoor;
+    }
+    
     public CoordinadorAcademico getIdCoorAca() {
         return idCoorAca;
     }
@@ -85,13 +101,13 @@ public class Maestria implements Serializable {
         this.idPostgrado = idPostgrado;
     }
 
-    public ListadoCohorte getIdListCohorte() {
-        return idListCohorte;
-    }
-
-    public void setIdListCohorte(ListadoCohorte idListCohorte) {
-        this.idListCohorte = idListCohorte;
-    }
+//    public ListadoCohorte getIdListCohorte() {
+//        return idListCohorte;
+//    }
+//
+//    public void setIdListCohorte(ListadoCohorte idListCohorte) {
+//        this.idListCohorte = idListCohorte;
+//    }
 
 
     @Override

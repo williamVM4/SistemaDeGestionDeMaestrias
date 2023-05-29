@@ -11,12 +11,12 @@
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
-        <table style="width:100%; " class="table table-bordered">
+        <table style="width:100%; " class="table table-bordered small">
             <thead>
                 <tr>
-                    <th scope="col" width="2%">N°</th>
-                    <th scope="col" width="10%">Nombre</th>
-                    <th scope="col" width="2%">Opciones</th>
+                    <th scope="col">N°</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +74,7 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <div id="MensajeErrorLink" class="d-none">
                             <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El link no es un formato válido.
+                                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>El link no es un formato válido.
                                 <button id="btnAlertaLink" type="button" class="btn-close" aria-label="Close"></button>
                             </div>
                         </div>
