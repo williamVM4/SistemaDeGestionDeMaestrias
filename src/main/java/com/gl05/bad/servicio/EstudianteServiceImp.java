@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,5 +54,10 @@ public class EstudianteServiceImp implements EstudianteService{
     public DataTablesOutput<Estudiante> listaEstudiantes(DataTablesInput input) {
         return (DataTablesOutput<Estudiante>)estudianteDao.findAll(input);
     }
-
+    
+    @Override
+    @Transactional(readOnly=true)
+    public List<Estudiante> obtenerEstudiantesSinCohorte(@Param("idCohorte") Long idCohorte){
+        return estudianteDao.findEstudiantesSinCohorte(idCohorte);
+    }
 }

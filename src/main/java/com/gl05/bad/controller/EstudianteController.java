@@ -115,5 +115,16 @@ public class EstudianteController {
         List<String> estados = Arrays.asList("Nacimiento", "Naturalización", "Residencia");
         return estados;
     }
+    
+    @GetMapping("/InscripcionEstudiantes/{idCohorte}")
+    public String inscripcionEstudiantes(@PathVariable Long idCohorte, Model model) {
+        model.addAttribute("pageTitle", "Inscripción Estudiantes");
+
+        List<Estudiante> estudiantesSinCohorte = estudianteService.obtenerEstudiantesSinCohorte(idCohorte);
+        model.addAttribute("estudiantes", estudiantesSinCohorte);
+        model.addAttribute("idCohorte", idCohorte);
+
+        return "/Estudiante/InscripcionEstudiante";
+    }
 
 }

@@ -9,6 +9,7 @@ import com.gl05.bad.servicio.UserService;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -110,6 +111,32 @@ public class CohorteController {
         }
     }
     
+    @GetMapping("/ObtenerCohortesActivas/{idMaestria}")
+    public ResponseEntity<?> obtenerCohortesActivasMaestria(@PathVariable Long idMaestria) {
+        try {
+            short estadoCohorteActivo = 1;
+            Maestria maestriaId = new Maestria(idMaestria);
+            Maestria maestria = maestriaService.encontrarMaestria(maestriaId);
+            List<Cohorte> cohortes = cohorteService.encontrarCohortesActivasPorIdMaestria(maestria, estadoCohorteActivo);
+
+            return ResponseEntity.ok().body(cohortes);
+        } catch (Exception e) {
+            String mensajeError = "Error al obtener las cohortes activas";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensajeError);
+        }
+    }
     
-    
+    @GetMapping("/ObtenerCohortes/{idMaestria}")
+    public ResponseEntity<?> obtenerCohortesMaestria(@PathVariable Long idMaestria) {
+        try {
+            Maestria maestriaId = new Maestria(idMaestria);
+            Maestria maestria = maestriaService.encontrarMaestria(maestriaId);
+            List<Cohorte> cohortes = cohorteService.encontrarCohortesPorIdMaestria(maestria );
+
+            return ResponseEntity.ok().body(cohortes);
+        } catch (Exception e) {
+            String mensajeError = "Error al obtener las cohortes activas";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensajeError);
+        }
+    }
 }
