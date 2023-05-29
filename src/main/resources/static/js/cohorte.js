@@ -187,7 +187,7 @@ $(document).ready(function() {
                 },
                 error: function(xhr, status, error) {
                     $('#crearModal').modal('hide'); // Cierra el modal
-                    var errorMessage = xhr.responseText || 'Error al actualizar el plan de estudio.';
+                    var errorMessage = xhr.responseText || 'Error al actualizar la cohorte.';
                     mostrarMensaje(errorMessage, 'danger');
                 }
             });
