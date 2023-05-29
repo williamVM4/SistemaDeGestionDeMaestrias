@@ -68,7 +68,10 @@
                                     <c:if test="${maestria.idCoorAca != null}">
                                         <p class="my-3"><strong>Plan de estudio vigente:</strong>&nbsp;</p>
                                     </c:if>
-                                    <c:if test="${maestria.idCoorAca == null}">
+                                    <c:if test="${planEstudioVigente != null}">
+                                        <p class="my-3"><strong>Plan de estudio vigente:</strong>&nbsp;${planEstudioVigente.codPlan}</p>
+                                    </c:if>
+                                    <c:if test="${planEstudioVigente == null}">
                                         <p class="my-3"><strong>Plan de estudio vigente:</strong>&nbsp;No tiene un plan de estudio vigente.</p>
                                     </c:if>
                                 </div>
@@ -79,7 +82,8 @@
           </div>
           <div class="row">
               <div class="col-md-6">
-                    <div class="card m-3">
+                  <div class="d-flex h-100 w-100">
+                    <div class="card m-3 flex-fill">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Perfil del Coordinador</h5>
                             <div>
@@ -95,24 +99,33 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p><pre><c:out value="${maestria.perfilCoor}" /></pre></p>
+                            <pre class="py-2"><c:out value="${maestria.perfilCoor}" /></pre>
                         </div>
                     </div>
+                  </div>
               </div>
               <div class="col-md-6">
-                    <div class="card m-3">
+                  <div class="d-flex h-100 w-100">
+                    <div class="card m-3 flex-fill">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Perfil del Aspirante</h5>
                             <div>
-                                <button class="btn btn-outline-primary"><i class="fas fa-plus"></i></button>
-                                <button class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                <c:if test="${maestria.perfilAsp == null || maestria.perfilAsp == ''}">
+                                <button class="btn btn-outline-primary abrirModal-perfilAsp"><i class="fas fa-plus"></i></button>
+                                </c:if>
+                                <c:if test="${maestria.perfilAsp != null && maestria.perfilAsp != ''}">
+                                <button class="btn btn-outline-warning abrirModal-perfilAsp" data-tipo="editar" data-id="${maestria.idMaestria}"><i class="bi bi-pencil-square"></i></button>
+                                </c:if> 
+                                <c:if test="${maestria.perfilAsp != null && maestria.perfilAsp != ''}">
+                                <button class="btn btn-outline-danger abrirModal-perfilAsp" data-tipo="eliminar" data-id="${maestria.idMaestria}"><i class="bi bi-trash"></i></button>
+                                </c:if> 
                             </div>
                         </div>
                         <div class="card-body">
-                            <!-- Contenido del perfil del aspirante -->
+                            <pre class="py-2"><c:out value="${maestria.perfilAsp}" /></pre>
                         </div>
                     </div>
+                  </div>
               </div>
           </div>
           <div class="row">
@@ -121,28 +134,29 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Coordinador Académico</h5>
                             <div>
-                                <button class="btn btn-outline-primary"><i class="fas fa-plus"></i></button>
-                                <button class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                <c:if test="${maestria.idCoorAca == null}">
+                                <button class="btn btn-outline-primary abrirModal-idCoorAca"><i class="fas fa-plus"></i></button>
+                                </c:if>
+                                <c:if test="${maestria.idCoorAca != null}">
+                                <a href="#" class="btn btn-outline-secondary"<i class="bi bi-eye"></i></a>
+                                </c:if> 
+                                <c:if test="${maestria.idCoorAca != null}">
+                                <button class="btn btn-outline-warning abrirModal-idCoorAca" data-tipo="editar" data-id="${maestria.idMaestria}"><i class="bi bi-pencil-square"></i></button>
+                                </c:if> 
+                                <c:if test="${maestria.idCoorAca != null}">
+                                <button class="btn btn-outline-danger abrirModal-idCoorAca" data-tipo="eliminar" data-id="${maestria.idMaestria}"><i class="bi bi-trash"></i></button>
+                                </c:if>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <!-- Contenido del perfil del aspirante -->
                         </div>
                     </div>
               </div>
               <div class="col-md-6">
                     <div class="card m-3">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Plan de Estudio</h5>
+                            <h5 class="mb-0">Planes de Estudio</h5>
                             <div>
-                                <button class="btn btn-outline-primary"><i class="fas fa-plus"></i></button>
-                                <button class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                <a href="/GestionarPlanEstudio/${maestria.idMaestria}" class="btn btn-outline-secondary"><i class="fas fa-cogs"></i></a>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <!-- Contenido del perfil del aspirante -->
                         </div>
                     </div>
               </div>
@@ -151,7 +165,7 @@
   </section>
   <!-- /.content -->
   
-    <!-- Modal de agregar, editar y eliminar -->
+    <!-- Modal de agregar, editar y eliminar Pefil Coordinador-->
 <div class="modal fade" id="crearModalPerfilCoordinador" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
     <div class="modal-dialog">
         <div class="modal-content">
@@ -173,6 +187,35 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnSumitPerfilCoordinador" type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+                    
+    <!-- Modal de agregar, editar y eliminar Pefil Aspirante-->
+<div class="modal fade" id="crearModalPerfilAspirante" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formGuardarPerfilAsp" accept-charset="UTF-8">
+                <div class="modal-body">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <input type="hidden" id="idMaestria">
+                    <div id="perfilAspGroup" class="form-group">
+                        <label for="perfilCoor" class="form-label">Perfil del Aspirante</label>
+                        <textarea class="form-control" id="perfilAsp" name="perfilAsp" style="height: 200px; width: 100%;" required></textarea>
+                    </div>
+                    <div class="eliminar-confirmacion d-none">
+                        ¿Estás seguro de que deseas eliminar el perfil del Aspirante?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSumitPerfilAsp" type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </form>

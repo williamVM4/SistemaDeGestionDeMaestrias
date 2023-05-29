@@ -1,9 +1,13 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Maestria;
+import com.gl05.bad.domain.PlanEstudio;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
+import com.gl05.bad.servicio.PlanEstudioService;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +30,9 @@ public class MaestriaController {
     
     @Autowired
     private EscuelaPostgradoService escuelaPostgradoService;
+    
+    @Autowired
+    private PlanEstudioService planEstudioService;
     
     @GetMapping("/GestionarMaestria")
     public String listarMaestrias(Model model) {
@@ -83,8 +90,11 @@ public class MaestriaController {
     
     @GetMapping("/DetalleMaestria/{idMaestria}")
     public String DetalleMaestria(Model model, Maestria maestria, RedirectAttributes redirectAttributes) {
+        short estadoPlanVigente = 1;
         Maestria maestriaEnviar = maestriaService.encontrarMaestria(maestria);
+        PlanEstudio planEstudioVigente = planEstudioService.encontrarPlanEstudioPorIdMaestria(maestriaEnviar, estadoPlanVigente);
         model.addAttribute("maestria", maestriaEnviar);
+        model.addAttribute("planEstudioVigente", planEstudioVigente);
         return "maestria/detalleMaestria";
     }
     
@@ -100,17 +110,46 @@ public class MaestriaController {
     }
     
     @PostMapping("/AgregarPerfilMaestriaCoordinador")
-    public ResponseEntity<String> AgregarPerfilCoordinador(Maestria maestria) {     
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> agregarPerfilCoordinador(Maestria maestria) {
         try {
             Maestria maestriaExistente = maestriaService.encontrarMaestria(maestria);
             maestriaExistente.setPerfilCoor(maestria.getPerfilCoor());
             maestriaService.actualizar(maestriaExistente);
-            String mensaje = "Se ha agregado el perfil del coordinador a la maestria.";
-            return ResponseEntity.ok(mensaje);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("redirectUrl", "/DetalleMaestria/" + maestria.getIdMaestria());
+            response.put("mensaje", "Se ha agregado el perfil del coordinador a la maestría.");
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            String error = "Ha ocurrido un error al agregar el perfil del coordinador.";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            // Manejo del error
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Ha ocurrido un error al agregar el perfil del coordinador.");
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-    
+
+    @PostMapping("/AgregarPerfilMaestriaAspirante")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> agregarPerfilAspirante(Maestria maestria) {
+        try {
+            Maestria maestriaExistente = maestriaService.encontrarMaestria(maestria);
+            maestriaExistente.setPerfilAsp(maestria.getPerfilAsp());
+            maestriaService.actualizar(maestriaExistente);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("redirectUrl", "/DetalleMaestria/" + maestria.getIdMaestria());
+            response.put("mensaje", "Se ha agregado el perfil del aspirante a la maestría.");
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            // Manejo del error
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Ha ocurrido un error al agregar el perfil del aspirante.");
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 }

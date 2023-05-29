@@ -1,5 +1,6 @@
 package com.gl05.bad.dao;
 
+import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.PlanEstudio;
 import java.math.BigDecimal;
 import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
@@ -20,4 +21,6 @@ public interface PlanEstudioDao extends DataTablesRepository<PlanEstudio, Long>{
         @Param("p_titulo_otorgar") String tituloOtorgar,
         @Param("p_anio") short anio
     );
+    
+    PlanEstudio findByPlanEstadoAndIdMaestria(short planEstado, Maestria idMaestria);
 }

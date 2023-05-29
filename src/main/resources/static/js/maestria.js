@@ -80,7 +80,7 @@ $(document).ready(function() {
     $.validator.addMethod(
         "validarNombreMaestria",
         function(value, element) {
-          return this.optional(element) || /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/.test(value);
+          return this.optional(element) || /^[A-Za-zÁÉÍÓÚáéíóú\s,]+$/.test(value);
         },
         "No se aceptan números ni caracteres especiales"
       );
