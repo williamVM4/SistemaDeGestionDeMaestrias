@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -17,10 +13,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "PROGRAMA_ASIGNATURA")
 @NamedQueries({
@@ -70,8 +62,8 @@ public class ProgramaAsignatura implements Serializable {
     private String sistemaEvaluacion;
     @Basic(optional = false)
     private String bibliografia;
-    @OneToMany(mappedBy = "idProgramAsignatura")
-    private Collection<Asignatura> asignaturaCollection;
+    //@OneToMany(mappedBy = "idProgramAsignatura")
+    //private Collection<Asignatura> asignaturaCollection;
     @JoinColumn(name = "ID_LIST_AE", referencedColumnName = "ID_LIST_AE")
     @ManyToOne
     private ListadoActividadEvaluada idListAe;
@@ -185,13 +177,13 @@ public class ProgramaAsignatura implements Serializable {
         this.bibliografia = bibliografia;
     }
 
-    public Collection<Asignatura> getAsignaturaCollection() {
+    /*public Collection<Asignatura> getAsignaturaCollection() {
         return asignaturaCollection;
     }
 
     public void setAsignaturaCollection(Collection<Asignatura> asignaturaCollection) {
         this.asignaturaCollection = asignaturaCollection;
-    }
+    }*/
 
     public ListadoActividadEvaluada getIdListAe() {
         return idListAe;
