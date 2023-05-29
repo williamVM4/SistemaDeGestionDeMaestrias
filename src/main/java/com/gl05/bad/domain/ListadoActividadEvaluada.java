@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -16,10 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "LISTADO_ACTIVIDAD_EVALUADA")
 @NamedQueries({
@@ -32,10 +24,10 @@ public class ListadoActividadEvaluada implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_LIST_AE")
     private Long idListAe;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idListAe")
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idListAe")
     private Collection<Actividad> actividadCollection;
     @OneToMany(mappedBy = "idListAe")
-    private Collection<ProgramaAsignatura> programaAsignaturaCollection;
+    private Collection<ProgramaAsignatura> programaAsignaturaCollection;*/
 
     public ListadoActividadEvaluada() {
     }
@@ -52,7 +44,7 @@ public class ListadoActividadEvaluada implements Serializable {
         this.idListAe = idListAe;
     }
 
-    public Collection<Actividad> getActividadCollection() {
+   /* public Collection<Actividad> getActividadCollection() {
         return actividadCollection;
     }
 
@@ -66,7 +58,7 @@ public class ListadoActividadEvaluada implements Serializable {
 
     public void setProgramaAsignaturaCollection(Collection<ProgramaAsignatura> programaAsignaturaCollection) {
         this.programaAsignaturaCollection = programaAsignaturaCollection;
-    }
+    }*/
 
     @Override
     public int hashCode() {

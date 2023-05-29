@@ -1,26 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
-/**
- *
- * @author william
- */
+
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Asignatura.findAll", query = "SELECT a FROM Asignatura a"),
@@ -34,12 +31,15 @@ public class Asignatura implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_ACTIVIDAD", sequenceName = "S_ACTIVIDAD", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ACTIVIDAD")
     @Column(name = "ID_ASIGNATURA")
     private Long idAsignatura;
+    
     @Basic(optional = false)
     @Column(name = "COD_ASIGNATURA")
     private String codAsignatura;
+    
     @Basic(optional = false)
     @Column(name = "NOMBRE_MATERIA")
     private String nombreMateria;
@@ -49,19 +49,29 @@ public class Asignatura implements Serializable {
     @Basic(optional = false)
     @Column(name = "NUMERO_CORRELATIVO")
     private short numeroCorrelativo;
+    
     @Basic(optional = false)
+    @Column(name = "CICLO")
     private short ciclo;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
     private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;
+    
+    @JsonBackReference
     @JoinColumn(name = "ID_AREA_CONOCIMIENTO", referencedColumnName = "ID_AREA_CONOCIMIENTO")
     @ManyToOne(optional = false)
     private AreaConocimiento idAreaConocimiento;
+    
+    @JsonBackReference
     @JoinColumn(name = "ID_MALLA_CURRICULAR", referencedColumnName = "ID_MALLA_CURRICULAR")
     @ManyToOne(optional = false)
     private MallaCurricular idMallaCurricular;
+    
+    //@JsonBackReference
     @JoinColumn(name = "ID_PROGRAM_ASIGNATURA", referencedColumnName = "ID_PROGRAM_ASIGNATURA")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ProgramaAsignatura idProgramAsignatura;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
     private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
 
