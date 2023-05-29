@@ -57,7 +57,7 @@ public class Asignatura implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
     private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;
     
-    @JsonBackReference
+    //@JsonBackReference
     @JoinColumn(name = "ID_AREA_CONOCIMIENTO", referencedColumnName = "ID_AREA_CONOCIMIENTO")
     @ManyToOne(optional = false)
     private AreaConocimiento idAreaConocimiento;

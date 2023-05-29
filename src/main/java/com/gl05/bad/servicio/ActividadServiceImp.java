@@ -24,10 +24,8 @@ public class ActividadServiceImp implements ActividadService {
 
     @Override
     public void actualizarA(Actividad actividad) {
-        System.out.println(actividad.getIdActividad());
         // Verifica si el área de conocimiento existe en la base de datos
         if (actividadDao.existsById(actividad.getIdActividad())) {
-            System.out.println("aaaaaaaaaaaaaaaxd");
             actividadDao.save(actividad);
             
         } else {

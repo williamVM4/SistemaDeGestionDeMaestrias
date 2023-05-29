@@ -42,9 +42,9 @@ public class AsignaturaController {
 
     @GetMapping("/Asignatura/data")
     @ResponseBody
-    public DataTablesOutput<Asignatura> getAsignatura(@Valid DataTablesInput input, 
+    public DataTablesOutput<Asignatura> getAsignatura(@Valid DataTablesInput input,
             @RequestParam("idMallaCurricular") Long idMallaCurricular) {
-        return asignaturaService.listarAsignaturaFiltrado(input,idMallaCurricular);
+        return asignaturaService.listarAsignaturaFiltrado(input, idMallaCurricular);
     }
 
     @PostMapping("/AgregarAsignatura")
@@ -79,14 +79,14 @@ public class AsignaturaController {
             System.out.println(actividadString);
             System.out.println(ponderacionString);
             asignaturaService.AgregarAsig(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC, idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividadString, ponderacionString);
-            String mensaje = "Se ha Agregado una Asignatura." + Arrays.toString(actividad);
+            String mensaje = "Se ha Agregado una Asignatura.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ya existe una Asignatura con ese nombre.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
-    
+
     @PostMapping("/EliminarAsignatura/{idAsignatura}")
     public ResponseEntity EliminarPlanEstudio(Asignatura asignatura) {
         try {
@@ -96,6 +96,35 @@ public class AsignaturaController {
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el plan de estudio.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
+    @PostMapping("/ActualizarAsignatura")
+    public ResponseEntity ActualizarAsignatura(Asignatura asignatura, RedirectAttributes redirectAttributes) {
+        try {
+            Asignatura asignaturaExsistente = asignaturaService.encontrarA(asignatura);
+            asignaturaExsistente.setCiclo(asignatura.getCiclo());
+            asignaturaExsistente.setIdAreaConocimiento(asignatura.getIdAreaConocimiento());
+            asignaturaExsistente.setNombreMateria(asignatura.getNombreMateria());
+            asignaturaExsistente.setNumeroCorrelativo(asignatura.getNumeroCorrelativo());
+            asignaturaExsistente.setUnidadesValorativas(asignatura.getUnidadesValorativas());
+            asignaturaExsistente.setCodAsignatura(asignatura.getCodAsignatura());
+            asignaturaService.actualizarA(asignaturaExsistente);
+            String mensaje = "Se ha actualizado la Actividad correctamente.";
+            return ResponseEntity.ok(mensaje);
+        } catch (Exception e) {
+            String error = "No se puede Actualizar la actividad";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+    
+        @GetMapping("/ObtenerAsignatura/{id}")
+    public ResponseEntity<Asignatura> obtenerAsignatura(@PathVariable Long id) {
+        Asignatura actividad = asignaturaService.encontrarAsig(id);
+        if (actividad != null) {
+            return ResponseEntity.ok(actividad);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
