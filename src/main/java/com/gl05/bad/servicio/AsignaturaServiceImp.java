@@ -1,13 +1,12 @@
 package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.AsignaturaDao;
-import com.gl05.bad.dao.PlanEstudioDao;
 import com.gl05.bad.domain.Asignatura;
-import com.gl05.bad.domain.MallaCurricular;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +65,12 @@ public class AsignaturaServiceImp implements AsignaturaService{
     @Transactional(readOnly=true)
     public long encontrarMalla(Long idPlanEstudio) {
         return asignaturaDao.findMallaByPlanId(idPlanEstudio);
+    }
+
+    @Override
+    public DataTablesOutput<Asignatura> listarAsignaturaFiltrado(DataTablesInput input, Long idMallaCurricular) {
+     Specification<Asignatura> additionalSpecification = (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("idMallaCurricular"), idMallaCurricular);
+        return asignaturaDao.findAll(input, additionalSpecification);
     }
 }

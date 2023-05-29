@@ -31,19 +31,20 @@ public class AsignaturaController {
     private AreaConocimientoService areaConocimientoService;
 
     @GetMapping("/DetallePlanEstudio/{idPlanEstudio}")
-    public String Asignatura(Model model, Asignatura asignatura, RedirectAttributes redirectAttributes, @PathVariable("idPlanEstudio") Long idPlanEstudio) {
+    public String Asignatura(Model model, RedirectAttributes redirectAttributes, @PathVariable("idPlanEstudio") Long idPlanEstudio) {
         var areaC = areaConocimientoService.listarAreaConocimientos();
         Long idMallaC = asignaturaService.encontrarMalla(idPlanEstudio);
         model.addAttribute("areaC", areaC);
         model.addAttribute("idMallaC", idMallaC);
+        model.addAttribute("idPlanEstudio", idPlanEstudio);
         return "Asignatura/index";
     }
 
     @GetMapping("/Asignatura/data")
     @ResponseBody
-    public DataTablesOutput<Asignatura> getAsignatura(@Valid DataTablesInput input) {
-        System.out.println(asignaturaService.listarAsignatura(input));
-        return asignaturaService.listarAsignatura(input);
+    public DataTablesOutput<Asignatura> getAsignatura(@Valid DataTablesInput input, 
+            @RequestParam("idMallaCurricular") Long idMallaCurricular) {
+        return asignaturaService.listarAsignaturaFiltrado(input,idMallaCurricular);
     }
 
     @PostMapping("/AgregarAsignatura")

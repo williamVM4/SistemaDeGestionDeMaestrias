@@ -67,7 +67,7 @@ public class Asignatura implements Serializable {
     @ManyToOne(optional = false)
     private MallaCurricular idMallaCurricular;
     
-    @JsonBackReference
+    //@JsonBackReference
     @JoinColumn(name = "ID_PROGRAM_ASIGNATURA", referencedColumnName = "ID_PROGRAM_ASIGNATURA")
     @ManyToOne(optional = false)
     private ProgramaAsignatura idProgramAsignatura;

@@ -63,10 +63,10 @@ public class AreaConocimientosController {
     public ResponseEntity ActualizarAreaConocimiento(AreaConocimiento area, RedirectAttributes redirectAttributes) {
         try {
             areaConocimientoService.actualizarAC(area);
-            String mensaje = "Se ha actualizado la maestria correctamente.";
+            String mensaje = "Se ha actualizado la Area de Conocimiento correctamente.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            String error = "Ha ocurrido un error al actualizar la maestria.";
+            String error = "Ha ocurrido un error al actualizar la Area de Conocimiento.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
@@ -79,7 +79,7 @@ public class AreaConocimientosController {
         } else {
             return ResponseEntity.notFound().build();
         }
-}
+    }
 
 
 }

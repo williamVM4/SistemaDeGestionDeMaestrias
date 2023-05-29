@@ -10,7 +10,7 @@
                 <div class="col-sm-12">
                     <div class="titulo-Perfil">
                         <div class="container">
-                            <h1>Asignatura</h1>
+                            <h1>Asignaturas Del Plan de Estudio</h1>
                         </div>
                     </div>
                 </div>
@@ -117,19 +117,19 @@
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="number" class="form-control" id="horasP" name="horasP">
-                                 <label for="horasP">Horas Practica Semanas</label>
+                                    <label for="horasP">Horas Practica Semanas</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="number" class="form-control" id="horaCiclo" name="horaCiclo" readonly>
-                                     <label for="horaCiclo">Horas Ciclo</label>
+                                    <label for="horaCiclo">Horas Ciclo</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="text" class="form-control" id="introduccion" name="introduccion">
-                                     <label for="introduccion">Introduccion</label>
+                                    <label for="introduccion">Introduccion</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="text" class="form-control" id="descipcionPrograma" name="descipcionPrograma">
-                                     <label for="descipcionPrograma">Descriòn del Programa</label>
+                                    <label for="descipcionPrograma">Descriòn del Programa</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="text" class="form-control" id="objetivo" name="objetivo">
@@ -137,27 +137,26 @@
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="text" class="form-control" id="metodologia" name="metodologia">
-                                     <label for="metodologia">Metodologia de Enseñanza</label>
+                                    <label for="metodologia">Metodologia de Enseñanza</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="text" class="form-control" id="sistemaEvaluacion" name="sistemaEvaluacion">
-                                     <label for="sistemaEvaluacion">Sistema de Evaluaciòn</label>
+                                    <label for="sistemaEvaluacion">Sistema de Evaluaciòn</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-sm-6">
                                     <input type="text" class="form-control" id="bibliografia" name="bibliografia">
-                                     <label for="bibliografia">Bibliografia</label>
+                                    <label for="bibliografia">Bibliografia</label>
                                 </div> 
                             </div>
 
                             <h6>Actividad de la Asignatura</h6>
                             <div class="row">
-                                <div class="form-floating mb-3 col-md-6 col-sm-6">
-                                    <input type="text" class="form-control" id="actividad" name="actividad[]">
-                                     <label for="actividad">Nombre de la Actividad</label>
+                                <div class="form-group mb-3 col-md-6 col-sm-6">
+                                    <input type="text" class="form-control" id="actividad" name="actividad[]" placeholder="Nombre de la Actividad">  
                                 </div>
-                                <div class="form-floating mb-3 col-md-6 col-sm-6">
-                                    <input type="number" class="form-control" id="ponderacion" name="ponderacion[]">
-                                     <label for="ponderacion">Ponderaciòn de la Actividad</label>
+
+                                <div class="form-group mb-3 col-md-6 col-sm-6">
+                                    <input type="number" class="form-control" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad en %">
                                 </div>
                             </div>
                             <div id="actividades-extra" class="row">
@@ -199,6 +198,9 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>
+<script>
+    var idMallaCurricular = "${idMallaC}";
+</script>
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/asignatura.js"></script>
 <style>

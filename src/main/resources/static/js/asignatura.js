@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#asignaturaTable').DataTable({
-        ajax: '/Asignatura/data',
+        ajax: '/Asignatura/data?idMallaCurricular=' + idMallaCurricular,
         processing: true,
         serverSide: true,
         dom: "<'row w-100'<'col-sm-6'l><'col-sm-6'f>>" +
@@ -21,13 +21,21 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
                     var actionsHtml = '';
-
+                    actionsHtml += '<a type="button" title="Programa" class="btn btn-outline-secondary"';
+                    actionsHtml += 'title="" href="/viewPrograma/' + row.idProgramAsignatura.idProgramAsignatura + '">';
+                    actionsHtml += '<i class="bi bi-arrow-up-right-square"></i></a>';
+                    
+                    actionsHtml += '<a type="button" title="Actividades" class="btn btn-outline-secondary"';
+                    actionsHtml += 'title="" href="/viewActividad/' + row.idProgramAsignatura.idProgramAsignatura + '">';
+                    actionsHtml += '<i class="bi bi-card-checklist"></i></a>';
+                    
                     //if(hasPrivilegeAdmin == true){
-                    actionsHtml += '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                    actionsHtml += '<button title="Actualizar" type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
                     actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idAsignatura + '" data-modo="actualizar">';
                     actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
                     //}
-                    actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idAsignatura + '" ';
+
+                    actionsHtml += '<button type="button" title="Eliminar" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idAsignatura + '" ';
                     actionsHtml += 'data-nombre="' + row.nombreMateria + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
 
@@ -248,14 +256,13 @@ $(document).ready(function () {
                     $('#crearModal').modal('hide');  // Cierra el modal
                     var table = $('#asignaturaTable').DataTable();
                     table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
-                    //mostrarMensaje(response, 'success');
-                    console.log(response);
+                    mostrarMensaje(response, 'success');
                 },
                 error: function (xhr, status, error) {
                     $('#crearModal').modal('hide');  // Cierra el modal
                     console.log(error);
-                    //var errorMessage = xhr.responseText || 'Error al actualizar la Asignatura.';
-                    //mostrarMensaje(errorMessage, 'danger');
+                    var errorMessage = xhr.responseText || 'Error al actualizar la Asignatura.';
+                    mostrarMensaje(errorMessage, 'danger');
                 }
             });
         }
