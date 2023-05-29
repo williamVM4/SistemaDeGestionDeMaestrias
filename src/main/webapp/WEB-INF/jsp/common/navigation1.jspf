@@ -151,6 +151,12 @@
                   <p>Áreas de conocimiento</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/GestionarPais" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarPais' ? 'active' : ''}">
+                  <i class="far fa-circle nav-icon text-warning"></i>
+                  <p>Paises</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
