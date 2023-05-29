@@ -22,9 +22,9 @@
     <section class="content pb-5">
         <div class="container">
             <form action="/guardarInscripcion" method="post">
-                <input type="hidden" name="idCohorte" value="${idCohorte}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                <input type="hidden" name="idCohorte" value="${cohorte.idCohorte}">
                 <div class="form-group">
-                    <label for="estudiantes">Estudiantes:</label>
                     <select name="estudiantes" id="estudiantes" class="form-control" multiple>
                         <c:forEach items="${estudiantes}" var="estudiante">
                             <option value="${estudiante.idEstudiante}">${estudiante.nombresE} ${estudiante.apellidosE}</option>
@@ -32,15 +32,17 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="/InscribirMaestria" class="btn btn-danger">Cancelar</a>
             </form>
         </div><!-- /.container-fluid -->
     </section>
 </div>
 
 <%@ include file="../common/footer1.jspf"%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#estudiantes').select2();
+        $( '#estudiantes' ).select2( {
+        theme: 'bootstrap-5'
+        } );
     });
 </script>

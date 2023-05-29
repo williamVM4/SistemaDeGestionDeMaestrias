@@ -141,7 +141,7 @@ $(document).ready(function() {
                         // Agregar el nombre de la cohorte
                         li.text(cohorte.nombreCohorte);
                         // Crear un enlace al formulario de inscripción de la cohorte
-                        var enlace = $('<a>').addClass('btn btn-primary').attr('href', '/EstudiantesCohorte/' + cohorte.idCohorte).text('Gestionar');
+                        var enlace = $('<a>').addClass('btn btn-primary').attr('href', '/GestionarEstudiantesCohorte/' + cohorte.idCohorte).text('Gestionar');
                         // Agregar el enlace al final del elemento li
                         li.append(enlace);
                         // Agregar el elemento li a la lista ul
