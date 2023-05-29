@@ -10,13 +10,18 @@ import com.gl05.bad.servicio.RolesService;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -43,31 +48,41 @@ public class RolesController {
         model.addAttribute("Permisos", elementoPermiso);
         //model.addAttribute("rol", new Roles());
 
-        return "/Roles/GestionarRoles";
+        return "/Roles/GestionarRoles2";
     }
+    
+    @GetMapping("/roles/data")
+    @ResponseBody
+    public DataTablesOutput<Roles> getRoles(@Valid DataTablesInput input) {
+        return rolesService.listarRoles(input);
+    }
+    
 
     @PostMapping("/AgregarRol")
-    public String AgregarRol(Roles rol, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public ResponseEntity AgregarRol(Roles rol, HttpServletRequest request, RedirectAttributes redirectAttributes) {
          
         try {
             rolesService.AgregarRol(rol);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un rol.");
+            String mensaje = "Se ha agregado un rol.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ya existe un rol con ese identificador.");
+            String error = "Ocurrió un error al agregar el rol.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-
-        return "redirect:/viewRoles";
+//        return "redirect:/viewRoles";
     }
 
-    @GetMapping("/EliminarRol/{idRol}")
-    public String EliminarRol(Roles rol, RedirectAttributes redirectAttributes) {
+    @PostMapping("/EliminarRol/{idRol}")
+    public ResponseEntity EliminarRol(Roles rol, RedirectAttributes redirectAttributes) {
         try {
             rolesService.eliminarRol(rol);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el rol correctamente.");
+            String mensaje = "Se ha eliminado el rol correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "No se puede eliminar el rol porque lo tienen un usuario");
+            String error = "Ha ocurrido un error al eliminar el rol";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/viewRoles";
+//        return "redirect:/viewRoles";
     }
 
     @GetMapping("/ObtenerRol/{id}")
@@ -81,14 +96,16 @@ public class RolesController {
     }
     
     @PostMapping("/ActualizarRol")
-    public String ActualizarRol(Roles rol, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public ResponseEntity ActualizarRol(Roles rol, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
             rolesService.actualizarRol(rol);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado el Rol.");
+            String mensaje = "Se ha actualizado el rol correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al actualizar el Rol.");
+           String error = "Ha ocurrido un error al actualizar el rol.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/viewRoles";
+//        return "redirect:/viewRoles";
     }
     
 
