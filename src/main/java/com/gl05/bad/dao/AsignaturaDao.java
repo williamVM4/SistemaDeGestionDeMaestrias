@@ -35,5 +35,7 @@ public interface AsignaturaDao extends DataTablesRepository<Asignatura, Long> {
 
     @Query("SELECT mc.idMallaCurricular FROM MallaCurricular mc WHERE mc.idPlanEstudio.id = :idPlanEstudio")
     Long findMallaByPlanId(@Param("idPlanEstudio") Long idPlanEstudio);
+    
+    List<Asignatura> findByIdMallaCurricular(MallaCurricular idMallaCurricular);
 
 }
