@@ -10,7 +10,7 @@
                 <div class="col-sm-12">
                     <div class="titulo-Perfil">
                         <div class="container">
-                            <h1>Maestrias</h1>
+                            <h1>Postular a Cohorte</h1>
                         </div>
                     </div>
                 </div>
@@ -29,13 +29,12 @@
                 <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-
             <div class="pt-4">
                 <div class="table-responsive-md">
                     <table id="maestriasTable" class="table table-striped" style="width:100%">
                         <thead class="table-light">
                             <tr>
-                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Maestria</th>
                                 <th class="text-center">Escuela de Posgrado</th>
                                 <th class="text-center">Facultad</th>
                                 <th class="text-center">Acciones</th>
@@ -50,6 +49,33 @@
     </section>
     <!-- /.Main content -->
 
+    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cohortes activas para inscripción de estudiantes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="formContainer" class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="gestionEstudiantesModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gestión de estudiantes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="postularModal" tabindex="-1" aria-labelledby="postularLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -60,8 +86,8 @@
                 <div class="modal-body">
                     <form class="form" id='formGuardar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                        <input type="hidden" name="${idUsuario}" id="${idUsuario}" value="${idUsuario}">
-                        
+                        <input type="text" name="idAspiranteProfesor" id="idAspiranteProfesor" value="${aspirante.idAspiranteProfesor}">
+
                     </form>
                     <p>
                         ¿Està seguro de querer postularse a la maestria seleccionada?
@@ -75,8 +101,11 @@
         </div>
     </div>
 
+
 </div>
 <!-- /.content-wrapper -->
-
+<script>
+    var idAspiranteProfesor = "${aspirante.idAspiranteProfesor}";
+</script>
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/postularProfesor.js"></script>

@@ -1,12 +1,16 @@
 package com.gl05.bad.controller;
 
+import com.gl05.bad.domain.AspiranteProfesor;
+import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.PostulacionCohorte;
 import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.servicio.AspiranteProfesorService;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.PostuladoCohorteService;
 import com.gl05.bad.servicio.UserService;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -30,41 +34,48 @@ public class PostularProfesorController {
 
     @Autowired
     private EscuelaPostgradoService escuelaPostgradoService;
-    
+
     @Autowired
     private PostuladoCohorteService postulacionService;
-    
+
+    @Autowired
+    private AspiranteProfesorService aspiranteProfesorService;
+
     @Autowired
     private UserService userService;
 
     @GetMapping("/PostularProfesor")
     public String listarMaestrias(Authentication authentication, Model model) {
         var escuelas = escuelaPostgradoService.listarEscuelaPostgrado();
-        
+
         String username = authentication.getName();
         // Obtener el ID del usuario autenticado desde tu servicio de seguridad
         Usuario usuario = userService.encontrarUsuarioPorUsername(username);
-        Long idUsuario = usuario.getIdUsuario();
+        Long idUsuarioLong = usuario.getIdUsuario();
+        Integer idUsuario = idUsuarioLong.intValue();
+        AspiranteProfesor aspirante = aspiranteProfesorService.encontrarPorIdUsuario(idUsuario);
+
         model.addAttribute("escuelas", escuelas);
-        model.addAttribute("idUsuario", idUsuario);
+        model.addAttribute("aspirante", aspirante);
         return "PostularProfesor/index";
     }
+    
 
     @GetMapping("/MaestriasPostular/data")
     @ResponseBody
     public DataTablesOutput<Maestria> getMaestrias(@Valid DataTablesInput input) {
         return maestriaService.listarMaestrias(input);
     }
-    
+
     @PostMapping("/AgregarPostulado")
     public ResponseEntity AgregarActividad(PostulacionCohorte postulado, RedirectAttributes redirectAttributes) {
         try {
             postulacionService.agregarP(postulado);
-            
-            String mensaje = "Se ha Agregado una Nueva Actividad.";
+
+            String mensaje = "Su postulacion fue exitosa.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            String error = "Ya existe una Actividad con ese Nombre.";
+            String error = "Ocurrio un error al postularse.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
