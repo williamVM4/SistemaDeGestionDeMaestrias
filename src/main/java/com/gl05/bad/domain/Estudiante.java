@@ -81,6 +81,9 @@ public class Estudiante implements Serializable {
     @Column(name = "DOC_PERSONAL_E")
     private String docPersonalE;
     
+    @Column(name = "CORREO_E")
+    private String correoE;
+    
     @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS")
     @ManyToOne(optional = false)
     private Pais idPais;
@@ -208,6 +211,15 @@ public class Estudiante implements Serializable {
     public void setIdPais(Pais idPais) {
         this.idPais = idPais;
     }
+
+    public String getCorreoE() {
+        return correoE;
+    }
+
+    public void setCorreoE(String correo) {
+        this.correoE = correo;
+    }
+
 
 //    public Collection<EstudianteCohorte> getEstudianteCohorteCollection() {
 //        return estudianteCohorteCollection;

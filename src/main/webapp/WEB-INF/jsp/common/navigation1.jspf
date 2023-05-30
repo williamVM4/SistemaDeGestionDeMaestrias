@@ -52,8 +52,8 @@
                 </a>
             </li>
                 
-          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') ? 'menu-open' : ''}">
-            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') ? 'active' : ''}">
+          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') || requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'menu-open' : ''}">
+            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') || requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'active' : ''}">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
                 Procesos
@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/InscribirMaestria" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'active' : ''}">
                         <i class="far fa-clipboard nav-icon text-warning"></i>
                         <p>Inscribir Maestria</p>
                     </a>

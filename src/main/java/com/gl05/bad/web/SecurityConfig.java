@@ -95,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     })
         ;           
         
-        http.authorizeHttpRequests()
+        http.authorizeRequests()
                 .antMatchers("/welcome2")
                 .hasAuthority("VER_ADMIN_PRIVILEGE")             
                 //Aqui debo de poner todos los permisos de ver privilage para que haga el bloqueo al estar
@@ -106,8 +106,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAuthority("VER_USUARIO_PRIVILEGE")
                 .and()
                 .formLogin() 
+                .loginPage("/login")
+                 .loginProcessingUrl("/authenticate") // Ruta para procesar la autenticación
+                .usernameParameter("username") // Nombre del campo de nombre de usuario en el formulario
+                .passwordParameter("password") // Nombre del campo de contraseña en el formulario
+                .defaultSuccessUrl("/welcome") // Ruta de redirección después de un inicio de sesión exitoso
+                .failureUrl("/login?error=true") // Ruta de redirección después de un inicio de sesión fallido
                 .failureHandler(falloAutenticacionHandler())
-                .successHandler(authenticationSuccessHandler());
+                .successHandler(authenticationSuccessHandler())
+                .permitAll();
 
         //.failureUrl("/login?error=true");
     }
