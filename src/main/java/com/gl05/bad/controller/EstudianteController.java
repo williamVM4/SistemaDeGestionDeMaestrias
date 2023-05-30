@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,27 +58,31 @@ public class EstudianteController {
     }
     
     @PostMapping("/AgregarEstudiante")
-    public String AgregarEstudiante(Estudiante estudiante, RedirectAttributes redirectAttributes) {
+    public ResponseEntity AgregarEstudiante(Estudiante estudiante, RedirectAttributes redirectAttributes) {
          
         try {
             estudianteService.agregarEstudiante(estudiante);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un estudiante.");
+            String mensaje = "Se ha agregado un estudiante.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ya existe un estudiante con ese identificador.");
+            String error = "Ocurrió un error al agregar al estudiante.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
 
-        return "redirect:/viewEstudiantes";
+//        return "redirect:/viewEstudiantes";
     }
     
-    @GetMapping("/EliminarEstudiante/{idEstudiante}")
-    public String EliminarEstudiante(Estudiante estudiante, RedirectAttributes redirectAttributes) {
+    @PostMapping("/EliminarEstudiante/{idEstudiante}")
+    public ResponseEntity EliminarEstudiante(Estudiante estudiante, RedirectAttributes redirectAttributes) {
         try {
             estudianteService.eliminarEstudiante(estudiante);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el estudiante correctamente.");
+            String mensaje = "Se ha eliminado al estudiante correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "No se puede eliminar el estudiante ");
+            String error = "Ha ocurrido un error al eliminar al estudiante";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/viewEstudiantes";
+//        return "redirect:/viewEstudiantes";
     }
 
     @GetMapping("/ObtenerEstudiante/{id}")
@@ -91,14 +96,16 @@ public class EstudianteController {
     }
     
     @PostMapping("/ActualizarEstudiante")
-    public String ActualizarEstudiante(Estudiante estudiante, RedirectAttributes redirectAttributes) {
+    public ResponseEntity ActualizarEstudiante(Estudiante estudiante, RedirectAttributes redirectAttributes) {
         try {
             estudianteService.actualizarEstudiante(estudiante);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado el Estudiante.");
+            String mensaje = "Se ha actualizado al estudiante correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al actualizar el Estudiante.");
+            String error = "Ha ocurrido un error al actualizar al estudiante.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/viewRoles";
+//        return "redirect:/viewRoles";
     }
     
     public List<String> listarGeneros() {

@@ -267,7 +267,7 @@ $(document).ready(function () {
             error: function () {
               $('#confirmarEliminarModal').modal('hide');
               // Mostrar mensaje de error en caso de que la solicitud falle
-              mostrarMensaje('Error al eliminar el rol.', 'danger');
+              mostrarMensaje('Error al eliminar el rol, esta asociado a un usuario.', 'danger');
             }
         });
      });

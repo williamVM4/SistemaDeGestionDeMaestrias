@@ -34,11 +34,13 @@ public class EstudianteServiceImp implements EstudianteService{
     }
 
     @Override
+    @Transactional
     public void eliminarEstudiante(Estudiante estudiante) {
         estudianteDao.delete(estudiante);
     }
 
     @Override
+    @Transactional
     public void actualizarEstudiante(Estudiante estudiante) {
         if (estudianteDao.existsById(estudiante.getIdEstudiante())) {
             // Actualiza el estudiante en la base de datos
