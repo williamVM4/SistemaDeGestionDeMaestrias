@@ -45,9 +45,6 @@ public class Bitacora implements Serializable {
     @Basic(optional = false)
     @Column(name = "IP_EQUIPO")
     private String ipEquipo;
-    @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO")
-    @ManyToOne
-    private Usuario idusuario;
 
     public Bitacora() {
     }
@@ -93,14 +90,6 @@ public class Bitacora implements Serializable {
 
     public void setIpEquipo(String ipEquipo) {
         this.ipEquipo = ipEquipo;
-    }
-
-    public Usuario getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(Usuario idusuario) {
-        this.idusuario = idusuario;
     }
 
     @Override
