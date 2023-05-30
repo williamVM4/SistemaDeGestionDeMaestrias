@@ -128,6 +128,28 @@
     
     
     <!-- /.Modal de eliminar -->
+    
+    <div class="modal fade" id="inscribirMateriaModal" tabindex="-1" aria-labelledby="inscribirMateriaModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Malla Curricular de la Maestría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <form action="#" method="post">
+                    <div class="modal-body">
+                    <select id="materias" name="materias" class="form-control select2" size=10 multiple="multiple"></select>
+                    </div>
+                    <div class="modal-footer">
+                    <button id="inscribirMateriaBtn" class="btn btn-success">Inscribir</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+
 
 </div>
   <!-- /.content-wrapper -->
