@@ -41,6 +41,7 @@ public class CohorteController {
     
      @GetMapping("/GestionarCohorte/{idMaestria}")
     public String listarCohortes(Model model,@PathVariable("idMaestria") Long idMaestria) {
+        model.addAttribute("pageTitle", "Cohortes");
         model.addAttribute("idMaestria", idMaestria);
         return "Cohorte/GestionarCohorte";
     }

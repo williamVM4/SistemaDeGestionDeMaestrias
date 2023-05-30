@@ -39,7 +39,7 @@ public class RolesController {
     //Obtener los roles y mostrarlos en tablas
     @GetMapping("/viewRoles")
     public String mostrarRoles(Model model) {
-        model.addAttribute("pageTitle", "mostrarRoles");
+        model.addAttribute("pageTitle", "Roles");
 
         var elemento = rolesService.listaRoles();
         model.addAttribute("Roles", elemento);

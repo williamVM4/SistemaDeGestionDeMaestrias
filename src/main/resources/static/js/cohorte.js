@@ -111,6 +111,15 @@ $(document).ready(function() {
         }
     });
     
+     //fecha
+    $.validator.addMethod(
+    "validarFecha",
+    function(value, element) {
+        return this.optional(element) || /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(value);
+    },
+    "Ingresa una fecha en formato DD/MM/AAAA"
+    );
+    
     var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
     var validator = $('#formGuardar').validate({
        
@@ -121,7 +130,8 @@ $(document).ready(function() {
            },
            
            fechaApertura:{
-               required: true
+               required: true,
+               validarFecha: true
            }
        },
        
@@ -131,7 +141,8 @@ $(document).ready(function() {
            },
            
            fechaApertura: {
-               required: 'Este campo es requerido'
+               required: 'Este campo es requerido',
+               validarFecha: 'Ingrese una fecha valida en formato dd/mm/yyyy'
            } 
        },
        
