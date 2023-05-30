@@ -2,15 +2,18 @@ package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.PostulacionCohorte;
+import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.PostuladoCohorteService;
+import com.gl05.bad.servicio.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +33,20 @@ public class PostularProfesorController {
     
     @Autowired
     private PostuladoCohorteService postulacionService;
+    
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/PostularProfesor")
-    public String listarMaestrias(Model model) {
+    public String listarMaestrias(Authentication authentication, Model model) {
         var escuelas = escuelaPostgradoService.listarEscuelaPostgrado();
+        
+        String username = authentication.getName();
+        // Obtener el ID del usuario autenticado desde tu servicio de seguridad
+        Usuario usuario = userService.encontrarUsuarioPorUsername(username);
+        Long idUsuario = usuario.getIdUsuario();
         model.addAttribute("escuelas", escuelas);
+        model.addAttribute("idUsuario", idUsuario);
         return "PostularProfesor/index";
     }
 

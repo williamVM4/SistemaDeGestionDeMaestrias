@@ -30,7 +30,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
                     var actionsHtml = '';
-                    actionsHtml += '<button type="button" title="Postularse" class="btn btn-outline-success postular-btn" ';
+                    actionsHtml += '<button type="button" title="Postularse" class="btn btn-outline-success abrirModal-btn"';
                     actionsHtml += '">';
                     actionsHtml += '<i class="bi bi-check-square"></i></button>';
 
@@ -70,8 +70,12 @@ $(document).ready(function () {
             return: true
         }
     });
-    $(document).on('click', '.postular-btn', function () {
+    $(document).on('click', '.abrirModal-btn', function () {
         var modal = $('#postularModal');
+        modal.modal('show');
+    });
+    $(document).on('click', '.postular-btn', function () {
+
         var fechaActual = new Date();
         var url = '/AgregarPostulado';
         var formDataArray = $('#formGuardar').serializeArray();
@@ -87,7 +91,7 @@ $(document).ready(function () {
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#crearModal').modal('hide');  // Cierra el modal
+                $('#postularModal').modal('hide');  // Cierra el modal
                 //location.reload();
                 //mostrarMensaje(response, 'success');
             },
@@ -99,7 +103,6 @@ $(document).ready(function () {
             }
         });
 
-        modal.modal('show');
     });
 });
 

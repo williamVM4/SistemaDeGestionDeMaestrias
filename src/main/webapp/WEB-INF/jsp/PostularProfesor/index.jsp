@@ -60,6 +60,7 @@
                 <div class="modal-body">
                     <form class="form" id='formGuardar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <input type="hidden" name="${idUsuario}" id="${idUsuario}" value="${idUsuario}">
                         
                     </form>
                     <p>
@@ -67,7 +68,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button id="postularse" class="btn btn-success">Postularse</button>
+                    <button id="postularse" class="btn btn-success postular-btn">Postularse</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
