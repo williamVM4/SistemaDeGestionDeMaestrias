@@ -17,9 +17,9 @@ $(document).ready(function() {
              "<'row w-100'<'col-sm-5'i><'col-sm-7'p>>",
         columns: [
             { 
-                data: 'nombreCohorte',width: '20%'
+                data: 'nombreCohorte',width: '22%'
             },
-            { data: 'fechaApertura', width: '20%'
+            { data: 'fechaApertura', width: '22%'
                 ,
 
             render: function (data, type, row) {
@@ -38,7 +38,7 @@ $(document).ready(function() {
             
             },
             { 
-                data: 'estadoCohorte',width: '20%',
+                data: 'estadoCohorte',width: '22%',
                 render: function (data, type, row) {
                     var estado = (data === 1) ? 'Activo' : 'Inactivo';
                     return estado;         
@@ -47,9 +47,10 @@ $(document).ready(function() {
             {
                 data: null,
                 title: 'Acciones',
+                class:'text-center',
                 sortable: false,
                 searchable: false,
-                width: '40%',
+                width: '34%',
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
 //                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetallePlanEstudio/' + row.idPlanEstudio + '">';
@@ -72,8 +73,10 @@ $(document).ready(function() {
 //                    actionsHtml += 'data-cod="' + row.idCohorte + '">';
                     actionsHtml += '<i class="bi bi-person-fill-add"></i></button>';
                     
+                    actionsHtml += '<button type="button" class="btn btn-outline-primary inscribirMateriaModal-btn" data-id="' + row.idCohorte + '" ';
+                    actionsHtml += 'data-maestria="' + row.idMaestria.idMaestria + '">';
+                    actionsHtml += '<i class="bi bi-calendar-plus"></i></button>';
                     
-              
                     return actionsHtml;
                 }
             }
@@ -290,6 +293,39 @@ $(document).ready(function() {
         });
         
     });
+    
+    $(document).on('click', '.inscribirMateriaModal-btn', function () {
+    var idMaestria = $(this).data('maestria');
+    var modal = $('#inscribirMateriaModal');
+    var modalBody = modal.find('.modal-body');
+    var select = modal.find('select');
+
+    $.ajax({
+        url: '/ObtenerMateriasMaestria/' + idMaestria,
+        type: 'GET',
+        success: function (response) {
+            // Limpiar las opciones anteriores del select
+            select.empty();
+            // Verificar si se obtuvieron materias
+            if (response && response.length > 0) {
+                // Recorrer las materias y agregarlas como opciones en el select
+                response.forEach(function (materia) {
+                    var option = $('<option>').attr('value', materia.id).text(materia.nombreMateria);
+                    select.append(option);
+                });
+            } else {
+                // Si no hay materias, mostrar un mensaje en el modal body
+                modalBody.text('La maestría no tiene materias disponibles.');
+            }
+        },
+        error: function () {
+            alert('Error al obtener las materias de la maestría.');
+        }
+    });
+    modal.modal('show');
+});
+
+
     
     function mostrarMensaje(mensaje, tipo) {
         var alertElement = $('.alert-' + tipo);

@@ -1,7 +1,9 @@
 package com.gl05.bad.servicio;
 
 import com.gl05.bad.domain.Asignatura;
+import com.gl05.bad.domain.MallaCurricular;
 import java.util.Collection;
+import java.util.List;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 
@@ -24,4 +26,6 @@ public interface AsignaturaService {
   public void actualizarA(Asignatura asignatura);
   
   public DataTablesOutput<Asignatura> listarAsignaturaFiltrado(DataTablesInput input, Long idMallaCurricular);
+  
+  public List<Asignatura> encontrarAsignaturasPorMalla(MallaCurricular idMallaCurricular);
 }

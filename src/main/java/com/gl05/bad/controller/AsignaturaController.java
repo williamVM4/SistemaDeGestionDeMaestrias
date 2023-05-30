@@ -1,9 +1,16 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Asignatura;
+import com.gl05.bad.domain.Maestria;
+import com.gl05.bad.domain.MallaCurricular;
+import com.gl05.bad.domain.PlanEstudio;
 import com.gl05.bad.servicio.AreaConocimientoService;
 import com.gl05.bad.servicio.AsignaturaService;
+import com.gl05.bad.servicio.MaestriaService;
+import com.gl05.bad.servicio.MallaCurricularService;
+import com.gl05.bad.servicio.PlanEstudioService;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +36,15 @@ public class AsignaturaController {
 
     @Autowired
     private AreaConocimientoService areaConocimientoService;
+    
+    @Autowired
+    private MaestriaService maestriaService;
+    
+    @Autowired
+    private PlanEstudioService planEstudioService;
+    
+    @Autowired
+    private MallaCurricularService mallaCurricularService;
 
     @GetMapping("/DetallePlanEstudio/{idPlanEstudio}")
     public String Asignatura(Model model, RedirectAttributes redirectAttributes, @PathVariable("idPlanEstudio") Long idPlanEstudio) {
@@ -96,6 +112,22 @@ public class AsignaturaController {
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el plan de estudio.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+    
+    @GetMapping("/ObtenerMateriasMaestria/{idMaestria}")
+    public ResponseEntity<?> obtenerMateriasMaestria(@PathVariable Long idMaestria) {
+        short estadoPlanVigente = 1;
+        try {
+            Maestria maestriaId = new Maestria(idMaestria);
+            Maestria maestria = maestriaService.encontrarMaestria(maestriaId);
+            PlanEstudio planEstudio = planEstudioService.encontrarPlanEstudioPorIdMaestria(maestria, estadoPlanVigente);
+            MallaCurricular mallaCurricular = mallaCurricularService.obtenerMallaCurricularPlan(planEstudio);
+            List<Asignatura> asignaturas = asignaturaService.encontrarAsignaturasPorMalla(mallaCurricular );
+            return ResponseEntity.ok().body(asignaturas);
+        } catch (Exception e) {
+            String mensajeError = "Error al obtener la malla curricular de la maestría.";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensajeError);
         }
     }
 

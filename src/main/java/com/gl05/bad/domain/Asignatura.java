@@ -72,8 +72,8 @@ public class Asignatura implements Serializable {
     @ManyToOne(optional = false)
     private ProgramaAsignatura idProgramAsignatura;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
-    private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
+//    private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
 
     public Asignatura() {
     }
@@ -171,13 +171,13 @@ public class Asignatura implements Serializable {
         this.idProgramAsignatura = idProgramAsignatura;
     }
 
-    public Collection<ProfesorAsignatura> getProfesorAsignaturaCollection() {
-        return profesorAsignaturaCollection;
-    }
-
-    public void setProfesorAsignaturaCollection(Collection<ProfesorAsignatura> profesorAsignaturaCollection) {
-        this.profesorAsignaturaCollection = profesorAsignaturaCollection;
-    }
+//    public Collection<ProfesorAsignatura> getProfesorAsignaturaCollection() {
+//        return profesorAsignaturaCollection;
+//    }
+//
+//    public void setProfesorAsignaturaCollection(Collection<ProfesorAsignatura> profesorAsignaturaCollection) {
+//        this.profesorAsignaturaCollection = profesorAsignaturaCollection;
+//    }
 
     @Override
     public int hashCode() {
