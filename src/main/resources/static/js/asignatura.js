@@ -22,11 +22,11 @@ $(document).ready(function () {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
                     var actionsHtml = '';
                     actionsHtml += '<a type="button" title="Programa" class="btn btn-outline-secondary"';
-                    actionsHtml += 'title="" href="/viewPrograma/' + row.idProgramAsignatura.idProgramAsignatura + '">';
+                    actionsHtml += 'title="Programa" href="/viewPrograma/' + row.idProgramAsignatura.idProgramAsignatura + '">';
                     actionsHtml += '<i class="bi bi-arrow-up-right-square"></i></a>';
 
                     actionsHtml += '<a type="button" title="Actividades" class="btn btn-outline-secondary"';
-                    actionsHtml += 'title="" href="/viewActividad/' + row.idProgramAsignatura.idProgramAsignatura + '">';
+                    actionsHtml += 'title="Actividades" href="/viewActividad/' + row.idProgramAsignatura.idProgramAsignatura + '">';
                     actionsHtml += '<i class="bi bi-card-checklist"></i></a>';
 
                     //if(hasPrivilegeAdmin == true){
