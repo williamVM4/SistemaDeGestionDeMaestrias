@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -9,19 +5,19 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author william
- */
+
 @Entity
 @Table(name = "POSTULACION_COHORTE")
 @NamedQueries({
@@ -32,6 +28,8 @@ public class PostulacionCohorte implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_POSTULACION_COHORTE")
+    @SequenceGenerator(name = "S_POSTULACION_COHORTE", sequenceName = "S_POSTULACION_COHORTE", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "ID_POSTULACION")
     private Long idPostulacion;

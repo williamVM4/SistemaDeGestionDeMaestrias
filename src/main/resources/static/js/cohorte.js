@@ -69,9 +69,9 @@ $(document).ready(function() {
                     //actionsHtml += '<i class="bi bi-check"></i></button>';
                     
                     //Boton para aspirantes
-                    actionsHtml += '<button type="button" class="btn btn-outline-success" ">';
+                    actionsHtml += '<a href="/PostuladosCohorte/' + row.idCohorte + '" type="button" class="btn btn-outline-success" ">';
 //                    actionsHtml += 'data-cod="' + row.idCohorte + '">';
-                    actionsHtml += '<i class="bi bi-person-fill-add"></i></button>';
+                    actionsHtml += '<i class="bi bi-person-fill-add"></i></a>';
                     
                     actionsHtml += '<button type="button" class="btn btn-outline-primary inscribirMateriaModal-btn" data-id="' + row.idCohorte + '" ';
                     actionsHtml += 'data-maestria="' + row.idMaestria.idMaestria + '">';

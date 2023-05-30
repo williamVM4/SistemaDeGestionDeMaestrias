@@ -1,4 +1,4 @@
-// metodo para mostrar el modal segun sea si editar o nuevo registro
+// metodo para mostrar el modal segun sea si editar o nuevo registro 
 $(document).on('click', '.abrirModal-btn', function () {
     var id = $(this).data('id');
     var modal = $('#crearModal');
@@ -22,6 +22,13 @@ $(document).on('click', '.abrirModal-btn', function () {
                 alert('Error al obtener los datos del Ã¡rea de conocimiento.');
             }
         });
+    } else {
+        // en caso de presionar el boton de nuevo solo se abrira el modal
+        tituloModal.text('Agregar Actividad');
+        form.attr('action', '/AgregarActividad');
+        $('#actividad').val();
+        $('#ponderacion').val();
+        $('#idActividad').val();
     }
     modal.modal('show');
 });
@@ -59,10 +66,18 @@ var validator = $('#formGuardar').validate({
         event.preventDefault();
         var id = $('#idActividad').val();
         var idListAe = $('#idList').val();
-        var formDataArray = $('#formGuardar').serializeArray();//tomo los datos del array
-        formDataArray.push({name: 'idActividad', value: id});
+        var formDataArray = $('#formGuardar').serializeArray();//tomo los datos del array        
         //formDataArray.push({name: 'idListAe', value: idListAe});
-        var url = '/ActualizarActividad';
+        var url = '';
+        if (id) {
+            url = '/ActualizarActividad';
+            //meto la id en el campo de envio
+            formDataArray.push({name: 'idActividad', value: id});
+        } else {
+            url = '/AgregarActividad';
+            formDataArray.push({name: 'idListAe', value: idListAe});
+        }
+        
         // Convertir el arreglo en un objeto
         var formData = {};
         $.map(formDataArray, function (n, i) {
@@ -74,14 +89,14 @@ var validator = $('#formGuardar').validate({
             data: formData,
             success: function (response) {
                 $('#crearModal').modal('hide');  // Cierra el modal
-                location.reload();
+                //location.reload();
                 mostrarMensaje(response, 'success');
             },
             error: function (xhr, status, error) {
                 $('#crearModal').modal('hide');  // Cierra el modal
                 var errorMessage = xhr.responseText || 'Error al actualizar la maestría.';
                 mostrarMensaje(errorMessage, 'danger');
-                console.log(error);
+                console.log(errorMessage);
             }
         });
     }

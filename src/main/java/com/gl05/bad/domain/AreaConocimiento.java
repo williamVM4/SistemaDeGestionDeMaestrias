@@ -38,8 +38,8 @@ public class AreaConocimiento implements Serializable {
     private String nombreArea;
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAreaConocimiento")
-    private Collection<Asignatura> asignaturaCollection;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idAreaConocimiento")
+    private Collection<Asignatura> asignaturaCollection;*/
 
     public AreaConocimiento() {
     }
@@ -78,13 +78,13 @@ public class AreaConocimiento implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Collection<Asignatura> getAsignaturaCollection() {
+    /*public Collection<Asignatura> getAsignaturaCollection() {
         return asignaturaCollection;
     }
 
     public void setAsignaturaCollection(Collection<Asignatura> asignaturaCollection) {
         this.asignaturaCollection = asignaturaCollection;
-    }
+    }*/
 
     @Override
     public int hashCode() {
