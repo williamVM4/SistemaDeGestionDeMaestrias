@@ -11,20 +11,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AsignaturaServiceImp implements AsignaturaService{
+public class AsignaturaServiceImp implements AsignaturaService {
+
     @Autowired
     private AsignaturaDao asignaturaDao;
-    
+
     @Override
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public DataTablesOutput<Asignatura> listarAsignatura(DataTablesInput input) {
-       return (DataTablesOutput<Asignatura>)asignaturaDao.findAll(input);
+        return (DataTablesOutput<Asignatura>) asignaturaDao.findAll(input);
     }
-    
+
     @Override
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public Collection<Asignatura> listarAsignatura() {
-        return (Collection<Asignatura>)asignaturaDao.findAll();
+        return (Collection<Asignatura>) asignaturaDao.findAll();
     }
 
     @Override
@@ -38,10 +39,11 @@ public class AsignaturaServiceImp implements AsignaturaService{
     }
 
     @Override
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public Asignatura encontrarA(Asignatura asignatura) {
         return asignaturaDao.findById(asignatura.getIdAsignatura()).orElse(null);
     }
+
     @Override
     public void actualizarA(Asignatura asignatura) {
         System.out.println(1);
@@ -58,19 +60,25 @@ public class AsignaturaServiceImp implements AsignaturaService{
     @Override
     public void AgregarAsig(String codigoAsignatura, String nombreAsignatura, int uv, int numeroCorrelativo, int ciclo, long idAreaC, long idMalla, int duracion, int horasT, int horasP, int horaCiclo, String introduccion, String descipcionPrograma, String objetivo, String metodologia, String sistemaEvaluacion, String bibliografia, String actividad, String ponderacion) {
         asignaturaDao.sp_insert_asignatura(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC, idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividad, ponderacion);
-            
+
     }
 
     @Override
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public long encontrarMalla(Long idPlanEstudio) {
         return asignaturaDao.findMallaByPlanId(idPlanEstudio);
     }
 
     @Override
     public DataTablesOutput<Asignatura> listarAsignaturaFiltrado(DataTablesInput input, Long idMallaCurricular) {
-     Specification<Asignatura> additionalSpecification = (root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("idMallaCurricular"), idMallaCurricular);
+        Specification<Asignatura> additionalSpecification = (root, query, criteriaBuilder)
+                -> criteriaBuilder.equal(root.get("idMallaCurricular"), idMallaCurricular);
         return asignaturaDao.findAll(input, additionalSpecification);
     }
+
+    @Override
+    public Asignatura encontrarAsig(Long asignatura) {
+        return asignaturaDao.findById(asignatura).orElse(null);
+    }
+
 }

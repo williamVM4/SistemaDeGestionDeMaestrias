@@ -34,17 +34,16 @@
                     <table id="actividadTable" class="table table-striped" >
                         <thead class="thead-light">
                             <tr>
-                                <th class="text-center">N°</th>
-                                <th class="text-center">duracionSemanas</th>
-                                <th class="text-center">horasCiclo</th>
-                                <th class="text-center">horasTeoricoSemana</th>
-                                <th class="text-center">horasPracticaSemana</th>
-                                <th class="text-center">introduccion</th>
-                                <th class="text-center">descripcionPrograma</th>
-                                <th class="text-center">objetivos</th>
-                                <th class="text-center">metodologiaEnsenanza</th>
-                                <th class="text-center">sistemaEvaluacion</th>
-                                <th class="text-center">bibliografia</th>
+                                <th class="text-center">Duracion Semanas</th>
+                                <th class="text-center">Horas Ciclo</th>
+                                <th class="text-center">Horas Teorico Semana</th>
+                                <th class="text-center">Horas Practica Semana</th>
+                                <th class="text-center">Introduccion</th>
+                                <th class="text-center">Descripcion Programa</th>
+                                <th class="text-center">Objetivos</th>
+                                <th class="text-center">Metodologia Ensenanza</th>
+                                <th class="text-center">Sistema Evaluacion</th>
+                                <th class="text-center">Bibliografia</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -57,25 +56,24 @@
                             <c:if test="${not empty programa}">
 
                                 <tr>
-                                    <td width="20%">${status.index + 1}</td>
                                     <td>${programa.duracionSemanas}</td>
-                                    <td>${programa.horasCiclo} %</td>
-                                    <td>${programa.horasTeoricoSemana} %</td>
-                                    <td>${programa.horasPracticaSemana} %</td>
-                                    <td>${programa.introduccion} %</td>
-                                    <td>${programa.descripcionPrograma} %</td>
-                                    <td>${programa.objetivos} %</td>
-                                    <td>${programa.metodologiaEnsenanza} %</td>
-                                    <td>${programa.sistemaEvaluacion} %</td>
-                                    <td>${programa.bibliografia} %</td>
+                                    <td>${programa.horasCiclo}</td>
+                                    <td>${programa.horasTeoricoSemana}</td>
+                                    <td>${programa.horasPracticaSemana}</td>
+                                    <td>${programa.introduccion}</td>
+                                    <td>${programa.descripcionPrograma}</td>
+                                    <td>${programa.objetivos}</td>
+                                    <td>${programa.metodologiaEnsenanza}</td>
+                                    <td>${programa.sistemaEvaluacion}</td>
+                                    <td>${programa.bibliografia}</td>
 
                                     <td class="d-flex justify-content-around">
                                         <button type="button" title="Actualizar" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" 
-                                                data-bs-target="#crearModal" data-tipo="editar" data-id="${elemento.idProgramAsignatura}" 
+                                                data-bs-target="#crearModal" data-tipo="editar" data-id="${programa.idProgramAsignatura}" 
                                                 data-modo="actualizar">
                                             <i class="bi bi-pencil-square"></i>
                                         </button> 
-                                        
+
                                     </td>
                                 </tr>
                             </c:if>
@@ -85,7 +83,7 @@
             </div>
         </div>
     </section>
-    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,16 +93,48 @@
                 <div class="modal-body">
                     <form id='formGuardar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                        <input type="hidden" id="idList" value="${idPrograma}">
-                        <input type="hidden" id="idActividad">
+                        <input type="hidden" id="idPrograma">
                         <div class="row">
-                            <div class="form-group mb-3 col-md-6 col-sm-6">
-                                <input type="text" class="form-control" id="actividad" name="nombreActividad" placeholder="Nombre de la Actividad">  
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="duracion">Duraciòn en Semanas</label>
+                                <input type="number" class="form-control" id="duracionSemanas" name="duracionSemanas">
                             </div>
-
-                            <div class="form-group mb-3 col-md-6 col-sm-6">
-                                <input type="number" class="form-control" id="ponderacion" name="ponderacion" placeholder="Ponderaciòn en %">
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="horasT">Horas Teorico Semanas</label>
+                                <input type="number" class="form-control" id="horasTeoricoSemana" name="horasTeoricoSemana" >
                             </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="horasP">Horas Practica Semanas</label>
+                                <input type="number" class="form-control" id="horasPracticaSemana" name="horasPracticaSemana">
+                            </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="horaCiclo">Horas Ciclo</label>
+                                <input type="number" class="form-control" id="horasCiclo" name="horasCiclo" readonly>
+                            </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="introduccion">Introduccion</label>
+                                <textarea type="text" class="form-control" id="introduccion" name="introduccion" rows="2"></textarea>
+                            </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="descipcionPrograma">Descriòn del Programa</label>
+                                <textarea type="text" class="form-control" id="descripcionPrograma" name="descripcionPrograma" rows="2"></textarea>
+                            </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="objetivo">Objetivo</label>
+                                <textarea type="text" class="form-control" id="objetivos" name="objetivos" rows="2"></textarea>
+                            </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="metodologia">Metodologia de Enseñanza</label>
+                                <textarea type="text" class="form-control" id="metodologiaEnsenanza" name="metodologiaEnsenanza" rows="2"></textarea>
+                            </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="sistemaEvaluacion">Sistema de Evaluaciòn</label>
+                                <textarea type="text" class="form-control" id="sistemaEvaluacion" name="sistemaEvaluacion" rows="2"></textarea>
+                            </div>
+                            <div class="form-grup mb-3 col-md-6 col-sm-6">
+                                <label for="bibliografia">Bibliografia</label>
+                                <textarea type="text" class="form-control" id="bibliografia" name="bibliografia" rows="2"></textarea>                           
+                            </div> 
                         </div>
 
                         <div class="modal-footer">
@@ -116,31 +146,6 @@
             </div>
         </div>
     </div>
-    <!-- Modal de eliminar -->
-    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmarEliminarLabel">Confirmar eliminación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="eliminarActividadBtn" class="btn btn-danger">Eliminar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <form id="eliminarActividadForm" method="post" action="/EliminarActividad/{idActividad}">
-        <input type="hidden" id="idList" value="${idPrograma}">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    </form>
 </div>
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/programaAsignatura.js"></script>

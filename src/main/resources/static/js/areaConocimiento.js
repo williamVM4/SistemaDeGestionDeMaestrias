@@ -90,13 +90,8 @@ $(document).ready(function () {
             $(element).removeClass('is-invalid');
         },
         errorPlacement: function (error, element) {
-            if (element.attr("name") === "nombreArea") {
-                error.insertAfter(element);
-            } else {
-                if (element.attr("name") === "descripcion") {
-                    error.insertAfter(element);
-                }
-            }
+            error.insertAfter(element);
+
         },
         errorElement: 'div',
         errorClass: 'invalid-feedback',

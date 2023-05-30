@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Actividad;
+import com.gl05.bad.domain.ListadoActividadEvaluada;
 import com.gl05.bad.servicio.ActividadService;
 import com.gl05.bad.servicio.ProgramaAsignaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,21 @@ public class ActividadController {
             redirectAttributes.addFlashAttribute("error", "No se puede eliminar la actividad");
         }
         return "redirect:/viewActividad/" + idPrograma;
+    }
+
+    @PostMapping("/AgregarActividad")
+    public ResponseEntity AgregarActividad(Actividad actividad, @RequestParam("idListAe") Long idListAe, RedirectAttributes redirectAttributes) {
+        try {
+            //ListadoActividadEvaluada listadoActividad = actividadService.encontrarList(idListAe);
+            //actividad.setIdListAe(listadoActividad);
+            System.out.println(actividad);
+            actividadService.agregarA(actividad);
+            
+            String mensaje = "Se ha Agregado una Nueva Actividad.";
+            return ResponseEntity.ok(mensaje);
+        } catch (Exception e) {
+            String error = "Ya existe una Actividad con ese Nombre.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
     }
 }
