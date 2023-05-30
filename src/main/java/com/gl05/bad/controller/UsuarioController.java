@@ -34,7 +34,7 @@ public class UsuarioController {
     //Obtener los usuarios y mostrarlos en tablas
     @GetMapping("/viewUsuarios")
     public String mostrarUsuarios(Model model) {
-        model.addAttribute("pageTitle", "mostrarUsuarios");
+        model.addAttribute("pageTitle", "Usuarios");
 
         var elemento = userService.listaUsuarios();
         model.addAttribute("usuarios", elemento);

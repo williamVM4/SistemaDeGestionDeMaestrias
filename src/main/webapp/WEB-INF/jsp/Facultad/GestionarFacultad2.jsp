@@ -1,7 +1,6 @@
 <%@ include file="../common/header1.jspf"%>
 <%@ include file="../common/navigation1.jspf"%>
 
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
@@ -12,7 +11,7 @@
                 <div class="col-sm-12">
                     <div class="titulo-Perfil">
                         <div class="container">
-                            <h1>Roles</h1>
+                            <h1>Facultades</h1>
                         </div>
                     </div>
                 </div>
@@ -20,10 +19,10 @@
         </div>
     </section>
 
-            <!-- Main content -->
+    <!-- Main content -->
     <section class="content pb-5">
         <div class="container">
-                        <div class="alert alert-success d-flex align-items-center alert-dismissible fade d-none" role="alert">
+            <div class="alert alert-success d-flex align-items-center alert-dismissible fade d-none" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong><i class="bi bi-check-circle"></i> Éxito!&nbsp;</strong>
             </div>
@@ -42,11 +41,10 @@
 
             <div class="pt-4">
                 <div class="table-responsive-md">
-                    <table id="rolesTable" class="table table-striped" style="width:100%">
+                    <table id="facultadTable" class="table table-striped" style="width:100%">
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center">Nombre</th>
-                                <th class="text-center">Permisos</th>
                                 <th class="text-center">Opciones</th>
                             </tr>
                         </thead>
@@ -57,39 +55,27 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-            
-<!-- Modal para roles -->
-<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
+    
+    <!-- Modal para facultades -->
+<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="crearModalLabel">Agregar Rol</h5>
+                <h5 class="modal-title" id="crearModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id='formGuardar' accept-charset="UTF-8">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                    <input type="hidden" id="rolId">
+                    <input type="hidden" id="facultadId">
+                    
                     <div class="form-group">
-                        <label for="nombre" class="form-label">Nombre de rol: </label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
-                    </div>
-
-                    <div id="permisos-error" class="error-message"></div>
-                    <div class="form-group">
-                        <label for="permisos" class="form-label">Permisos: </label>
-                        <c:forEach items="${Permisos}" var="elementoPermiso" varStatus="status">
-                            <div>
-                                <li>
-                                    <input class="checkClean" type="checkbox" id="permiso${elementoPermiso.idPermiso}" name="permisos[]" value="${elementoPermiso.idPermiso}">
-                                    <label for="permiso${elementoPermiso.idPermiso}">${elementoPermiso.nombre}</label>
-                                </li>
-                            </div>
-                        </c:forEach>
+                        <label for="nombreFacultad" class="form-label">Nombre Facultad: </label>
+                        <input type="text" class="form-control" id="nombreFacultad" name="nombreFacultad" placeholder="Nombre de la Facultad" required>
                     </div>
 
                     <div class="modal-footer">
-                        <button id='btnSumit' type="submit" class="btn btn-outline-success">Guardar</button>
+                        <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
@@ -98,7 +84,7 @@
     </div>
 </div>
                     
-      <!-- Modal de eliminar -->
+  <!-- Modal de eliminar -->
     <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -107,23 +93,24 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <strong>¿Estás seguro de eliminar al rol seleccionado?</strong>
-                    <p>Ten en cuenta que se eliminarán los datos relacionados al rol <span id="nombre"></span>.</p>
+                    <strong>¿Estás seguro de eliminar la facultad seleccionada?</strong>
+                    <p>Ten en cuenta que se eliminarán los datos relacionados la facultad <span id="nombreFacultad"></span>.</p>
                     
                 </div>
                 <div class="modal-footer">
-                  <button id="eliminarRolBtn" class="btn btn-danger">Eliminar</button>
+                  <button id="eliminarFacultadBtn" class="btn btn-danger">Eliminar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
     
-    <form id="eliminarRolForm" method="post" action="/EliminarRol/{idRol}">
+    <form id="eliminarFacultadForm" method="post" action="/EliminarFacultad/{idFacultad}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    </form>                 
+    </form>                      
+    
+    
 
 
 <%@ include file="../common/footer1.jspf"%>
-
-<script src="${pageContext.request.contextPath}/js/roles.js"></script>
+<script src="${pageContext.request.contextPath}/js/facultad.js"></script>

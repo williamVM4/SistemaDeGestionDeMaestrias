@@ -43,7 +43,7 @@ public class EstudianteController {
     //Obtener los roles y mostrarlos en tablas
     @GetMapping("/viewEstudiantes")
     public String mostrarEstudiantes(Model model) {
-        model.addAttribute("pageTitle", "mostrarEstudiantes");
+        model.addAttribute("pageTitle", "Estudiantes");
 
         var elemento = estudianteService.listaEstudiantes();
         model.addAttribute("estudiantes", elemento);
