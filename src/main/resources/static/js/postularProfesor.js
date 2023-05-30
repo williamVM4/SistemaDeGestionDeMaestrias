@@ -28,10 +28,10 @@ $(document).ready(function () {
                 searchable: false,
                 width: '12%',
                 render: function (data, type, row) {
-                    // Aquí puedes construir el HTML para las acciones según tus necesidades
+
                     var actionsHtml = '';
-                    actionsHtml += '<button type="button" title="Postularse" class="btn btn-outline-success postular-btn" ';
-                    actionsHtml += '">';
+                    actionsHtml += '<button type="button" title="Postularse" class="btn btn-outline-success abrirModal-btn"';
+                    actionsHtml += 'data-bs-target="#crearModal" data-id="' + row.idMaestria + '">';
                     actionsHtml += '<i class="bi bi-check-square"></i></button>';
 
                     return actionsHtml;
@@ -70,14 +70,62 @@ $(document).ready(function () {
             return: true
         }
     });
-    $(document).on('click', '.postular-btn', function () {
-        var modal = $('#postularModal');
+
+    $(document).on('click', '.abrirModal-btn', function () {
+        var idMaestria = $(this).data('id');
+        var modal = $('#crearModal');
+        var modalBody = modal.find('.modal-body');
+        var form = modal.find('form');
+
+        $.ajax({
+            url: '/ObtenerCohortesActivas/' + idMaestria,
+            type: 'GET',
+            success: function (response) {
+                // Limpiar el contenido anterior del modal
+                modalBody.empty();
+                // Verificar si se obtuvieron cohortes activas
+                if (response && response.length > 0) {
+                    // Crear una lista ul para mostrar las cohortes
+                    var ul = $('<ul>').addClass('list-group');
+                    // Recorrer las cohortes y agregar cada una como un elemento de la lista
+                    response.forEach(function (cohorte) {
+                        // Crear un elemento li para la cohorte
+                        var li = $('<li>').addClass('list-group-item d-flex justify-content-between align-items-center');
+                        // Agregar el nombre de la cohorte
+                        li.text(cohorte.nombreCohorte);
+                        // Crear un enlace al formulario de inscripción de la cohorte
+                        var enlace = $('<a>')
+                                .addClass('btn btn-primary confirmar-btn')
+                                .text('Postular')
+                                .attr('data-idCohorte', cohorte.idCohorte)
+                                .attr('id', cohorte.idCohorte);
+                        // Agregar el enlace al final del elemento li
+                        li.append(enlace);
+                        // Agregar el elemento li a la lista ul
+                        ul.append(li);
+                    });
+                    // Agregar la lista ul al modal body
+                    modalBody.append(ul);
+                } else {
+                    // Si no hay cohortes activas, mostrar un mensaje en el modal body
+                    modalBody.text('No hay cohortes activas disponibles para inscripción.');
+                }
+            },
+            error: function () {
+                alert('Error al obtener las cohortes de la maestría.');
+            }
+        });
+        modal.modal('show');
+    });
+
+
+    $(document).on('click', '.confirmar-btn', function () {
         var fechaActual = new Date();
         var url = '/AgregarPostulado';
         var formDataArray = $('#formGuardar').serializeArray();
-        formDataArray.push({name: 'idAspiranteProfesor', value: 1});
-        formDataArray.push({name: 'idCohorte', value: 1});
-        formDataArray.push({name: 'fechaPostulacion', value: "25-MAY-23"});
+        formDataArray.push({name: 'idAspiranteProfesor', value: idAspiranteProfesor});
+        formDataArray.push({name: 'idCohorte', value: $(this).attr('data-idCohorte')});
+        formDataArray.push({name: 'fechaPostulacion', value: fechaActual});
         var formData = {};
         $.map(formDataArray, function (n, i) {
             formData[n['name']] = n['value'];
@@ -87,20 +135,24 @@ $(document).ready(function () {
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#crearModal').modal('hide');  // Cierra el modal
-                //location.reload();
-                //mostrarMensaje(response, 'success');
+                $('#postularModal').modal('hide');  // Cierra el modal
+                $('#crearModal').modal('hide');
+                mostrarMensaje(response, 'success');
             },
             error: function (xhr, status, error) {
                 $('#crearModal').modal('hide');  // Cierra el modal
                 var errorMessage = xhr.responseText || 'Error al actualizar la maestría.';
-                //mostrarMensaje(errorMessage, 'danger');
-                console.log(errorMessage);
+                mostrarMensaje(errorMessage, 'danger');
             }
         });
-
-        modal.modal('show');
     });
+    function mostrarMensaje(mensaje, tipo) {
+        var alertElement = $('.alert-' + tipo);
+        alertElement.text(mensaje).addClass('show').removeClass('d-none');
+        setTimeout(function () {
+            alertElement.removeClass('show').addClass('d-none');
+        }, 5000);
+    }
 });
 
 
