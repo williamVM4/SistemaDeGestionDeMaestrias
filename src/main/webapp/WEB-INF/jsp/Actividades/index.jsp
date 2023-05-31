@@ -131,8 +131,7 @@
         </div>
     </div>
 
-    <form id="eliminarActividadForm" method="post" action="/EliminarActividad/{idActividad}">
-        <input type="hidden" id="idList" value="${idPrograma}">
+    <form id="eliminarForm" method="post" action="/EliminarActividad/{idActividad}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>

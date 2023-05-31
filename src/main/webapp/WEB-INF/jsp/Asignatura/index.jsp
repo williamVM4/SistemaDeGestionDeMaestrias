@@ -166,7 +166,7 @@
                                 </div>
 
                                 <div class="form-group mb-3 col-md-6 col-sm-6">
-                                    <input type="number" class="form-control" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad en %">
+                                    <input type="number" class="form-control ponderaciones-class" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad en %">
                                 </div>
                             </div>
                             <div id="actividades-extra" class="row">
