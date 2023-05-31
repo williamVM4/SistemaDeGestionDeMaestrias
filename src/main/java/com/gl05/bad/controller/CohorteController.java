@@ -157,7 +157,7 @@ public class CohorteController {
     }
     
     @PostMapping("/InscribirMateria/{idCohorte}")
-    public ResponseEntity InscribirMateria(Cohorte cohorte, @RequestParam("materias") List<Long> materiasIds,
+    public ResponseEntity InscribirMateria(Cohorte cohorte, @RequestParam("materias[]") List<Long> materiasIds,
         RedirectAttributes redirectAttributes) {
         try {
             Cohorte cohorteEncontrada = cohorteService.encontrarCohorte(cohorte);

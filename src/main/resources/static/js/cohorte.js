@@ -370,15 +370,13 @@ $(document).ready(function() {
             event.preventDefault();//detiene el evento del envio del form 
             var idCohorte = $('#inscribirMateriaBtn').data('id');
 
-            var formDataArray = formGuardarIM.serializeArray();//tomo los datos del array
-
             var url;//valido el tipo de url si editar o crear
                 url = '/InscribirMateria/'+idCohorte;
             // Convertir el arreglo en un objeto
+            var materiasIds = $('#materias').val();
             var formData = {};
-            $.map(formDataArray, function (n, i) {
-                formData[n['name']] = n['value'];
-            });
+            formData['materias'] = materiasIds; 
+            formData['_csrf'] = $('#csrfToken').val(); // Agregar el valor del token CSRF al objeto formData
             //realizo el guardado mediante ajax
             $.ajax({
                 url: url,
