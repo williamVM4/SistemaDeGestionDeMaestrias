@@ -23,6 +23,7 @@ import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
@@ -95,19 +96,63 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     })
         ;           
         
-        http.authorizeRequests()
-                .antMatchers("/welcome2")
-                .hasAuthority("VER_ADMIN_PRIVILEGE")             
+        http.authorizeRequests()          
                 //Aqui debo de poner todos los permisos de ver privilage para que haga el bloqueo al estar
                 //deshabilitado/bloqueado o ambos
                 .antMatchers("/login", "/logout", "/")
-                .hasAnyAuthority("VER_ADMIN_PRIVILEGE", "VER_USUARIO_PRIVILEGE")
-                .antMatchers("/welcome3")
-                .hasAuthority("VER_USUARIO_PRIVILEGE")
+                .hasAnyAuthority("VIEW_INDEX")
+//              
+                 //Reestrincion de vistas
+                .antMatchers("/viewUsuarios")
+                .hasAnyAuthority("VIEW_USUARIO_PRIVILAGE")
+                .antMatchers("/viewRoles")
+                .hasAnyAuthority("VIEW_ROLES_PRIVILAGE")
+                .antMatchers("/viewFacultad")
+                .hasAnyAuthority("VIEW_FACULTAD_PRIVILAGE")
+                .antMatchers("/viewEscuelaPosgrado")
+                .hasAnyAuthority("VIEW_ESCUELA_PRIVILAGE")
+                .antMatchers("/GestionarAreaConocimiento")
+                .hasAnyAuthority("VIEW_AREA_CONOCIMIENTO_PRIVILAGE")
+                .antMatchers("/viewEstudiantes")
+                .hasAnyAuthority("VIEW_ESTUDIANTE_PRIVILAGE")
+                .antMatchers("/gestionarCoordinadorAcademico")
+                .hasAnyAuthority("VIEW_COORDINADORES_PRIVILAGE")
+                .antMatchers("/perfilCoordinadorAcademico/**")
+                .hasAnyAuthority("VIEW_PERFIL_COORDINADOR_PRIVILAGE")
+                .antMatchers("/GestionarAspiranteProfesor")
+                .hasAnyAuthority("VIEW_ASPIRANTES_PRIVILAGE")
+                .antMatchers("/PerfilAspiranteProfesor/**")
+                .hasAnyAuthority("VIEW_PERFIL_ASPIRANTE_PRIVILAGE")
+                .antMatchers("/GestionarMaestria")
+                .hasAnyAuthority("VIEW_MAESTRIA_PRIVILAGE")
+                .antMatchers("/DetalleMaestria/**")
+                .hasAnyAuthority("VIEW_DETALLE_MAESTRIA_PRIVILAGE")
+                .antMatchers("/InscribirMaestria")
+                .hasAnyAuthority("VIEW_INSCRIBIR_MAESTRIA_PRIVILAGE")
+                .antMatchers("/InscripcionEstudiantes/**")
+                .hasAnyAuthority("VIEW_INSCRIBIR_ESTUDIANTES_PRIVILAGE")
+                .antMatchers("/GestionarEstudiantesCohorte/**")
+                .hasAnyAuthority("VIEW_ESTUDIANTES_COHORTE_PRIVILAGE")
+                .antMatchers("/PostularProfesor")
+                .hasAnyAuthority("VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE")
+                .antMatchers("/GestionarPlanEstudio/**")
+                .hasAnyAuthority("VIEW_PLANES_ESTUDIO_PRIVILAGE")
+                .antMatchers("/DetallePlanEstudio/**")
+                .hasAnyAuthority("VIEW_DETALLE_PLAN_PRIVILAGE")
+                .antMatchers("/viewPrograma/**")
+                .hasAnyAuthority("VIEW_PROGRAMA_ASIGNATURA_PRIVILAGE")
+                .antMatchers("/viewActividad/**")
+                .hasAnyAuthority("VIEW_ACTIVIDADES_PRIVILAGE")
+                .antMatchers("/GestionarCohorte/**")
+                .hasAnyAuthority("VIEW_COHORTE_PRIVILAGE")
+                .antMatchers("/PostuladosCohorte/**")
+                .hasAnyAuthority("VIEW_POSTULADOS_COHORTE_PRIVILAGE")
+                
+                
                 .and()
                 .formLogin() 
                 .loginPage("/login")
-                 .loginProcessingUrl("/authenticate") // Ruta para procesar la autenticación
+                .loginProcessingUrl("/authenticate") // Ruta para procesar la autenticación
                 .usernameParameter("username") // Nombre del campo de nombre de usuario en el formulario
                 .passwordParameter("password") // Nombre del campo de contraseña en el formulario
                 .defaultSuccessUrl("/welcome") // Ruta de redirección después de un inicio de sesión exitoso
