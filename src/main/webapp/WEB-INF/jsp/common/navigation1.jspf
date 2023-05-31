@@ -52,33 +52,49 @@
                 </a>
             </li>
                 
-          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') || requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'menu-open' : ''}">
-            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') || requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'active' : ''}">
+          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') || requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'menu-open' : ''}">  
+              <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') || requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'active' : ''}">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
                 Procesos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+              
+              
             <ul class="nav nav-treeview">
+                
+                
                 <li class="nav-item">
+                <sec:authorize access="hasAuthority('VIEW_MAESTRIA_PRIVILAGE')"> 
                     <a href="/GestionarMaestria" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarMaestria' || requestScope['javax.servlet.forward.request_uri'].matches('^/DetalleMaestria/\\d+$') ? 'active' : ''}">
                         <i class="fas fa-graduation-cap nav-icon text-warning"></i>
                         <p>Gestionar Maestría</p>
                     </a>
+                </sec:authorize>
                 </li>
+                
+                
+                <sec:authorize access="hasAuthority('VIEW_INSCRIBIR_MAESTRIA_PRIVILAGE')">         
                 <li class="nav-item">
                     <a href="/InscribirMaestria" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/InscribirMaestria' ? 'active' : ''}">
                         <i class="far fa-clipboard nav-icon text-warning"></i>
                         <p>Inscribir Maestria</p>
                     </a>
                 </li>
+                </sec:authorize>
+                
+                <sec:authorize access="hasAuthority('VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE')">          
                 <li class="nav-item">
+                    <sec:authorize access="hasAuthority('AGREGAR_WELCOME2_PRIVILEGE')">
                     <a href="/PostularProfesor" class="nav-link">
                         <i class="far fa-user nav-icon text-warning"></i>
                         <p>Postular a Profesor</p>
                     </a>
+                    </sec:authorize>
                 </li>
+                </sec:authorize>
+                        
             </ul>
           </li>
           
@@ -91,24 +107,34 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              
+             <sec:authorize access="hasAuthority('VIEW_COORDINADORES_PRIVILAGE')"> 
               <li class="nav-item">
                 <a href="/gestionarCoordinadorAcademico" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/gestionarCoordinadorAcademico' ? 'active' : ''}">
                   <i class="far fa-user nav-icon text-warning"></i>
                   <p>Coordinadores</p>
                 </a>
               </li>
+              </sec:authorize>
+              
+              <sec:authorize access="hasAuthority('VIEW_ASPIRANTES_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/GestionarAspiranteProfesor" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarAspiranteProfesor' ? 'active' : ''}">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Aspirantes a Profesor</p>
                 </a>
               </li>
+              </sec:authorize>
+              
+              <sec:authorize access="hasAuthority('VIEW_ESTUDIANTE_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/viewEstudiantes" class="nav-link">
                   <i class="far fa-user nav-icon text-warning"></i>
                   <p>Estudiantes</p>
                 </a>
               </li>
+              </sec:authorize>
+              
             </ul>
           </li>
           
@@ -120,37 +146,57 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            
+             <ul class="nav nav-treeview">
+              
+              <sec:authorize access="hasAuthority('VIEW_USUARIO_PRIVILAGE')">
               <li class="nav-item">
-                <a href="/viewUsuarios" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewUsuarios' ? 'active' : ''}">
+                  <a href="/viewUsuarios" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewUsuarios' ? 'active' : ''}">
                   <i class="far fa-user nav-icon text-warning"></i>
                   <p>Usuarios</p>
                 </a>
               </li>
+              </sec:authorize>
+              
+              <sec:authorize access="hasAuthority('VIEW_ROLES_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/viewRoles"class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewRoles' ? 'active' : ''}">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Roles</p>
                 </a>
               </li>
+              </sec:authorize>
+              
+              
+              <sec:authorize access="hasAuthority('VIEW_FACULTAD_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/viewFacultad" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewFacultad' ? 'active' : ''}">
                   <i class="far fa-building nav-icon text-warning"></i>
                   <p>Facultades</p>
                 </a>
               </li>
+              </sec:authorize>
+              
+              
+              <sec:authorize access="hasAuthority('VIEW_ESCUELA_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/viewEscuelaPosgrado" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewEscuelaPosgrado' ? 'active' : ''}">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Escuelas de Posgrado</p>
                 </a>
               </li>
+               </sec:authorize>
+              
+              
+               <sec:authorize access="hasAuthority('VIEW_AREA_CONOCIMIENTO_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/GestionarAreaConocimiento" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarAreaConocimiento' ? 'active' : ''}">
                   <i class="bi bi-book nav-icon text-warning"></i>
                   <p>Áreas de conocimiento</p>
                 </a>
               </li>
+              </sec:authorize>
+              
             </ul>
           </li>
         </ul>
