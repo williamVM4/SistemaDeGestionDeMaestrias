@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PostuladoCohorteService {
     
-    public List<AspiranteProfesor> listarAreaConocimientos(Long idCohorte);
+    public List<AspiranteProfesor> listarAspiranteProfesor(Long idCohorte);
     
     public void agregarP(PostulacionCohorte postulado);
   

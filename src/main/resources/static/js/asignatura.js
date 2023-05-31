@@ -395,8 +395,25 @@ $(document).ready(function () {
             var form = modal.find('form');
             tituloModal.text('Agregar Asignatura');
             form.attr('action', '/AgregarAsignatura');
-            $('#nombreArea').val('');
-
+            $('#codigoAsignatura').val('');
+            $('#nombreAsignatura').val('');
+            $('#uv').val('');
+            $('#numeroCorrelativo').val('');
+            $('#ciclo').val('');
+            $('#idAreaC').val('');
+            $('#duracion').val('');
+            $('#horasT').val('');
+            $('#horasP').val('');
+            $('#horaCiclo').val('');
+            $('#introduccion').val('');
+            $('#descipcionPrograma').val('');
+            $('#objetivo').val('');
+            $('#metodologia').val('');
+            $('#sistemaEvaluacion').val('');
+            $('#bibliografia').val('');
+            $('#actividad').val('');
+            $('#ponderacion').val('');
+            $('#actividades-extra').empty();
         }
         modal.modal('show');
     });
@@ -472,7 +489,7 @@ $(document).ready(function () {
         var ponderacion = $("<input>").attr({
             type: "number",
             id: "ponderacion",
-            class: "form-control",
+            class: "form-control ponderaciones-class",
             name: "ponderacion[]",
             placeholder: "Ponderaciòn de la Actividad"
         });
@@ -484,7 +501,38 @@ $(document).ready(function () {
     }
 
     // Evento de clic para añadir actividad
-    $("#btnAgregarActividad").click(agregarActividad);
+    $("#btnAgregarActividad").on('click', function () {
+        var suma = 0;
+        $('.ponderaciones-class').each(function () {
+            suma += parseInt($(this).val());
+        });
+        if (suma === 100) {
+            $(this).prop('disabled', true);
+        } else {
+            $(this).prop('disabled', false);
+            agregarActividad();
+        }
+
+
+
+    });
+
+    $('.ponderaciones-class').on('input', function () {
+        var suma = 0;
+        $(this).each(function () {
+            suma += parseInt($(this).val());
+        });
+        if (suma === 100) {
+            $("#btnAgregarActividad").prop('disabled',true );
+        } else {
+            $("#btnAgregarActividad").prop('disabled',false );
+        }
+    });
+
+
+
+
+
 });
 
 

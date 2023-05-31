@@ -22,7 +22,7 @@ public class PostuladoCohorteServiceImp implements PostuladoCohorteService {
     private PostulacionCohorteDao postuladoDao;
 
     @Override
-    public List<AspiranteProfesor> listarAreaConocimientos(Long idCohorte) {
+    public List<AspiranteProfesor> listarAspiranteProfesor(Long idCohorte) {
         return (List<AspiranteProfesor>) aspiranteDao.findAspiranteByCohorte(idCohorte);
     }
 

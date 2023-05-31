@@ -73,11 +73,7 @@ public class ActividadController {
     @PostMapping("/AgregarActividad")
     public ResponseEntity AgregarActividad(Actividad actividad, @RequestParam("idListAe") Long idListAe, RedirectAttributes redirectAttributes) {
         try {
-            //ListadoActividadEvaluada listadoActividad = actividadService.encontrarList(idListAe);
-            //actividad.setIdListAe(listadoActividad);
-            System.out.println(actividad);
-            actividadService.agregarA(actividad);
-            
+            actividadService.agregarA(actividad);      
             String mensaje = "Se ha Agregado una Nueva Actividad.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {

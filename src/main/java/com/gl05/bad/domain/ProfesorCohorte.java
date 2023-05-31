@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -12,20 +8,21 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "PROFESOR_COHORTE")
 @NamedQueries({
@@ -38,16 +35,22 @@ import javax.persistence.TemporalType;
 public class ProfesorCohorte implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
+     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_PROFESOR_COHORTE")
+    @SequenceGenerator(name = "S_PROFESOR_COHORTE", sequenceName = "S_PROFESOR_COHORTE", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "ID_PROFESOR")
     private Long idProfesor;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "MONTO_PAGAR_HORA")
+    @DecimalMin(value = "0.00", inclusive = true)
+    @DecimalMax(value = "99999.99", inclusive = true)
+     @Column(name = "MONTO_PAGAR_HORA", precision = 7, scale = 2, nullable = false)
     private BigDecimal montoPagarHora;
     @Column(name = "UNIDAD_HORAS_IMPARTIR")
     private Short unidadHorasImpartir;
-    @Column(name = "MONTO_TOTAL_SERVICIOS")
+    @DecimalMin(value = "0.00", inclusive = true)
+    @DecimalMax(value = "99999.99", inclusive = true)
+    @Column(name = "MONTO_TOTAL_SERVICIOS", precision = 7, scale = 2, nullable = false)
     private BigDecimal montoTotalServicios;
     @Column(name = "FECHA_CONTRATACION")
     @Temporal(TemporalType.TIMESTAMP)

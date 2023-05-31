@@ -77,6 +77,10 @@ $(document).ready(function() {
                     actionsHtml += 'data-maestria="' + row.idMaestria.idMaestria + '">';
                     actionsHtml += '<i class="bi bi-calendar-plus"></i></button>';
                     
+                    actionsHtml += '<a href="/ProfesorCohorte/' + row.idCohorte + '" type="button" class="btn btn-outline-dark" ">';
+//                    actionsHtml += 'data-cod="' + row.idCohorte + '">';
+                    actionsHtml += '<i class="bi bi-building-check"></i></i></a>';
+                    
                     return actionsHtml;
                 }
             }
