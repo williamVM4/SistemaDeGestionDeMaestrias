@@ -1,9 +1,15 @@
 package com.gl05.bad.controller;
 
+import com.gl05.bad.domain.Asignatura;
 import com.gl05.bad.domain.Cohorte;
+import com.gl05.bad.domain.EstudianteAsignatura;
+import com.gl05.bad.domain.EstudianteCohorte;
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.servicio.AsignaturaService;
 import com.gl05.bad.servicio.CohorteService;
+import com.gl05.bad.servicio.EstudianteAsignaturaService;
+import com.gl05.bad.servicio.EstudianteCohorteService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.UserService;
 import java.text.SimpleDateFormat;
@@ -38,6 +44,15 @@ public class CohorteController {
     
     @Autowired
     private CohorteService cohorteService;
+    
+    @Autowired
+    private AsignaturaService asignaturaService;
+    
+    @Autowired
+    private EstudianteCohorteService estudianteCohorteService;
+    
+    @Autowired
+    private EstudianteAsignaturaService estudianteAsignaturaService;
     
      @GetMapping("/GestionarCohorte/{idMaestria}")
     public String listarCohortes(Model model,@PathVariable("idMaestria") Long idMaestria) {
@@ -141,5 +156,27 @@ public class CohorteController {
         }
     }
     
+    @PostMapping("/InscribirMateria/{idCohorte}")
+    public ResponseEntity InscribirMateria(Cohorte cohorte, @RequestParam("materias") List<Long> materiasIds,
+        RedirectAttributes redirectAttributes) {
+        try {
+            Cohorte cohorteEncontrada = cohorteService.encontrarCohorte(cohorte);
+            List<EstudianteCohorte> estudiantesCohorte = estudianteCohorteService.encontrarEstudianteIdCohorte(cohorteEncontrada);
+            for (Long materiaId : materiasIds) {
+                Asignatura asignatura = asignaturaService.encontrarAsig(materiaId); // Obtener el objeto Estudiante correspondiente al ID
+                for (EstudianteCohorte estudianteCohorte:estudiantesCohorte) {
+                    EstudianteAsignatura estudianteAsignatura = new EstudianteAsignatura();
+                    estudianteAsignatura.setIdAsignatura(asignatura);
+                    estudianteAsignatura.setIdEstudCo(estudianteCohorte);
+                    estudianteAsignaturaService.guardarEstudianteAsignatura(estudianteAsignatura);
+                }
+            }     
+            String mensaje = "Se ha inscrito la cohorte a las asignaturas correctamente.";
+            return ResponseEntity.ok(mensaje);
+        } catch (Exception e) {
+            String error = "Error al inscribir la cohorte a las asignaturas";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
     
 }

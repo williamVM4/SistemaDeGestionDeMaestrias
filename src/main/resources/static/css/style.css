@@ -103,6 +103,9 @@ pre{
   font-size: 14px;
   line-height: 1.8;
   font-weight: normal;
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+  text-align: justify;
 }
 
 .login-form {

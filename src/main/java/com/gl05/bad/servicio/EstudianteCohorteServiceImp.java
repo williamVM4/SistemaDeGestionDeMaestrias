@@ -47,4 +47,10 @@ public class EstudianteCohorteServiceImp implements EstudianteCohorteService{
     public EstudianteCohorte encontrarEstudianteCohorte(Cohorte idCohorte, Estudiante idEstudiante){
      return estudianteCohorteDao.findByIdCohorteAndIdEstudiante(idCohorte, idEstudiante);
     }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public List<EstudianteCohorte> encontrarEstudianteIdCohorte(Cohorte idCohorte){
+        return estudianteCohorteDao.findByIdCohorte(idCohorte);
+    }
 }

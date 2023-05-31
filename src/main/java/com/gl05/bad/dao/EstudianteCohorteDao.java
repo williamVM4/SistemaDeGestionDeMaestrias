@@ -13,5 +13,6 @@ import org.springframework.data.repository.query.Param;
 public interface EstudianteCohorteDao extends DataTablesRepository<EstudianteCohorte, Long>{
    
     EstudianteCohorte findByIdCohorteAndIdEstudiante(Cohorte idCohorte, Estudiante idEstudiante);
-
+    
+    List<EstudianteCohorte> findByIdCohorte(Cohorte idCohorte);
 }

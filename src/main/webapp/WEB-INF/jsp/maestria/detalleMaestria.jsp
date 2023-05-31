@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <pre class="py-2"><c:out value="${maestria.perfilCoor}" /></pre>
+                            <pre class="py-2 h-100"><c:out value="${maestria.perfilCoor}" /></pre>
                         </div>
                     </div>
                   </div>
@@ -119,7 +119,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <pre class="py-2"><c:out value="${maestria.perfilAsp}" /></pre>
+                            <pre class="py-2 h-100"><c:out value="${maestria.perfilAsp}" /></pre>
                         </div>
                     </div>
                   </div>
