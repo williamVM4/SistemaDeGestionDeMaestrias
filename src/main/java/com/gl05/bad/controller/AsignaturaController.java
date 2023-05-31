@@ -1,14 +1,18 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Asignatura;
+import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.MallaCurricular;
 import com.gl05.bad.domain.PlanEstudio;
 import com.gl05.bad.servicio.AreaConocimientoService;
 import com.gl05.bad.servicio.AsignaturaService;
+import com.gl05.bad.servicio.CohorteService;
+import com.gl05.bad.servicio.EstudianteAsignaturaService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.MallaCurricularService;
 import com.gl05.bad.servicio.PlanEstudioService;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,6 +49,13 @@ public class AsignaturaController {
     
     @Autowired
     private MallaCurricularService mallaCurricularService;
+    
+    @Autowired
+    private EstudianteAsignaturaService estudianteAsignaturaService;
+    
+    @Autowired
+    private CohorteService cohorteService;
+    
 
     @GetMapping("/DetallePlanEstudio/{idPlanEstudio}")
     public String Asignatura(Model model, RedirectAttributes redirectAttributes, @PathVariable("idPlanEstudio") Long idPlanEstudio) {
@@ -123,6 +134,30 @@ public class AsignaturaController {
             MallaCurricular mallaCurricular = mallaCurricularService.obtenerMallaCurricularPlan(planEstudio);
             List<Asignatura> asignaturas = asignaturaService.encontrarAsignaturasPorMalla(mallaCurricular );
             return ResponseEntity.ok().body(asignaturas);
+        } catch (Exception e) {
+            String mensajeError = "Error al obtener la malla curricular de la maestría.";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensajeError);
+        }
+    }
+    
+    @GetMapping("/ObtenerMateriasMaestriaCohorte/{idMaestria}/{idCohorte}")
+    public ResponseEntity<?> obtenerMateriasMaestriaCohorte(@PathVariable Long idMaestria, @PathVariable Long idCohorte) {
+        short estadoPlanVigente = 1;
+        try {
+            
+            Maestria maestriaId = new Maestria(idMaestria);
+            Maestria maestria = maestriaService.encontrarMaestria(maestriaId);
+            Cohorte cohorte = cohorteService.encontrarCohorte(new Cohorte(idCohorte));
+            PlanEstudio planEstudio = planEstudioService.encontrarPlanEstudioPorIdMaestria(maestria, estadoPlanVigente);
+            MallaCurricular mallaCurricular = mallaCurricularService.obtenerMallaCurricularPlan(planEstudio);
+            List<Asignatura> asignaturas = asignaturaService.encontrarAsignaturasPorMalla(mallaCurricular );
+            List<Asignatura> asinaturasDisponibleI = new ArrayList<>();
+            for(Asignatura asignatura: asignaturas){
+                if (!estudianteAsignaturaService.existeEstudianteAsignatura(cohorte, asignatura)) {
+                    asinaturasDisponibleI.add(asignatura);
+                }
+            }
+            return ResponseEntity.ok().body(asinaturasDisponibleI);
         } catch (Exception e) {
             String mensajeError = "Error al obtener la malla curricular de la maestría.";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensajeError);

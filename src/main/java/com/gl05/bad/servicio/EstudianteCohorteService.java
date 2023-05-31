@@ -16,4 +16,6 @@ public interface EstudianteCohorteService {
     public void eliminar(EstudianteCohorte estudianteCohorte);
     
     public EstudianteCohorte encontrarEstudianteCohorte(Cohorte idCohorte, Estudiante idEstudiante);
+    
+    public List<EstudianteCohorte> encontrarEstudianteIdCohorte(Cohorte idCohorte);
 }

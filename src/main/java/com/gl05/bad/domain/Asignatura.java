@@ -54,8 +54,8 @@ public class Asignatura implements Serializable {
     @Column(name = "CICLO")
     private short ciclo;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
-    private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
+//    private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;
     
     //@JsonBackReference
     @JoinColumn(name = "ID_AREA_CONOCIMIENTO", referencedColumnName = "ID_AREA_CONOCIMIENTO")
@@ -138,14 +138,14 @@ public class Asignatura implements Serializable {
     public void setCiclo(short ciclo) {
         this.ciclo = ciclo;
     }
-
-    public Collection<EstudianteAsignatura> getEstudianteAsignaturaCollection() {
-        return estudianteAsignaturaCollection;
-    }
-
-    public void setEstudianteAsignaturaCollection(Collection<EstudianteAsignatura> estudianteAsignaturaCollection) {
-        this.estudianteAsignaturaCollection = estudianteAsignaturaCollection;
-    }
+//
+//    public Collection<EstudianteAsignatura> getEstudianteAsignaturaCollection() {
+//        return estudianteAsignaturaCollection;
+//    }
+//
+//    public void setEstudianteAsignaturaCollection(Collection<EstudianteAsignatura> estudianteAsignaturaCollection) {
+//        this.estudianteAsignaturaCollection = estudianteAsignaturaCollection;
+//    }
 
     public AreaConocimiento getIdAreaConocimiento() {
         return idAreaConocimiento;
