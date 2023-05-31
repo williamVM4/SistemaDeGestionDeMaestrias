@@ -319,9 +319,10 @@ $(document).ready(function() {
         var select = modal.find('select');
         validatorIM.resetForm();  // Restablecer la validación
         formGuardarIM.find('.is-invalid').removeClass('is-invalid');
+        modalBtn.removeClass('d-none');
 
         $.ajax({
-            url: '/ObtenerMateriasMaestria/' + idMaestria,
+            url: '/ObtenerMateriasMaestriaCohorte/' + idMaestria + '/'+ idCohorte,
             type: 'GET',
             success: function (response) {
                 // Limpiar las opciones anteriores del select
@@ -335,7 +336,8 @@ $(document).ready(function() {
                     });
                 } else {
                     // Si no hay materias, mostrar un mensaje en el modal body
-                    modalBody.text('La maestría no tiene materias disponibles.');
+                    modalBody.text('La maestría no tiene materias disponibles para inscribir.');
+                    modalBtn.addClass('d-none');
                 }
             },
             error: function () {
