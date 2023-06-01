@@ -3,15 +3,15 @@
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content pb-5">
-
-    <sec:authorize access="hasAuthority('AGREGAR_WELCOME2_PRIVILEGE')">
-        <a href="/welcome2">Ir a welcome 2</a>
-    </sec:authorize>
-
-    <sec:authorize access="hasAuthority('AGREGAR_WELCOME3_PRIVILEGE')">
-        <a href="/welcome3">Ir a welcome 3</a>
-    </sec:authorize>
-
+        
+        <!--Esto lo estoy manejando en el indexController -->
+        <br>
+        <h1>Bienvenido ${username}</h1>
+        
+        <br>
+        <h1>${mensaje}</h1>
+        
+        
     </div>
 </div>
 <%@ include file="common/footer1.jspf"%>
