@@ -45,8 +45,17 @@ public class IndexController {
     private AspiranteProfesorService aspiranteProfesorService;
     
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, Authentication authentication) {
         model.addAttribute("pageTitle", "Welcome");
+        
+         String username = authentication.getName();
+         model.addAttribute("username", username);
+        
+        if (authentication.getAuthorities().isEmpty()) {
+            // En caso de que el usuario no tenga permisos
+            model.addAttribute("mensaje", "Usuario autenticado pero sin permisos");
+        }
+        
         return "welcome";
     }
     
@@ -63,42 +72,13 @@ public class IndexController {
         return ResponseEntity.ok(maestriasCoordinador);
     }
     
-    @GetMapping("/welcome2")
-    public String pagina2(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "welcome2";
-    }
-    
-      @GetMapping("/welcome3")
-    public String pagina3(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "welcome3";
-    }
-    
-      @GetMapping("/errorpage")
-    public String error(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "errorPage";
-    }
-    
-    @GetMapping("/usuariobloqueado")
-    public String correctDisable(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "usuariobloqueado";
-    }
-    
-    @GetMapping("/usuarioinhabilitado")
-    public String usernothabilitate(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "usuarioinhabilitado";
-    }
-    
-    @GetMapping("/usuariodeshabilitadobloqueado")
-    public String usernothabilitateblocked(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "usuariobloqdes";
-    }
-    
+//    //Esta pagina es cuando el usuario se equivoca 3 veces
+//    @GetMapping("/errorpage")
+//    public String error(Model model) {
+//        model.addAttribute("pageTitle", "welcome2");
+//        return "errorPage";
+//    }
+     
     @GetMapping("/ObtenerUsuarioMenu")
     public ResponseEntity<Map<String, Object>> obtenerUsuarioMenu(Authentication authentication, HttpSession session) {
         // Obtener el nombre del usuario autenticado
@@ -181,5 +161,5 @@ public class IndexController {
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(responseMap);
-    }
+    }   
 }
