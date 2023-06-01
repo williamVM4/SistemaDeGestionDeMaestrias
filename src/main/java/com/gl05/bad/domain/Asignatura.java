@@ -54,10 +54,10 @@ public class Asignatura implements Serializable {
     @Column(name = "CICLO")
     private short ciclo;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
-    private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
+//    private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;
     
-    @JsonBackReference
+    //@JsonBackReference
     @JoinColumn(name = "ID_AREA_CONOCIMIENTO", referencedColumnName = "ID_AREA_CONOCIMIENTO")
     @ManyToOne(optional = false)
     private AreaConocimiento idAreaConocimiento;
@@ -72,8 +72,8 @@ public class Asignatura implements Serializable {
     @ManyToOne(optional = false)
     private ProgramaAsignatura idProgramAsignatura;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
-    private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAsignatura")
+//    private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
 
     public Asignatura() {
     }
@@ -138,14 +138,14 @@ public class Asignatura implements Serializable {
     public void setCiclo(short ciclo) {
         this.ciclo = ciclo;
     }
-
-    public Collection<EstudianteAsignatura> getEstudianteAsignaturaCollection() {
-        return estudianteAsignaturaCollection;
-    }
-
-    public void setEstudianteAsignaturaCollection(Collection<EstudianteAsignatura> estudianteAsignaturaCollection) {
-        this.estudianteAsignaturaCollection = estudianteAsignaturaCollection;
-    }
+//
+//    public Collection<EstudianteAsignatura> getEstudianteAsignaturaCollection() {
+//        return estudianteAsignaturaCollection;
+//    }
+//
+//    public void setEstudianteAsignaturaCollection(Collection<EstudianteAsignatura> estudianteAsignaturaCollection) {
+//        this.estudianteAsignaturaCollection = estudianteAsignaturaCollection;
+//    }
 
     public AreaConocimiento getIdAreaConocimiento() {
         return idAreaConocimiento;
@@ -171,13 +171,13 @@ public class Asignatura implements Serializable {
         this.idProgramAsignatura = idProgramAsignatura;
     }
 
-    public Collection<ProfesorAsignatura> getProfesorAsignaturaCollection() {
-        return profesorAsignaturaCollection;
-    }
-
-    public void setProfesorAsignaturaCollection(Collection<ProfesorAsignatura> profesorAsignaturaCollection) {
-        this.profesorAsignaturaCollection = profesorAsignaturaCollection;
-    }
+//    public Collection<ProfesorAsignatura> getProfesorAsignaturaCollection() {
+//        return profesorAsignaturaCollection;
+//    }
+//
+//    public void setProfesorAsignaturaCollection(Collection<ProfesorAsignatura> profesorAsignaturaCollection) {
+//        this.profesorAsignaturaCollection = profesorAsignaturaCollection;
+//    }
 
     @Override
     public int hashCode() {

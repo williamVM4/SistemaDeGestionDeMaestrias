@@ -47,8 +47,6 @@ public class Usuario implements Serializable{
     private Collection<AspiranteProfesor> aspiranteProfesorCollection;
     @OneToMany(mappedBy = "idusuario")
     private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
-    @OneToMany(mappedBy = "idusuario")
-    private Collection<Bitacora> bitacoraCollection;
 
     public Usuario(Long idUsuario, String username, String email, String password, boolean enabled, int numerointentos, int usuarioBloqueado) {
         this.idUsuario = idUsuario;
@@ -150,14 +148,6 @@ public class Usuario implements Serializable{
 
     public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico> coordinadorAcademicoCollection) {
         this.coordinadorAcademicoCollection = coordinadorAcademicoCollection;
-    }
-
-    public Collection<Bitacora> getBitacoraCollection() {
-        return bitacoraCollection;
-    }
-
-    public void setBitacoraCollection(Collection<Bitacora> bitacoraCollection) {
-        this.bitacoraCollection = bitacoraCollection;
     }
 
     //Añade roles al usuario

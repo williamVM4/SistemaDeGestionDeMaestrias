@@ -28,6 +28,13 @@
                 <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            <div class="row col-sm-12 d-flex justify-content-end">
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-outline-primary btn-sm abrirModal-btn" 
+                            data-bs-toggle="modal" data-bs-target="#crearModal" 
+                            data-action="agregar">Agregar</button>
+                </div>
+            </div>
             <br>
             <div class="pt-4">
                 <div class="table-responsive">
@@ -124,8 +131,7 @@
         </div>
     </div>
 
-    <form id="eliminarActividadForm" method="post" action="/EliminarActividad/{idActividad}">
-        <input type="hidden" id="idList" value="${idPrograma}">
+    <form id="eliminarForm" method="post" action="/EliminarActividad/{idActividad}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>

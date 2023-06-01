@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
@@ -10,18 +6,17 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-/**
- *
- * @author william
- */
 @Entity
 @Table(name = "ESTUDIANTE_COHORTE")
 @NamedQueries({
@@ -31,11 +26,12 @@ public class EstudianteCohorte implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @SequenceGenerator(name = "S_ESTUDIANTE_COHORTE", sequenceName = "S_ESTUDIANTE_COHORTE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_ESTUDIANTE_COHORTE")
     @Column(name = "ID_ESTUD_CO")
     private Long idEstudCo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstudCo")
-    private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstudCo")
+    private Collection<EstudianteAsignatura> estudianteAsignaturaCollection;*/
     @JoinColumn(name = "ID_COHORTE", referencedColumnName = "ID_COHORTE")
     @ManyToOne(optional = false)
     private Cohorte idCohorte;
@@ -58,13 +54,13 @@ public class EstudianteCohorte implements Serializable {
         this.idEstudCo = idEstudCo;
     }
 
-    public Collection<EstudianteAsignatura> getEstudianteAsignaturaCollection() {
+    /*public Collection<EstudianteAsignatura> getEstudianteAsignaturaCollection() {
         return estudianteAsignaturaCollection;
     }
 
     public void setEstudianteAsignaturaCollection(Collection<EstudianteAsignatura> estudianteAsignaturaCollection) {
         this.estudianteAsignaturaCollection = estudianteAsignaturaCollection;
-    }
+    }*/
 
     public Cohorte getIdCohorte() {
         return idCohorte;

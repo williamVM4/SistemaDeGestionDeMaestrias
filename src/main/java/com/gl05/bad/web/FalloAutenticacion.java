@@ -6,12 +6,15 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 public class FalloAutenticacion implements AuthenticationFailureHandler {
 
@@ -32,6 +35,7 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
 
+        String errorMessage = null;
         
         try{
             //Formulario
@@ -40,14 +44,31 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
         Usuario usuario = usuarioDao.findByUsername(username);
 
          if (username.equals(usuario.getUsername()) && usuario.getUsuarioBloqueado() == 1 && usuario.isEnabled() == false) {
-            response.sendRedirect("/usuariodeshabilitadobloqueado");
+            //response.sendRedirect("/usuariodeshabilitadobloqueado");
+            
+           errorMessage = "Usuario Bloqueado e Inhabilitado! , Contacte al administrador del sistema para realizar las acciones pertinentes";
+           HttpSession session = request.getSession();
+           session.setAttribute("errorMessage", errorMessage);
+           response.sendRedirect(request.getContextPath() + "/login");            
          } else    
         
         //Cuando el usuario esta bloqueado por los 3 intentos
         if (username.equals(usuario.getUsername()) && usuario.getUsuarioBloqueado() == 1 ) {
-            response.sendRedirect("/usuariobloqueado");
+            //response.sendRedirect("/usuariobloqueado");
+           
+           errorMessage = "Usuario Bloqueado! , Contacte al administrador del sistema para realizar las acciones pertinentes";
+           HttpSession session = request.getSession();
+           session.setAttribute("errorMessage", errorMessage);
+           response.sendRedirect(request.getContextPath() + "/login");
+
         } else if (username.equals(usuario.getUsername()) && usuario.isEnabled() == false) {
-             response.sendRedirect("/usuarioinhabilitado");
+           //response.sendRedirect("/usuarioinhabilitado");
+             
+           errorMessage = "Usuario Inhabilitado! , Contacte al administrador del sistema para realizar las acciones pertinentes";
+           HttpSession session = request.getSession();
+           session.setAttribute("errorMessage", errorMessage);
+           response.sendRedirect(request.getContextPath() + "/login");
+                      
          } else if (username.equals(usuario.getUsername()) || usuario.getUsuarioBloqueado() == 0) {
             //Incrementamos el contador de intentos fallidos
             int intentos = usuario.getNumerointentos() + 1;
@@ -64,16 +85,33 @@ public class FalloAutenticacion implements AuthenticationFailureHandler {
                 String subject = "Usuario bloqueado";
                 String message = "El usuario " + username + " con correo " + usuarioEmail + " ha sido bloqueado después de 3 intentos fallidos de inicio de sesión.";
                 sendEmail(usuarioEmail, adminEmail, subject, message);
-                response.sendRedirect("/errorpage");
+                
+                //response.sendRedirect("/errorpage");
+                errorMessage = "Se ha bloqueado su usuario despues de 3 intentos, se ha enviado un correo al administrador para su desbloqueo";
+                HttpSession session = request.getSession();
+                session.setAttribute("errorMessage", errorMessage);
+                response.sendRedirect(request.getContextPath() + "/login");
+                
             } else {
                 // Redirigir al usuario a la página de inicio de sesión
-                response.sendRedirect("/login");
+                //response.sendRedirect("/login");
+                
+                errorMessage = "Credenciales Incorrectas, Ingresarlas nuevamente";
+                HttpSession session = request.getSession();
+                session.setAttribute("errorMessage", errorMessage);
+                response.sendRedirect(request.getContextPath() + "/login");
+                
             }
   
         }
-        }catch (NullPointerException e){
-           System.out.println("usuario nulo");
-           response.sendRedirect("/login");
+        }catch (NullPointerException e){       
+           errorMessage = "Credenciales de inicio de sesión No existentes, Usuario no encontrado.";
+           // Almacenar el mensaje de error en la sesión
+           HttpSession session = request.getSession();
+           session.setAttribute("errorMessage", errorMessage);
+
+           // Redireccionar a la página de inicio de sesión
+           response.sendRedirect(request.getContextPath() + "/login");
         }
    
         

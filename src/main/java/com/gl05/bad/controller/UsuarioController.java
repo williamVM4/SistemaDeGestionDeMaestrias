@@ -4,7 +4,11 @@ import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.RolesService;
 import com.gl05.bad.servicio.UserService;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -29,7 +34,7 @@ public class UsuarioController {
     //Obtener los usuarios y mostrarlos en tablas
     @GetMapping("/viewUsuarios")
     public String mostrarUsuarios(Model model) {
-        model.addAttribute("pageTitle", "mostrarUsuarios");
+        model.addAttribute("pageTitle", "Usuarios");
 
         var elemento = userService.listaUsuarios();
         model.addAttribute("usuarios", elemento);
@@ -38,33 +43,43 @@ public class UsuarioController {
         model.addAttribute("roles", elementoRol);
         model.addAttribute("usuario", new Usuario());
 
-        return "/Usuarios/GestionarUsuarios";
+        return "/Usuarios/GestionarUsuarios2";
+    }
+    
+    @GetMapping("/usuarios/data")
+    @ResponseBody
+    public DataTablesOutput<Usuario> getUsuarios(@Valid DataTablesInput input) {
+        return userService.listarUsuarios(input);
     }
 
     @PostMapping("/AgregarUsuario")
-    public String AgregarUsuario(Usuario usuario, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public ResponseEntity AgregarUsuario(Usuario usuario, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
             String password = usuario.getPassword();
             String encryptedPassword = passwordEncoder.encode(password);
             usuario.setPassword(encryptedPassword);
             userService.AgregarUsuarios(usuario);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un Usuario.");
+            String mensaje = "Se ha agregado un usuario.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ya existe un usuario con ese identificador.");
+            String error = "Ocurrió un error al agregar al usuario.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
 
-        return "redirect:/viewUsuarios";
+//        return "redirect:/viewUsuarios";
     }
 
-    @GetMapping("/EliminarUsuario/{idUsuario}")
-    public String EliminarUsuario(Usuario usuario, RedirectAttributes redirectAttributes) {
+    @PostMapping("/EliminarUsuario/{idUsuario}")
+    public ResponseEntity EliminarUsuario(Usuario usuario) {
         try {
             userService.eliminarUsuario(usuario);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el usuario correctamente.");
+             String mensaje = "Se ha eliminado al usuario correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "No se puede eliminar el usuario");
+            String error = "Ha ocurrido un error al eliminar el usuario";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/viewUsuarios";
+//        return "redirect:/viewUsuarios";
     }
 
     @GetMapping("/ObtenerUsuario/{id}")
@@ -78,7 +93,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/ActualizarUsuario")
-    public String ActualizarUsuario(Usuario usuario, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public ResponseEntity ActualizarUsuario(Usuario usuario, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
             String password = usuario.getPassword();
 
@@ -93,11 +108,13 @@ public class UsuarioController {
             }
 
             userService.actualizarUsuario(usuario);
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado el usuario.");
+            String mensaje = "Se ha actualizado el usuario correctamente.";
+            return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al actualizar el usuario.");
+            String error = "Ha ocurrido un error al actualizar el usuario.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return "redirect:/viewUsuarios";
+//        return "redirect:/viewUsuarios";
     }
 
 }

@@ -126,8 +126,30 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>                    
     
-    
     <!-- /.Modal de eliminar -->
+    
+    <div class="modal fade" id="inscribirMateriaModal" tabindex="-1" aria-labelledby="inscribirMateriaModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Malla Curricular de la Maestría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <form id="inscribirMateriaForm" action="/InscribirMateria/{idCohorte}" method="post">
+                        <div class="modal-body">
+                        <input id="csrfToken" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <select id="materias" name="materias[]" class="form-control" size="10" multiple="multiple" required></select>
+                        </div>
+                        <div class="modal-footer">
+                        <button id="inscribirMateriaBtn" class="btn btn-success">Inscribir</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                      </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+
 
 </div>
   <!-- /.content-wrapper -->
