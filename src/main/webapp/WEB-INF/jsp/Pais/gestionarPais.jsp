@@ -58,7 +58,7 @@
     <!-- /.Main content -->
 
     <!-- Modal de agregar y editar -->
-    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+    <!--<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,10 +85,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
             
     <!-- Modal de eliminar -->
-    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+    <!--<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

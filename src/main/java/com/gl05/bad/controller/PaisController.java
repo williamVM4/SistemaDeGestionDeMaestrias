@@ -28,9 +28,11 @@ public class PaisController {
     }
     
     @GetMapping("/GestionarPais")
-    public String mostrarPais(Model model) {
+    public String GestionarPais(Model model) {
         model.addAttribute("pageTitle", "GestionarPais");
-        return "Pais/gestionarPais";
+        var elementos = paisService.listarPais();
+        model.addAttribute("paises", elementos);
+        return "/Pais/gestionarPais";
     }
     
     @PostMapping("/AgregarPais")
