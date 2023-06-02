@@ -83,39 +83,28 @@ $(document).ready(function () {
 
         submitHandler: function (form) {
             event.preventDefault(); // detiene el evento del envío del formulario
-            var idCohorte = $('#idCohorte').val(); // tomo la id
-
-            var formDataArray = formGuardar.serializeArray(); // tomo los datos del array
-            var url; // valido el tipo de URL si editar o crear
+            var idCohorte = $('#idCohorte').val();
+            var formDataArray = formGuardar.serializeArray();
+            var url;
             var id = $(this).data('id');
             url = '/ContratarAspirante';
-            //formDataArray.push({name: 'idMaestria', value: idMaestria});
-
-            // Convertir el arreglo en un objeto
             var formData = {};
             $.map(formDataArray, function (n, i) {
                 formData[n['name']] = n['value'];
             });
-
-            console.log(formDataArray);
-            // realizo el guardado mediante ajax
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: formData,
                 success: function (response) {
-                    $('#contratar').modal('hide'); // Cierra el modal
-                    //var table = $('#cohorteTable').DataTable();
-                    //table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
-                    //mostrarMensaje(response, 'success');
-                    console.log(response);
+                    $('#contratar').modal('hide');
+                    mostrarMensaje('Se elimino el profesor con exito.', 'success');
+
+                    //location.reload();
                 },
                 error: function (xhr, status, error) {
-                    $('#crearModal').modal('hide'); // Cierra el modal
-                    //var errorMessage = xhr.responseText || 'Error al actualizar la cohorte.';
-                    //mostrarMensaje(errorMessage, 'danger');
-
-                    console.log(error);
+                    $('#crearModal').modal('hide');
+                    mostrarMensaje(error, 'danger');
                 }
             });
         }
@@ -128,25 +117,24 @@ $(document).ready(function () {
         var modal = $('#confirmarEliminarModal');
         var tituloModal = modal.find('.modal-title');
         var cuerpoModal = modal.find('.modal-body');
-        var eliminarBtn = modal.find('#eliminarBtn');
+        var eliminarBtn = modal.find('#eliminarProfesorBtn');
 
-        // Actualizar el contenido del modal con los parámetros recibidos
         tituloModal.text('Confirmar eliminación');
-        cuerpoModal.html('<strong>¿Estás seguro de eliminar la Àrea de Conocimiento seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a el Profesor ' + nombre + '.');
+        cuerpoModal.html('<strong>¿Estás seguro de eliminar El Profesor seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a el Profesor ' + nombre + '.');
 
-        // Actualizar el atributo href del botón de eliminación con el idMaestria
         eliminarBtn.data('id', id);
 
         modal.modal('show');
     });
     //Método para enviar la solicitud de eliminar
-    $(document).on('click', '#eliminarBtn', function () {
+    $(document).on('click', '#eliminarProfesorBtn', function () {
         var idProfesorCohorte = $(this).data('id');
+        console.log(idProfesorCohorte);
         // Actualizar la acción del formulario con el idMaestria
         $('#eliminarForm').attr('action', '/EliminarProfesor/' + idProfesorCohorte);
 
         var formData = $('#eliminarForm').serializeArray();
-        formData.push({name: 'idProfesorCohorte', value: idProfesorCohorte});
+        formData.push({name: 'idProfesor', value: idProfesorCohorte});
         console.log(formData);
         $.ajax({
             url: $('#eliminarForm').attr('action'),
@@ -154,8 +142,8 @@ $(document).ready(function () {
             data: formData, // Incluir los datos del formulario en la solicitud
             success: function (response) {
                 $('#confirmarEliminarModal').modal('hide');
-                //location.reload();
                 mostrarMensaje('Se elimino el profesor con exito.', 'success');
+                //location.reload();
             },
             error: function () {
                 $('#confirmarEliminarModal').modal('hide');
@@ -166,11 +154,15 @@ $(document).ready(function () {
 
     });
     function mostrarMensaje(mensaje, tipo) {
-        var alertElement = $('.alert-' + tipo);
-        alertElement.text(mensaje).addClass('show').removeClass('d-none');
-        setTimeout(function () {
-            alertElement.removeClass('show').addClass('d-none');
-        }, 5000); // Ocultar el mensaje después de 3 segundos (ajusta el valor según tus necesidades)
+        Swal.fire({
+            icon: tipo,
+            title: mensaje,
+            showConfirmButton: true,
+            allowOutsideClick: false,
+            didClose: function () {
+                window.location.reload();
+            }
+        });
     }
 
 });
