@@ -3,10 +3,14 @@ package com.gl05.bad.controller;
 import com.gl05.bad.domain.Actividad;
 import com.gl05.bad.domain.ListadoActividadEvaluada;
 import com.gl05.bad.servicio.ActividadService;
+import com.gl05.bad.servicio.AspiranteProfesorService;
+import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.ProgramaAsignaturaService;
+import com.gl05.bad.servicio.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +27,26 @@ public class ActividadController {
 
     @Autowired
     private ProgramaAsignaturaService programaAsignaturaService;
+    
+    @Autowired
+    private CoordinadorAcademicoService coordinadorAcademicoService;
+    
+    @Autowired
+    private AspiranteProfesorService aspiranteProfesorService;
+    
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/viewActividad/{idProgramaAsignatura}")
-    public String mostrarActividad(Model model, RedirectAttributes redirectAttributes, @PathVariable("idProgramaAsignatura") Long idProgramaAsignatura) {
+    public String mostrarActividad(Model model, RedirectAttributes redirectAttributes, @PathVariable("idProgramaAsignatura") Long idProgramaAsignatura, Authentication authentication) {
         Long listProgramaAsignaturaId = programaAsignaturaService.encontrarPrograma(idProgramaAsignatura);
         var elemento = actividadService.listaActividades(listProgramaAsignaturaId);
+        String username = authentication.getName();
+        String usuarioCoordinador = coordinadorAcademicoService.buscarPerfil(username);
+        String usuarioAspirante=aspiranteProfesorService.buscarPerfil(username);
+         
+        model.addAttribute("usuarioCoordinador", usuarioCoordinador);
+        model.addAttribute("usuarioAspirante", usuarioAspirante);
         model.addAttribute("actividad", elemento);
         model.addAttribute("idPrograma", idProgramaAsignatura);
         //System.out.println(elemento);

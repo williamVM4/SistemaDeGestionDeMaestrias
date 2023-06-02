@@ -28,4 +28,6 @@ public interface CoordinadorAcademicoService {
   
   public void enviarCorreo(String correoDestino, String asunto, String mensaje);
   
+  public String buscarPerfil(String username);
+  
 }
