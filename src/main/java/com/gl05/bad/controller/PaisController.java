@@ -31,7 +31,7 @@ public class PaisController {
             
     @GetMapping("/GestionarPaises")
     public String mostrarPaises(Model model) {
-        model.addAttribute("pageTitle", "GestionarPais");
+        model.addAttribute("pageTitle", "Gestionar Pais");
         return "/Pais/gestionarPais";
     }
     

@@ -85,7 +85,7 @@ public class AspiranteProfesorController {
 
     @GetMapping("/PerfilAspiranteProfesor/{idAspiranteProfesor}")
     public String perfilAspiranteProfesor(Model model, AspiranteProfesor aspirante) {
-        model.addAttribute("pageTitle", "PerfilAspiranteProfesor");
+        model.addAttribute("pageTitle", "Perfil Aspirante Profesor");
         var aspiranteNew = aspiranteService.encontrarAP(aspirante);
         //Se cargan para la edicion de la informacion general del aspirante
         List<String> sexos = listarSexos();
@@ -202,7 +202,7 @@ public class AspiranteProfesorController {
         
     @GetMapping("/GestionarAspiranteProfesor")
     public String mostrarAspirantesProfesor(Model model) {
-        model.addAttribute("pageTitle", "GestionarAspiranteProfesor");
+        model.addAttribute("pageTitle", "Gestionar Aspirante");
         var elementos = aspiranteService.listarAspirantes();
         model.addAttribute("aspirantesAP", elementos);
         return "/AspiranteProfesor/gestionarAspiranteProfesor";
