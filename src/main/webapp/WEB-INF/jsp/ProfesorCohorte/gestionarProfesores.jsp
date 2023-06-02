@@ -89,19 +89,21 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="eliminarBtn" class="btn btn-danger">Eliminar</button>
+                    <button id="eliminarProfesorBtn" class="btn btn-danger">Eliminar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <form id="eliminarForm" method="post" action="/EliminarProfesor/{idprofesor}">
-        <input type="hidden" id="idCohorte" name="idCohorte" value="${idCohorte}">
+    <form id="eliminarForm" method="post" action="/EliminarProfesor/{idProfesorCohorte}">
+        
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>
 <%@ include file="../common/footer1.jspf"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/profesorCohorte.js"></script>
 
