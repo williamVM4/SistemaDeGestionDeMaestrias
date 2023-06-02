@@ -77,6 +77,7 @@ public class ProfesorCohorteController {
         return "ProfesorCohorte/index";
     }
 
+
     @PostMapping("/ContratarAspirante")
     public ResponseEntity ContratarAspirante(ProfesorCohorte profesorCohorte,
             RedirectAttributes redirectAttributes,
@@ -104,21 +105,11 @@ public class ProfesorCohorteController {
         model.addAttribute("profesorCohorte", profesorCohorte);
         return "ProfesorCohorte/gestionarProfesores";
     }
-    /*@PostMapping("//{idprofesor}")
-    public String EliminarActividad(Long profesorCohorte, @RequestParam("idCohorte") Long idCohorte, RedirectAttributes redirectAttributes) {
-        try {
-            ProfesorCohorte profesor = new ProfesorCohorte(profesorCohorte);
-            profesorCohorteService.eliminarPC(profesor);
-            System.out.println("xd");
-            redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el profesor correctamente.");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "No se puede eliminar el profesor");
-        }
-        return "redirect:/PostuladosCohorte/" + idCohorte;
-    }*/
-    @PostMapping("/EliminarProfesor/{}")
+
+    @PostMapping("/EliminarProfesor/{idProfesor}")
     public ResponseEntity EliminarProfesor(ProfesorCohorte profesorCohorte) {
         try {
+            System.out.println(profesorCohorte);
             profesorCohorteService.eliminarPC(profesorCohorte);
             String mensaje = "Se ha eliminado la Maestria correctamente.";
             return ResponseEntity.ok(mensaje);

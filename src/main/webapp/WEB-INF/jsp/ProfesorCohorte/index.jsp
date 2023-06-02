@@ -134,5 +134,7 @@
     </div>
 </div>
 <%@ include file="../common/footer1.jspf"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/profesorCohorte.js"></script>
