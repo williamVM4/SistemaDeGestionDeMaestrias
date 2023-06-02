@@ -63,6 +63,82 @@ $(document).ready(function() {
     });
     
     var formGuardar = $('#formGuardar'); // Almacenar referencia al formulario
+    var validator = $('#formGuardar').validate({
+        rules: {// reglas
+            codigoPais: {
+                required: true,
+                maxlength: 4
+            },
+            nombrePais:{
+                required: true,
+                maxlength: 50
+            }
+        },
+        messages: {// mensajes
+            codigoPais: {
+                required: 'Este campo es requerido',
+                maxlength: "El número máximo de caracteres es 4"
+            },
+            nombrePais: {
+                required: 'Este campo es requerido',
+                maxlength: "El número máximo de caracteres es 50"
+            }
+        },
+        highlight: function(element) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element) {
+            $(element).removeClass('is-invalid');
+        },
+        errorPlacement: function(error, element) {
+            if (element.attr("name") === "codigoPais") {
+                error.insertAfter(element);
+            } else {
+                if (element.attr("name") === "nombrePais") {
+                    error.insertAfter(element);
+                }
+            }
+         },
+        errorElement: 'div',
+        errorClass: 'invalid-feedback',
+        submitHandler: function (form) {
+            event.preventDefault();//detiene el evento del envio del form 
+            var idPais = $('#idPais').val();//tomo la id
+
+            var formDataArray = formGuardar.serializeArray();//tomo los datos del array
+
+            var url;//valido el tipo de url si editar o crear
+            if (idPais) {
+                url = '/ActualizarPais';
+                //meto la id en el campo de envio
+                formDataArray.push({name: 'idPais', value: idPais});
+            } else {
+                url = '/AgregarPais';
+            }
+            // Convertir el arreglo en un objeto
+            var formData = {};
+            $.map(formDataArray, function (n, i) {
+                formData[n['name']] = n['value'];
+            });
+            //realizo el guardado mediante ajax
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    $('#crearModal').modal('hide');  // Cierra el modal
+                    var table = $('#paisesTable').DataTable();
+                    table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
+                    mostrarMensaje(response, 'success');
+                },
+                error: function (xhr, status, error) {
+                    $('#crearModal').modal('hide');  // Cierra el modal
+                    var errorMessage = xhr.responseText || 'Error al actualizar el país.';
+                    mostrarMensaje(errorMessage, 'danger');
+                }
+            });
+        }
+    });
     
     // metodo para mostrar el modal segun sea si editar o nuevo registro
     $(document).on('click', '.abrirModal-btn', function () {
@@ -73,7 +149,7 @@ $(document).ready(function() {
         var btnSumit = document.getElementById('btnSumit');
         formGuardar.find('.is-invalid').removeClass('is-invalid');
 
-        if (idMaestria) {
+        if (idPais) {
             tituloModal.text('Editar Pais');//titulo del modal
             $.ajax({//utilizo ajax para obtener los datos
                 url: '/ObtenerPais/' + idPais,

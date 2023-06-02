@@ -58,7 +58,7 @@
     <!-- /.Main content -->
 
     <!-- Modal de agregar y editar -->
-    <!--<div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
+    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -71,11 +71,11 @@
                         <input type="hidden" id="idPais">
                         <div class="form-group">
                             <label for="codigoPais" class="form-label">Código del País</label>
-                            <input type="text" class="form-control" id="codigoPais" name="codigoPais" required>
+                            <input type="text" class="form-control" id="codigoPais" name="codigoPais" maxlength="4" required>
                         </div>
                         <div class="form-group">
                             <label for="nombrePais" class="form-label">Nombre del País</label>
-                            <input type="text" class="form-control" id="nombrePais" name="nombrePais" required>
+                            <input type="text" class="form-control" id="nombrePais" name="nombrePais" maxlength="50" required>
                         </div>
                         <div class="modal-footer">
                             <button id='btnSumit' type="submit" class="btn btn-outline-success guardar-btn">Guardar</button>
@@ -85,10 +85,10 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
             
     <!-- Modal de eliminar -->
-    <!--<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -120,7 +120,7 @@
               <sec:authorize access="hasAuthority('VIEW_ASPIRANTES_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/GestionarAspiranteProfesor" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarAspiranteProfesor' ? 'active' : ''}">
-                  <i class="far fa-circle nav-icon text-warning"></i>
+                  <i class="fa-solid fa-chalkboard-user nav-icon text-warning"></i>
                   <p>Aspirantes a Profesor</p>
                 </a>
               </li>
@@ -195,17 +195,13 @@
                   <p>Áreas de conocimiento</p>
                 </a>
               </li>
-<<<<<<< HEAD
               <li class="nav-item">
-                <a href="/GestionarPais" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarPais' ? 'active' : ''}">
-                  <i class="far fa-circle nav-icon text-warning"></i>
+                <a href="/GestionarPaises" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/GestionarPaises' ? 'active' : ''}">
+                  <i class="fa-solid fa-earth-americas nav-icon text-warning"></i>
                   <p>Paises</p>
                 </a>
               </li>
-=======
               </sec:authorize>
-              
->>>>>>> main
             </ul>
           </li>
         </ul>
