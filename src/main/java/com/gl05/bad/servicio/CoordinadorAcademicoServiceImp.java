@@ -3,6 +3,7 @@ package com.gl05.bad.servicio;
 import com.gl05.bad.dao.CoordinadorAcademicoDao;
 import com.gl05.bad.dao.UsuarioDao;
 import com.gl05.bad.domain.CoordinadorAcademico;
+import com.gl05.bad.domain.Usuario;
 import java.security.SecureRandom;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -29,6 +30,9 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
     
     @Autowired
     private JavaMailSender mailSender;
+    
+    @Autowired
+    private UserService userService;
 
     @Override
     @Transactional
@@ -167,5 +171,24 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
     private char getRandomCharacter(String characters, SecureRandom random) {
         int randomIndex = random.nextInt(characters.length());
         return characters.charAt(randomIndex);
+    }
+    
+    @Override
+    public String buscarPerfil(String username) {
+        String usuarioCoordinador = "";
+        String idUsuario="";
+        List<Usuario> usuarios=userService.listaUsuarios();
+        for (Usuario usuario: usuarios) {
+               if(usuario.getUsername().equals(username)){
+                   idUsuario=usuario.getIdUsuario().toString();
+               }
+        }
+        List<CoordinadorAcademico> coordinadores = listarCoordinadores();
+        for (CoordinadorAcademico coordinador: coordinadores) {
+               if(coordinador.getIdusuario().toString().equals(idUsuario)){
+                   usuarioCoordinador=coordinador.getIdCoorAca().toString();
+               }
+        }
+        return usuarioCoordinador;
     }
 }

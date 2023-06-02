@@ -49,7 +49,13 @@ public class IndexController {
         model.addAttribute("pageTitle", "Welcome");
         
          String username = authentication.getName();
+         String usuarioCoordinador = coordinadorAcademicoService.buscarPerfil(username);
+         String usuarioAspirante=aspiranteProfesorService.buscarPerfil(username);
+         
+         model.addAttribute("usuarioCoordinador", usuarioCoordinador);
+         model.addAttribute("usuarioAspirante", usuarioAspirante);
          model.addAttribute("username", username);
+        
         
         if (authentication.getAuthorities().isEmpty()) {
             // En caso de que el usuario no tenga permisos

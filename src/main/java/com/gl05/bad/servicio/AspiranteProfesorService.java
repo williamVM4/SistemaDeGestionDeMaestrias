@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public interface AspiranteProfesorService {
     
-  public Collection<AspiranteProfesor> listarAspirantes();
+  public List<AspiranteProfesor> listarAspirantes();
     
   public DataTablesOutput<AspiranteProfesor> listarAspirantes(DataTablesInput input);
   
@@ -26,4 +26,6 @@ public interface AspiranteProfesorService {
   public AspiranteProfesor encontrarPorIdUsuario(Integer idUsuario);
   
   public String generarPassword(int length);
+  
+  public String buscarPerfil(String username);
 }
