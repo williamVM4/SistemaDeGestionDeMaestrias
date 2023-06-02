@@ -13,8 +13,6 @@ public interface AspiranteProfesorService {
     
   public DataTablesOutput<AspiranteProfesor> listarAspirantes(DataTablesInput input);
   
-  //public List<AspiranteProfesor> listarAspirantes();
-  
   public void agregarAP(AspiranteProfesor aspirante);
   
   public void actualizarAP(AspiranteProfesor aspirante);
