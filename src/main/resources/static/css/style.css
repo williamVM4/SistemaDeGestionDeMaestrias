@@ -113,3 +113,15 @@ pre{
     margin: 0 auto;
     margin-top: 100px;
 }
+
+.links-cohorte{
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.links-cohorte:hover{
+    color: #000;
+    border-color: #293462;
+}
