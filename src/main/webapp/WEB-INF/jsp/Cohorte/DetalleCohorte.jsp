@@ -58,7 +58,7 @@
                     </button>
                 </div>
                 <div class="col-md-6">
-                    <a href="#" class="card links-cohorte p-3">
+                    <a href="/AsignaturasInscripcionCohorte/${cohorte.idCohorte}" class="card links-cohorte p-3">
                         <p class="text-center m-0">Gestionar Inscripciones de Materias</p>
                     </a>
                 </div>
