@@ -5,7 +5,6 @@ import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.EstudianteAsignatura;
 import com.gl05.bad.domain.EstudianteCohorte;
 import com.gl05.bad.domain.Maestria;
-import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.AsignaturaService;
 import com.gl05.bad.servicio.CohorteService;
 import com.gl05.bad.servicio.EstudianteAsignaturaService;
@@ -13,7 +12,6 @@ import com.gl05.bad.servicio.EstudianteCohorteService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.UserService;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
@@ -53,6 +51,8 @@ public class CohorteController {
     
     @Autowired
     private EstudianteAsignaturaService estudianteAsignaturaService;
+    
+    
     
      @GetMapping("/GestionarCohorte/{idMaestria}")
     public String listarCohortes(Model model,@PathVariable("idMaestria") Long idMaestria) {

@@ -4,6 +4,7 @@ import com.gl05.bad.dao.EstudianteAsignaturaDao;
 import com.gl05.bad.domain.Asignatura;
 import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.EstudianteAsignatura;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,4 +32,15 @@ public class EstudianteAsignaturaServiceImp implements EstudianteAsignaturaServi
         return estudianteAsignaturaDao.verificarEstudianteAsignatura(cohorte, asignatura);
     }
     
+    @Override
+     @Transactional(readOnly=true)
+    public List<EstudianteAsignatura> encontrarPorIdCohorteIdasignatura(Long idCohorte, Long idCohorteAsignatura){
+        return estudianteAsignaturaDao.findByCohorteAndAsignatura(idCohorte, idCohorteAsignatura);
+    }
+    
+    @Override
+    @Transactional()
+    public void eliminarEstudianteAsignatura(EstudianteAsignatura estudianteAsignatura){
+        estudianteAsignaturaDao.delete(estudianteAsignatura);
+    }
 }
