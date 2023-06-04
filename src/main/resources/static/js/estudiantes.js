@@ -23,7 +23,10 @@ $(document).ready(function() {
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
 //                    if(hasPrivilegeAdmin == true){
-                    var actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                    var actionsHtml = '<a class="btn btn-outline-success eliminarModal-btn" href="/DetalleEstudiante/' + row.idEstudiante + '">';
+                        actionsHtml += '<i class="bi bi-eye"></i></a>';
+                    
+                        actionsHtml += '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
                         actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idEstudiante + '" data-modo="actualizar">';
                         actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
 //                    }
