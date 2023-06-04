@@ -23,7 +23,7 @@ $(document).ready(function() {
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
 //                    if(hasPrivilegeAdmin == true){
-                    var actionsHtml = '<a class="btn btn-outline-success eliminarModal-btn" href="/DetalleEstudiante/' + row.idEstudiante + '">';
+                    var actionsHtml = '<a class="btn btn-outline-secondary" href="/DetalleEstudiante/' + row.idEstudiante + '">';
                         actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
                         actionsHtml += '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
