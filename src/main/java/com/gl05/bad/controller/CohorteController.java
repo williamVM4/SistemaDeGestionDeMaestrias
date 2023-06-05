@@ -5,12 +5,14 @@ import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.EstudianteAsignatura;
 import com.gl05.bad.domain.EstudianteCohorte;
 import com.gl05.bad.domain.Maestria;
+import com.gl05.bad.domain.VistaEstudiantesPorCohorte;
 import com.gl05.bad.servicio.AsignaturaService;
 import com.gl05.bad.servicio.CohorteService;
 import com.gl05.bad.servicio.EstudianteAsignaturaService;
 import com.gl05.bad.servicio.EstudianteCohorteService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.UserService;
+import com.gl05.bad.servicio.VistaEstudiantesPorCohorteService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +54,8 @@ public class CohorteController {
     @Autowired
     private EstudianteAsignaturaService estudianteAsignaturaService;
     
+    @Autowired
+    private VistaEstudiantesPorCohorteService vEstudiantesPorCohorteService;
     
     
      @GetMapping("/GestionarCohorte/{idMaestria}")
@@ -186,4 +190,16 @@ public class CohorteController {
         return "/Cohorte/DetalleCohorte";
     }
     
+    
+    //Reporte estudiantes inscritos
+    @GetMapping("/EstudiantesInscritos")
+    public String estudiantesInscritos(Model model) {
+        return "/Reportes/estudiantesInscritos";
+    }
+    
+    @GetMapping("/EstudiantesInscritos/data")
+    @ResponseBody
+    public DataTablesOutput<VistaEstudiantesPorCohorte> getCohortes(@Valid DataTablesInput input) {
+        return vEstudiantesPorCohorteService.obtenerEstudiantesPorCohorte(input);
+    }
 }
