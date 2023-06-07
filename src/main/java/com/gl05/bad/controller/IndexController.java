@@ -46,7 +46,7 @@ public class IndexController {
     
     @GetMapping("/")
     public String index(Model model, Authentication authentication) {
-        model.addAttribute("pageTitle", "Welcome");
+        model.addAttribute("pageTitle", "Inicio");
         
          String username = authentication.getName();
          String usuarioCoordinador = coordinadorAcademicoService.buscarPerfil(username);

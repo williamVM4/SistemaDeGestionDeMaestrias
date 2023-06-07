@@ -36,8 +36,6 @@
                         <p class="m-0">${cohorte.fechaApertura}</p>
                     </div>
                     <div class="col-md-4 text-center">
-                        <h5>Número de estudiantes: </h5>
-                        <p class="m-0"></p>
                     </div>
                     <div class="col-md-4 text-center">
                         <h5>Estado: </h5>
