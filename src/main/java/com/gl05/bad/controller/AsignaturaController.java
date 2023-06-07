@@ -62,6 +62,7 @@ public class AsignaturaController {
 
     @GetMapping("/DetallePlanEstudio/{idPlanEstudio}")
     public String Asignatura(Model model, RedirectAttributes redirectAttributes, @PathVariable("idPlanEstudio") Long idPlanEstudio) {
+        model.addAttribute("pageTitle", "Detalle Plan Estudio");
         var areaC = areaConocimientoService.listarAreaConocimientos();
         Long idMallaC = asignaturaService.encontrarMalla(idPlanEstudio);
         model.addAttribute("areaC", areaC);
@@ -200,6 +201,7 @@ public class AsignaturaController {
     
     @GetMapping("/AsignaturasInscripcionCohorte/{id}")
     public String GestionarAsignaturasInscripcionCohorte(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        model.addAttribute("pageTitle", "Gestionar Asignaturas Inscritas");
         Cohorte cohorte = cohorteService.encontrarCohorte(new Cohorte(id));
         model.addAttribute("cohorte", cohorte);
         short estadoPlanVigente = 1;

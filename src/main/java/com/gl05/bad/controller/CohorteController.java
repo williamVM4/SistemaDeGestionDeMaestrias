@@ -185,6 +185,7 @@ public class CohorteController {
     
     @GetMapping("/DetalleCohorte/{id}")
     public String detalleCohorte(@PathVariable Long id, Model model) {
+        model.addAttribute("pageTitle", "Detalle Cohorte");
         Cohorte cohorte = cohorteService.encontrarCohorte(new Cohorte(id));
         model.addAttribute("cohorte", cohorte);
         return "/Cohorte/DetalleCohorte";
@@ -194,6 +195,7 @@ public class CohorteController {
     //Reporte estudiantes inscritos
     @GetMapping("/EstudiantesInscritos")
     public String estudiantesInscritos(Model model) {
+        model.addAttribute("pageTitle", "Estudiantes Inscritos");
         return "/Reportes/estudiantesInscritos";
     }
     
