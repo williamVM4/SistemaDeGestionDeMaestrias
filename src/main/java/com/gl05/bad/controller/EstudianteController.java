@@ -200,6 +200,12 @@ public class EstudianteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
-
+    
+    @GetMapping("/DetalleEstudiante/{id}")
+    public String detalleEstudiante(@PathVariable Long id, Model model) {
+        Estudiante estudiante = estudianteService.encontrarEstudiante(id);
+        model.addAttribute("estudiante", estudiante);
+        return "/Estudiante/DetalleEstudiante";
+    }
 
 }

@@ -200,7 +200,7 @@
               
               <sec:authorize access="hasAuthority('VIEW_ESCUELA_PRIVILAGE')">
               <li class="nav-item">
-                <a href="/viewEscuelaPosgrado" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewEscuelaPosgrado' ? 'active' : ''}">
+                <a href="/EstudiantesInscritos" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/viewEscuelaPosgrado' ? 'active' : ''}">
                   <i class="fa-solid fa-people-group nav-icon text-warning"></i>
                   <p>Estudiantes Inscritos</p>
                 </a>

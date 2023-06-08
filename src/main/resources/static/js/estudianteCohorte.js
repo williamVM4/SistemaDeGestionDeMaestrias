@@ -20,8 +20,9 @@ $(document).ready(function() {
                 width: '20%',
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
-                    
-                    actionsHtml = '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idEstudiante.idEstudiante + '" ';
+                var actionsHtml = '<a class="btn btn-outline-success" href="/DetalleEstudiante/' + row.idEstudiante.idEstudiante + '">';
+                    actionsHtml += 'Perfil</a>';
+                    actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idEstudiante.idEstudiante + '" ';
                     actionsHtml += 'data-carnet="' + row.idEstudiante.carnetE + '">';
                     actionsHtml += 'Eliminar</button>';
                     return actionsHtml;

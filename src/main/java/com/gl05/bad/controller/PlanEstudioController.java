@@ -27,6 +27,7 @@ public class PlanEstudioController {
     
     @GetMapping("/GestionarPlanEstudio/{idMaestria}")
     public String listarPlanesEstudio(Model model,@PathVariable("idMaestria") Long idMaestria) {
+        model.addAttribute("pageTitle", "Gestionar Planes de Estudio");
         model.addAttribute("idMaestria", idMaestria);
         return "PlanEstudio/GestionarPlanEstudio";
     }
