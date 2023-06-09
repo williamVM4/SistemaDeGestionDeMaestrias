@@ -21,16 +21,20 @@ $(document).ready(function() {
 //                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
-//                    if(hasPrivilegeAdmin == true){
-                    var actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                    var actionsHtml = '';
+                    
+                    if(hasPrivilegeEditarEscuela === true){
+                        actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
                         actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idPostgrado + '" data-modo="actualizar">';
                         actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-//                    }
-                     
+                    }
+                    
+                    if(hasPrivilegeEliminarEscuela === true){
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idPostgrado + '" ';
                     actionsHtml += 'data-cod="' + row.idPostgrado + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
-              
+                    }
+                    
                     return actionsHtml;
                 }
             }

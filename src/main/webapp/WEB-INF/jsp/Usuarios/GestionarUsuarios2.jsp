@@ -32,10 +32,12 @@
             </div>
             <div class="row col-sm-12 d-flex justify-content-end">
                 <div class="col-sm-1">
+                     <sec:authorize access="hasAuthority('AGREGAR_USUARIO_PRIVILAGE')"> 
                     <button type="button" class="btn-add btn abrirModal-btn" 
                             data-bs-toggle="modal" data-bs-target="#crearModal" 
                             data-action="agregar">Agregar
                     </button>
+                     </sec:authorize>
                 </div>
             </div>
 
@@ -157,7 +159,17 @@
     
     
     <!-- /.Modal de eliminar -->                    
-          
+
+<sec:authorize access="hasAuthority('EDITAR_USUARIO_PRIVILAGE')" var="hasPrivilegeEditarUsuario"></sec:authorize>
+<script>
+    var hasPrivilegeEditarUsuario = ${hasPrivilegeEditarUsuario};
+</script>
+
+<sec:authorize access="hasAuthority('ELIMINAR_USUARIO_PRIVILAGE')" var="hasPrivilegeEliminarUsuario"></sec:authorize>
+<script>
+    var hasPrivilegeEliminarUsuario = ${hasPrivilegeEliminarUsuario};
+</script>
+
 <%@ include file="../common/footer1.jspf"%>
 
 <script src="${pageContext.request.contextPath}/js/usuarios.js"></script>

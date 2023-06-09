@@ -55,16 +55,23 @@ $(document).ready(function() {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
 //                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetallePlanEstudio/' + row.idPlanEstudio + '">';
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
-                    var actionsHtml = '<a class="btn btn-outline-secondary" href="/DetalleCohorte/' + row.idCohorte + '">';
-                        actionsHtml += '<i class="bi bi-gear-fill"></i></a>';
                     
+                    var actionsHtml = '';
+                    
+                    actionsHtml = '<a class="btn btn-outline-secondary" href="/DetalleCohorte/' + row.idCohorte + '">';
+                    actionsHtml += '<i class="bi bi-gear-fill"></i></a>';
+                    
+                    if(hasPrivilegeEditarCohorte === true){
                     actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
                     actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idCohorte + '" data-modo="actualizar">';
                     actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
+                    }
                     
+                    if(hasPrivilegeEliminarCohorte === true){
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idCohorte + '" ';
                     actionsHtml += 'data-cod="' + row.idCohorte + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
+                    }
                     
                     //Boton para habilitar/deshabilitar
                     //actionsHtml += '<button type="button" class="btn btn-outline-secondary" ">';
