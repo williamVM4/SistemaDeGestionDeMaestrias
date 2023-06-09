@@ -28,4 +28,6 @@ public interface AspiranteProfesorService {
   public String generarPassword(int length);
   
   public String buscarPerfil(String username);
+  
+  public void enviarCorreo(String correoDestino, String asunto, String mensaje);
 }
