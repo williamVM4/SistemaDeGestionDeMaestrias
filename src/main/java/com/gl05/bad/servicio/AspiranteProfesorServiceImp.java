@@ -17,6 +17,8 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Service
 public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
@@ -26,6 +28,9 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private JavaMailSender mailSender;
     
     @Override
     @Transactional(readOnly=true)
@@ -148,4 +153,15 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
 
         return usuarioAspirante;
     }
+    
+    @Override
+    @Transactional
+    public void enviarCorreo(String correoDestino, String asunto, String mensaje){
+      SimpleMailMessage mailMessage = new SimpleMailMessage();
+      mailMessage.setTo(correoDestino);
+      mailMessage.setSubject(asunto);
+      mailMessage.setText(mensaje);
+
+      mailSender.send(mailMessage);
+    };
 }
