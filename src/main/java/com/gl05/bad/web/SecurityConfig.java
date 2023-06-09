@@ -142,6 +142,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/PostuladosCohorte/**")
                 .hasAnyAuthority("VIEW_POSTULADOS_COHORTE_PRIVILAGE")
       
+                //Agregados 08-junio
+                .antMatchers("/GestionarPaises")
+                .hasAnyAuthority("VIEW_PAISES_PRIVILAGE")
+                .antMatchers("/ProfesorCohorte/**")
+                .hasAnyAuthority("VIEW_PROFESOR_COHORTE_PRIVILAGE")
+                .antMatchers("/EstudiantesInscritos")
+                .hasAnyAuthority("VIEW_REPORTE_INSCRIPCION_ESTUDIANTES_PRIVILAGE")
+                .antMatchers("/AreasAcademicas")
+                .hasAnyAuthority("VIEW_REPORTE_DISTRIBUCION_CATEGORIZADA_PRIVILAGE")
+                
+                //Aqui falta poner el permiso de ruta de Docentes contratados
+                
                 .and()
                 .formLogin() 
                 .loginPage("/login")
@@ -152,7 +164,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=true") // Ruta de redirección después de un inicio de sesión fallido
                 .failureHandler(falloAutenticacionHandler())
                 .successHandler(authenticationSuccessHandler())
-                .permitAll();
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/accesoDenegado");
 
         //.failureUrl("/login?error=true");
     }
