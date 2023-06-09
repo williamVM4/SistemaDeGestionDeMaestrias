@@ -27,18 +27,21 @@ $(document).ready(function () {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
 //                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
+                
+                 var actionsHtml = '';
 
-//                    if(hasPrivilegeAdmin == true){
-                    var actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                    if(hasPrivilegeEditarRol === true){
+                    actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
                     actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idRol + '" data-modo="actualizar">';
                     actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-//                    }
+                    }
 
+                    if(hasPrivilegeEliminarRol === true){
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idRol + '" ';
                     actionsHtml += 'data-cod="' + row.idRol + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
-
-                    return actionsHtml;
+                    }
+                     return actionsHtml || '';
                 }
             }
         ],

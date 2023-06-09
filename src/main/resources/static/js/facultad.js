@@ -19,17 +19,21 @@ $(document).ready(function() {
 //                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
-//                    if(hasPrivilegeAdmin == true){
-                    var actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                     var actionsHtml = '';
+                    
+                    if(hasPrivilegeEditarFacultad === true){
+                        actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
                         actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idFacultad + '" data-modo="actualizar">';
                         actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-//                    }
-                     
+                    }
+                   
+                     if(hasPrivilegeEliminarFacultad === true){
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idFacultad + '" ';
                     actionsHtml += 'data-cod="' + row.idFacultad + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
-              
-                    return actionsHtml;
+                    }
+                    
+                     return actionsHtml || '';
                 }
             }
         ],

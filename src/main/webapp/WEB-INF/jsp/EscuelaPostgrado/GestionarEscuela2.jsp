@@ -32,10 +32,12 @@
             </div>
             <div class="row col-sm-12 d-flex justify-content-end">
                 <div class="col-sm-1">
+                    <sec:authorize access="hasAuthority('AGREGAR_ESCUELA_PRIVILAGE')"> 
                     <button type="button" class="btn-add btn abrirModal-btn" 
                             data-bs-toggle="modal" data-bs-target="#crearModal" 
                             data-action="agregar">Agregar
                     </button>
+                    </sec:authorize>
                 </div>
             </div>
 
@@ -122,7 +124,15 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>                      
 
+<sec:authorize access="hasAuthority('EDITAR_ESCUELA_PRIVILAGE')" var="hasPrivilegeEditarEscuela"></sec:authorize>
+<script>
+    var hasPrivilegeEditarEscuela = ${hasPrivilegeEditarEscuela};
+</script>
 
+<sec:authorize access="hasAuthority('ELIMINAR_ESCUELA_PRIVILAGE')" var="hasPrivilegeEliminarEscuela"></sec:authorize>
+<script>
+    var hasPrivilegeEliminarEscuela = ${hasPrivilegeEliminarEscuela};
+</script>
 
 
 <%@ include file="../common/footer1.jspf"%>
