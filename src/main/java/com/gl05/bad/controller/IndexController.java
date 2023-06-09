@@ -167,5 +167,12 @@ public class IndexController {
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(responseMap);
-    }   
+    }
+    
+     @GetMapping("/accesoDenegado")
+    public String acceso(Model model) {
+        model.addAttribute("pageTitle", "Acceso Denegado");
+        return "accesodenegado";
+    }
+    
 }
