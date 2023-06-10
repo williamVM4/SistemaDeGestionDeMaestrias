@@ -21,31 +21,17 @@
     <!-- Main content -->
     <section class="content pb-5">
         <div class="container">
-            <div class="alert alert-success d-flex align-items-center alert-dismissible fade d-none" role="alert">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <strong><i class="bi bi-check-circle"></i> Éxito!&nbsp;</strong>
-            </div>
-            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade d-none" role="alert">
-                <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <div class="row col-sm-12 d-flex justify-content-end">
-                <div class="col-sm-1">
-                    <button type="button" class="btn-add btn abrirModal-btn" 
-                            data-bs-toggle="modal" data-bs-target="#crearModal" 
-                            data-action="agregar">Agregar
-                    </button>
-                </div>
-            </div>
 
             <div class="pt-4">
                 <div class="table-responsive-md">
-                    <table id="categoriasTable" class="table table-striped" style="width:100%">
+                    <table id="areaConocimientoTable" class="table table-striped" style="width:100%">
                         <thead class="table-light">
                             <tr>
-                                <th class="text-center">Código País</th>
-                                <th class="text-center">Nombre Pais</th>
-                                <th class="text-center">Acciones</th>
+                                <th class="text-center">Maestría</th>
+                                <th class="text-center">Cohorte</th>
+                                <th class="text-center">Área del conocimiento</th>
+                                <th class="text-center">Número de estudiantes</th>
+                                <th class="text-center">Número de profesores</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,10 +45,8 @@
 </div>
 <!-- /.content-wrapper -->
   
-<sec:authorize access="hasAuthority('VER_ADMIN_PRIVILEGE')" var="hasPrivilegeAdmin"></sec:authorize>
-<script>
-    var hasPrivilegeAdmin = ${hasPrivilegeAdmin};
-</script>
+
 <%@ include file="../common/footer1.jspf"%>
+<script src="${pageContext.request.contextPath}/js/reporteAreaConocimiento.js"></script>
 
 

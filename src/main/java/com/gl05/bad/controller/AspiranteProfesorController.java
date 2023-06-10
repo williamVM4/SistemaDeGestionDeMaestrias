@@ -215,14 +215,7 @@ public class AspiranteProfesorController {
         @RequestParam("apellidosAp") String apellidosAp,
         @RequestParam("correo") String correo,
         RedirectAttributes redirectAttributes) {
-        try {
-            AspiranteProfesor aspirante = new AspiranteProfesor();
-            aspirante.setCodAp(codAp);
-            if (aspiranteService.encontrarAP(aspirante) != null) {
-                redirectAttributes.addFlashAttribute("error", "Ya existe un aspirante a profesor con el mismo código.");
-                return "redirect:/GestionarAspiranteProfesor";
-            }
-            
+        try {            
             if (userService.encontrarUsuarioPorUsername(codAp) != null) {
                 redirectAttributes.addFlashAttribute("error", "Ya existe un usuario con el mismo código.");
                 return "redirect:/GestionarAspiranteProfesor";
