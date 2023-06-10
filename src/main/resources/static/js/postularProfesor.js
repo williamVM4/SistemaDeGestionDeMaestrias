@@ -141,17 +141,18 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 $('#crearModal').modal('hide');  // Cierra el modal
-                var errorMessage = xhr.responseText || 'Error al actualizar la maestría.';
+                var errorMessage = xhr.responseText || 'Error al actualizar la Postulacion.';
                 mostrarMensaje(errorMessage, 'danger');
+                
             }
         });
     });
     function mostrarMensaje(mensaje, tipo) {
         var alertElement = $('.alert-' + tipo);
         alertElement.text(mensaje).addClass('show').removeClass('d-none');
-        setTimeout(function () {
+        /*setTimeout(function () {
             alertElement.removeClass('show').addClass('d-none');
-        }, 5000);
+        }, 5000);*/
     }
 });
 
