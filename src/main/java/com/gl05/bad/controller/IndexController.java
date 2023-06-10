@@ -47,16 +47,13 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, Authentication authentication) {
         model.addAttribute("pageTitle", "Inicio");
-        
-         String username = authentication.getName();
-         String usuarioCoordinador = coordinadorAcademicoService.buscarPerfil(username);
-         String usuarioAspirante=aspiranteProfesorService.buscarPerfil(username);
-         
-         model.addAttribute("usuarioCoordinador", usuarioCoordinador);
-         model.addAttribute("usuarioAspirante", usuarioAspirante);
-         model.addAttribute("username", username);
-        
-        
+//         String username = authentication.getName();
+//         String usuarioCoordinador = coordinadorAcademicoService.buscarPerfil(username);
+//         String usuarioAspirante=aspiranteProfesorService.buscarPerfil(username);
+//         
+//         model.addAttribute("usuarioCoordinador", usuarioCoordinador);
+//         model.addAttribute("usuarioAspirante", usuarioAspirante);
+//         model.addAttribute("username", username);
         if (authentication.getAuthorities().isEmpty()) {
             // En caso de que el usuario no tenga permisos
             model.addAttribute("mensaje", "Usuario autenticado pero sin permisos");
