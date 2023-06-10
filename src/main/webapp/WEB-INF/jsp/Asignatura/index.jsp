@@ -69,6 +69,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <form class="form-floating" id='formGuardar' accept-charset="UTF-8">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" id="asignaturaId">
@@ -77,28 +78,29 @@
                             <div class="row">
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="codigoAsignatura">Código Asignatura</label>
-                                    <input type="text" class="form-control" id="codigoAsignatura" name="codigoAsignatura">
-
+                                    <input type="text" maxlength="10" class="form-control" id="codigoAsignatura" name="codigoAsignatura">
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="nombreAsignatura">Nombre de la Asignatura</label>
-                                    <input type="text" class="form-control" id="nombreAsignatura" name="nombreAsignatura">
+                                    <input type="text" maxlength="100" class="form-control" id="nombreAsignatura" name="nombreAsignatura">
 
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="uv">Unidades Valorativas</label>
-                                    <input type="number" class="form-control" id="uv" name="uv">
+                                    <input type="number" maxlength="3" class="form-control" id="uv" name="uv">
 
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="numeroCorrelativo">Nùmero Correlativo</label>
-                                    <input type="number" class="form-control" id="numeroCorrelativo" name="numeroCorrelativo">
+                                    <input type="number" maxlength="3" class="form-control" id="numeroCorrelativo" name="numeroCorrelativo">
 
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="ciclo">Ciclo</label>
-                                    <input type="number" class="form-control" id="ciclo" name="ciclo">
-
+                                    <select class="form-control" id="ciclo" name="ciclo">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="idAreaC">Àrea de Conocimiento</label>
@@ -115,31 +117,31 @@
                             <div class="row">
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="duracion">Duraciòn en Semanas</label>
-                                    <input type="number" class="form-control" id="duracion" name="duracion">
+                                    <input type="number" maxlength="4" class="form-control" id="duracion" name="duracion">
 
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="horasT">Horas Teorico Semanas</label>
-                                    <input type="number" class="form-control" id="horasT" name="horasT" >
+                                    <input type="number" maxlength="4" class="form-control" id="horasT" name="horasT" >
 
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="horasP">Horas Practica Semanas</label>
-                                    <input type="number" class="form-control" id="horasP" name="horasP">
+                                    <input type="number" maxlength="4" class="form-control" id="horasP" name="horasP">
 
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="horaCiclo">Horas Ciclo</label>
-                                    <input type="number" class="form-control" id="horaCiclo" name="horaCiclo" readonly>
+                                    <input type="number" maxlength="4" class="form-control" id="horaCiclo" name="horaCiclo" readonly>
 
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="introduccion">Introduccion</label>
-                                    <textarea rows="2" type="text" class="form-control" id="introduccion" name="introduccion"></textarea>
+                                    <textarea rows="2" maxlength="300" type="text" class="form-control" id="introduccion" name="introduccion"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="descipcionPrograma">Descriòn del Programa</label>
-                                    <textarea rows="2" type="text" class="form-control" id="descipcionPrograma" name="descipcionPrograma"></textarea>
+                                    <textarea rows="2" maxlength="500" type="text" class="form-control" id="descipcionPrograma" name="descipcionPrograma"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="objetivo">Objetivo</label>
@@ -147,26 +149,30 @@
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="metodologia">Metodologia de Enseñanza</label>
-                                    <textarea rows="2" type="text" class="form-control" id="metodologia" name="metodologia"></textarea>
+                                    <textarea rows="2" maxlength="300" type="text" class="form-control" id="metodologia" name="metodologia"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="sistemaEvaluacion">Sistema de Evaluaciòn</label>
-                                    <textarea rows="2" type="text" class="form-control" id="sistemaEvaluacion" name="sistemaEvaluacion"></textarea>
+                                    <textarea rows="2" maxlength="500" type="text" class="form-control" id="sistemaEvaluacion" name="sistemaEvaluacion"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="bibliografia">Bibliografia</label>
-                                    <textarea rows="2" type="text" class="form-control" id="bibliografia" name="bibliografia"></textarea>                              
+                                    <textarea rows="2" maxlength="300" type="text" class="form-control" id="bibliografia" name="bibliografia"></textarea>                              
                                 </div> 
                             </div>
 
                             <h6>Actividad de la Asignatura</h6>
                             <div class="row">
+                                <div class="alert alert-danger d-flex align-items-center alert-dismissible fade d-none" role="alert">
+                                    <strong><i class="bi bi-exclamation-triangle"></i> Error!&nbsp;</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                                 <div class="form-group mb-3 col-md-6 col-sm-6">
-                                    <input type="text" class="form-control" id="actividad" name="actividad[]" placeholder="Nombre de la Actividad">  
+                                    <input type="text" maxlength="100" class="form-control" id="actividad" name="actividad[]" placeholder="Nombre de la Actividad">  
                                 </div>
 
                                 <div class="form-group mb-3 col-md-6 col-sm-6">
-                                    <input type="number" class="form-control ponderaciones-class" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad en %">
+                                    <input type="number" maxlength="3" class="form-control ponderaciones-class" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad en %">
                                 </div>
                             </div>
                             <div id="actividades-extra" class="row">

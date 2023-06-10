@@ -84,12 +84,10 @@
                 
                 <sec:authorize access="hasAuthority('VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE')">          
                 <li class="nav-item">
-                    <sec:authorize access="hasAuthority('AGREGAR_WELCOME2_PRIVILEGE')">
                     <a href="/PostularProfesor" class="nav-link">
                         <i class="far fa-user nav-icon text-warning"></i>
                         <p>Postular a Profesor</p>
                     </a>
-                    </sec:authorize>
                 </li>
                 </sec:authorize>
                         
