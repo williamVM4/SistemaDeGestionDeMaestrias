@@ -75,8 +75,10 @@
     </form>
     <!-- /.Modal de eliminar -->
 
+<sec:authorize access="hasAuthority('ELIMINAR_ESTUDIANTES_COHORTE_PRIVILAGE')" var="hasPrivilegeEliminarEstudianteCohorte"></sec:authorize>
 <script>
     var idCohorte = ${cohorte.idCohorte};
+    var hasPrivilegeEliminarEstudianteCohorte = ${hasPrivilegeEliminarEstudianteCohorte};
 </script>
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/estudianteCohorte.js"></script>

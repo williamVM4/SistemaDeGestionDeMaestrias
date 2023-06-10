@@ -203,6 +203,7 @@ public class EstudianteController {
     
     @GetMapping("/DetalleEstudiante/{id}")
     public String detalleEstudiante(@PathVariable Long id, Model model) {
+        model.addAttribute("pageTitle", "Detalle Estudiante");
         Estudiante estudiante = estudianteService.encontrarEstudiante(id);
         model.addAttribute("estudiante", estudiante);
         return "/Estudiante/DetalleEstudiante";
