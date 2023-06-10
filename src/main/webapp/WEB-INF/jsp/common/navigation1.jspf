@@ -205,7 +205,6 @@
             </a>
             
              <ul class="nav nav-treeview">              
-              
               <sec:authorize access="hasAuthority('VIEW_REPORTE_INSCRIPCION_ESTUDIANTES_PRIVILAGE')">
               <li class="nav-item">
                 <a href="/EstudiantesInscritos" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' ? 'active' : ''}">
