@@ -166,6 +166,11 @@ public class CohorteController {
         try {
             Cohorte cohorteEncontrada = cohorteService.encontrarCohorte(cohorte);
             List<EstudianteCohorte> estudiantesCohorte = estudianteCohorteService.encontrarEstudianteIdCohorte(cohorteEncontrada);
+            // Verificar si la lista de estudiantesCohorte está vacía
+            if (estudiantesCohorte.isEmpty()) {
+                String error = "La cohorte no tiene estudiantes inscritos";
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
             for (Long materiaId : materiasIds) {
                 Asignatura asignatura = asignaturaService.encontrarAsig(materiaId); // Obtener el objeto Estudiante correspondiente al ID
                 for (EstudianteCohorte estudianteCohorte:estudiantesCohorte) {

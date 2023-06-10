@@ -43,10 +43,10 @@ public class Usuario implements Serializable{
     )
     private Set<Roles> roles = new HashSet<>();
     
-    @OneToMany(mappedBy = "idusuario")
-    private Collection<AspiranteProfesor> aspiranteProfesorCollection;
-    @OneToMany(mappedBy = "idusuario")
-    private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
+////    @OneToMany(mappedBy = "idusuario")
+//    private Collection<AspiranteProfesor> aspiranteProfesorCollection;
+//    @OneToMany(mappedBy = "idusuario")
+//    private Collection<CoordinadorAcademico> coordinadorAcademicoCollection;
 
     public Usuario(Long idUsuario, String username, String email, String password, boolean enabled, int numerointentos, int usuarioBloqueado) {
         this.idUsuario = idUsuario;
@@ -134,21 +134,21 @@ public class Usuario implements Serializable{
         this.usuarioBloqueado = usuarioBloqueado;
     }
     
-    public Collection<AspiranteProfesor> getAspiranteProfesorCollection() {
-        return aspiranteProfesorCollection;
-    }
-
-    public void setAspiranteProfesorCollection(Collection<AspiranteProfesor> aspiranteProfesorCollection) {
-        this.aspiranteProfesorCollection = aspiranteProfesorCollection;
-    }
-
-    public Collection<CoordinadorAcademico> getCoordinadorAcademicoCollection() {
-        return coordinadorAcademicoCollection;
-    }
-
-    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico> coordinadorAcademicoCollection) {
-        this.coordinadorAcademicoCollection = coordinadorAcademicoCollection;
-    }
+//    public Collection<AspiranteProfesor> getAspiranteProfesorCollection() {
+//        return aspiranteProfesorCollection;
+//    }
+//
+//    public void setAspiranteProfesorCollection(Collection<AspiranteProfesor> aspiranteProfesorCollection) {
+//        this.aspiranteProfesorCollection = aspiranteProfesorCollection;
+//    }
+//
+//    public Collection<CoordinadorAcademico> getCoordinadorAcademicoCollection() {
+//        return coordinadorAcademicoCollection;
+//    }
+//
+//    public void setCoordinadorAcademicoCollection(Collection<CoordinadorAcademico> coordinadorAcademicoCollection) {
+//        this.coordinadorAcademicoCollection = coordinadorAcademicoCollection;
+//    }
 
     //Añade roles al usuario
     public void añadirRol(Roles rol){

@@ -151,7 +151,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority("VIEW_REPORTE_INSCRIPCION_ESTUDIANTES_PRIVILAGE")
                 .antMatchers("/AreasAcademicas")
                 .hasAnyAuthority("VIEW_REPORTE_DISTRIBUCION_CATEGORIZADA_PRIVILAGE")
-                
+                .antMatchers("/DetalleEstudiante/**")
+                .hasAnyAuthority("VIEW_DETALLE_ESTUDIANTE_PRIVILAGE")
+                .antMatchers("/DetalleCohorte/**")
+                .hasAnyAuthority("VIEW_DETALLE_COHORTE_PRIVILAGE")
+                .antMatchers("/AsignaturasInscripcionCohorte/**")
+                .hasAnyAuthority("VIEW_INSCRIPCIONES_MATERIAS_PRIVILAGE")
                 //Aqui falta poner el permiso de ruta de Docentes contratados
                 
                 .and()

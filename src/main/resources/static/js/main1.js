@@ -44,10 +44,9 @@ $(document).ready(function() {
             // Actualizar el enlace del perfil en el menú de la barra lateral
             if (perfilLink !== "") {
                 $("#link-perfil a").attr("href", perfilLink);
-                $("#userPanel .info a").attr("href", perfilLink);
+                $("#link-perfil").removeClass("d-none");
             } else {
                 $("#link-perfil a").removeAttr("href");
-                $("#userPanel .info a").removeAttr("href");
             }
         },
         error: function() {
