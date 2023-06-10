@@ -49,7 +49,7 @@ public class ActividadController {
         model.addAttribute("usuarioAspirante", usuarioAspirante);
         model.addAttribute("actividad", elemento);
         model.addAttribute("idPrograma", idProgramaAsignatura);
-        //System.out.println(elemento);
+        model.addAttribute("pageTitle", "Actividades Asignatura");
         return "/Actividades/index";
     }
 

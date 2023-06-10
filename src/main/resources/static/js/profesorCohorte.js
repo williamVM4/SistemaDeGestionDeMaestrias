@@ -20,6 +20,12 @@ $(document).ready(function () {
         showMaskOnFocus: false,
         showMaskOnHover: false
     });
+    $.validator.addMethod("numeroValido", function(value, element) {
+      return this.optional(element) || /^\d{0,7}(\.\d{0,2})?$/.test(value);
+    }, "Ingresa un número válido con un máximo de 7 dígitos y 2 decimales.");
+        $.validator.addMethod("integerOnly", function(value, element) {
+      return this.optional(element) || /^\d+$/.test(value);
+    }, "Ingresa solo números enteros.");
 
     $.validator.addMethod("validarFecha", function (value, element) {
         return this.optional(element) || /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(value);
@@ -27,7 +33,8 @@ $(document).ready(function () {
 
     $(document).on('click', '.abrirModal-btn', function () {
         var id = $(this).data('id');
-
+        validator.resetForm();  // Restablecer la validación
+        $('#formGuardar').find('.is-invalid').removeClass('is-invalid');
         $('#idAspiranteProfesor').val(id);
     });
 
@@ -35,17 +42,23 @@ $(document).ready(function () {
     var validator = $('#formGuardar').validate({
         rules: {
             montoPagarHora: {
-                required: true
+                required: true,
+                numeroValido:true
             },
             unidadHorasImpartir: {
                 required: true,
+                integerOnly: true
             },
             montoTotalServicios: {
-                required: true
+                required: true,
+                numeroValido:true
             },
             fechaContratacion: {
                 required: true,
                 validarFecha: true
+            },
+            idAsignatura: {
+                required: true,
             }
         },
 
@@ -62,6 +75,9 @@ $(document).ready(function () {
             },
 
             fechaContratacion: {
+                required: 'Este campo es requerido',
+            },
+            idAsignatura: {
                 required: 'Este campo es requerido',
             }
         },
@@ -98,12 +114,12 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     $('#contratar').modal('hide');
-                    mostrarMensaje('Se elimino el profesor con exito.', 'success');
+                    mostrarMensaje('Se Contrato el profesor con exito.', 'success');
 
                     //location.reload();
                 },
                 error: function (xhr, status, error) {
-                    $('#crearModal').modal('hide');
+                    $('#contratar').modal('hide');
                     mostrarMensaje(error, 'danger');
                 }
             });

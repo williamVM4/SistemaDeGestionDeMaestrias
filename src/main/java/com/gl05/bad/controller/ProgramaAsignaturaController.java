@@ -23,6 +23,7 @@ public class ProgramaAsignaturaController {
         ProgramaAsignatura listProgramaAsignaturaId = programaAsignaturaService.encontrarP(idProgramaAsignatura);
         model.addAttribute("programa", listProgramaAsignaturaId);
         model.addAttribute("idPrograma", idProgramaAsignatura);
+        model.addAttribute("pageTitle", "Programa Asignatura");
         return "/ProgramaAsignatura/index";
     }
 

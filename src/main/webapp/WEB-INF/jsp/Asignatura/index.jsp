@@ -222,7 +222,10 @@
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="ciclo">Ciclo</label>
-                                    <input type="number" class="form-control" id="ciclo" name="ciclo">
+                                    <select class="form-control" id="ciclo" name="ciclo">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="idAreaC">Àrea de Conocimiento</label>

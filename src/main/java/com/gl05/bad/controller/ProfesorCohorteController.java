@@ -74,6 +74,7 @@ public class ProfesorCohorteController {
         model.addAttribute("asignaturas", asignaturas);
         model.addAttribute("postulados", postulados);
         model.addAttribute("idCohorte", idCohorte);
+        model.addAttribute("pageTitle", "Contratar Postulados Cohorte");
         return "ProfesorCohorte/index";
     }
 
@@ -103,6 +104,7 @@ public class ProfesorCohorteController {
     public String ProfesorCohorte(Model model, RedirectAttributes redirectAttributes, @PathVariable("idCohorte") Long idCohorte) {
         var profesorCohorte = profesorCohorteService.listaProfesoresC(idCohorte);
         model.addAttribute("profesorCohorte", profesorCohorte);
+        model.addAttribute("pageTitle", "Profesores Contratados");
         return "ProfesorCohorte/gestionarProfesores";
     }
 

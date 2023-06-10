@@ -83,7 +83,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="crearModalLabel"></h5>
+                    <h5 class="modal-title" id="crearModalLabel">Contratar Postulante</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -94,15 +94,15 @@
                         <div class="row">
                             <div class="form-group mb-3 col-md-6 col-sm-6">
                                 <label>Monto a Pagar por Hora</label>
-                                <input type="number" class="form-control" id="montoPagarHora" name="montoPagarHora">  
+                                <input type="number" maxlength="9" class="form-control" id="montoPagarHora" name="montoPagarHora">  
                             </div>
                             <div class="form-group mb-3 col-md-6 col-sm-6">
                                 <label>Unidad de Horas Impartir</label>
-                                <input type="number" class="form-control" id="unidadHorasImpartir" name="unidadHorasImpartir">  
+                                <input type="number" maxlength="9"  class="form-control" id="unidadHorasImpartir" name="unidadHorasImpartir">  
                             </div>
                             <div class="form-group mb-3 col-md-6 col-sm-6">
                                 <label>Monto Total de Servicios</label>
-                                <input type="number" class="form-control" id="montoTotalServicios" name="montoTotalServicios">  
+                                <input type="number" maxlength="9"  class="form-control" id="montoTotalServicios" name="montoTotalServicios">  
                             </div>
                             <div class="form-group mb-3 col-md-6 col-sm-6">
                                 <label>Fecha de Contratacion</label>

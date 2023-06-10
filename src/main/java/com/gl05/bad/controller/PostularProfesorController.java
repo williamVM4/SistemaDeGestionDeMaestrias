@@ -57,6 +57,7 @@ public class PostularProfesorController {
 
         model.addAttribute("escuelas", escuelas);
         model.addAttribute("aspirante", aspirante);
+        model.addAttribute("pageTitle", "Postulaciòn Cohorte");
         return "PostularProfesor/index";
     }
     
