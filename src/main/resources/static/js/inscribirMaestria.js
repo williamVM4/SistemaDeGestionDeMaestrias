@@ -28,14 +28,17 @@ $(document).ready(function() {
                 searchable: false,
                 width: '20%',
                 render: function (data, type, row) {
+                    var actionsHtml = '';
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
-                    actionsHtml = '<button type="button" class="btn btn-outline-success abrirModal-btn" ';
+                    if (hasPrivilegeInscribirMaestria) {
+                    actionsHtml += '<button type="button" class="btn btn-outline-success abrirModal-btn" ';
                     actionsHtml += 'data-bs-target="#crearModal" data-id="' + row.idMaestria + '">';
                     actionsHtml += 'Inscripción</button>';
-                    
+                    }
+                    if (hasPrivilegeEstudianteMaestria) {
                     actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModalGestionEstudiantes-btn" ';
                     actionsHtml += 'data-id="' + row.idMaestria + '">Estudiantes</button>';
-                    
+                    }
                     return actionsHtml;
                 }
             }
