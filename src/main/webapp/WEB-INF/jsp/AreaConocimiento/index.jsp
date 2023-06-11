@@ -71,10 +71,10 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" id="areaId">
                         <div class="form-group mb-4">
-                            <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Ã€rea">
+                            <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Área">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="DescripciÃ²n">
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">
                         </div>
 
                         <div class="modal-footer">
