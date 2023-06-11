@@ -21,5 +21,6 @@ public interface EstudianteService {
     public void actualizarEstudiante(Estudiante estudiante);
     
     public List<Estudiante> obtenerEstudiantesSinCohorte(@Param("idCohorte") Long idCohorte);
-   
+    
+    public List<String> obtenerCorreosEstudiantes();   
 }

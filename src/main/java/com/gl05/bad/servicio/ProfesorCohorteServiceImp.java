@@ -5,12 +5,9 @@ import com.gl05.bad.domain.AspiranteProfesor;
 import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.ProfesorCohorte;
 import com.gl05.bad.domain.Usuario;
-import com.gl05.bad.servicio.UserServiceImp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 

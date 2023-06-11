@@ -1,6 +1,7 @@
 package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.AspiranteProfesorDao;
+import com.gl05.bad.dao.ProfesorCohorteDao;
 import com.gl05.bad.domain.AspiranteProfesor;
 import com.gl05.bad.domain.Usuario;
 import java.sql.Blob;
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
-import java.util.Collection;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +26,9 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
   
     @Autowired
     private AspiranteProfesorDao aspiranteDao;
+    
+    @Autowired
+    private ProfesorCohorteDao profesorCohorteDao;
     
     @Autowired
     private UserService userService;
@@ -164,4 +168,40 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
 
       mailSender.send(mailMessage);
     };
+    
+    @Override
+    public List<String> obtenerCorreosAspiranteProfesor() {
+        List<AspiranteProfesor> aspirantes = listarAspirantes();
+        List<Integer> idsProfesorCohorte = profesorCohorteDao.findIdsProfesorCohorte();
+        List<Integer> idListCorreos = new ArrayList<>();
+        List<String> correos = new ArrayList<>();
+
+        for (AspiranteProfesor aspirante : aspirantes) {
+            Integer idAspirante = aspirante.getIdAspiranteProfesor().intValue();
+            if (!idsProfesorCohorte.contains(idAspirante)) {
+              idListCorreos.add(aspirante.getIdListCorreo());
+            }
+        }
+        List<String> correosAsociados = aspiranteDao.findCorreosByIdListCorreos(idListCorreos);
+        correos.addAll(correosAsociados);
+        return correos;
+    }
+    
+    @Override
+    public List<String> obtenerCorreosProfesor() {
+        List<AspiranteProfesor> aspirantes = listarAspirantes();
+        List<Integer> idsProfesorCohorte = profesorCohorteDao.findIdsProfesorCohorte();
+        List<Integer> idListCorreos = new ArrayList<>();
+        List<String> correos = new ArrayList<>();
+
+        for (AspiranteProfesor aspirante : aspirantes) {
+            Integer idAspirante = aspirante.getIdAspiranteProfesor().intValue();
+            if (idsProfesorCohorte.contains(idAspirante)) {
+              idListCorreos.add(aspirante.getIdListCorreo());
+            }
+        }
+        List<String> correosAsociados = aspiranteDao.findCorreosByIdListCorreos(idListCorreos);
+        correos.addAll(correosAsociados);
+        return correos;
+    }
 }

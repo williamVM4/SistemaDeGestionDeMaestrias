@@ -30,4 +30,6 @@ public interface CoordinadorAcademicoService {
   
   public String buscarPerfil(String username);
   
+  List<String> obtenerCorreosCordinadores();
+  
 }
