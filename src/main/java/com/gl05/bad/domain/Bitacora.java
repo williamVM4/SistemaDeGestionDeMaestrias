@@ -1,26 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.gl05.bad.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import lombok.Data;
 
-/**
- *
- * @author william
- */
+@Data
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Bitacora.findAll", query = "SELECT b FROM Bitacora b"),
@@ -29,69 +25,30 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Bitacora.findByHoraEvento", query = "SELECT b FROM Bitacora b WHERE b.horaEvento = :horaEvento"),
     @NamedQuery(name = "Bitacora.findByIpEquipo", query = "SELECT b FROM Bitacora b WHERE b.ipEquipo = :ipEquipo")})
 public class Bitacora implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
     @Column(name = "ID_BITACORA")
-    private Long idBitacora;
+    @SequenceGenerator(name = "S_BITACORA", sequenceName = "S_BITACORA", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_BITACORA")
+    private Long idBitacora;    
+    
+    @Basic(optional = false)
+    @Column(name = "NOMBRE_USUARIO")
+    private String nombreUsuario;
+    
     @Basic(optional = false)
     @Column(name = "NOMBRE_EVENTO")
     private String nombreEvento;
+    
     @Basic(optional = false)
     @Column(name = "HORA_EVENTO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date horaEvento;
+    private LocalDateTime horaEvento;
+    
     @Basic(optional = false)
     @Column(name = "IP_EQUIPO")
     private String ipEquipo;
-
-    public Bitacora() {
-    }
-
-    public Bitacora(Long idBitacora) {
-        this.idBitacora = idBitacora;
-    }
-
-    public Bitacora(Long idBitacora, String nombreEvento, Date horaEvento, String ipEquipo) {
-        this.idBitacora = idBitacora;
-        this.nombreEvento = nombreEvento;
-        this.horaEvento = horaEvento;
-        this.ipEquipo = ipEquipo;
-    }
-
-    public Long getIdBitacora() {
-        return idBitacora;
-    }
-
-    public void setIdBitacora(Long idBitacora) {
-        this.idBitacora = idBitacora;
-    }
-
-    public String getNombreEvento() {
-        return nombreEvento;
-    }
-
-    public void setNombreEvento(String nombreEvento) {
-        this.nombreEvento = nombreEvento;
-    }
-
-    public Date getHoraEvento() {
-        return horaEvento;
-    }
-
-    public void setHoraEvento(Date horaEvento) {
-        this.horaEvento = horaEvento;
-    }
-
-    public String getIpEquipo() {
-        return ipEquipo;
-    }
-
-    public void setIpEquipo(String ipEquipo) {
-        this.ipEquipo = ipEquipo;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
