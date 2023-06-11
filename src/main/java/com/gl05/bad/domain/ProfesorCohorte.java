@@ -60,12 +60,12 @@ public class ProfesorCohorte implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaContratacion;
     
-    /*@JoinColumn(name = "ID_ASPIRANTE_PROFESOR", referencedColumnName = "ID_ASPIRANTE_PROFESOR")
+    @JoinColumn(name = "ID_ASPIRANTE_PROFESOR", referencedColumnName = "ID_ASPIRANTE_PROFESOR")
     @ManyToOne(optional = false)
-    private AspiranteProfesor idAspiranteProfesor;*/
+    private AspiranteProfesor idAspiranteProfesor;
     
-    @Column(name="ID_ASPIRANTE_PROFESOR")
-    private Integer idAspiranteProfesor;
+    /*@Column(name="ID_ASPIRANTE_PROFESOR")
+    private Integer idAspiranteProfesor;*/
   
     @JoinColumn(name = "ID_COHORTE", referencedColumnName = "ID_COHORTE")
     @ManyToOne(optional = false)

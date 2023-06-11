@@ -2,6 +2,7 @@ package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.AreaConocimiento;
 import com.gl05.bad.servicio.AreaConocimientoService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -18,6 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AreaConocimientosController {
+      
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
+
     @Autowired
     private AreaConocimientoService areaConocimientoService;
     
@@ -39,6 +44,7 @@ public class AreaConocimientosController {
         try {
             areaConocimientoService.agregarAC(area);
             String mensaje = "Se ha Agregado una Nueva Àrea de Conocimiento.";
+            bitacoraService.registrarAccion("Agregar área de conocimiento");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String mensaje ="Ya existe una Àrea de Conocimiento con ese Nombre.";
@@ -52,6 +58,7 @@ public class AreaConocimientosController {
         try {
             areaConocimientoService.eliminarAC(area);
             String mensaje = "Se ha eliminado la Maestria correctamente.";
+            bitacoraService.registrarAccion("Eliminar área de conocimiento");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar la maestria.";
@@ -63,6 +70,7 @@ public class AreaConocimientosController {
         try {
             areaConocimientoService.actualizarAC(area);
             String mensaje = "Se ha actualizado la Area de Conocimiento correctamente.";
+            bitacoraService.registrarAccion("Actualizar área de conocimiento");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al actualizar la Area de Conocimiento.";

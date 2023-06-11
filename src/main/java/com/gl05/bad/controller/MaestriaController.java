@@ -2,6 +2,7 @@ package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.PlanEstudio;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
@@ -26,6 +27,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MaestriaController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
+
     @Autowired
     private MaestriaService maestriaService;
     

@@ -6,6 +6,7 @@ import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.PostulacionCohorte;
 import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.AspiranteProfesorService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.PostuladoCohorteService;
@@ -28,6 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PostularProfesorController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private MaestriaService maestriaService;

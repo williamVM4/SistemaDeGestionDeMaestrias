@@ -8,6 +8,7 @@ import com.gl05.bad.domain.MallaCurricular;
 import com.gl05.bad.domain.PlanEstudio;
 import com.gl05.bad.servicio.AreaConocimientoService;
 import com.gl05.bad.servicio.AsignaturaService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CohorteService;
 import com.gl05.bad.servicio.EstudianteAsignaturaService;
 import com.gl05.bad.servicio.MaestriaService;
@@ -37,6 +38,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class AsignaturaController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private AsignaturaService asignaturaService;
@@ -68,6 +72,7 @@ public class AsignaturaController {
         model.addAttribute("areaC", areaC);
         model.addAttribute("idMallaC", idMallaC);
         model.addAttribute("idPlanEstudio", idPlanEstudio);
+        bitacoraService.registrarAccion("Ver detalle de plan de estudio");
         return "Asignatura/index";
     }
 
@@ -109,6 +114,7 @@ public class AsignaturaController {
 
             asignaturaService.AgregarAsig(codigoAsignatura, nombreAsignatura, uv, numeroCorrelativo, ciclo, idAreaC, idMalla, duracion, horasT, horasP, horaCiclo, introduccion, descipcionPrograma, objetivo, metodologia, sistemaEvaluacion, bibliografia, actividadString, ponderacionString);
             String mensaje = "Se ha Agregado una Asignatura.";
+            bitacoraService.registrarAccion("Agregar asignatura");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ya existe una Asignatura con ese nombre.";
@@ -121,6 +127,7 @@ public class AsignaturaController {
         try {
             asignaturaService.eliminarA(asignatura);
             String mensaje = "Se ha eliminado el plan de estudio correctamente.";
+            bitacoraService.registrarAccion("Eliminar plan de estudio");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el plan de estudio.";
@@ -182,6 +189,7 @@ public class AsignaturaController {
             asignaturaExsistente.setCodAsignatura(asignatura.getCodAsignatura());
             asignaturaService.actualizarA(asignaturaExsistente);
             String mensaje = "Se ha actualizado la Actividad correctamente.";
+            bitacoraService.registrarAccion("Actualizar asignatura");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "No se puede Actualizar la actividad";
@@ -217,6 +225,7 @@ public class AsignaturaController {
                 }
             }
             model.addAttribute("asignaturas", asinaturasInscritas);
+            bitacoraService.registrarAccion("Ver malla curricular");
         } catch (Exception e) {
             String mensajeError = "Error al obtener la malla curricular de la maestría.";
             model.addAttribute("error", mensajeError);
@@ -234,6 +243,7 @@ public class AsignaturaController {
                 estudianteAsignaturaService.eliminarEstudianteAsignatura(estudiante);
             }
             redirectAttributes.addFlashAttribute("mensaje", "La inscripción de la asignatura se eliminó exitosamente.");
+            bitacoraService.registrarAccion("Eliminar inscripción de la asignatura");
         }catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Se produjo un error al eliminar la inscripción de la asignatura.");
         }

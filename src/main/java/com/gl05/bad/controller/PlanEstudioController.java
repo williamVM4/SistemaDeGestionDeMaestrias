@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.PlanEstudio;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.PlanEstudioService;
 import java.math.BigDecimal;
 import javax.validation.Valid;
@@ -20,6 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PlanEstudioController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private PlanEstudioService planEstudioService;

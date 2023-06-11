@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.RolesService;
 import com.gl05.bad.servicio.UserService;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UsuarioController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private UserService userService;

@@ -5,6 +5,7 @@ import com.gl05.bad.dao.UsuarioDao;
 import com.gl05.bad.domain.Permisos;
 import com.gl05.bad.domain.Roles;
 import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.PermisosService;
 import com.gl05.bad.servicio.RolesService;
 import java.util.Arrays;
@@ -26,6 +27,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RolesController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private RolesService rolesService;
