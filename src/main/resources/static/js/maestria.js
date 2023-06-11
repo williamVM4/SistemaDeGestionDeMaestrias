@@ -28,17 +28,22 @@ $(document).ready(function() {
                 searchable: false,
                 width: '12%',
                 render: function (data, type, row) {
+                    var actionsHtml = '';
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
-                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
+                    if (hasPrivilegeAccederMaestria) {
+                    actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
                     actionsHtml += '<i class="bi bi-eye"></i></a>';
-                    
+                    }
+                    if (hasPrivilegeEditarMaestria) {
                     actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
                     actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idMaestria + '" data-modo="actualizar">';
                     actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-                    
+                    }
+                    if (hasPrivilegeEliminarMaestria) {
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idMaestria + '" ';
                     actionsHtml += 'data-nombre="' + row.nombreMaestria + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
+                    }
                     return actionsHtml;
                 }
             }

@@ -3,15 +3,31 @@
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content pb-5">
+        <div class="container">
+            <!--Esto lo estoy manejando en el indexController -->
+            <br>
+            <h1>Bienvenido ${username}</h1>
 
-    <sec:authorize access="hasAuthority('AGREGAR_WELCOME2_PRIVILEGE')">
-        <a href="/welcome2">Ir a welcome 2</a>
-    </sec:authorize>
-
-    <sec:authorize access="hasAuthority('AGREGAR_WELCOME3_PRIVILEGE')">
-        <a href="/welcome3">Ir a welcome 3</a>
-    </sec:authorize>
-
+            <br>
+            <h1>${mensaje}</h1>
+            
+            <c:if test="${not empty maestrias}">
+                <div class="card card-index">
+                    <h2 class="card-title">Mis Maestrías</h2>
+                    <div class="maestrias-grid">
+                        <c:forEach var="maestria" items="${maestrias}">
+                            <div class="card-index maestria-card text-center">
+                                <p class="h-100 m-0">${maestria.nombreMaestria}</p>
+                                <div class="button-container">
+                                    <a href="/GestionarPlanEstudio/${maestria.idMaestria}" class="btn btn-outline-primary">Asignaturas</a>
+                                    <a href="/GestionarCohorte/${maestria.idMaestria}" class="btn btn-outline-primary">Gestión de Cohorte</a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </c:if>
+        </div>
     </div>
 </div>
 <%@ include file="common/footer1.jspf"%>

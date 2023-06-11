@@ -2,6 +2,7 @@ package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Asignatura;
 import com.gl05.bad.domain.Cohorte;
+import com.gl05.bad.domain.EstudianteAsignatura;
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.MallaCurricular;
 import com.gl05.bad.domain.PlanEstudio;
@@ -14,6 +15,7 @@ import com.gl05.bad.servicio.MallaCurricularService;
 import com.gl05.bad.servicio.PlanEstudioService;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class AsignaturaController {
@@ -59,6 +62,7 @@ public class AsignaturaController {
 
     @GetMapping("/DetallePlanEstudio/{idPlanEstudio}")
     public String Asignatura(Model model, RedirectAttributes redirectAttributes, @PathVariable("idPlanEstudio") Long idPlanEstudio) {
+        model.addAttribute("pageTitle", "Detalle Plan Estudio");
         var areaC = areaConocimientoService.listarAreaConocimientos();
         Long idMallaC = asignaturaService.encontrarMalla(idPlanEstudio);
         model.addAttribute("areaC", areaC);
@@ -193,6 +197,48 @@ public class AsignaturaController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    
+    @GetMapping("/AsignaturasInscripcionCohorte/{id}")
+    public String GestionarAsignaturasInscripcionCohorte(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        model.addAttribute("pageTitle", "Gestionar Asignaturas Inscritas");
+        Cohorte cohorte = cohorteService.encontrarCohorte(new Cohorte(id));
+        model.addAttribute("cohorte", cohorte);
+        short estadoPlanVigente = 1;
+        try {
+            Maestria maestria = cohorte.getIdMaestria();
+            PlanEstudio planEstudio = planEstudioService.encontrarPlanEstudioPorIdMaestria(maestria, estadoPlanVigente);
+            MallaCurricular mallaCurricular = mallaCurricularService.obtenerMallaCurricularPlan(planEstudio);
+            List<Asignatura> asignaturas = asignaturaService.encontrarAsignaturasPorMalla(mallaCurricular );
+            List<Asignatura> asinaturasInscritas = new ArrayList<>();
+            for(Asignatura asignatura: asignaturas){
+                if (estudianteAsignaturaService.existeEstudianteAsignatura(cohorte, asignatura)) {
+                    asinaturasInscritas.add(asignatura);
+                }
+            }
+            model.addAttribute("asignaturas", asinaturasInscritas);
+        } catch (Exception e) {
+            String mensajeError = "Error al obtener la malla curricular de la maestría.";
+            model.addAttribute("error", mensajeError);
+        }
+        model.addAttribute("cohorte", cohorte);
+        return "/EstudianteAsignatura/GestionarAsignaturaCohorte";
+    }
+    
+    @PostMapping("/EliminarInscripcionAsignatura/{idCohorte}/{idAsignatura}")
+    public String eliminarInscripcionAsignatura(@PathVariable Long idCohorte, @PathVariable Long idAsignatura, RedirectAttributes redirectAttributes) {
+        try{
+            // Realiza las operaciones necesarias para eliminar la inscripción de la asignatura
+            List<EstudianteAsignatura> estudiantesAsignatura = estudianteAsignaturaService.encontrarPorIdCohorteIdasignatura(idCohorte, idAsignatura);
+            for (EstudianteAsignatura estudiante : estudiantesAsignatura) {
+                estudianteAsignaturaService.eliminarEstudianteAsignatura(estudiante);
+            }
+            redirectAttributes.addFlashAttribute("mensaje", "La inscripción de la asignatura se eliminó exitosamente.");
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Se produjo un error al eliminar la inscripción de la asignatura.");
+        }
+
+        return "redirect:/AsignaturasInscripcionCohorte/" + idCohorte;
     }
 
 }

@@ -45,8 +45,27 @@ public class IndexController {
     private AspiranteProfesorService aspiranteProfesorService;
     
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("pageTitle", "Welcome");
+    public String index(Model model, Authentication authentication) {
+        model.addAttribute("pageTitle", "Inicio");
+         String username = authentication.getName();
+//         String usuarioCoordinador = coordinadorAcademicoService.buscarPerfil(username);
+//         String usuarioAspirante=aspiranteProfesorService.buscarPerfil(username);
+//         
+//         model.addAttribute("usuarioCoordinador", usuarioCoordinador);
+//         model.addAttribute("usuarioAspirante", usuarioAspirante);
+//         model.addAttribute("username", username);
+        Usuario usuario = userService.encontrarUsuarioPorUsername(username);
+        Long idUsuarioLong = usuario.getIdUsuario();
+        Integer idUsuario = idUsuarioLong.intValue();
+        // Buscar las maestrías asociadas al ID del usuario
+        Collection<Maestria> maestriasCoordinador = maestriaService.encontrarMaestrias(idUsuario);
+        model.addAttribute("maestrias", maestriasCoordinador);
+        
+        if (authentication.getAuthorities().isEmpty()) {
+            // En caso de que el usuario no tenga permisos
+            model.addAttribute("mensaje", "Usuario autenticado pero sin permisos");
+        }
+        
         return "welcome";
     }
     
@@ -63,42 +82,13 @@ public class IndexController {
         return ResponseEntity.ok(maestriasCoordinador);
     }
     
-    @GetMapping("/welcome2")
-    public String pagina2(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "welcome2";
-    }
-    
-      @GetMapping("/welcome3")
-    public String pagina3(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "welcome3";
-    }
-    
-      @GetMapping("/errorpage")
-    public String error(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "errorPage";
-    }
-    
-    @GetMapping("/usuariobloqueado")
-    public String correctDisable(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "usuariobloqueado";
-    }
-    
-    @GetMapping("/usuarioinhabilitado")
-    public String usernothabilitate(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "usuarioinhabilitado";
-    }
-    
-    @GetMapping("/usuariodeshabilitadobloqueado")
-    public String usernothabilitateblocked(Model model) {
-        model.addAttribute("pageTitle", "welcome2");
-        return "usuariobloqdes";
-    }
-    
+//    //Esta pagina es cuando el usuario se equivoca 3 veces
+//    @GetMapping("/errorpage")
+//    public String error(Model model) {
+//        model.addAttribute("pageTitle", "welcome2");
+//        return "errorPage";
+//    }
+     
     @GetMapping("/ObtenerUsuarioMenu")
     public ResponseEntity<Map<String, Object>> obtenerUsuarioMenu(Authentication authentication, HttpSession session) {
         // Obtener el nombre del usuario autenticado
@@ -182,4 +172,11 @@ public class IndexController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(responseMap);
     }
+    
+     @GetMapping("/accesoDenegado")
+    public String acceso(Model model) {
+        model.addAttribute("pageTitle", "Acceso Denegado");
+        return "accesodenegado";
+    }
+    
 }

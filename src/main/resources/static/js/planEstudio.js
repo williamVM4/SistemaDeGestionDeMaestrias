@@ -27,17 +27,22 @@ $(document).ready(function() {
                 searchable: false,
                 width: '20%',
                 render: function (data, type, row) {
+                    var actionsHtml = '';
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
-                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetallePlanEstudio/' + row.idPlanEstudio + '">';
+                    if (hasPrivilegeAccederPlan) {
+                    actionsHtml += '<a type="button" class="btn btn-outline-secondary" href="/DetallePlanEstudio/' + row.idPlanEstudio + '">';
                     actionsHtml += '<i class="bi bi-eye"></i></a>';
-                    
+                    }
+                    if (hasPrivilegeEditarPlan) {
                     actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
                     actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idPlanEstudio + '" data-modo="actualizar">';
                     actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-                    
+                    }
+                    if (hasPrivilegeEliminarPlan) {
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idPlanEstudio + '" ';
                     actionsHtml += 'data-cod="' + row.codPlan + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
+                    }
               
                     return actionsHtml;
                 }

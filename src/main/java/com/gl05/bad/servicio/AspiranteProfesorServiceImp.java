@@ -2,6 +2,7 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.AspiranteProfesorDao;
 import com.gl05.bad.domain.AspiranteProfesor;
+import com.gl05.bad.domain.Usuario;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -16,6 +17,8 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Service
 public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
@@ -23,10 +26,16 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     @Autowired
     private AspiranteProfesorDao aspiranteDao;
     
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private JavaMailSender mailSender;
+    
     @Override
     @Transactional(readOnly=true)
-    public Collection<AspiranteProfesor> listarAspirantes() {
-        return (Collection<AspiranteProfesor>)aspiranteDao.findAll();
+    public List<AspiranteProfesor> listarAspirantes() {
+        return (List<AspiranteProfesor>)aspiranteDao.findAll();
     }
     
     @Override
@@ -124,4 +133,35 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
 
         return passwordBuilder.toString();
     }
+    
+    @Override
+    public String buscarPerfil(String username) {
+        String usuarioAspirante="";
+         String idUsuario="";
+         List<Usuario> usuarios=userService.listaUsuarios();
+         for (Usuario usuario: usuarios) {
+                if(usuario.getUsername().equals(username)){
+                    idUsuario=usuario.getIdUsuario().toString();
+                }
+         }
+         List<AspiranteProfesor> aspirantes= listarAspirantes();
+         for (AspiranteProfesor aspirante: aspirantes) {
+                if(aspirante.getIdusuario().toString().equals(idUsuario)){
+                    usuarioAspirante=aspirante.getIdAspiranteProfesor().toString();
+                }
+         }
+
+        return usuarioAspirante;
+    }
+    
+    @Override
+    @Transactional
+    public void enviarCorreo(String correoDestino, String asunto, String mensaje){
+      SimpleMailMessage mailMessage = new SimpleMailMessage();
+      mailMessage.setTo(correoDestino);
+      mailMessage.setSubject(asunto);
+      mailMessage.setText(mensaje);
+
+      mailSender.send(mailMessage);
+    };
 }

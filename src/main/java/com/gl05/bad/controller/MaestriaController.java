@@ -40,6 +40,7 @@ public class MaestriaController {
     
     @GetMapping("/GestionarMaestria")
     public String listarMaestrias(Model model) {
+        model.addAttribute("pageTitle", "Gestionar Maestrias");
         var escuelas = escuelaPostgradoService.listarEscuelaPostgrado();
         model.addAttribute("escuelas", escuelas);
         return "maestria/index";
@@ -94,6 +95,7 @@ public class MaestriaController {
     
     @GetMapping("/DetalleMaestria/{idMaestria}")
     public String DetalleMaestria(Model model, Maestria maestria, RedirectAttributes redirectAttributes) {
+        model.addAttribute("pageTitle", "Detalle Maestria");
         short estadoPlanVigente = 1;
         Maestria maestriaEnviar = maestriaService.encontrarMaestria(maestria);
         PlanEstudio planEstudioVigente = planEstudioService.encontrarPlanEstudioPorIdMaestria(maestriaEnviar, estadoPlanVigente);
@@ -183,6 +185,7 @@ public class MaestriaController {
     
     @GetMapping("/InscribirMaestria")
     public String listarMaestriasInscripcion(Model model) {
+        model.addAttribute("pageTitle", "Inscripción");
         return "maestria/inscribirMaestria";
     }
 }

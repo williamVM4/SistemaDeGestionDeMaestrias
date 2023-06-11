@@ -90,25 +90,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //Metodo que se utiliza para la reestricción de urls
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        
-        http
-                .exceptionHandling()
-                    .accessDeniedHandler((request, response, accessDeniedException) -> {
-                        String mensaje = accessDeniedException.getMessage();
-                        if (mensaje.contains("La cuenta está bloqueada")) {
-                            response.sendRedirect("/usuariobloqueado");
-                        } else {
-                            response.sendRedirect("/");
-                        }
-                    })
-        ;           
-        
+          
         http.authorizeRequests()          
                 //Aqui debo de poner todos los permisos de ver privilage para que haga el bloqueo al estar
                 //deshabilitado/bloqueado o ambos
-                .antMatchers("/login", "/logout", "/")
-                .hasAnyAuthority("VIEW_INDEX")
-//              
+                
+                //Esto generaba malas redirecciones si no se tiene un permiso al usuario
+                //por eso lo quite
+//              .antMatchers("/login", "/logout", "/")
+//              .hasAnyAuthority("VIEW_INDEX")
+                
+                .antMatchers("/", "/logout")
+                .authenticated()
+    
                  //Reestrincion de vistas
                 .antMatchers("/viewUsuarios")
                 .hasAnyAuthority("VIEW_USUARIO_PRIVILAGE")
@@ -154,7 +148,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority("VIEW_COHORTE_PRIVILAGE")
                 .antMatchers("/PostuladosCohorte/**")
                 .hasAnyAuthority("VIEW_POSTULADOS_COHORTE_PRIVILAGE")
-                
+      
+                //Agregados 08-junio
+                .antMatchers("/GestionarPaises")
+                .hasAnyAuthority("VIEW_PAISES_PRIVILAGE")
+                .antMatchers("/ProfesorCohorte/**")
+                .hasAnyAuthority("VIEW_PROFESOR_COHORTE_PRIVILAGE")
+                .antMatchers("/EstudiantesInscritos")
+                .hasAnyAuthority("VIEW_REPORTE_INSCRIPCION_ESTUDIANTES_PRIVILAGE")
+                .antMatchers("/AreasAcademicas")
+                .hasAnyAuthority("VIEW_REPORTE_DISTRIBUCION_CATEGORIZADA_PRIVILAGE")
+                .antMatchers("/DetalleEstudiante/**")
+                .hasAnyAuthority("VIEW_DETALLE_ESTUDIANTE_PRIVILAGE")
+                .antMatchers("/DetalleCohorte/**")
+                .hasAnyAuthority("VIEW_DETALLE_COHORTE_PRIVILAGE")
+                .antMatchers("/AsignaturasInscripcionCohorte/**")
+                .hasAnyAuthority("VIEW_INSCRIPCIONES_MATERIAS_PRIVILAGE")
+                //Aqui falta poner el permiso de ruta de Docentes contratados
                 
                 .and()
                 .formLogin() 
@@ -166,7 +176,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=true") // Ruta de redirección después de un inicio de sesión fallido
                 .failureHandler(falloAutenticacionHandler())
                 .successHandler(authenticationSuccessHandler())
-                .permitAll();
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/accesoDenegado");
 
         //.failureUrl("/login?error=true");
         http.logout()

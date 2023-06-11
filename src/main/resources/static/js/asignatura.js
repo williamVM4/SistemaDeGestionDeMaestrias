@@ -102,6 +102,9 @@ $(document).ready(function () {
     $.validator.addMethod('positiveInteger', function (value, element) {
         return this.optional(element) || /^[1-9]\d*$/.test(value);
     }, 'Ingrese un valor positivo entero válido.');
+    $.validator.addMethod("maxValue", function (value, element, params) {
+        return this.optional(element) || parseInt(value) <= params;
+    }, "Por favor, ingrese un número menor o igual a 100.");
     var validator = $('#formGuardar').validate({
         rules: {// reglas
             codigoAsignatura: {
@@ -160,13 +163,14 @@ $(document).ready(function () {
             bibliografia: {
                 required: true
             },
-            actividad: {
+            "actividad[]": {
                 required: true,
                 minlength: 1
             },
-            ponderacion: {
+            "ponderacion[]": {
                 required: true,
                 minlength: 1,
+                maxValue: 100,
                 positiveInteger: true
             }
         },
@@ -239,38 +243,49 @@ $(document).ready(function () {
         errorClass: 'invalid-feedback',
         submitHandler: function (form) {
             event.preventDefault();
+            var ponderaciones = $('.ponderaciones-class').map(function () {
+                return parseFloat($(this).val());
+            }).get();
 
-            var idAsignatura = $('#asignaturaId').val();//tomo la id
-            var mallaId = $('#mallaId').val();//tomo la id
-            var formData = $('#formGuardar').serializeArray();//tomo los datos del array
-            formData.push({name: 'mallaId', value: mallaId});
-            var url;//valido el tipo de url si editar o crear
-            if (idAsignatura) {
-                url = '/ActualizarAsignatura';
-                //meto la id en el campo de envio
-                formData.push({name: 'idAsignatura', value: idAsignatura});
-            } else {
-                url = '/AgregarAsignatura';
-            }
-            //realizo el guardado mediante ajax
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    $('#crearModal').modal('hide');  // Cierra el modal
-                    var table = $('#asignaturaTable').DataTable();
-                    table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
-                    mostrarMensaje(response, 'success');
-                },
-                error: function (xhr, status, error) {
-                    $('#crearModal').modal('hide');  // Cierra el modal
-                    console.log(error);
-                    var errorMessage = xhr.responseText || 'Error al actualizar la Asignatura.';
-                    mostrarMensaje(errorMessage, 'danger');
+            var sumaPonderaciones = ponderaciones.reduce(function (a, b) {
+                return a + b;
+            }, 0);
+
+            if (sumaPonderaciones <= 100 && sumaPonderaciones >= 100) {
+                var idAsignatura = $('#asignaturaId').val();
+                var mallaId = $('#mallaId').val();
+                var formData = $('#formGuardar').serializeArray();
+                formData.push({name: 'mallaId', value: mallaId});
+
+                if (idAsignatura) {
+                    url = '/ActualizarAsignatura';
+                    formData.push({name: 'idAsignatura', value: idAsignatura});
+                } else {
+                    url = '/AgregarAsignatura';
                 }
-            });
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        $('#crearModal').modal('hide');
+                        var table = $('#asignaturaTable').DataTable();
+                        table.ajax.reload(null, false);
+                        mostrarMensaje(response, 'success');
+                    },
+                    error: function (xhr, status, error) {
+                        $('#crearModal').modal('hide');
+                        console.log(error);
+                        var errorMessage = xhr.responseText || 'Error al guardar la Asignatura.';
+                        mostrarMensaje(errorMessage, 'danger');
+                    }
+                });
+            } else {
+                mostrarMensaje('La suma de las ponderaciones no puede exceder 100.', 'danger');
+            }
         }
+
     });
 
     var validatorEditar = $('#formGuardarEditar').validate({
@@ -523,9 +538,9 @@ $(document).ready(function () {
             suma += parseInt($(this).val());
         });
         if (suma === 100) {
-            $("#btnAgregarActividad").prop('disabled',true );
+            $("#btnAgregarActividad").prop('disabled', true);
         } else {
-            $("#btnAgregarActividad").prop('disabled',false );
+            $("#btnAgregarActividad").prop('disabled', false);
         }
     });
 

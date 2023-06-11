@@ -5,15 +5,15 @@ import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.EstudianteAsignatura;
 import com.gl05.bad.domain.EstudianteCohorte;
 import com.gl05.bad.domain.Maestria;
-import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.domain.VistaEstudiantesPorCohorte;
 import com.gl05.bad.servicio.AsignaturaService;
 import com.gl05.bad.servicio.CohorteService;
 import com.gl05.bad.servicio.EstudianteAsignaturaService;
 import com.gl05.bad.servicio.EstudianteCohorteService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.UserService;
+import com.gl05.bad.servicio.VistaEstudiantesPorCohorteService;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
@@ -53,6 +53,10 @@ public class CohorteController {
     
     @Autowired
     private EstudianteAsignaturaService estudianteAsignaturaService;
+    
+    @Autowired
+    private VistaEstudiantesPorCohorteService vEstudiantesPorCohorteService;
+    
     
      @GetMapping("/GestionarCohorte/{idMaestria}")
     public String listarCohortes(Model model,@PathVariable("idMaestria") Long idMaestria) {
@@ -162,6 +166,11 @@ public class CohorteController {
         try {
             Cohorte cohorteEncontrada = cohorteService.encontrarCohorte(cohorte);
             List<EstudianteCohorte> estudiantesCohorte = estudianteCohorteService.encontrarEstudianteIdCohorte(cohorteEncontrada);
+            // Verificar si la lista de estudiantesCohorte está vacía
+            if (estudiantesCohorte.isEmpty()) {
+                String error = "La cohorte no tiene estudiantes inscritos";
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
             for (Long materiaId : materiasIds) {
                 Asignatura asignatura = asignaturaService.encontrarAsig(materiaId); // Obtener el objeto Estudiante correspondiente al ID
                 for (EstudianteCohorte estudianteCohorte:estudiantesCohorte) {
@@ -179,4 +188,25 @@ public class CohorteController {
         }
     }
     
+    @GetMapping("/DetalleCohorte/{id}")
+    public String detalleCohorte(@PathVariable Long id, Model model) {
+        model.addAttribute("pageTitle", "Detalle Cohorte");
+        Cohorte cohorte = cohorteService.encontrarCohorte(new Cohorte(id));
+        model.addAttribute("cohorte", cohorte);
+        return "/Cohorte/DetalleCohorte";
+    }
+    
+    
+    //Reporte estudiantes inscritos
+    @GetMapping("/EstudiantesInscritos")
+    public String estudiantesInscritos(Model model) {
+        model.addAttribute("pageTitle", "Estudiantes Inscritos");
+        return "/Reportes/estudiantesInscritos";
+    }
+    
+    @GetMapping("/EstudiantesInscritos/data")
+    @ResponseBody
+    public DataTablesOutput<VistaEstudiantesPorCohorte> getCohortes(@Valid DataTablesInput input) {
+        return vEstudiantesPorCohorteService.obtenerEstudiantesPorCohorte(input);
+    }
 }

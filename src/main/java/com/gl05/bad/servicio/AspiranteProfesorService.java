@@ -9,11 +9,9 @@ import java.util.Collection;
 
 public interface AspiranteProfesorService {
     
-  public Collection<AspiranteProfesor> listarAspirantes();
+  public List<AspiranteProfesor> listarAspirantes();
     
   public DataTablesOutput<AspiranteProfesor> listarAspirantes(DataTablesInput input);
-  
-  //public List<AspiranteProfesor> listarAspirantes();
   
   public void agregarAP(AspiranteProfesor aspirante);
   
@@ -28,4 +26,8 @@ public interface AspiranteProfesorService {
   public AspiranteProfesor encontrarPorIdUsuario(Integer idUsuario);
   
   public String generarPassword(int length);
+  
+  public String buscarPerfil(String username);
+  
+  public void enviarCorreo(String correoDestino, String asunto, String mensaje);
 }

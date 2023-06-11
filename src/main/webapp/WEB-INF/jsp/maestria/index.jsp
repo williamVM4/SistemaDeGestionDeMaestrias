@@ -31,10 +31,12 @@
             </div>
             <div class="row col-sm-12 d-flex justify-content-end">
                 <div class="col-sm-1">
+                    <sec:authorize access="hasAuthority('AGREGAR_MAESTRIA_PRIVILAGE')">
                     <button type="button" class="btn-add btn abrirModal-btn" 
                             data-bs-toggle="modal" data-bs-target="#crearModal" 
                             data-action="agregar">Agregar
                     </button>
+                    </sec:authorize>
                 </div>
             </div>
 
@@ -121,9 +123,13 @@
 </div>
 <!-- /.content-wrapper -->
   
-<sec:authorize access="hasAuthority('VER_ADMIN_PRIVILEGE')" var="hasPrivilegeAdmin"></sec:authorize>
+<sec:authorize access="hasAuthority('ACCEDER_MAESTRIA_PRIVILAGE')" var="hasPrivilegeAccederMaestria"></sec:authorize>
+<sec:authorize access="hasAuthority('ELIMINAR_MAESTRIA_PRIVILAGE')" var="hasPrivilegeEliminarMaestria"></sec:authorize>
+<sec:authorize access="hasAuthority('EDITAR_MAESTRIA_PRIVILAGE')" var="hasPrivilegeEditarMaestria"></sec:authorize>
 <script>
-    var hasPrivilegeAdmin = ${hasPrivilegeAdmin};
+    var hasPrivilegeAccederMaestria = ${hasPrivilegeAccederMaestria};
+    var hasPrivilegeEliminarMaestria = ${hasPrivilegeEliminarMaestria};
+    var hasPrivilegeEditarMaestria = ${hasPrivilegeEditarMaestria};
 </script>
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/maestria.js"></script>

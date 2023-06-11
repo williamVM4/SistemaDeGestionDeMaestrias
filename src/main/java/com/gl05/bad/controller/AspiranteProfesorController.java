@@ -7,7 +7,6 @@ import com.gl05.bad.domain.Documento;
 import com.gl05.bad.domain.ExperienciaLaboral;
 import com.gl05.bad.domain.ListadoDocumentacionPersonal;
 import com.gl05.bad.domain.RedSocial;
-import com.gl05.bad.domain.Roles;
 import com.gl05.bad.domain.Telefono;
 import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.AspiranteProfesorService;
@@ -17,7 +16,6 @@ import com.gl05.bad.servicio.CorreoService;
 import com.gl05.bad.servicio.DocumentoService;
 import com.gl05.bad.servicio.ExperienciaLaboralService;
 import com.gl05.bad.servicio.RedSocialService;
-import com.gl05.bad.servicio.RolesService;
 import com.gl05.bad.servicio.TelefonoService;
 import com.gl05.bad.servicio.UserService;
 import java.io.IOException;
@@ -87,7 +85,7 @@ public class AspiranteProfesorController {
 
     @GetMapping("/PerfilAspiranteProfesor/{idAspiranteProfesor}")
     public String perfilAspiranteProfesor(Model model, AspiranteProfesor aspirante) {
-        model.addAttribute("pageTitle", "PerfilAspiranteProfesor");
+        model.addAttribute("pageTitle", "Perfil Aspirante Profesor");
         var aspiranteNew = aspiranteService.encontrarAP(aspirante);
         //Se cargan para la edicion de la informacion general del aspirante
         List<String> sexos = listarSexos();
@@ -204,7 +202,7 @@ public class AspiranteProfesorController {
         
     @GetMapping("/GestionarAspiranteProfesor")
     public String mostrarAspirantesProfesor(Model model) {
-        model.addAttribute("pageTitle", "GestionarAspiranteProfesor");
+        model.addAttribute("pageTitle", "Gestionar Aspirante");
         var elementos = aspiranteService.listarAspirantes();
         model.addAttribute("aspirantesAP", elementos);
         return "/AspiranteProfesor/gestionarAspiranteProfesor";
@@ -217,7 +215,15 @@ public class AspiranteProfesorController {
         @RequestParam("apellidosAp") String apellidosAp,
         @RequestParam("correo") String correo,
         RedirectAttributes redirectAttributes) {
-        try {
+        try {            
+            if (userService.encontrarUsuarioPorUsername(codAp) != null) {
+                redirectAttributes.addFlashAttribute("error", "Ya existe un usuario con el mismo código.");
+                return "redirect:/GestionarAspiranteProfesor";
+            }
+            if (userService.encontrarUsuarioPorEmail(correo) != null) {
+                redirectAttributes.addFlashAttribute("error", "Ya existe un usuario con el mismo correo electrónico.");
+                return "redirect:/GestionarAspiranteProfesor";
+            }
             //Creación del usuario aspirante a profesor
             String password = aspiranteService.generarPassword(12);
             String encryptedPassword = passwordEncoder.encode(password);
@@ -229,9 +235,13 @@ public class AspiranteProfesorController {
             usuarioAspirante.setUsuarioBloqueado(0);
             usuarioAspirante.setNumerointentos(0);
             userService.AgregarUsuarios(usuarioAspirante);
+            //Envio de credenciañes
+            String asunto= "Credenciales de usuario del sistema de maestrías";
+            String mensaje= "Bienvenid@ " + nombresAp + " " + apellidosAp + " las credenciciales proporcionadas como aspirante a profesor son:\nUsuario: " + codAp.toLowerCase() + "\nContraseña: " + password;
+            aspiranteService.enviarCorreo(correo, asunto, mensaje);
             
         } catch(Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ya se encuentra registrado un usuario con el código del aspirante a profesor.");
+            redirectAttributes.addFlashAttribute("error", "Ocurrió un error al registrar un aspirante a profesor.");
             return "redirect:/GestionarAspiranteProfesor";
         }
         try {

@@ -56,30 +56,39 @@ $(document).ready(function() {
 //                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetallePlanEstudio/' + row.idPlanEstudio + '">';
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
-                    var actionsHtml = '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
+                    var actionsHtml = '';
+                    
+                    actionsHtml = '<a class="btn btn-outline-secondary" href="/DetalleCohorte/' + row.idCohorte + '">';
+                    actionsHtml += '<i class="bi bi-gear-fill"></i></a>';
+                    
+                    if(hasPrivilegeEditarCohorte === true){
+                    actionsHtml += '<button type="button" class="btn btn-outline-warning abrirModal-btn" data-bs-toggle="modal" ';
                     actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idCohorte + '" data-modo="actualizar">';
                     actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
+                    }
                     
+                    if(hasPrivilegeEliminarCohorte === true){
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idCohorte + '" ';
                     actionsHtml += 'data-cod="' + row.idCohorte + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
+                    }
                     
                     //Boton para habilitar/deshabilitar
                     //actionsHtml += '<button type="button" class="btn btn-outline-secondary" ">';
                     //actionsHtml += '<i class="bi bi-check"></i></button>';
                     
                     //Boton para aspirantes
-                    actionsHtml += '<a href="/PostuladosCohorte/' + row.idCohorte + '" type="button" class="btn btn-outline-success" ">';
-//                    actionsHtml += 'data-cod="' + row.idCohorte + '">';
-                    actionsHtml += '<i class="bi bi-person-fill-add"></i></a>';
+//                    actionsHtml += '<a href="/PostuladosCohorte/' + row.idCohorte + '" type="button" class="btn btn-outline-success" ">';
+////                    actionsHtml += 'data-cod="' + row.idCohorte + '">';
+//                    actionsHtml += '<i class="bi bi-person-fill-add"></i></a>';
                     
-                    actionsHtml += '<button type="button" class="btn btn-outline-primary inscribirMateriaModal-btn" data-id="' + row.idCohorte + '" ';
-                    actionsHtml += 'data-maestria="' + row.idMaestria.idMaestria + '">';
-                    actionsHtml += '<i class="bi bi-calendar-plus"></i></button>';
+//                    actionsHtml += '<button type="button" class="btn btn-outline-primary inscribirMateriaModal-btn" data-id="' + row.idCohorte + '" ';
+//                    actionsHtml += 'data-maestria="' + row.idMaestria.idMaestria + '">';
+//                    actionsHtml += '<i class="bi bi-calendar-plus"></i></button>';
                     
-                    actionsHtml += '<a href="/ProfesorCohorte/' + row.idCohorte + '" type="button" class="btn btn-outline-dark" ">';
-//                    actionsHtml += 'data-cod="' + row.idCohorte + '">';
-                    actionsHtml += '<i class="bi bi-building-check"></i></i></a>';
+//                    actionsHtml += '<a href="/ProfesorCohorte/' + row.idCohorte + '" type="button" class="btn btn-outline-dark" ">';
+////                    actionsHtml += 'data-cod="' + row.idCohorte + '">';
+//                    actionsHtml += '<i class="bi bi-building-check"></i></i></a>';
                     
                     return actionsHtml;
                 }
@@ -308,102 +317,6 @@ $(document).ready(function() {
         });
         
     });
-    
-    $(document).on('click', '.inscribirMateriaModal-btn', function () {
-        var idCohorte = $(this).data('id');
-        var idMaestria = $(this).data('maestria');
-        var modal = $('#inscribirMateriaModal');
-        var modalBody = modal.find('.modal-body');
-        var modalBtn = modal.find('#inscribirMateriaBtn');
-        modalBtn.data('id', idCohorte);
-        var select = modal.find('select');
-        validatorIM.resetForm();  // Restablecer la validación
-        formGuardarIM.find('.is-invalid').removeClass('is-invalid');
-        modalBtn.removeClass('d-none');
-
-        $.ajax({
-            url: '/ObtenerMateriasMaestriaCohorte/' + idMaestria + '/'+ idCohorte,
-            type: 'GET',
-            success: function (response) {
-                // Limpiar las opciones anteriores del select
-                select.empty();
-                // Verificar si se obtuvieron materias
-                if (response && response.length > 0) {
-                    // Recorrer las materias y agregarlas como opciones en el select
-                    response.forEach(function (materia) {
-                        var option = $('<option>').attr('value', materia.idAsignatura).text(materia.nombreMateria);
-                        select.append(option);
-                    });
-                } else {
-                    // Si no hay materias, mostrar un mensaje en el modal body
-                    modalBody.text('La maestría no tiene materias disponibles para inscribir.');
-                    modalBtn.addClass('d-none');
-                }
-            },
-            error: function () {
-                alert('Error al obtener las materias de la maestría.');
-            }
-        });
-        modal.modal('show');
-    });
-    
-    var formGuardarIM = $('#inscribirMateriaForm'); // Almacenar referencia al formulario
-    var validatorIM = $('#inscribirMateriaForm').validate({
-        rules: {// reglas
-            materias: {
-                required: true
-            }
-        },
-        messages: {// mensajes
-            materias: {
-                required: 'Este campo es requerido'
-            }
-        },
-        highlight: function(element) {
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function(element) {
-            $(element).removeClass('is-invalid');
-        },
-        errorPlacement: function(error, element) {
-            if (element.attr("name") === "materias") {
-                error.insertAfter(element);
-            }
-         },
-        errorElement: 'div',
-        errorClass: 'invalid-feedback',
-        submitHandler: function (form) {
-            event.preventDefault();//detiene el evento del envio del form 
-            var idCohorte = $('#inscribirMateriaBtn').data('id');
-
-            var url;//valido el tipo de url si editar o crear
-                url = '/InscribirMateria/'+idCohorte;
-            // Convertir el arreglo en un objeto
-            var materiasIds = $('#materias').val();
-            var formData = {};
-            formData['materias'] = materiasIds; 
-            formData['_csrf'] = $('#csrfToken').val(); // Agregar el valor del token CSRF al objeto formData
-            //realizo el guardado mediante ajax
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    $('#inscribirMateriaModal').modal('hide');  // Cierra el modal
-                    var table = $('#cohorteTable').DataTable();
-                    table.ajax.reload(null, false); // Recargar sin reiniciar la paginación
-                    mostrarMensaje(response, 'success');
-                },
-                error: function (xhr, status, error) {
-                    $('#inscribirMateriaModal').modal('hide');  // Cierra el modal
-                    var errorMessage = xhr.responseText || 'Error al inscribir la cohorte a las materias seleccionadas.';
-                    mostrarMensaje(errorMessage, 'danger');
-                }
-            });
-        }
-    });
-
-
     
     function mostrarMensaje(mensaje, tipo) {
         var alertElement = $('.alert-' + tipo);

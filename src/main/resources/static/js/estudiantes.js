@@ -21,17 +21,26 @@ $(document).ready(function() {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
 //                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/DetalleMaestria/' + row.idMaestria + '">';
 //                    actionsHtml += '<i class="bi bi-eye"></i></a>';
+                   
+                   var actionsHtml = '';
                     
-//                    if(hasPrivilegeAdmin == true){
-                    var actionsHtml = '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
+                   //if(hasPrivilegeAdmin == true){
+                     actionsHtml = '<a class="btn btn-outline-secondary" href="/DetalleEstudiante/' + row.idEstudiante + '">';
+                        actionsHtml += '<i class="bi bi-eye"></i></a>';
+                   // }
+                    
+                    if(hasPrivilegeEditarEstudiante === true){
+                        actionsHtml += '<button type="button" class="btn btn-outline-primary abrirModal-btn" data-bs-toggle="modal" ';
                         actionsHtml += 'data-bs-target="#crearModal" data-tipo="editar" data-id="' + row.idEstudiante + '" data-modo="actualizar">';
                         actionsHtml += '<i class="bi bi-pencil-square"></i></button>';
-//                    }
+                    }
                      
+                    if(hasPrivilegeEliminarEstudiante === true){ 
                     actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idEstudiante + '" ';
                     actionsHtml += 'data-cod="' + row.idEstudiante + '">';
                     actionsHtml += '<i class="bi bi-trash"></i></button>';
-              
+                    }
+                    
                     return actionsHtml;
                 }
             }

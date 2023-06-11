@@ -31,10 +31,12 @@
             </div>
             <div class="row col-sm-12 d-flex justify-content-end">
                 <div class="col-sm-1">
+                    <sec:authorize access="hasAuthority('AGREGAR_COHORTE_PRIVILAGE')"> 
                     <button type="button" class="btn-add btn abrirModal-btn" 
                             data-bs-toggle="modal" data-bs-target="#crearModal" 
                             data-action="agregar">Agregar
                     </button>
+                    </sec:authorize>
                 </div>
             </div>
 
@@ -128,35 +130,24 @@
     
     <!-- /.Modal de eliminar -->
     
-    <div class="modal fade" id="inscribirMateriaModal" tabindex="-1" aria-labelledby="inscribirMateriaModalLabel" aria-hidden="true" data-tipo="" data-modo=''>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Malla Curricular de la Maestría</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                    <form id="inscribirMateriaForm" action="/InscribirMateria/{idCohorte}" method="post">
-                        <div class="modal-body">
-                        <input id="csrfToken" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                        <select id="materias" name="materias[]" class="form-control" size="10" multiple="multiple" required></select>
-                        </div>
-                        <div class="modal-footer">
-                        <button id="inscribirMateriaBtn" class="btn btn-success">Inscribir</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                      </div>
-                    </form>
-            </div>
-        </div>
-    </div>
-
-
-
 </div>
   <!-- /.content-wrapper -->
   
 <script>
     var idMaestria = "${idMaestria}";
 </script>
+
+<sec:authorize access="hasAuthority('EDITAR_COHORTE_PRIVILAGE')" var="hasPrivilegeEditarCohorte"></sec:authorize>
+<script>
+    var hasPrivilegeEditarCohorte = ${hasPrivilegeEditarCohorte};
+</script>
+
+<sec:authorize access="hasAuthority('ELIMINAR_COHORTE_PRIVILAGE')" var="hasPrivilegeEliminarCohorte"></sec:authorize>
+<script>
+    var hasPrivilegeEliminarCohorte = ${hasPrivilegeEliminarCohorte};
+</script>
+
+
 <%@ include file="../common/footer1.jspf"%>
 <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/cohorte.js"></script>
