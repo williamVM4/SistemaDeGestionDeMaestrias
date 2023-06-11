@@ -77,6 +77,7 @@ public class PostularProfesorController {
             postulacionService.agregarP(postulado);
 
             String mensaje = "Su postulacion fue exitosa.";
+            bitacoraService.registrarAccion("Postular aspirante a profesor como profesor");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrio un error al postularse.";

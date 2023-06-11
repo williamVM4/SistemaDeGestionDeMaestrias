@@ -45,6 +45,7 @@ public class FacultadController {
         try {
             facultadService.agregarFacultad(facultad);
             String mensaje = "Se ha agregado una facultad.";
+            bitacoraService.registrarAccion("Agregar facultad");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar una facultad.";
@@ -59,6 +60,7 @@ public class FacultadController {
         try {
             facultadService.eliminarFacultad(facultad);
             String mensaje = "Se ha eliminado la facultad correctamente.";
+            bitacoraService.registrarAccion("Eliminar facultad");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar la facultad";
@@ -72,6 +74,7 @@ public class FacultadController {
         try {
             facultadService.actualizarFacultad(facultad);
             String mensaje = "Se ha actualizado la facultad correctamente.";
+            bitacoraService.registrarAccion("Actualizar facultad");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al actualizar la facultad.";

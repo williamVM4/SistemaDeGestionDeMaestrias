@@ -78,6 +78,7 @@ public class EstudianteController {
         try {
             estudianteService.agregarEstudiante(estudiante);
             String mensaje = "Se ha agregado un estudiante.";
+            bitacoraService.registrarAccion("Agregar estudiante");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar al estudiante.";
@@ -92,6 +93,7 @@ public class EstudianteController {
         try {
             estudianteService.eliminarEstudiante(estudiante);
             String mensaje = "Se ha eliminado al estudiante correctamente.";
+            bitacoraService.registrarAccion("Eliminar estudiante");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar al estudiante";
@@ -115,6 +117,7 @@ public class EstudianteController {
         try {
             estudianteService.actualizarEstudiante(estudiante);
             String mensaje = "Se ha actualizado al estudiante correctamente.";
+            bitacoraService.registrarAccion("Actualizar estudiante");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al actualizar al estudiante.";
@@ -166,6 +169,7 @@ public class EstudianteController {
         }
 
         redirectAttributes.addFlashAttribute("mensaje", "Estudiantes inscritos exitosamente.");
+        bitacoraService.registrarAccion("Inscribir estudiante en cohorte");
         
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ocurrió un error al inscribir a los estudiantes.");
@@ -198,6 +202,7 @@ public class EstudianteController {
             EstudianteCohorte estudianteEliminar = estudianteCohorteService.encontrarEstudianteCohorte(cohorte, estudiante);
             estudianteCohorteService.eliminar(estudianteEliminar);
             String mensaje = "Se ha eliminado el estudiante de la cohorte correctamente.";
+            bitacoraService.registrarAccion("Eliminar estudiante de la cohorte");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el estudiante de la cohorte.";
@@ -210,6 +215,7 @@ public class EstudianteController {
         model.addAttribute("pageTitle", "Detalle Estudiante");
         Estudiante estudiante = estudianteService.encontrarEstudiante(id);
         model.addAttribute("estudiante", estudiante);
+        bitacoraService.registrarAccion("Ver información del estudiante");
         return "/Estudiante/DetalleEstudiante";
     }
 

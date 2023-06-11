@@ -58,6 +58,7 @@ public class PlanEstudioController {
         try {
             planEstudioService.proAgregar(idMaestria, codPlan, modalidad, cumMinimo, notaMinimaAprobacion, totalAsignaturas, totalUv, duracionCarrera, tituloOrtorgar, anio);
             String mensaje = "Se ha agregado un Plan de Estudio.";
+            bitacoraService.registrarAccion("Agregar plan de estudio");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar el Plan de Estudio.";
@@ -80,6 +81,7 @@ public class PlanEstudioController {
             planEstudioExistente.setAnio(planEstudio.getAnio());
             planEstudioService.actualizar(planEstudioExistente);
             String mensaje = "Se ha actualizado el plan de estudio correctamente.";
+            bitacoraService.registrarAccion("Actualizar plan de estudio");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             System.out.println(e);
@@ -93,6 +95,7 @@ public class PlanEstudioController {
         try {
             planEstudioService.eliminar(planEstudio);
             String mensaje = "Se ha eliminado el plan de estudio correctamente.";
+            bitacoraService.registrarAccion("Eliminar plan de estudio");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el plan de estudio.";

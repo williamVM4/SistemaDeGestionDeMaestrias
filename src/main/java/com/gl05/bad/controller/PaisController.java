@@ -49,6 +49,7 @@ public class PaisController {
             pais.setNombrePais(nombrePais);
             paisService.agregarP(pais);
             String mensaje = "Se ha agregado un país correctamente.";
+            bitacoraService.registrarAccion("Agregar país");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ya existe un país con ese nombre.";
@@ -64,6 +65,7 @@ public class PaisController {
             paisExistente.setNombrePais(pais.getNombrePais());
             paisService.actualizarP(paisExistente);
             String mensaje = "Se ha actualizado el pais correctamente.";
+            bitacoraService.registrarAccion("Actualizar país");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al actualizar lel pais.";
@@ -76,6 +78,7 @@ public class PaisController {
         try {
             paisService.eliminarP(pais);
             String mensaje = "Se ha eliminado el pais correctamente.";
+            bitacoraService.registrarAccion("Eliminar país");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el pais.";
