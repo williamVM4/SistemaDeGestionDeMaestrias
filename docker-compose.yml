@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: oracle/database:21.3.0-xe
+    container_name: database-maestria
+    ports:
+      - "1521:1521"
+      - "5550:5550"
+    environment:
+      - ORACLE_SID=XE
+      - ORACLE_PDB=ORCLPDB1
+      - ORACLE_PWD=oracle
+      - ORACLE_CHARACTERSET=AL32UTF8
+      - LISTENER_NETWORKS=(ADDRESS=(PROTOCOL=TCP)(HOST=0.0.0.0)(PORT=1521))
+    volumes:
+      - ./db/oracle_data:/opt/oracle/oradata
+      - ./db/setup:/opt/oracle/scripts/setup
+      - ./db/startup:/opt/oracle/scripts/startup
+    networks:
+      - my-network
+  web:
+    build: .
+    image: web-img:1.0
+    container_name: web-maestria
+    ports:
+      - "8080:8080"
+    links:
+      - db
+    networks:
+      - my-network
+      
+networks:
+  my-network:
+
