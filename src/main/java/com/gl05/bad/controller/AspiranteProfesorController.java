@@ -11,6 +11,7 @@ import com.gl05.bad.domain.Telefono;
 import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.AspiranteProfesorService;
 import com.gl05.bad.servicio.AtestadoTaService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.PaisService;
 import com.gl05.bad.servicio.CorreoService;
 import com.gl05.bad.servicio.DocumentoService;
@@ -52,6 +53,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 public class AspiranteProfesorController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
     
     @Autowired
     private PasswordEncoder passwordEncoder;

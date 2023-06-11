@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.ProgramaAsignatura;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.ProgramaAsignaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProgramaAsignaturaController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private ProgramaAsignaturaService programaAsignaturaService;

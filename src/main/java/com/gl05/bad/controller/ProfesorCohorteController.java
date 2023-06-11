@@ -1,15 +1,14 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Asignatura;
-import com.gl05.bad.domain.AspiranteProfesor;
 import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.MallaCurricular;
 import com.gl05.bad.domain.PlanEstudio;
-import com.gl05.bad.domain.PostulacionCohorte;
 import com.gl05.bad.domain.ProfesorAsignatura;
 import com.gl05.bad.domain.ProfesorCohorte;
 import com.gl05.bad.servicio.AsignaturaService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CohorteService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.MallaCurricularService;
@@ -18,10 +17,7 @@ import com.gl05.bad.servicio.PostuladoCohorteService;
 import com.gl05.bad.servicio.ProfesorAsignaturaService;
 import com.gl05.bad.servicio.ProfesorCohorteService;
 import java.util.List;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
-import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,11 +26,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProfesorCohorteController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private PostuladoCohorteService postuladoCohorteService;

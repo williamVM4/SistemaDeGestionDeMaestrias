@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.EscuelaPostgrado;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.FacultadService;
 import javax.validation.Valid;
@@ -19,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class EscuelaPostgradoController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
     
     @Autowired
     private EscuelaPostgradoService escuelaPostgradoService;

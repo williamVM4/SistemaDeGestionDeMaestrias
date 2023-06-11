@@ -172,14 +172,13 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     @Override
     public List<String> obtenerCorreosAspiranteProfesor() {
         List<AspiranteProfesor> aspirantes = listarAspirantes();
-        List<Integer> idsProfesorCohorte = profesorCohorteDao.findIdsProfesorCohorte();
+        List<AspiranteProfesor> idsProfesorCohorte = profesorCohorteDao.findIdsProfesorCohorte();
         List<Integer> idListCorreos = new ArrayList<>();
         List<String> correos = new ArrayList<>();
 
         for (AspiranteProfesor aspirante : aspirantes) {
-            Integer idAspirante = aspirante.getIdAspiranteProfesor().intValue();
-            if (!idsProfesorCohorte.contains(idAspirante)) {
-              idListCorreos.add(aspirante.getIdListCorreo());
+            if (idsProfesorCohorte.contains(aspirante)) {
+                idListCorreos.add(aspirante.getIdListCorreo());
             }
         }
         List<String> correosAsociados = aspiranteDao.findCorreosByIdListCorreos(idListCorreos);
@@ -190,16 +189,16 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
     @Override
     public List<String> obtenerCorreosProfesor() {
         List<AspiranteProfesor> aspirantes = listarAspirantes();
-        List<Integer> idsProfesorCohorte = profesorCohorteDao.findIdsProfesorCohorte();
+        List<AspiranteProfesor> idsProfesorCohorte = profesorCohorteDao.findIdsProfesorCohorte();
         List<Integer> idListCorreos = new ArrayList<>();
         List<String> correos = new ArrayList<>();
 
         for (AspiranteProfesor aspirante : aspirantes) {
-            Integer idAspirante = aspirante.getIdAspiranteProfesor().intValue();
-            if (idsProfesorCohorte.contains(idAspirante)) {
-              idListCorreos.add(aspirante.getIdListCorreo());
+            if (idsProfesorCohorte.contains(aspirante)) {
+                idListCorreos.add(aspirante.getIdListCorreo());
             }
         }
+
         List<String> correosAsociados = aspiranteDao.findCorreosByIdListCorreos(idListCorreos);
         correos.addAll(correosAsociados);
         return correos;

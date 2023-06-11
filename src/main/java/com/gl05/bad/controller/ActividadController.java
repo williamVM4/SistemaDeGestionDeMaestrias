@@ -4,6 +4,7 @@ import com.gl05.bad.domain.Actividad;
 import com.gl05.bad.domain.ListadoActividadEvaluada;
 import com.gl05.bad.servicio.ActividadService;
 import com.gl05.bad.servicio.AspiranteProfesorService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.ProgramaAsignaturaService;
 import com.gl05.bad.servicio.UserService;
@@ -21,7 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ActividadController {
-
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
+    
     @Autowired
     private ActividadService actividadService;
 
@@ -71,6 +75,7 @@ public class ActividadController {
             actividadExsistente.setPonderacion(actividad.getPonderacion());
             actividadService.actualizarA(actividadExsistente);
             String mensaje = "Se ha actualizado la Actividad correctamente.";
+            bitacoraService.registrarAccion("Agregar actividad evaluada");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "No se puede Actualizar la actividad";
@@ -83,6 +88,7 @@ public class ActividadController {
         try {
             actividadService.eliminarA(actividad);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado la actividad correctamente.");
+            bitacoraService.registrarAccion("Eliminar actividad evaluada");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "No se puede eliminar la actividad");
         }
@@ -94,6 +100,7 @@ public class ActividadController {
         try {
             actividadService.agregarA(actividad);      
             String mensaje = "Se ha Agregado una Nueva Actividad.";
+            bitacoraService.registrarAccion("Actualizar actividad evaluada");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ya existe una Actividad con ese Nombre.";

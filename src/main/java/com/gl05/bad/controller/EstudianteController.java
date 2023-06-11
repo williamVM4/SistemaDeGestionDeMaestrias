@@ -3,6 +3,7 @@ package com.gl05.bad.controller;
 import com.gl05.bad.domain.Cohorte;
 import com.gl05.bad.domain.Estudiante;
 import com.gl05.bad.domain.EstudianteCohorte;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CohorteService;
 import com.gl05.bad.servicio.EstudianteCohorteService;
 import com.gl05.bad.servicio.EstudianteService;
@@ -27,6 +28,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class EstudianteController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private EstudianteService estudianteService;
