@@ -7,6 +7,7 @@ import com.gl05.bad.domain.Documento;
 import com.gl05.bad.domain.ListadoDocumentacionPersonal;
 import com.gl05.bad.servicio.AtestadoTaService;
 import com.gl05.bad.domain.Telefono;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.CorreoService;
 import com.gl05.bad.servicio.DocumentoService;
@@ -44,6 +45,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 public class CoordinadorAcademicoController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private AtestadoTaService atestadoService;
@@ -68,7 +72,7 @@ public class CoordinadorAcademicoController {
   
     @GetMapping("/perfilCoordinadorAcademico/{idCoorAca}")
     public String perfilCoordinadorAcademico(Model model, CoordinadorAcademico coordinador) {
-        model.addAttribute("pageTitle", "PerfilCoordinadorAcademico");
+        model.addAttribute("pageTitle", "Perfil Coordinador Academico");
         
         var elemento = coordinadorService.encontrarCA(coordinador);
         
@@ -160,7 +164,7 @@ public class CoordinadorAcademicoController {
 
     @GetMapping("/gestionarCoordinadorAcademico")
     public String mostrarCoordinadoresAcademicos(Model model) {
-        model.addAttribute("pageTitle", "ViewCoordinadoresAcademicos");
+        model.addAttribute("pageTitle", "Gestionar Coordinadores Académicos");
         return "/coordinadorAcademico/index";
     }
     
@@ -189,6 +193,8 @@ public class CoordinadorAcademicoController {
             }
             coordinadorService.proIsertarCA(codCa, nombresCa, apellidosCa, email);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un coordinador.");
+            
+            bitacoraService.registrarAccion("Agregar coordinador académico");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ocurrió un error al agregar el coordinador académico.");
         }
@@ -200,6 +206,7 @@ public class CoordinadorAcademicoController {
         try {
             coordinadorService.eliminarCA(coordinador);
             String mensaje = "Se ha eliminado un Coordinador Académico.";
+            bitacoraService.registrarAccion("Eliminar coordinador académico");
             return ResponseEntity.ok(mensaje);
         } catch(Exception e) {
           String error = "Ha ocurrido un error al eliminar el Coordinador Académico.";
@@ -226,6 +233,7 @@ public class CoordinadorAcademicoController {
             }
 
             redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado los campos correctamente.");
+            bitacoraService.registrarAccion("Actualizar foto del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Sucedió un error al actualizar los campos.");
         }
@@ -264,6 +272,7 @@ public class CoordinadorAcademicoController {
                 documento.setDocFile(blob);
 
                 docService.agregarDocumento(documento);
+                bitacoraService.registrarAccion("Actualizar documentación personal del coordinador académico");
               }catch(IOException e){
                 redirectAttributes.addFlashAttribute("error", "El documento no cumple con las especificaciones dadas");
               }
@@ -284,6 +293,7 @@ public class CoordinadorAcademicoController {
         try {
             docService.eliminarDocumento(doc);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el documento.");
+            bitacoraService.registrarAccion("Eliminar documento personal del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el documento.");
         }
@@ -304,6 +314,8 @@ public class CoordinadorAcademicoController {
                 pdfBytes = pdfBlob.getBytes(1, (int) pdfBlob.length());
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_PDF);
+                
+                bitacoraService.registrarAccion("Ver documento personal del coordinador académico");
                 return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
             }
         } catch (SQLException e) {
@@ -337,6 +349,7 @@ public class CoordinadorAcademicoController {
             atestadoNew.setArchivoAta(blob);
             
             atestadoService.agregarAtestado(atestadoNew);
+            bitacoraService.registrarAccion("Agregar título académico del coordinador académico");
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un título académico.");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha sucedido un error, vuelva a intentarlo");
@@ -365,6 +378,7 @@ public class CoordinadorAcademicoController {
         if(archivo == null || archivo.isEmpty()){
           atestadoActualizar.setArchivoAta(null);
           atestadoService.actualizarAtestado(atestadoActualizar);
+          bitacoraService.registrarAccion("Actualizar título académico del coordinador académico");
           redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
         }else{
           try {
@@ -373,6 +387,7 @@ public class CoordinadorAcademicoController {
             atestadoActualizar.setArchivoAta(blob);
             atestadoService.actualizarAtestado(atestadoActualizar);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
+            bitacoraService.registrarAccion("Actualizar título académico del coordinador académico");
           } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha sucedido un error al actualizar el titulo. Intentelo de nuevo");
           }
@@ -386,6 +401,7 @@ public class CoordinadorAcademicoController {
         try {
             atestadoService.eliminarAtestado(atestado);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el título académico.");
+            bitacoraService.registrarAccion("Eliminar título académico del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el título académico.");
         }
@@ -407,6 +423,7 @@ public class CoordinadorAcademicoController {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_PDF);
                 archivoExistente=null;
+                bitacoraService.registrarAccion("Ver título académico del coordinador académico");
                 return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
             }
         } catch (SQLException e) {
@@ -445,6 +462,7 @@ public class CoordinadorAcademicoController {
             coordinadorAcademico.setIdPais(idPais);
             coordinadorService.actualizarCA(coordinadorAcademico);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado la información general del coordinador académico.");
+            bitacoraService.registrarAccion("Actualizar información del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "No se actualizó la información general del coordinador académico.");
         }
@@ -453,7 +471,7 @@ public class CoordinadorAcademicoController {
     } 
     
     @PostMapping("/AgregarCorreoCoordinadorAcademico/{idCoorAca}/{idListCorreo}")
-    public String agregarCorreoAspiranteProfesor(
+    public String agregarCorreoCoordinadorAcademico(
         @RequestParam("tipoCorreo") String tipoCorreo,
         @RequestParam("correo") String correo,
         @PathVariable("idListCorreo") int idListCorreo, 
@@ -466,6 +484,7 @@ public class CoordinadorAcademicoController {
             correoNew.setTipoCorreo(tipoCorreo);
             correoService.agregarC(correoNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un correo.");
+            bitacoraService.registrarAccion("Agregar correo del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya se encuentra registrado el correo.");
         }
@@ -474,7 +493,7 @@ public class CoordinadorAcademicoController {
     }
     
     @PostMapping("/AgregarTelefonoCoordinadorAcademico/{idCoorAca}/{idListTelefono}")
-    public String agregarTelefonoAspiranteProfesor(
+    public String agregarTelefonoCoordinadorAcademico(
         @RequestParam("tipoTelefono") String tipoTelefono,
         @RequestParam("numero") String numero,
         @PathVariable("idListTelefono") int idListTelefono, 
@@ -487,6 +506,7 @@ public class CoordinadorAcademicoController {
             telefonoNew.setTipoTelefono(tipoTelefono);
             telefonoService.agregarT(telefonoNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un telefono.");
+            bitacoraService.registrarAccion("Agregar teléfono del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya se encuentra registrado el telefono.");
         }
@@ -495,10 +515,11 @@ public class CoordinadorAcademicoController {
     }
     
     @GetMapping("/EliminarCorreoCoordinadorAcademico/{idCorreo}/{idCoorAca}")
-    public String eliminarCorreoAspiranteProfesor(Correo correo, @PathVariable("idCoorAca")int idCoorAca, RedirectAttributes redirectAttributes) {
+    public String eliminarCorreoCoordinadorAcademico(Correo correo, @PathVariable("idCoorAca")int idCoorAca, RedirectAttributes redirectAttributes) {
         try {
             correoService.eliminarC(correo);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el correo.");
+          bitacoraService.registrarAccion("Eleminar correo del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el correo.");
         }
@@ -507,10 +528,11 @@ public class CoordinadorAcademicoController {
     }
     
     @GetMapping("/EliminarTelefonoCoordinadorAcademico/{idTelefono}/{idCoorAca}")
-    public String eliminarTelefonoAspiranteProfesor(Telefono telefono, @PathVariable("idCoorAca")int idCoorAca, RedirectAttributes redirectAttributes) {
+    public String eliminarTelefonoCoordinadorAcademico(Telefono telefono, @PathVariable("idCoorAca")int idCoorAca, RedirectAttributes redirectAttributes) {
         try {
             telefonoService.eliminarT(telefono);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el telefono.");
+            bitacoraService.registrarAccion("Eliminar teléfono del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el telefono.");
         }
