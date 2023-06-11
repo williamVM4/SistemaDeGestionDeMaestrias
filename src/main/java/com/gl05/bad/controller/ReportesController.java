@@ -45,9 +45,6 @@ public class ReportesController {
     private AspiranteProfesorService aspiranteService;
     
     @Autowired
-    private ProfesorCohorteService profesorCohorteService;
-    
-    @Autowired
     private JavaMailSender mailSender;
             
     @GetMapping("/AreasAcademicas")
@@ -63,25 +60,31 @@ public class ReportesController {
     }
     
     @PostMapping("/enviarNotificacion")
-    public void enviarNotificacion(
+    public String enviarNotificacion(
           @RequestParam("destino") String destino,
           @RequestParam("asunto") String asunto,
           @RequestParam("mensaje") String mensaje,
           RedirectAttributes redirectAttributes,
           HttpServletRequest request, 
-          HttpServletResponse response) throws IOException {
+          Model model) throws IOException {
       
-        // Lógica para enviar la notificación
-        enviarCorreo(destino, asunto, mensaje);
-        
+        try{
+          // Lógica para enviar la notificación
+          enviarCorreo(destino, asunto, mensaje);
+          bitacoraService.registrarAccion("Enviar notificación a "+destino);
+        }catch(Exception e){
+            redirectAttributes.addFlashAttribute("error", "No se ha podido notificar a "+destino);
+        }
         // Obtener la URL anterior desde el encabezado Referer
         String urlAnterior = request.getHeader("Referer");
         if (urlAnterior != null) {
             // Redirigir a la URL anterior
-            response.sendRedirect(urlAnterior);
+            redirectAttributes.addFlashAttribute("mensaje", "Se han enviado las notificaciones a "+destino);
+            return "redirect:"+urlAnterior; 
         } else {
             // En caso de que no haya URL anterior, redirigir a una URL predeterminada
-            response.sendRedirect("/");
+            redirectAttributes.addFlashAttribute("mensaje", "Se han enviado las notificaciones a "+destino);
+            return "redirect:/";
         }
     }
 

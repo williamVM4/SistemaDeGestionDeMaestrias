@@ -89,6 +89,7 @@ public class ProfesorCohorteController {
             asignaturaProfesor.setIdProfesor(profesor);
 
             profesorAsignaturaService.agregarA(asignaturaProfesor);
+            bitacoraService.registrarAccion("Contratar aspirante a profesor");
             String mensaje = "Se ha Contratado con exito.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
@@ -109,10 +110,11 @@ public class ProfesorCohorteController {
         try {
             System.out.println(profesorCohorte);
             profesorCohorteService.eliminarPC(profesorCohorte);
-            String mensaje = "Se ha eliminado la Maestria correctamente.";
+            bitacoraService.registrarAccion("Eliminar contratación de profesor");
+            String mensaje = "Se ha eliminado al profesor correctamente.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            String error = "Ha ocurrido un error al eliminar la maestria.";
+            String error = "Ha ocurrido un error al eliminar el profesor";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }

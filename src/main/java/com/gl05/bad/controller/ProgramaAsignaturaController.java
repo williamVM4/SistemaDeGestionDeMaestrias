@@ -58,6 +58,7 @@ public class ProgramaAsignaturaController {
             programaExsistente.setObjetivos(programa.getObjetivos());
             programaExsistente.setSistemaEvaluacion(programa.getSistemaEvaluacion());
             programaAsignaturaService.actualizarP(programaExsistente);
+            bitacoraService.registrarAccion("Actualizar programa de asignatura");
             String mensaje = "Se ha actualizado el programa correctamente.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {

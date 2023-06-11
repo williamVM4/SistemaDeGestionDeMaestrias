@@ -519,7 +519,7 @@ public class CoordinadorAcademicoController {
         try {
             correoService.eliminarC(correo);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el correo.");
-          bitacoraService.registrarAccion("Eleminar correo del coordinador académico");
+            bitacoraService.registrarAccion("Eliminar correo del coordinador académico");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el correo.");
         }

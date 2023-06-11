@@ -64,6 +64,7 @@ public class MaestriaController {
         try {
             maestriaService.proAgregar(nombreMaestria, escuelaPostgrado);
             String mensaje = "Se ha Agregado una Maestria.";
+            bitacoraService.registrarAccion("Agregar maestría");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ya existe una Maestria con ese nombre.";
@@ -79,6 +80,7 @@ public class MaestriaController {
             maestriaExistente.setIdPostgrado(maestria.getIdPostgrado());
             maestriaService.actualizar(maestriaExistente);
             String mensaje = "Se ha actualizado la maestria correctamente.";
+            bitacoraService.registrarAccion("Actualizar maestría");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al actualizar la maestria.";
@@ -91,6 +93,7 @@ public class MaestriaController {
         try {
             maestriaService.eliminar(maestria);
             String mensaje = "Se ha eliminado la Maestria correctamente.";
+            bitacoraService.registrarAccion("Eliminar maestría");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar la maestria.";
@@ -133,7 +136,7 @@ public class MaestriaController {
             Map<String, String> response = new HashMap<>();
             response.put("redirectUrl", "/DetalleMaestria/" + maestria.getIdMaestria());
             response.put("mensaje", "Se ha agregado el perfil del coordinador a la maestría.");
-
+            bitacoraService.registrarAccion("Agregar perfil del coordinador a la maestría");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             // Manejo del error
@@ -155,7 +158,7 @@ public class MaestriaController {
             Map<String, String> response = new HashMap<>();
             response.put("redirectUrl", "/DetalleMaestria/" + maestria.getIdMaestria());
             response.put("mensaje", "Se ha agregado el perfil del aspirante a la maestría.");
-
+            bitacoraService.registrarAccion("Agregar perfil del aspirante a la maestría");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             // Manejo del error
@@ -177,7 +180,7 @@ public class MaestriaController {
             Map<String, String> response = new HashMap<>();
             response.put("redirectUrl", "/DetalleMaestria/" + maestria.getIdMaestria());
             response.put("mensaje", "Se ha actualizado el coordinador Académico.");
-
+            bitacoraService.registrarAccion("Actualizar coordinador académico de la maestría");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             // Manejo del error
