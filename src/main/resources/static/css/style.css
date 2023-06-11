@@ -125,3 +125,78 @@ pre{
     color: #000;
     border-color: #293462;
 }
+
+.p-menu-perfil{
+    padding: 0.25rem;
+}
+
+.maestrias-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+.card-index {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.maestria-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    padding: 2rem;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+ /* Estilos para pantallas más grandes */
+@media (min-width: 768px) {
+    .maestrias-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Estilos para pantallas más pequeñas, como dispositivos móviles */
+@media (max-width: 767px) {
+    .maestrias-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.button-container {
+    margin-top: 10px;
+}
+
+.button-container a {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.button-container a {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 20px;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  color: #3498db;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-container a:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}

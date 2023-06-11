@@ -83,6 +83,11 @@
 </div>
 <!-- /.content-wrapper -->
   
-
+<sec:authorize access="hasAuthority('INSCRIPCION_INSCRIBIR_MAESTRIA_PRIVILAGE')" var="hasPrivilegeInscribirMaestria"></sec:authorize>
+<sec:authorize access="hasAuthority('ESTUDIANTE_INSCRIBIR_MAESTRIA_PRIVILAGE')" var="hasPrivilegeEstudianteMaestria"></sec:authorize>
+<script>
+    var hasPrivilegeInscribirMaestria = ${hasPrivilegeInscribirMaestria};
+    var hasPrivilegeEstudianteMaestria = ${hasPrivilegeEstudianteMaestria};
+</script>
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/inscribirMaestria.js"></script>

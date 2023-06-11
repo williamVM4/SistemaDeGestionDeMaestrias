@@ -17,6 +17,19 @@
   <!-- Main content -->
   <section class="content">
       <div class="container">
+            <c:if test="${not empty mensaje}">
+              <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Éxito!</strong> ${mensaje}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+            <c:if test="${not empty error}">
+              <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-exclamation-triangle"></i> Error!</strong> ${error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+        
             <c:if test="${maestria.idCoorAca == null}">
                 <div id="infoCoordinador" class="alert alert-info d-flex align-items-center alert-dismissible fade show" role="alert">
                         <i class="bi bi-info-circle"></i> &nbsp; La maestría aún no tiene un coordinador académico asociado. Por favor, agregue uno.
@@ -84,15 +97,21 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Perfil del Coordinador</h5>
                             <div>
+                                <sec:authorize access="hasAuthority('AGREGAR_COORDINADOR_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.perfilCoor == null || maestria.perfilCoor == ''}">
                                 <button class="btn btn-outline-primary abrirModal-perfilC"><i class="fas fa-plus"></i></button>
                                 </c:if>
+                                </sec:authorize>
+                                <sec:authorize access="hasAuthority('EDITAR_COORDINADOR_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.perfilCoor != null && maestria.perfilCoor != ''}">
                                 <button class="btn btn-outline-warning abrirModal-perfilC" data-tipo="editar" data-id="${maestria.idMaestria}"><i class="bi bi-pencil-square"></i></button>
                                 </c:if> 
+                                </sec:authorize>
+                                <sec:authorize access="hasAuthority('ELIMINAR_COORDINADOR_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.perfilCoor != null && maestria.perfilCoor != ''}">
                                 <button class="btn btn-outline-danger abrirModal-perfilC" data-tipo="eliminar" data-id="${maestria.idMaestria}"><i class="bi bi-trash"></i></button>
                                 </c:if> 
+                                </sec:authorize>
                             </div>
                         </div>
                         <div class="card-body">
@@ -107,9 +126,11 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Perfil del Aspirante</h5>
                             <div>
+                                <sec:authorize access="hasAuthority('AGREGAR_ASPIRANTE_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.perfilAsp == null || maestria.perfilAsp == ''}">
                                 <button class="btn btn-outline-primary abrirModal-perfilAsp"><i class="fas fa-plus"></i></button>
                                 </c:if>
+                                </sec:authorize>
                                 <c:if test="${maestria.perfilAsp != null && maestria.perfilAsp != ''}">
                                 <button class="btn btn-outline-warning abrirModal-perfilAsp" data-tipo="editar" data-id="${maestria.idMaestria}"><i class="bi bi-pencil-square"></i></button>
                                 </c:if> 
@@ -131,18 +152,26 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Coordinador Académico</h5>
                             <div>
+                                <sec:authorize access="hasAuthority('AGREGAR_COORDINADOR_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.idCoorAca == null}">
                                 <button class="btn btn-outline-primary abrirModal-idCoorAca"><i class="fas fa-plus"></i></button>
                                 </c:if>
+                                </sec:authorize>
+                                <sec:authorize access="hasAuthority('CONSULTAR_COORDINADOR_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.idCoorAca != null}">
                                 <a href="/perfilCoordinadorAcademico/${maestria.idCoorAca.idCoorAca}" class="btn btn-outline-secondary"><i class="bi bi-eye"></i></a>
                                 </c:if> 
+                                </sec:authorize>
+                                <sec:authorize access="hasAuthority('EDITAR_COORDINADOR_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.idCoorAca != null}">
                                 <button class="btn btn-outline-warning abrirModal-idCoorAca" data-tipo="editar" data-id="${maestria.idMaestria}"><i class="bi bi-pencil-square"></i></button>
                                 </c:if> 
+                                </sec:authorize>
+                                <sec:authorize access="hasAuthority('ELIMINAR_COORDINADOR_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <c:if test="${maestria.idCoorAca != null}">
                                 <button class="btn btn-outline-danger abrirModal-idCoorAca" data-tipo="eliminar" data-id="${maestria.idMaestria}"><i class="bi bi-trash"></i></button>
                                 </c:if>
+                                </sec:authorize>
                             </div>
                         </div>
                     </div>
@@ -152,7 +181,21 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Planes de Estudio</h5>
                             <div>
+                                <sec:authorize access="hasAuthority('PLANES_ESTUDIO_DETALLE_MAESTRIA_PRIVILAGE')">
                                 <a href="/GestionarPlanEstudio/${maestria.idMaestria}" class="btn btn-outline-secondary"><i class="fas fa-cogs"></i></a>
+                                </sec:authorize>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6 offset-md-3">
+                    <div class="card m-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Cohortes</h5>
+                            <div>
+                                <a href="/GestionarCohorte/${maestria.idMaestria}" class="btn btn-outline-secondary"><i class="fas fa-cogs"></i></a>
                             </div>
                         </div>
                     </div>

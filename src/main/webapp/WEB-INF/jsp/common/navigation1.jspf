@@ -1,4 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%
+   // Obtener la fecha y hora actual
+   LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+   // Definir el formato deseado para la hora
+   DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("hh:mm:ss a");
+
+   // Obtener la hora formateada
+   String horaFormateada = fechaHoraActual.format(formatoHora);
+%>
 <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
     <!-- Left navbar links -->
@@ -7,29 +19,28 @@
         <a class="nav-link text-white pushmenu" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-    
-    
+
+    <!--mostrar hora del sistema-->
+    <div class="d-flex align-items-center justify-content-center text-white">
+      <%= horaFormateada %>
+    </div>
+
     <ul class="navbar-nav ml-auto">
         <li class="nav-item d-inline-block">
-            <div class="dropdown nav-link" style="background-color: transparent;">
+            <div class="dropdown nav-link p-menu-perfil" style="background-color: transparent;">
                 <div id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: white; cursor: pointer;">
                     <!-- Sidebar user (optional) -->
                     <div id="userPanel" class="user-panel d-flex">
                         <div class="image">
-                            <img src="" class="img-circle-perfil" style="width: 30px; height: 25px;">
+                            <img src="" class="img-circle-perfil" style="width: auto; height: 30px;">
                         </div>
                         <div class="info align-items-center justify-content-center " style="margin-top: -10px; margin-left: -10px;">
                             <a href="#" class="nav-link text-white dropdown-toggle"></a>
                         </div>
                     </div>
                 </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <c:if test="${not empty usuarioAspirante}">
-                        <li><a class="dropdown-item" href="/PerfilAspiranteProfesor/${usuarioAspirante}"><i class="fa-solid fa-circle-user text-warning"></i>&nbsp;Perfil</a></li>
-                    </c:if>
-                    <c:if test="${not empty usuarioCoordinador}">
-                        <li><a class="dropdown-item" href="/perfilCoordinadorAcademico/${usuarioCoordinador}"><i class="fa-solid fa-circle-user text-warning"></i>&nbsp;Perfil</a></li>
-                    </c:if>
+                <ul id="user-dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li id="link-perfil" class="d-none"><a class="dropdown-item" href="#"><i class="fa-solid fa-circle-user text-warning"></i>&nbsp;Perfil</a></li>
                     <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fa-solid fa-power-off text-danger"></i>&nbsp;Salir</a></li>
                 </ul>
             </div>
@@ -51,8 +62,9 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+          <li class="nav-item">  
+              <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#notificacionModal"><i class="bi bi-bell-fill"></i><p>&nbsp;Notificaciones</p></a>
+          </li>
           
           <sec:authorize access="hasAuthority('VIEW_MAESTRIA_PRIVILAGE') or hasAuthority('VIEW_INSCRIBIR_MAESTRIA_PRIVILAGE') 
                          or hasAuthority('VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE')">
@@ -269,3 +281,43 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+                  
+        <!-- Modal para enviar notificaciones -->
+   <div class="modal fade" id="notificacionModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="crearModalLabel">Enviar Notificación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/enviarNotificacion" method="post" accept-charset="UTF-8">
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+              <div class="form-group">
+                <label for="destino">Destinatarios:</label>
+                <select type="text" class="form-select" id="destino" name="destino" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="Todos">Todos</option>
+                    <option value="Estudiantes">Estudiantes</option>
+                    <option value="Aspirantes a Profesores">Aspirantes a Profesores</option>
+                    <option value="Profesores">Profesores</option>
+                    <option value="Coordinadores Académicos">Coordinadores Académicos</option>
+                </select>
+              </div>  
+              <div class="form-group">
+                <label for="asunto">Asunto:</label>
+                <input type="text" class="form-control" id="asunto" name="asunto" maxlength="100" required>
+              </div>
+              <div class="form-group">
+                <label for="mensaje">Mensaje:</label>
+                <textarea class="form-control" id="mensaje" name="mensaje" rows="10" required></textarea>
+              </div>        
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-success">Guardar</button>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>                  

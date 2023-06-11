@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.RolesService;
 import com.gl05.bad.servicio.UserService;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UsuarioController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private UserService userService;
@@ -60,6 +64,7 @@ public class UsuarioController {
             usuario.setPassword(encryptedPassword);
             userService.AgregarUsuarios(usuario);
             String mensaje = "Se ha agregado un usuario.";
+            bitacoraService.registrarAccion("Agregar usuario");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar al usuario.";
@@ -74,6 +79,7 @@ public class UsuarioController {
         try {
             userService.eliminarUsuario(usuario);
              String mensaje = "Se ha eliminado al usuario correctamente.";
+             bitacoraService.registrarAccion("Eliminar usuario");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el usuario";
@@ -109,6 +115,7 @@ public class UsuarioController {
 
             userService.actualizarUsuario(usuario);
             String mensaje = "Se ha actualizado el usuario correctamente.";
+            bitacoraService.registrarAccion("Actualizar usuario");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al actualizar el usuario.";

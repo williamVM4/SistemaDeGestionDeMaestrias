@@ -30,4 +30,8 @@ public interface AspiranteProfesorService {
   public String buscarPerfil(String username);
   
   public void enviarCorreo(String correoDestino, String asunto, String mensaje);
+  
+  public List<String> obtenerCorreosAspiranteProfesor();
+  
+  List<String> obtenerCorreosProfesor();
 }

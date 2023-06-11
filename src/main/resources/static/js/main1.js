@@ -44,10 +44,9 @@ $(document).ready(function() {
             // Actualizar el enlace del perfil en el menú de la barra lateral
             if (perfilLink !== "") {
                 $("#link-perfil a").attr("href", perfilLink);
-                $("#userPanel .info a").attr("href", perfilLink);
+                $("#link-perfil").removeClass("d-none");
             } else {
                 $("#link-perfil a").removeAttr("href");
-                $("#userPanel .info a").removeAttr("href");
             }
         },
         error: function() {
@@ -88,19 +87,19 @@ $.ajax({
                 var menuElement = $('<li>').addClass('nav-item')
                     .addClass(currentPath.match(regexGestionarPlanEstudio) || currentPath.match(regexGestionarCohorte) ? 'menu-open' : '')
                     .append($('<a>').attr('href', '#').addClass('nav-link').addClass(currentPath.match(regexGestionarPlanEstudio) || currentPath.match(regexGestionarCohorte) ? 'active' : '')
-                        .append($('<i>').addClass('far fa-circle nav-icon text-info'))
+                        .append($('<i>').addClass('nav-icon fas fa-building-columns text-secondary'))
                         .append($('<p>').text(maestria.nombreMaestria).append($('<i>').addClass('right fas fa-angle-left')))
                     )
                     .append($('<ul>').addClass('nav nav-treeview')
                         .append($('<li>').addClass('nav-item')
                             .append($('<a>').attr('href', '/GestionarPlanEstudio/' + maestria.idMaestria).addClass('nav-link').addClass(currentPath.match(regexGestionarPlanEstudio) ? 'active' : '')
-                                .append($('<i>').addClass('far fa-circle nav-icon text-warning'))
+                                .append($('<i>').addClass('fa-solid fa-book nav-icon text-warning'))
                                 .append($('<p>').text('Asignaturas'))
                             )
                         )
                         .append($('<li>').addClass('nav-item')
                             .append($('<a>').attr('href', '/GestionarCohorte/' + maestria.idMaestria).addClass('nav-link').addClass(currentPath.match(regexGestionarCohorte) ? 'active' : '')
-                                .append($('<i>').addClass('far fa-circle  nav-icon text-warning'))
+                                .append($('<i>').addClass('fas fa-graduation-cap nav-icon text-warning'))
                                 .append($('<p>').text('Gestión de Cohorte'))
                             )
                         )

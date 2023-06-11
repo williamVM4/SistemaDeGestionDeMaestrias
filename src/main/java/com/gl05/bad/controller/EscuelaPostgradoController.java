@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.EscuelaPostgrado;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.FacultadService;
 import javax.validation.Valid;
@@ -19,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class EscuelaPostgradoController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
     
     @Autowired
     private EscuelaPostgradoService escuelaPostgradoService;
@@ -50,6 +54,7 @@ public class EscuelaPostgradoController {
         try {
             escuelaPostgradoService.agregarEscuela(escuela);
             String mensaje = "Se ha agregado una escuela.";
+            bitacoraService.registrarAccion("Agregar escuela de postgrados");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar la escuela.";
@@ -64,6 +69,7 @@ public class EscuelaPostgradoController {
         try {
             escuelaPostgradoService.eliminarEscuela(escuela);
             String mensaje = "Se ha eliminado la escuela correctamente.";
+            bitacoraService.registrarAccion("Eliminar escuela de postgrados");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar la escuela";
@@ -77,6 +83,7 @@ public class EscuelaPostgradoController {
         try {
             escuelaPostgradoService.actualizarEscuela(escuela);
             String mensaje = "Se ha actualizado la escuela correctamente.";
+            bitacoraService.registrarAccion("Actualizar escuela de postgrados");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
            String error = "Ha ocurrido un error al actualizar la escuela.";

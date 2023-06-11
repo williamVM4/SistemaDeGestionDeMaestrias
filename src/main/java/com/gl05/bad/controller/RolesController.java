@@ -1,14 +1,10 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.dao.RolesDao;
-import com.gl05.bad.dao.UsuarioDao;
-import com.gl05.bad.domain.Permisos;
 import com.gl05.bad.domain.Roles;
-import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.PermisosService;
 import com.gl05.bad.servicio.RolesService;
-import java.util.Arrays;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RolesController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private RolesService rolesService;
@@ -64,6 +63,7 @@ public class RolesController {
         try {
             rolesService.AgregarRol(rol);
             String mensaje = "Se ha agregado un rol.";
+            bitacoraService.registrarAccion("Agregar rol");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar el rol.";
@@ -77,6 +77,7 @@ public class RolesController {
         try {
             rolesService.eliminarRol(rol);
             String mensaje = "Se ha eliminado el rol correctamente.";
+            bitacoraService.registrarAccion("Eliminar rol");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar el rol";
@@ -100,6 +101,7 @@ public class RolesController {
         try {
             rolesService.actualizarRol(rol);
             String mensaje = "Se ha actualizado el rol correctamente.";
+            bitacoraService.registrarAccion("Actualizar rol");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
            String error = "Ha ocurrido un error al actualizar el rol.";

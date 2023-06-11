@@ -2,6 +2,7 @@ package com.gl05.bad.web;
 
 import com.gl05.bad.dao.UsuarioDao;
 import com.gl05.bad.domain.Usuario;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import java.io.IOException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,10 @@ import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -36,8 +35,11 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
+    private final UserDetailsService userDetailsService;    
+    
+    @Autowired
+    private final BitacoraServiceImp bitacoraService;
+    
 //    @Autowired
 //    private JavaMailSender javaMailSender;
     @Bean
@@ -78,6 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new CustomLogoutSuccessHandler();
     }
 
     //Metodo que se utiliza para la reestricción de urls
@@ -151,7 +158,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority("VIEW_REPORTE_INSCRIPCION_ESTUDIANTES_PRIVILAGE")
                 .antMatchers("/AreasAcademicas")
                 .hasAnyAuthority("VIEW_REPORTE_DISTRIBUCION_CATEGORIZADA_PRIVILAGE")
-                
+                .antMatchers("/DetalleEstudiante/**")
+                .hasAnyAuthority("VIEW_DETALLE_ESTUDIANTE_PRIVILAGE")
+                .antMatchers("/DetalleCohorte/**")
+                .hasAnyAuthority("VIEW_DETALLE_COHORTE_PRIVILAGE")
+                .antMatchers("/AsignaturasInscripcionCohorte/**")
+                .hasAnyAuthority("VIEW_INSCRIPCIONES_MATERIAS_PRIVILAGE")
                 //Aqui falta poner el permiso de ruta de Docentes contratados
                 
                 .and()
@@ -169,6 +181,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/accesoDenegado");
 
         //.failureUrl("/login?error=true");
+        http.logout()
+        .logoutUrl("/logout") // Ruta para cerrar sesión
+        .logoutSuccessHandler(logoutSuccessHandler()) // Manejador de cierre de sesión personalizado
+        .invalidateHttpSession(true)
+        .deleteCookies("JSESSIONID");
     }
 
     @Bean
@@ -178,7 +195,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UsuarioDao usuarioDao;
-
+    
     private class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         @Override
@@ -188,8 +205,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             Usuario usuario = usuarioDao.findByUsername(username);
             usuario.setNumerointentos(0);
             usuarioDao.save(usuario);
-            super.onAuthenticationSuccess(request, response, authentication);        
+            bitacoraService.registrarInicioSesion(username);
+            super.onAuthenticationSuccess(request, response, authentication);
         }
     }
+    
+    private class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
+      @Override
+      public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+          String username = authentication.getName();
+          bitacoraService.registrarCerrarSesion(username);
+          response.sendRedirect("/");
+      }
+    }
 }
