@@ -2,6 +2,7 @@ package com.gl05.bad.servicio;
 
 import com.gl05.bad.dao.EstudianteDao;
 import com.gl05.bad.domain.Estudiante;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -61,5 +62,17 @@ public class EstudianteServiceImp implements EstudianteService{
     @Transactional(readOnly=true)
     public List<Estudiante> obtenerEstudiantesSinCohorte(@Param("idCohorte") Long idCohorte){
         return estudianteDao.findEstudiantesSinCohorte(idCohorte);
+    }
+        
+    @Override
+    public List<String> obtenerCorreosEstudiantes() {
+        List<Estudiante> estudiantes = listaEstudiantes();
+        List<String> correos = new ArrayList<>();
+
+        for (Estudiante estudiante : estudiantes) {
+            correos.add(estudiante.getCorreoE());
+        }
+
+        return correos;
     }
 }

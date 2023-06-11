@@ -13,4 +13,6 @@ public interface AspiranteProfesorDao extends DataTablesRepository<AspiranteProf
     @Query("SELECT ap FROM PostulacionCohorte pc JOIN pc.idAspiranteProfesor ap WHERE pc.idCohorte.idCohorte = :idCohorte")
     List<AspiranteProfesor> findAspiranteByCohorte(@Param("idCohorte") Long idCohorte);
 
+    @Query("SELECT c.correo FROM Correo c WHERE c.idListCorreo IN :idListCorreos")
+    List<String> findCorreosByIdListCorreos(@Param("idListCorreos") List<Integer> idListCorreos);
 }
