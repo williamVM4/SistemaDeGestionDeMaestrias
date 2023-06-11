@@ -109,10 +109,10 @@ public class ProfesorCohorteController {
         try {
             System.out.println(profesorCohorte);
             profesorCohorteService.eliminarPC(profesorCohorte);
-            String mensaje = "Se ha eliminado la Maestria correctamente.";
+            String mensaje = "Se ha eliminado el profesor correctamente.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
-            String error = "Ha ocurrido un error al eliminar la maestria.";
+            String error = "Ha ocurrido un error al eliminar el profesor.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
