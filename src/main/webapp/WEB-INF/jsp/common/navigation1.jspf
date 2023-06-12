@@ -1,15 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.ZoneId"%>
+<%@ page import="java.time.ZonedDateTime"%>
 <%
-   // Obtener la fecha y hora actual
+   // Obtener la fecha y hora actual en la zona horaria predeterminada del sistema
    LocalDateTime fechaHoraActual = LocalDateTime.now();
 
-   // Definir el formato deseado para la hora
-   DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("hh:mm:ss a");
+   // Crear un objeto ZonedDateTime con la fecha y hora actual y la zona horaria de El Salvador
+   ZoneId zonaElSalvador = ZoneId.of("America/El_Salvador");
+   ZonedDateTime fechaHoraElSalvador = ZonedDateTime.of(fechaHoraActual, zonaElSalvador);
 
-   // Obtener la hora formateada
-   String horaFormateada = fechaHoraActual.format(formatoHora);
+   // Definir el formato deseado para la hora en El Salvador
+   DateTimeFormatter formatoHoraElSalvador = DateTimeFormatter.ofPattern("hh:mm:ss a");
+
+   // Obtener la hora formateada en El Salvador
+   String horaFormateada = fechaHoraElSalvador.format(formatoHoraElSalvador);
 %>
 <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
