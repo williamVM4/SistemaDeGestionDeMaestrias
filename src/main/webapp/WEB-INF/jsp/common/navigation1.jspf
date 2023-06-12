@@ -215,8 +215,8 @@
           <sec:authorize access="hasAuthority('VIEW_REPORTE_INSCRIPCION_ESTUDIANTES_PRIVILAGE') 
                           or hasAuthority('VIEW_REPORTE_CONTRATACION_COHORTE_PRIVILAGE') 
                           or hasAuthority('VIEW_REPORTE_DISTRIBUCION_CATEGORIZADA_PRIVILAGE')" >         
-          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'  ? 'menu-open' : ''}">
-            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'   ? 'active' : ''}">
+          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'  ? 'menu-open' : '' || requestScope['javax.servlet.forward.request_uri'] == '/ProfesoresContratadosAsignatura'  ? 'menu-open' : ''}">
+            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'   ? 'active' : '' || requestScope['javax.servlet.forward.request_uri'] == '/ProfesoresContratadosAsignatura'   ? 'active' : ''}">
               <i class="nav-icon fa-solid fa-book-bookmark"></i>
               <p>
                 Reportes
