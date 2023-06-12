@@ -53,7 +53,7 @@
   <aside class="main-sidebar sidebar-light-navy elevation-1">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
-      <img src="${pageContext.request.contextPath}/images/AdminLTELogo.webp" alt="Logo" class="brand-image img-circle elevation-1">
+      <img src="${pageContext.request.contextPath}/images/logo.JPG" alt="Logo" class="brand-image img-circle elevation-1" style="width: 2.5rem; height: 3.5rem;">
       <span class="brand-text font-weight-light">Inicio</span>
     </a>
 
