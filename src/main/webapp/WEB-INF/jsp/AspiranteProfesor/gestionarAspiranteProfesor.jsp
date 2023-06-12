@@ -32,11 +32,13 @@
                 </div>
             </c:if>
             <br>
+            <sec:authorize access="hasAuthority('AGREGAR_ASPIRANTES_PRIVILAGE')"> 
             <div class="row col-sm-12 d-flex justify-content-end">
                 <div class="col-sm-1">
                     <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
                 </div>
             </div>
+            </sec:authorize>
             <br>
             <div class="row col-sm-12">
                 <div class="pt-4">
@@ -125,6 +127,14 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>
+<sec:authorize access="hasAuthority('ELIMINAR_ASPIRANTES_PRIVILAGE')" var="hasPrivilegeEliminarApirantes"></sec:authorize>
+<script>
+    var hasPrivilegeEliminarApirantes = ${hasPrivilegeEliminarApirantes};
+</script>
+<sec:authorize access="hasAuthority('GESTIONAR_ASPIRANTES_PRIVILAGE')" var="hasPrivilegeGestionarApirantes"></sec:authorize>
+<script>
+    var hasPrivilegeGestionarApirantes = ${hasPrivilegeGestionarApirantes};
+</script>
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/aspiranteProfesor.js"></script>
 <script>

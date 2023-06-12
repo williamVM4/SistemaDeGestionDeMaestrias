@@ -9,6 +9,7 @@
             <tr>
                 <td width="50%">DUI</td>
                 <td>
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneDui" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DUI'}">
@@ -37,14 +38,18 @@
                     </div>
                   </c:if>
                 </c:forEach>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:if test="${not tieneDui}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDui"><i class="bi bi-upload"></i></a>
                 </c:if>
+                </sec:authorize>
                 </td>
             </tr>
             <tr>
                 <td>NIT</td>
                 <td>
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneNit" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NIT'}">
@@ -73,14 +78,18 @@
                     </div>
                   </c:if>
                 </c:forEach>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:if test="${not tieneNit}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNit"><i class="bi bi-upload"></i></a>
                 </c:if>
+                </sec:authorize>
                 </td>
             </tr>
             <tr>
                 <td>NUP</td>
                 <td>
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneNup" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NUP'}">
@@ -109,14 +118,18 @@
                     </div>
                   </c:if>
                 </c:forEach>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:if test="${not tieneNup}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNup"><i class="bi bi-upload"></i></a>
                 </c:if>
+                </sec:authorize>
                 </td>            
             </tr>
             <tr>
                 <td>CURRICULUM</td>
                 <td>
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneCv" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'CURRICULUM'}">
@@ -145,14 +158,18 @@
                     </div>
                   </c:if>
                 </c:forEach>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:if test="${not tieneCv}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirCv"><i class="bi bi-upload"></i></a>
                 </c:if>
+                </sec:authorize>
                 </td>            
             </tr>
             <tr>
                 <td>PASAPORTE</td>
-                 <td>
+                <td>
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tienePasaporte" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'PASAPORTE'}">
@@ -181,14 +198,18 @@
                     </div>
                   </c:if>
                 </c:forEach>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:if test="${not tienePasaporte}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirPasaporte"><i class="bi bi-upload"></i></a>
                 </c:if>
+                </sec:authorize>
                 </td>            
             </tr>
             <tr>
                 <td>DOCUMENTO DE IDENTIFICACION EXTRANJERO</td>
                 <td>
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneDP" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DOCUMENTO DE IDENTIFICACION EXTRANJERO'}">
@@ -217,9 +238,12 @@
                     </div>
                   </c:if>
                 </c:forEach>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:if test="${not tieneDP}">
                   <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDocExtranjero"><i class="bi bi-upload"></i></a>
                 </c:if>
+                </sec:authorize>
                 </td>            
             </tr>
         </tbody>
