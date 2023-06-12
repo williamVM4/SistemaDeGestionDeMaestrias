@@ -54,7 +54,7 @@
 
             <div class="pt-4">
                 <div class="table-responsive">
-                    <table id="areaConocimientoTable" class="table table-striped" >
+                    <table id="areaConocimientoTable" class="table table-striped" style="width:100%">
                         <thead class="thead-light">
                             <tr>
                                 <th class="text-center">N°</th>

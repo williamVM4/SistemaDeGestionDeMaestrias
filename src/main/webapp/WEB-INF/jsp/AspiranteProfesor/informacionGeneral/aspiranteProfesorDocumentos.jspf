@@ -9,7 +9,7 @@
             <tr>
                 <td width="50%">DUI</td>
                 <td>
-                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneDui" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DUI'}">
@@ -49,7 +49,7 @@
             <tr>
                 <td>NIT</td>
                 <td>
-                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneNit" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NIT'}">
@@ -89,7 +89,7 @@
             <tr>
                 <td>NUP</td>
                 <td>
-                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneNup" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NUP'}">
@@ -129,7 +129,7 @@
             <tr>
                 <td>CURRICULUM</td>
                 <td>
-                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneCv" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'CURRICULUM'}">
@@ -169,7 +169,7 @@
             <tr>
                 <td>PASAPORTE</td>
                 <td>
-                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tienePasaporte" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'PASAPORTE'}">
@@ -209,7 +209,7 @@
             <tr>
                 <td>DOCUMENTO DE IDENTIFICACION EXTRANJERO</td>
                 <td>
-                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTOS_PERFIL_ASPIRANTE_PRIVILAGE')"> 
+                <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                 <c:set var="tieneDP" value="false" />
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DOCUMENTO DE IDENTIFICACION EXTRANJERO'}">
