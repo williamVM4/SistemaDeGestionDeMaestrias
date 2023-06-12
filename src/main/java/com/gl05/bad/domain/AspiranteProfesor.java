@@ -4,6 +4,7 @@
  */
 package com.gl05.bad.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Collection;
@@ -73,6 +74,7 @@ public class AspiranteProfesor implements Serializable {
     private String estadoCivilAp;
     @Column(name = "NACIONALIDAD_AP", nullable=true)
     private String nacionalidadAp;
+    @JsonIgnore
     @Lob
     @Column(name = "FOTOGRAFIA_AP", nullable=true)
     private Blob fotografiaAp;
