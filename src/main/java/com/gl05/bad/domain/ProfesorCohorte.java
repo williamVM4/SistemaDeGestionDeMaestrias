@@ -70,8 +70,8 @@ public class ProfesorCohorte implements Serializable {
     @JoinColumn(name = "ID_COHORTE", referencedColumnName = "ID_COHORTE")
     @ManyToOne(optional = false)
     private Cohorte idCohorte;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
-    private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
+    //private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
 
     public ProfesorCohorte() {
     }
@@ -127,7 +127,7 @@ public class ProfesorCohorte implements Serializable {
     public void setIdCohorte(Cohorte idCohorte) {
         this.idCohorte = idCohorte;
     }
-
+/*
     public Collection<ProfesorAsignatura> getProfesorAsignaturaCollection() {
         return profesorAsignaturaCollection;
     }
@@ -135,7 +135,7 @@ public class ProfesorCohorte implements Serializable {
     public void setProfesorAsignaturaCollection(Collection<ProfesorAsignatura> profesorAsignaturaCollection) {
         this.profesorAsignaturaCollection = profesorAsignaturaCollection;
     }
-
+*/
     @Override
     public int hashCode() {
         int hash = 0;

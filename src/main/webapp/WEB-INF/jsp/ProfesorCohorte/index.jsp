@@ -1,7 +1,8 @@
 <%@ include file="../common/header1.jspf"%>
 <%@ include file="../common/navigation1.jspf"%>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -76,11 +77,13 @@
                                             <a href="/PerfilAspiranteProfesor/${elemento.idAspiranteProfesor}" type="button" title="Perfil" class="btn btn-outline-primary">
                                                 <i class="bi bi-person"></i>
                                             </a> 
-                                            <button type="button" title="Contratar" class="btn btn-outline-success abrirModal-btn" data-bs-toggle="modal" 
-                                                    data-bs-target="#contratar" data-tipo="editar" data-id="${elemento.idAspiranteProfesor}" 
-                                                    data-modo="actualizar">
-                                                <i class="bi bi-person-rolodex"></i>
-                                            </button> 
+                                            <c:if test="${fn:length(postulados) >= 3}">
+                                                <button type="button" title="Contratar" class="btn btn-outline-success abrirModal-btn" data-bs-toggle="modal" 
+                                                        data-bs-target="#contratar" data-tipo="editar" data-id="${elemento.idAspiranteProfesor}" 
+                                                        data-modo="actualizar">
+                                                    <i class="bi bi-person-rolodex"></i>
+                                                </button> 
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -115,16 +118,16 @@
                             </div>
                             <div class="form-group mb-3 col-md-6 col-sm-6">
                                 <label>Monto Total de Servicios</label>
-                                <input type="number" maxlength="9"  class="form-control" id="montoTotalServicios" name="montoTotalServicios">  
+                                <input disabled type="number" maxlength="9"  class="form-control" id="total">  
+                                <input type="hidden" maxlength="9"  class="form-control" id="montoTotalServicios" name="montoTotalServicios">  
                             </div>
                             <div class="form-group mb-3 col-md-6 col-sm-6">
                                 <label>Fecha de Contratacion</label>
-                                <input type="text" class="form-control" id="fechaContratacion" name="fechaContratacion" placeholder="dd-mm-yyyy">
+                                <input type="text" class="form-control" id="fechaContratacion" name="fechaContratacion" placeholder="dd/mm/yyyy">
                             </div>
                             <div class="form-grup mb-3 col-md-6 col-sm-6">
                                 <label for="idAreaC">Asignatura</label>
-                                <select class="form-select form-select-sm" id="idAsignatura" name="idAsignatura">
-                                    <option value="">Seleccione una Asignatura</option>
+                                <select class="form-select" id="idAsignatura" name="idAsignatura" multiple>
                                     <c:forEach items="${asignaturas}" var="asignatura" varStatus="status">
                                         <option value="${asignatura.idAsignatura}">${asignatura.nombreMateria}</option>
                                     </c:forEach>
@@ -151,3 +154,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/jquery.inputmask.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/profesorCohorte.js"></script>
+<script>
+    $(document).ready(function() {
+        $( '#idAsignatura' ).select2( {
+        theme: 'bootstrap-5',
+        dropdownParent: $('#contratar')
+        } );
+    });
+</script>

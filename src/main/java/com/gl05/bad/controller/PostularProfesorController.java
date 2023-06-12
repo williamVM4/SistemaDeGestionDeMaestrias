@@ -11,6 +11,7 @@ import com.gl05.bad.servicio.EscuelaPostgradoService;
 import com.gl05.bad.servicio.MaestriaService;
 import com.gl05.bad.servicio.PostuladoCohorteService;
 import com.gl05.bad.servicio.UserService;
+import java.util.Collection;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,24 @@ public class PostularProfesorController {
         model.addAttribute("aspirante", aspirante);
         model.addAttribute("pageTitle", "Postulaciòn Cohorte");
         return "PostularProfesor/index";
+    }
+    
+    @GetMapping("/misPostulaciones")
+    public String misPostulaciones(Authentication authentication, Model model) {
+        
+        String username = authentication.getName();
+        // Obtener el ID del usuario autenticado desde tu servicio de seguridad
+        Usuario usuario = userService.encontrarUsuarioPorUsername(username);
+        Long idUsuarioLong = usuario.getIdUsuario();
+        Integer idUsuario = idUsuarioLong.intValue();
+        AspiranteProfesor aspirante = aspiranteProfesorService.encontrarPorIdUsuario(idUsuario);
+        Long idAspirante = aspirante.getIdAspiranteProfesor();
+        Collection<PostulacionCohorte> postulados = postulacionService.listarPostulaciones(idAspirante);
+        System.out.println(idAspirante);
+        model.addAttribute("aspirante", aspirante);
+        model.addAttribute("postulados", postulados);
+        model.addAttribute("pageTitle", "Mis Postulaciones");
+        return "PostularProfesor/misPostulaciones";
     }
     
 

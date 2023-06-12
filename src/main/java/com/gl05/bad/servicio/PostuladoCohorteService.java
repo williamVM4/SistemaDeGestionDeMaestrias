@@ -9,5 +9,7 @@ public interface PostuladoCohorteService {
     public List<AspiranteProfesor> listarAspiranteProfesor(Long idCohorte);
     
     public void agregarP(PostulacionCohorte postulado);
+    
+    public List<PostulacionCohorte> listarPostulaciones(Long idAspiranteProfesor);
   
 }
