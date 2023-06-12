@@ -11,6 +11,7 @@ import com.gl05.bad.domain.Telefono;
 import com.gl05.bad.domain.Usuario;
 import com.gl05.bad.servicio.AspiranteProfesorService;
 import com.gl05.bad.servicio.AtestadoTaService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.PaisService;
 import com.gl05.bad.servicio.CorreoService;
 import com.gl05.bad.servicio.DocumentoService;
@@ -52,6 +53,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 public class AspiranteProfesorController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -237,7 +241,7 @@ public class AspiranteProfesorController {
             userService.AgregarUsuarios(usuarioAspirante);
             //Envio de credenciañes
             String asunto= "Credenciales de usuario del sistema de maestrías";
-            String mensaje= "Bienvenid@ " + nombresAp + " " + apellidosAp + " las credenciciales proporcionadas como aspirante a profesor son:\nUsuario: " + codAp.toLowerCase() + "\nContraseña: " + password;
+            String mensaje= "Bienvenid@ " + nombresAp + " " + apellidosAp + " las credenciales proporcionadas como aspirante a profesor son:\nUsuario: " + codAp.toLowerCase() + "\nContraseña: " + password;
             aspiranteService.enviarCorreo(correo, asunto, mensaje);
             
         } catch(Exception e) {
@@ -254,7 +258,7 @@ public class AspiranteProfesorController {
             Integer idUsuarioAspirante=usuario.getIdUsuario().intValue();
             aspirante.setIdusuario(idUsuarioAspirante);
             aspiranteService.agregarAP(aspirante);
-            
+            bitacoraService.registrarAccion("Agregar aspirante a profesor");
             redirectAttributes.addFlashAttribute("mensaje", "Se ha registrado un aspirante a profesor, y se le ha habilitado un usuario.");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya existe un aspirante a profesor con ese identificador.");
@@ -287,6 +291,7 @@ public class AspiranteProfesorController {
             int idPais = (int)(aspirante.getIdPais());
             aspirante.setIdPais(idPais);
             aspiranteService.actualizarAP(aspirante);
+            bitacoraService.registrarAccion("Actualizar aspirante a profesor");
             redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado la información general del aspirante a profesor.");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "No se actualizó la información general del aspirante a profesor.");
@@ -299,6 +304,7 @@ public class AspiranteProfesorController {
     public ResponseEntity EliminarAspiranteProfesor(AspiranteProfesor aspiranteProfesor) {
         try {
             aspiranteService.eliminarAP(aspiranteProfesor);
+            bitacoraService.registrarAccion("Eliminar aspirante a profesor");
             String mensaje = "Se ha eliminado el aspirante a profesor correctamente.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
@@ -321,6 +327,7 @@ public class AspiranteProfesorController {
             correoNew.setTipoCorreo(tipoCorreo);
             correoService.agregarC(correoNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un correo.");
+            bitacoraService.registrarAccion("Agregar correo del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya se encuentra registrado el correo.");
         }
@@ -342,6 +349,7 @@ public class AspiranteProfesorController {
             telefonoNew.setTipoTelefono(tipoTelefono);
             telefonoService.agregarT(telefonoNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un telefono.");
+            bitacoraService.registrarAccion("Agregar teléfono del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya se encuentra registrado el telefono.");
         }
@@ -373,6 +381,7 @@ public class AspiranteProfesorController {
             experienciaLaboralNew.setPeriodoFin(fechaFinC);
             experienciaLaboralService.agregarEL(experienciaLaboralNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado una experiencia laboral.");
+            bitacoraService.registrarAccion("Agregar experiencia laboral del aspirante a profesor");
         } catch(ParseException e) {
             redirectAttributes.addFlashAttribute("error", "No en el ingreso de la experiencia laboral .");
         }
@@ -394,6 +403,7 @@ public class AspiranteProfesorController {
             redSocialNew.setLink(link);
             redSocialService.agregarRS(redSocialNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado una red social.");
+            bitacoraService.registrarAccion("Agregar red social del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ya se encuentra registrado la red social.");
         }
@@ -406,6 +416,7 @@ public class AspiranteProfesorController {
         try {
             correoService.eliminarC(correo);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el correo.");
+            bitacoraService.registrarAccion("Eliminar correo del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el correo.");
         }
@@ -418,6 +429,7 @@ public class AspiranteProfesorController {
         try {
             telefonoService.eliminarT(telefono);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el telefono.");
+            bitacoraService.registrarAccion("Eliminar teléfono del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el telefono.");
         }
@@ -430,6 +442,7 @@ public class AspiranteProfesorController {
         try {
             redSocialService.eliminarRS(redSocial);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado una red social.");
+            bitacoraService.registrarAccion("Eliminar red social del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar la red social.");
         }
@@ -442,6 +455,7 @@ public class AspiranteProfesorController {
         try {
             experienciaLaboralService.eliminarEL(experienciaLaboral);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado la experiencia laboral.");
+            bitacoraService.registrarAccion("Eliminar experiencia laboral del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar la experiencia laboral.");
         }
@@ -468,6 +482,7 @@ public class AspiranteProfesorController {
             }
 
             redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado los campos correctamente.");
+            bitacoraService.registrarAccion("Actualizar fotografía del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Sucedió un error al actualizar los campos.");
         }
@@ -510,6 +525,7 @@ public class AspiranteProfesorController {
               }
             }
             redirectAttributes.addFlashAttribute("mensaje", "Se han actualizado sus documentos.");
+            bitacoraService.registrarAccion("Actualizar documento personal del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Sucedió un error al subir el documento");
         }
@@ -525,6 +541,7 @@ public class AspiranteProfesorController {
         try {
             docService.eliminarDocumento(doc);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el documento.");
+            bitacoraService.registrarAccion("Eliminar documento personal del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el documento.");
         }
@@ -545,6 +562,7 @@ public class AspiranteProfesorController {
                 pdfBytes = pdfBlob.getBytes(1, (int) pdfBlob.length());
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_PDF);
+                bitacoraService.registrarAccion("Ver documento personal del aspirante a profesor");
                 return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
             }
         } catch (SQLException e) {
@@ -580,6 +598,7 @@ public class AspiranteProfesorController {
             
             atestadoService.agregarAtestado(atestadoNew);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un título académico.");
+            bitacoraService.registrarAccion("Agregar título académico del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha sucedido un error, vuelva a intentarlo");
         }
@@ -608,6 +627,7 @@ public class AspiranteProfesorController {
           atestadoActualizar.setArchivoAta(null);
           atestadoService.actualizarAtestado(atestadoActualizar);
           redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
+          bitacoraService.registrarAccion("Actualizar títuli académico del aspirante a profesor");
         }else{
           try {
             byte[] fileBytes = archivo.getBytes();
@@ -615,6 +635,7 @@ public class AspiranteProfesorController {
             atestadoActualizar.setArchivoAta(blob);
             atestadoService.actualizarAtestado(atestadoActualizar);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha actualizado un título académico.");
+            bitacoraService.registrarAccion("Actualizar título académico del aspirante a profesor");
           } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha sucedido un error al actualizar el titulo. Intentelo de nuevo");
           }
@@ -628,6 +649,7 @@ public class AspiranteProfesorController {
         try {
             atestadoService.eliminarAtestado(atestado);
             redirectAttributes.addFlashAttribute("mensaje", "Se ha eliminado el título académico.");
+            bitacoraService.registrarAccion("Eliminar título académico del aspirante a profesor");
         } catch(Exception e) {
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error al eliminar el título académico.");
         }
@@ -649,6 +671,7 @@ public class AspiranteProfesorController {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_PDF);
                 archivoExistente=null;
+                bitacoraService.registrarAccion("Ver título académico del aspirante a profesor");
                 return new ResponseEntity <>(pdfBytes, headers, HttpStatus.OK);
             }
         } catch (SQLException e) {

@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.ProgramaAsignatura;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.ProgramaAsignaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProgramaAsignaturaController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private ProgramaAsignaturaService programaAsignaturaService;
@@ -23,6 +27,7 @@ public class ProgramaAsignaturaController {
         ProgramaAsignatura listProgramaAsignaturaId = programaAsignaturaService.encontrarP(idProgramaAsignatura);
         model.addAttribute("programa", listProgramaAsignaturaId);
         model.addAttribute("idPrograma", idProgramaAsignatura);
+        model.addAttribute("pageTitle", "Programa Asignatura");
         return "/ProgramaAsignatura/index";
     }
 
@@ -54,6 +59,7 @@ public class ProgramaAsignaturaController {
             programaExsistente.setObjetivos(programa.getObjetivos());
             programaExsistente.setSistemaEvaluacion(programa.getSistemaEvaluacion());
             programaAsignaturaService.actualizarP(programaExsistente);
+            bitacoraService.registrarAccion("Actualizar programa de asignatura");
             String mensaje = "Se ha actualizado el programa correctamente.";
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {

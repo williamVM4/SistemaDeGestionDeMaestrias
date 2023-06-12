@@ -30,19 +30,23 @@ var validator = $('#formGuardar').validate({
     rules: {// reglas
         duracionSemanas: {
             required: true,
-            positiveInteger: true
+            positiveInteger: true,
+            maxlength: 4
         },
         horasTeoricoSemana: {
             required: true,
-            positiveInteger: true
+            positiveInteger: true,
+            maxlength: 4
         },
         horasPracticaSemana: {
             required: true,
-            positiveInteger: true
+            positiveInteger: true,
+            maxlength: 4
         },
         horasCiclo: {
             required: true,
-            positiveInteger: true
+            positiveInteger: true,
+            maxlength: 4
         },
         introduccion: {
             required: true
@@ -65,16 +69,20 @@ var validator = $('#formGuardar').validate({
     },
     messages: {// mensajes
         duracionSemanas: {
-            required: 'Campo Requerido'
+            required: 'Campo Requerido',
+            maxlength: 'Maximo 4 Digitos'
         },
         horasTeoricoSemana: {
-            required: 'Campo Requerido'
+            required: 'Campo Requerido',
+            maxlength: 'Maximo 4 Digitos'
         },
         horasPracticaSemana: {
-            required: 'Campo Requerido'
+            required: 'Campo Requerido',
+            maxlength: 'Maximo 4 Digitos'
         },
         horasCiclo: {
-            required: 'Campo Requerido'
+            required: 'Campo Requerido',
+            maxlength: 'Maximo 4 Digitos'
         },
         introduccion: {
             required: 'Campo Requerido'

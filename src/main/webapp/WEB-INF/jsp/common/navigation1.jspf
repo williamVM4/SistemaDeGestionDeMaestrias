@@ -1,4 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%
+   // Obtener la fecha y hora actual
+   LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+   // Definir el formato deseado para la hora
+   DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("hh:mm:ss a");
+
+   // Obtener la hora formateada
+   String horaFormateada = fechaHoraActual.format(formatoHora);
+%>
 <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
     <!-- Left navbar links -->
@@ -7,8 +19,12 @@
         <a class="nav-link text-white pushmenu" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-    
-    
+
+    <!--mostrar hora del sistema-->
+    <div class="d-flex align-items-center justify-content-center text-white">
+      <%= horaFormateada %>
+    </div>
+
     <ul class="navbar-nav ml-auto">
         <li class="nav-item d-inline-block">
             <div class="dropdown nav-link p-menu-perfil" style="background-color: transparent;">
@@ -16,7 +32,7 @@
                     <!-- Sidebar user (optional) -->
                     <div id="userPanel" class="user-panel d-flex">
                         <div class="image">
-                            <img src="" class="img-circle-perfil" style="width: 30px; height: 30px;">
+                            <img src="" class="img-circle-perfil" style="width: auto; height: 30px;">
                         </div>
                         <div class="info align-items-center justify-content-center " style="margin-top: -10px; margin-left: -10px;">
                             <a href="#" class="nav-link text-white dropdown-toggle"></a>
@@ -37,7 +53,7 @@
   <aside class="main-sidebar sidebar-light-navy elevation-1">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
-      <img src="${pageContext.request.contextPath}/images/AdminLTELogo.webp" alt="Logo" class="brand-image img-circle elevation-1">
+      <img src="${pageContext.request.contextPath}/images/logo.JPG" alt="Logo" class="brand-image img-circle elevation-1" style="width: 2.5rem; height: 3.5rem;">
       <span class="brand-text font-weight-light">Inicio</span>
     </a>
 
@@ -46,8 +62,11 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+          <sec:authorize access="hasAuthority('NOTIFICAR_PRIVILAGE')">
+              <li class="nav-item">  
+                  <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#notificacionModal"><i class="bi bi-bell-fill"></i><p>&nbsp;Notificaciones</p></a>
+              </li>
+          </sec:authorize>
           
           <sec:authorize access="hasAuthority('VIEW_MAESTRIA_PRIVILAGE') or hasAuthority('VIEW_INSCRIBIR_MAESTRIA_PRIVILAGE') 
                          or hasAuthority('VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE')">
@@ -89,7 +108,15 @@
             </ul>
           </li>
            </sec:authorize>
-          
+            
+            <sec:authorize access="hasAuthority('VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE')">          
+            <li class="nav-item">
+                <a href="/misPostulaciones" class="nav-link">
+                    <i class="far bi-clipboard2-check nav-icon"></i>
+                    <p>Mis Postulaciones</p>
+                </a>
+            </li>
+            </sec:authorize>
                         
            <sec:authorize access="hasAuthority('VIEW_COORDINADORES_PRIVILAGE') or hasAuthority('VIEW_ASPIRANTES_PRIVILAGE') 
                           or hasAuthority('VIEW_ESTUDIANTE_PRIVILAGE')">             
@@ -188,8 +215,8 @@
           <sec:authorize access="hasAuthority('VIEW_REPORTE_INSCRIPCION_ESTUDIANTES_PRIVILAGE') 
                           or hasAuthority('VIEW_REPORTE_CONTRATACION_COHORTE_PRIVILAGE') 
                           or hasAuthority('VIEW_REPORTE_DISTRIBUCION_CATEGORIZADA_PRIVILAGE')" >         
-          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'  ? 'menu-open' : ''}">
-            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'   ? 'active' : ''}">
+          <li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'  ? 'menu-open' : '' || requestScope['javax.servlet.forward.request_uri'] == '/ProfesoresContratadosAsignatura'  ? 'menu-open' : ''}">
+            <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/EstudiantesInscritos' || requestScope['javax.servlet.forward.request_uri'] == '/AreasAcademicas'   ? 'active' : '' || requestScope['javax.servlet.forward.request_uri'] == '/ProfesoresContratadosAsignatura'   ? 'active' : ''}">
               <i class="nav-icon fa-solid fa-book-bookmark"></i>
               <p>
                 Reportes
@@ -209,7 +236,7 @@
               
                <sec:authorize access="hasAuthority('VIEW_REPORTE_CONTRATACION_COHORTE_PRIVILAGE')">
               <li class="nav-item">
-                <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '#' ? 'active' : ''}">
+                <a href="/ProfesoresContratadosAsignatura" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/ProfesoresContratadosAsignatura' ? 'active' : ''}">
                   <i class="fa-solid fa-person-chalkboard nav-icon text-warning"></i>
                   <p>Docentes Contratados</p>
                 </a>
@@ -264,3 +291,43 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+                  
+        <!-- Modal para enviar notificaciones -->
+   <div class="modal fade" id="notificacionModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="crearModalLabel">Enviar Notificación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/enviarNotificacion" method="post" accept-charset="UTF-8">
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+              <div class="form-group">
+                <label for="destino">Destinatarios:</label>
+                <select type="text" class="form-select" id="destino" name="destino" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="Todos">Todos</option>
+                    <option value="Estudiantes">Estudiantes</option>
+                    <option value="Aspirantes a Profesores">Aspirantes a Profesores</option>
+                    <option value="Profesores">Profesores</option>
+                    <option value="Coordinadores Académicos">Coordinadores Académicos</option>
+                </select>
+              </div>  
+              <div class="form-group">
+                <label for="asunto">Asunto:</label>
+                <input type="text" class="form-control" id="asunto" name="asunto" maxlength="100" required>
+              </div>
+              <div class="form-group">
+                <label for="mensaje">Mensaje:</label>
+                <textarea class="form-control" id="mensaje" name="mensaje" rows="10" required></textarea>
+              </div>        
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-success">Guardar</button>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>                  

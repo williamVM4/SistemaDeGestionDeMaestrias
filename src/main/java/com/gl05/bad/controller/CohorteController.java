@@ -7,6 +7,7 @@ import com.gl05.bad.domain.EstudianteCohorte;
 import com.gl05.bad.domain.Maestria;
 import com.gl05.bad.domain.VistaEstudiantesPorCohorte;
 import com.gl05.bad.servicio.AsignaturaService;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CohorteService;
 import com.gl05.bad.servicio.EstudianteAsignaturaService;
 import com.gl05.bad.servicio.EstudianteCohorteService;
@@ -35,6 +36,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CohorteController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
     
     @Autowired
     private MaestriaService maestriaService;
@@ -83,6 +87,7 @@ public class CohorteController {
             cohorteService.proAgregar(idMaestria, nombreCohorte, fechaApertura, estadoCohorte);
             System.out.println(fechaApertura);
             String mensaje = "Se ha agregado una cohorte a la maestria.";
+            bitacoraService.registrarAccion("Agregar cohorte");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar la cohorte.";
@@ -100,6 +105,7 @@ public class CohorteController {
             
             cohorteService.actualizarCohorte(cohorte);
             String mensaje = "Se ha actualizado la cohorte correctamente.";
+            bitacoraService.registrarAccion("Actualizar cohorte");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             System.out.println(e);
@@ -113,6 +119,7 @@ public class CohorteController {
         try {
             cohorteService.eliminarCohorte(cohorte);
             String mensaje = "Se ha eliminado la cohorte correctamente.";
+            bitacoraService.registrarAccion("Eliminar cohorte");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar la cohorte";
@@ -181,6 +188,7 @@ public class CohorteController {
                 }
             }     
             String mensaje = "Se ha inscrito la cohorte a las asignaturas correctamente.";
+            bitacoraService.registrarAccion("Inscribir cohorte en asignaturas");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Error al inscribir la cohorte a las asignaturas";
@@ -201,6 +209,7 @@ public class CohorteController {
     @GetMapping("/EstudiantesInscritos")
     public String estudiantesInscritos(Model model) {
         model.addAttribute("pageTitle", "Estudiantes Inscritos");
+        bitacoraService.registrarAccion("Ver estadísticas sobre el número de estudiantes inscritos por cohorte en cada maestría");
         return "/Reportes/estudiantesInscritos";
     }
     

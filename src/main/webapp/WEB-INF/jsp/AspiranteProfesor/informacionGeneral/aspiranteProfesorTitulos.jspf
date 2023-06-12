@@ -6,9 +6,11 @@
             <div class="col-sm-11">
                 <h3>Títulos Académicos</h3>
             </div>
+            <sec:authorize access="hasAuthority('AGREGAR_TITULO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
             <div class="col-sm-1">
                 <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#agregarTitulo">Agregar</button>
             </div>
+            </sec:authorize>
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
@@ -38,6 +40,7 @@
                             <td>${atestado.institucion}</td>
                             <td>${atestado.anioTitulacion}</td>
                             <td>
+                                <sec:authorize access="hasAuthority('AGREGAR_TITULO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                                 <c:choose>
                                     <c:when test="${not empty atestado.archivoAta}">
                                         <a type="button" class="btn btn-outline-secondary" href="/archivoAP/tituloAcademico/${atestado.idAtestadoTa}" target="_blank"><i class="bi bi-eye"></i></a>
@@ -46,6 +49,8 @@
                                         <a type="button" class="btn btn-outline-secondary"><i class="bi bi-eye-slash"></i></a>
                                     </c:otherwise>
                                 </c:choose>
+                                </sec:authorize>
+                                <sec:authorize access="hasAuthority('VER_TITULO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modificarTitulo-${atestado.idAtestadoTa}"><i class="bi bi-pencil-square"></i></button>
                                 <div class="modal fade" id="modificarTitulo-${atestado.idAtestadoTa}" tabindex="-1" aria-labelledby="modificarTituloLabel-${atestado.idAtestadoTa}" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -108,6 +113,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                </sec:authorize>
+                                <sec:authorize access="hasAuthority('ELIMINAR_TITULO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                                 <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarTitulo-${atestado.idAtestadoTa}">
                                     <i class="bi bi-trash"></i>
                                 </a>
@@ -129,6 +136,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </sec:authorize>
                             </td>
                         </tr>
                     </c:forEach>

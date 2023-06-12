@@ -21,6 +21,19 @@
     <!-- Main content -->
     <section class="content pb-5">
         <div class="container">
+            <c:if test="${not empty mensaje}">
+              <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Éxito!</strong> ${mensaje}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+            <c:if test="${not empty error}">
+              <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-exclamation-triangle"></i> Error!</strong> ${error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+          
             <div class="alert alert-success d-flex align-items-center alert-dismissible fade d-none" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong><i class="bi bi-check-circle"></i> Éxito!&nbsp;</strong>
@@ -71,10 +84,10 @@
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" id="areaId">
                         <div class="form-group mb-4">
-                            <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Ã€rea">
+                            <input type="text" class="form-control" id="nombreArea" name="nombreArea" placeholder="Nombre de la Área">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="DescripciÃ²n">
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">
                         </div>
 
                         <div class="modal-footer">

@@ -20,9 +20,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "PROFESOR_COHORTE")
 @NamedQueries({
@@ -35,7 +38,8 @@ import javax.validation.constraints.DecimalMin;
 public class ProfesorCohorte implements Serializable {
 
     private static final long serialVersionUID = 1L;
-     @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_PROFESOR_COHORTE")
     @SequenceGenerator(name = "S_PROFESOR_COHORTE", sequenceName = "S_PROFESOR_COHORTE", allocationSize = 1)
     @Basic(optional = false)
@@ -55,14 +59,19 @@ public class ProfesorCohorte implements Serializable {
     @Column(name = "FECHA_CONTRATACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaContratacion;
+    
     @JoinColumn(name = "ID_ASPIRANTE_PROFESOR", referencedColumnName = "ID_ASPIRANTE_PROFESOR")
     @ManyToOne(optional = false)
     private AspiranteProfesor idAspiranteProfesor;
+    
+    /*@Column(name="ID_ASPIRANTE_PROFESOR")
+    private Integer idAspiranteProfesor;*/
+  
     @JoinColumn(name = "ID_COHORTE", referencedColumnName = "ID_COHORTE")
     @ManyToOne(optional = false)
     private Cohorte idCohorte;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
-    private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
+    //private Collection<ProfesorAsignatura> profesorAsignaturaCollection;
 
     public ProfesorCohorte() {
     }
@@ -111,14 +120,6 @@ public class ProfesorCohorte implements Serializable {
         this.fechaContratacion = fechaContratacion;
     }
 
-    public AspiranteProfesor getIdAspiranteProfesor() {
-        return idAspiranteProfesor;
-    }
-
-    public void setIdAspiranteProfesor(AspiranteProfesor idAspiranteProfesor) {
-        this.idAspiranteProfesor = idAspiranteProfesor;
-    }
-
     public Cohorte getIdCohorte() {
         return idCohorte;
     }
@@ -126,7 +127,7 @@ public class ProfesorCohorte implements Serializable {
     public void setIdCohorte(Cohorte idCohorte) {
         this.idCohorte = idCohorte;
     }
-
+/*
     public Collection<ProfesorAsignatura> getProfesorAsignaturaCollection() {
         return profesorAsignaturaCollection;
     }
@@ -134,7 +135,7 @@ public class ProfesorCohorte implements Serializable {
     public void setProfesorAsignaturaCollection(Collection<ProfesorAsignatura> profesorAsignaturaCollection) {
         this.profesorAsignaturaCollection = profesorAsignaturaCollection;
     }
-
+*/
     @Override
     public int hashCode() {
         int hash = 0;

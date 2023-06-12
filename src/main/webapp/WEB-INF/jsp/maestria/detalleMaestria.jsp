@@ -17,6 +17,19 @@
   <!-- Main content -->
   <section class="content">
       <div class="container">
+            <c:if test="${not empty mensaje}">
+              <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-check-circle"></i> Éxito!</strong> ${mensaje}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+            <c:if test="${not empty error}">
+              <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <strong><i class="bi bi-exclamation-triangle"></i> Error!</strong> ${error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </c:if>
+        
             <c:if test="${maestria.idCoorAca == null}">
                 <div id="infoCoordinador" class="alert alert-info d-flex align-items-center alert-dismissible fade show" role="alert">
                         <i class="bi bi-info-circle"></i> &nbsp; La maestría aún no tiene un coordinador académico asociado. Por favor, agregue uno.

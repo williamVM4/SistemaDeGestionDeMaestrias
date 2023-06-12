@@ -7,6 +7,7 @@ import com.gl05.bad.domain.Usuario;
 import java.security.SecureRandom;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -118,7 +119,7 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
       String password = generarPassword(8);
       String passwordEncode = passwordEncoder.encode(password);
       String asunto= "Credenciales de usuario del sistema de gestión de maestrías";
-      String mensaje= "Bienvenid@ " + nombre + " " + apellido + " las credenciciales proporcionadas como candidato a coordinador académico son:\nUsuario: " + cod.toLowerCase() + "\nContraseña: " + password;
+      String mensaje= "Bienvenid@ " + nombre + " " + apellido + " las credenciales proporcionadas como candidato a coordinador académico son:\nUsuario: " + cod.toLowerCase() + "\nContraseña: " + password;
       mensaje = mensaje.replaceAll("\n", System.getProperty("line.separator"));
       coordinadorDao.sp_insert_coordinador(cod.toLowerCase(), nombre, apellido, email, passwordEncode);
       enviarCorreo(email, asunto, mensaje);
@@ -190,5 +191,21 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
                }
         }
         return usuarioCoordinador;
+    }
+
+    @Override
+    public List<String> obtenerCorreosCordinadores() {
+        List<CoordinadorAcademico> coordinadores = listarCoordinadores();
+        List<Integer> idListCorreos = new ArrayList<>();
+        List<String> correos = new ArrayList<>();
+
+        for (CoordinadorAcademico coordinador : coordinadores) {
+            idListCorreos.add(coordinador.getIdListCorreo());
+        }
+
+        List<String> correosAsociados = coordinadorDao.findCorreosByIdListCorreos(idListCorreos);
+        correos.addAll(correosAsociados);
+        
+        return correos;
     }
 }

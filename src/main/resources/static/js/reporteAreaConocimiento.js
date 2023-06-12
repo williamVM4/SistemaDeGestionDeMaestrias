@@ -39,9 +39,9 @@ $(document).ready(function() {
             }
           ],
         columns: [
-            { data: 'maestria', width: '30%', class: 'text-center' },
+            { data: 'nombreMaestria', width: '30%', class: 'text-center' },
             { 
-                data: 'cohorte', width: '25%', class: 'text-center'
+                data: 'nombreCohorte', width: '25%', class: 'text-center'
             },
             { 
                 data: 'areaConocimiento', width: '25%', class: 'text-center'

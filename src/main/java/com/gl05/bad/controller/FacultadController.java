@@ -1,6 +1,7 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.Facultad;
+import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.FacultadService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class FacultadController {
+  
+    @Autowired
+    private BitacoraServiceImp bitacoraService;
 
     @Autowired
     private FacultadService facultadService;
@@ -41,6 +45,7 @@ public class FacultadController {
         try {
             facultadService.agregarFacultad(facultad);
             String mensaje = "Se ha agregado una facultad.";
+            bitacoraService.registrarAccion("Agregar facultad");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ocurrió un error al agregar una facultad.";
@@ -55,6 +60,7 @@ public class FacultadController {
         try {
             facultadService.eliminarFacultad(facultad);
             String mensaje = "Se ha eliminado la facultad correctamente.";
+            bitacoraService.registrarAccion("Eliminar facultad");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al eliminar la facultad";
@@ -68,6 +74,7 @@ public class FacultadController {
         try {
             facultadService.actualizarFacultad(facultad);
             String mensaje = "Se ha actualizado la facultad correctamente.";
+            bitacoraService.registrarAccion("Actualizar facultad");
             return ResponseEntity.ok(mensaje);
         } catch (Exception e) {
             String error = "Ha ocurrido un error al actualizar la facultad.";
