@@ -1,17 +1,17 @@
 package com.gl05.bad.controller;
 
 import com.gl05.bad.domain.VistaEstudiantesProfesores;
+import com.gl05.bad.domain.VistaProfesoresPorCohorte;
 import com.gl05.bad.servicio.AspiranteProfesorService;
 import com.gl05.bad.servicio.BitacoraServiceImp;
 import com.gl05.bad.servicio.CoordinadorAcademicoService;
 import com.gl05.bad.servicio.EstudianteService;
-import com.gl05.bad.servicio.ProfesorCohorteService;
 import com.gl05.bad.servicio.VistaEstudiantesProfesoresService;
+import com.gl05.bad.servicio.VistaProfesoresPorCohorteService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -36,6 +36,9 @@ public class ReportesController {
     private VistaEstudiantesProfesoresService vEstudiantesProfesoresService;
     
     @Autowired
+    private VistaProfesoresPorCohorteService vistaProfesoresPorCohorteService;
+    
+    @Autowired
     private EstudianteService estudianteService;
     
     @Autowired
@@ -57,6 +60,18 @@ public class ReportesController {
     @ResponseBody
     public DataTablesOutput<VistaEstudiantesProfesores> getCohortes(@Valid DataTablesInput input) {
         return vEstudiantesProfesoresService.obtenerEstudiantesProfesores(input);
+    }
+    
+        @GetMapping("/ProfesoresContratadosAsignatura")
+    public String mostrarProfesoresContratadosAsignatura(Model model) {
+        model.addAttribute("pageTitle", "Reporte Contratación");
+        return "/Reportes/profesoresAsignatura";
+    }
+    
+    @GetMapping("/ProfesoresContratadosAsignatura/data")
+    @ResponseBody
+    public DataTablesOutput<VistaProfesoresPorCohorte> getProfesores(@Valid DataTablesInput input) {
+        return vistaProfesoresPorCohorteService.obtenerProfesoresContratados(input);
     }
     
     @PostMapping("/enviarNotificacion")
