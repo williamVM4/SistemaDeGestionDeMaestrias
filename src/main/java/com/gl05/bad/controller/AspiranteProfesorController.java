@@ -241,7 +241,7 @@ public class AspiranteProfesorController {
             userService.AgregarUsuarios(usuarioAspirante);
             //Envio de credenciañes
             String asunto= "Credenciales de usuario del sistema de maestrías";
-            String mensaje= "Bienvenid@ " + nombresAp + " " + apellidosAp + " las credenciciales proporcionadas como aspirante a profesor son:\nUsuario: " + codAp.toLowerCase() + "\nContraseña: " + password;
+            String mensaje= "Bienvenid@ " + nombresAp + " " + apellidosAp + " las credenciales proporcionadas como aspirante a profesor son:\nUsuario: " + codAp.toLowerCase() + "\nContraseña: " + password;
             aspiranteService.enviarCorreo(correo, asunto, mensaje);
             
         } catch(Exception e) {

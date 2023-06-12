@@ -2,9 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="perfil-informacion-general">
     <div class="subtitulo-Perfil"><h3>Información General
-            <span title="Editar datos" data-bs-toggle="modal" data-bs-target="#actualizarGeneralesModal" class="text-info puntero pull-right" onclick="cargarSelect()" style="cursor: pointer;">
-                <i class="fa bi-pencil-square"></i>
-            </span>
+            <sec:authorize access="hasAuthority('EDITAR_INFORMACION_PERFIL_COORDINADOR_PRIVILAGE')">
+              <span title="Editar datos" data-bs-toggle="modal" data-bs-target="#actualizarGeneralesModal" class="text-info puntero pull-right" onclick="cargarSelect()" style="cursor: pointer;">
+                  <i class="fa bi-pencil-square"></i>
+              </span>
+            </sec:authorize>
         </h3>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">

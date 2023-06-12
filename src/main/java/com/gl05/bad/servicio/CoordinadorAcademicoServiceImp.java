@@ -119,7 +119,7 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
       String password = generarPassword(8);
       String passwordEncode = passwordEncoder.encode(password);
       String asunto= "Credenciales de usuario del sistema de gestión de maestrías";
-      String mensaje= "Bienvenid@ " + nombre + " " + apellido + " las credenciciales proporcionadas como candidato a coordinador académico son:\nUsuario: " + cod.toLowerCase() + "\nContraseña: " + password;
+      String mensaje= "Bienvenid@ " + nombre + " " + apellido + " las credenciales proporcionadas como candidato a coordinador académico son:\nUsuario: " + cod.toLowerCase() + "\nContraseña: " + password;
       mensaje = mensaje.replaceAll("\n", System.getProperty("line.separator"));
       coordinadorDao.sp_insert_coordinador(cod.toLowerCase(), nombre, apellido, email, passwordEncode);
       enviarCorreo(email, asunto, mensaje);

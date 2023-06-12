@@ -29,13 +29,20 @@ $(document).ready(function() {
                 width: '12%',
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
-                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/perfilCoordinadorAcademico/' + row.idCoorAca + '">';
-                    actionsHtml += '<i class="bi bi-eye"></i></a>';
+                    var actionsHtml = '';
                     
-                    actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idCoorAca + '" ';
-                    actionsHtml += 'data-nombre="' + row.nombresCa + ' ' + row.apellidosCa +'">';
-                    actionsHtml += '<i class="bi bi-trash"></i></button>';
-                    return actionsHtml;                    
+                    if(hasPrivilegeGestionarCoordinadores === true){
+                        var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/perfilCoordinadorAcademico/' + row.idCoorAca + '">';
+                        actionsHtml += '<i class="bi bi-eye"></i></a>';
+                    }
+                    
+                    if(hasPrivilegeEliminarCoordinadores === true){
+                      actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idCoorAca + '" ';
+                      actionsHtml += 'data-nombre="' + row.nombresCa + ' ' + row.apellidosCa +'">';
+                      actionsHtml += '<i class="bi bi-trash"></i></button>';
+                    }
+                    
+                    return actionsHtml || '';
                 }
             }
         ],

@@ -62,9 +62,11 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">  
-              <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#notificacionModal"><i class="bi bi-bell-fill"></i><p>&nbsp;Notificaciones</p></a>
-          </li>
+          <sec:authorize access="hasAuthority('NOTIFICAR_PRIVILAGE')">
+              <li class="nav-item">  
+                  <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#notificacionModal"><i class="bi bi-bell-fill"></i><p>&nbsp;Notificaciones</p></a>
+              </li>
+          </sec:authorize>
           
           <sec:authorize access="hasAuthority('VIEW_MAESTRIA_PRIVILAGE') or hasAuthority('VIEW_INSCRIBIR_MAESTRIA_PRIVILAGE') 
                          or hasAuthority('VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE')">
@@ -226,7 +228,7 @@
               
                <sec:authorize access="hasAuthority('VIEW_REPORTE_CONTRATACION_COHORTE_PRIVILAGE')">
               <li class="nav-item">
-                <a href="#" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '#' ? 'active' : ''}">
+                <a href="/ProfesoresContratadosAsignatura" class="nav-link ${requestScope['javax.servlet.forward.request_uri'] == '/ProfesoresContratadosAsignatura' ? 'active' : ''}">
                   <i class="fa-solid fa-person-chalkboard nav-icon text-warning"></i>
                   <p>Docentes Contratados</p>
                 </a>
