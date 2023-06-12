@@ -6,7 +6,9 @@
                 <h3>Teléfonos</h3>
             </div>
             <div class="col-sm-1">
+                <sec:authorize access="hasAuthority('AGREGAR_TELEFONO_PERFIL_COORDINADOR_PRIVILAGE')">
                 <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#agregarTelefonoModal">Agregar</button>
+                </sec:authorize>
             </div>
         </div>
     </div>
@@ -33,27 +35,29 @@
                             <td>${eTelefono.tipoTelefono}</td>
                             <td>${eTelefono.numero}</td>
                             <td>
-                                <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarTelefono-${eTelefono.idTelefono}">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                                <!-- Modal de confirmación de eliminación -->
-                                <div class="modal fade" id="confirmarEliminarTelefono-${eTelefono.idTelefono}" tabindex="-1" aria-labelledby="confirmarEliminarTelefonoLabel-${eTelefono.idTelefono}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="confirmarEliminarTelefonoLabel-${eTelefono.idTelefono}">Confirmar eliminación</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <strong>¿Estás seguro de eliminar el teléfono?</strong>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <a href="/EliminarTelefonoCoordinadorAcademico/${eTelefono.idTelefono}/${coordinadorCA.idCoorAca}" class="btn btn-danger">Eliminar</a>
+                                <sec:authorize access="hasAuthority('ELIMINAR_TELEFONO_PERFIL_COORDINADOR_PRIVILAGE')">
+                                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarTelefono-${eTelefono.idTelefono}">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                    <!-- Modal de confirmación de eliminación -->
+                                    <div class="modal fade" id="confirmarEliminarTelefono-${eTelefono.idTelefono}" tabindex="-1" aria-labelledby="confirmarEliminarTelefonoLabel-${eTelefono.idTelefono}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="confirmarEliminarTelefonoLabel-${eTelefono.idTelefono}">Confirmar eliminación</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <strong>¿Estás seguro de eliminar el teléfono?</strong>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <a href="/EliminarTelefonoCoordinadorAcademico/${eTelefono.idTelefono}/${coordinadorCA.idCoorAca}" class="btn btn-danger">Eliminar</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </sec:authorize>
                             </td>
                         </tr>
                     </c:forEach>
