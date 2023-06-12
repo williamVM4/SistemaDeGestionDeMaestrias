@@ -13,6 +13,7 @@ import lombok.Data;
 public class VistaEstudiantesProfesores implements Serializable{
     private static final long serialVersionUID = 1L;
     
+    @Id
     @Column(name = "MAESTRIA")
     private String nombreMaestria;
 
@@ -28,15 +29,4 @@ public class VistaEstudiantesProfesores implements Serializable{
     @Column(name = "CANTIDAD_PROFESORES")
     private Long numeroProfesores;
     
-    @Id
-    private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }
