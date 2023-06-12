@@ -19,13 +19,19 @@ $(document).ready(function() {
                 width: '12%',
                 render: function (data, type, row) {
                     // Aquí puedes construir el HTML para las acciones según tus necesidades
-                    var actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/PerfilAspiranteProfesor/' + row.idAspiranteProfesor + '">';
-                    actionsHtml += '<i class="bi bi-eye"></i></a>';
                     
-                    actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idAspiranteProfesor + '" ';
-                    actionsHtml += 'data-nombre="' + row.nombresAp +" "+row.apellidosAp+ '">';
-                    actionsHtml += '<i class="bi bi-trash"></i></button>';
-                    return actionsHtml;
+                    var actionsHtml = '';
+                    if(hasPrivilegeGestionarApirantes === true){
+                        actionsHtml = '<a type="button" class="btn btn-outline-secondary" href="/PerfilAspiranteProfesor/' + row.idAspiranteProfesor + '">';
+                        actionsHtml += '<i class="bi bi-eye"></i></a>';
+                    }
+                    if(hasPrivilegeEliminarApirantes === true){
+                        actionsHtml += '<button type="button" class="btn btn-outline-danger eliminarModal-btn" data-id="' + row.idAspiranteProfesor + '" ';
+                        actionsHtml += 'data-nombre="' + row.nombresAp +" "+row.apellidosAp+ '">';
+                        actionsHtml += '<i class="bi bi-trash"></i></button>';
+                    }
+                    
+                    return actionsHtml || '';
                 }
             }
         ],

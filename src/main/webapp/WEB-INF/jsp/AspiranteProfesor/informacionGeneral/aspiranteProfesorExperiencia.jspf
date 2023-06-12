@@ -6,9 +6,11 @@
             <div class="col-sm-11">
                 <h3>Experiencia Laboral</h3>
             </div>
+            <sec:authorize access="hasAuthority('AGREGAR_EXPERIENCIA_PERFIL_ASPIRANTE_PRIVILAGE')"> 
             <div class="col-sm-1">
                 <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#agregarExperienciaLaboralModal">Agregar</button>
             </div>
+            </sec:authorize>
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
@@ -40,6 +42,7 @@
                             <td><fmt:formatDate value="${eExperienciaLaboral.periodoInicio}" pattern="dd/MM/yyyy" /></td>
                             <td><fmt:formatDate value="${eExperienciaLaboral.periodoFin}" pattern="dd/MM/yyyy" /></td>
                             <td>
+                                <sec:authorize access="hasAuthority('ELIMINAR_EXPERIENCIA_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                                 <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarExperienciaLaboral-${eExperienciaLaboral.idEl}">
                                     <i class="bi bi-trash"></i>
                                 </a>
@@ -61,6 +64,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </sec:authorize>
                             </td>
                         </tr>
                     </c:forEach>

@@ -5,9 +5,11 @@
             <div class="col-sm-11">
                 <h3>Redes Sociales</h3>
             </div>
+            <sec:authorize access="hasAuthority('AGREGAR_RED_SOCIAL_PERFIL_ASPIRANTE_PRIVILAGE')"> 
             <div class="col-sm-1">
                 <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#agregarRedSocialModal">Agregar</button>
             </div>
+            </sec:authorize>
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
@@ -31,6 +33,7 @@
                             <td>${numeroRedSocial.index+1}</td>
                             <td><a href="${eRedSocial.link}">${eRedSocial.nombreRs}</a></td>
                             <td>
+                                <sec:authorize access="hasAuthority('ELIMINAR_RED_SOCIAL_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                                 <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarRedSocial-${eRedSocial.idRs}">
                                     <i class="bi bi-trash"></i>
                                 </a>
@@ -52,6 +55,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </sec:authorize> 
                             </td>
                         </tr>
                     </c:forEach>

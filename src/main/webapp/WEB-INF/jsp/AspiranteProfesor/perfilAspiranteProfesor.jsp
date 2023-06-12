@@ -34,7 +34,9 @@
             </c:if>
             <div class="row">
                 <div class="col-sm-2 ">
+                    <sec:authorize access="hasAuthority('AGREGAR_FOTOGRAFIA_PERFIL_ASPIRANTE_PRIVILAGE')">
                     <div class="row">
+                        
                         <c:if test="${empty imagenBase64}">
                             <div class="col-sm-12" style="text-align: center; cursor: pointer;">
                                 <i style="font-size: 8rem;" class="bi bi-person-add" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')"></i>
@@ -46,6 +48,7 @@
                             </div>
                         </c:if>
                     </div>
+                    </sec:authorize>
                     <br>
                     <br>
                     <div class="row">

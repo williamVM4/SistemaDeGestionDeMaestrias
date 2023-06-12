@@ -5,9 +5,11 @@
             <div class="col-sm-11">
                 <h3>Correos Eléctronicos</h3>
             </div>
+            <sec:authorize access="hasAuthority('AGREGAR_CORREO_PERFIL_ASPIRANTE_PRIVILAGE')">
             <div class="col-sm-1">
                 <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#agregarCorreoModal">Agregar</button>
             </div>
+            </sec:authorize>
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
@@ -33,6 +35,7 @@
                             <td>${eCorreo.tipoCorreo}</td>
                             <td>${eCorreo.correo}</td>
                             <td>
+                                <sec:authorize access="hasAuthority('ELIMINAR_CORREO_PERFIL_ASPIRANTE_PRIVILAGE')">
                                 <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarCorreo-${eCorreo.idCorreo}">
                                     <i class="bi bi-trash"></i>
                                 </a>
@@ -54,6 +57,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </sec:authorize>
                             </td>
                         </tr>
                     </c:forEach>

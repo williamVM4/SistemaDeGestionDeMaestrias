@@ -5,9 +5,11 @@
             <div class="col-sm-11">
                 <h3>Teléfonos</h3>
             </div>
+            <sec:authorize access="hasAuthority('AGREGAR_TELEFONO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
             <div class="col-sm-1">
                 <button type="button" class="btn-add btn btn-sm" data-bs-toggle="modal" data-bs-target="#agregarTelefonoModal">Agregar</button>
             </div>
+            </sec:authorize>
         </div>
     </div>
     <div class="overflow-auto" style="max-height: 55vh;">
@@ -33,6 +35,7 @@
                             <td>${eTelefono.tipoTelefono}</td>
                             <td>${eTelefono.numero}</td>
                             <td>
+                                <sec:authorize access="hasAuthority('ELIMINAR_TELEFONO_PERFIL_ASPIRANTE_PRIVILAGE')"> 
                                 <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarTelefono-${eTelefono.idTelefono}">
                                     <i class="bi bi-trash"></i>
                                 </a>
@@ -54,6 +57,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </sec:authorize>
                             </td>
                         </tr>
                     </c:forEach>
