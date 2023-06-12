@@ -13,8 +13,13 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DUI'}">
                     <c:set var="tieneDui" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
-                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <sec:authorize access="hasAuthority('VER_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    </sec:authorize>
+        
+                    <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    </sec:authorize>
                     <br>
                     <!--Modal de confirmación de eliminación-->
                     <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
@@ -38,7 +43,9 @@
                   </c:if>
                 </c:forEach>
                 <c:if test="${not tieneDui}">
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDui"><i class="bi bi-upload"></i></a>
+                    <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDui"><i class="bi bi-upload"></i></a>
+                    </sec:authorize>
                 </c:if>
                 </td>
             </tr>
@@ -49,8 +56,13 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NIT'}">
                     <c:set var="tieneNit" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
-                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <sec:authorize access="hasAuthority('VER_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    </sec:authorize>
+        
+                    <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    </sec:authorize>
                     <br>
                     <!--Modal de confirmación de eliminación-->
                     <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
@@ -74,7 +86,9 @@
                   </c:if>
                 </c:forEach>
                 <c:if test="${not tieneNit}">
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNit"><i class="bi bi-upload"></i></a>
+                    <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNit"><i class="bi bi-upload"></i></a>
+                    </sec:authorize>
                 </c:if>
                 </td>
             </tr>
@@ -85,8 +99,13 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'NUP'}">
                     <c:set var="tieneNup" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
-                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <sec:authorize access="hasAuthority('VER_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    </sec:authorize>
+        
+                    <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    </sec:authorize>
                     <br>
                     <!--Modal de confirmación de eliminación-->
                     <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
@@ -110,7 +129,9 @@
                   </c:if>
                 </c:forEach>
                 <c:if test="${not tieneNup}">
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNup"><i class="bi bi-upload"></i></a>
+                    <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirNup"><i class="bi bi-upload"></i></a>
+                    </sec:authorize>
                 </c:if>
                 </td>            
             </tr>
@@ -121,8 +142,13 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'CURRICULUM'}">
                     <c:set var="tieneCv" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
-                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <sec:authorize access="hasAuthority('VER_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    </sec:authorize>
+        
+                    <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    </sec:authorize>
                     <br>
                     <!--Modal de confirmación de eliminación-->
                     <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
@@ -146,7 +172,9 @@
                   </c:if>
                 </c:forEach>
                 <c:if test="${not tieneCv}">
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirCv"><i class="bi bi-upload"></i></a>
+                    <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirCv"><i class="bi bi-upload"></i></a>
+                    </sec:authorize>
                 </c:if>
                 </td>            
             </tr>
@@ -157,8 +185,13 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'PASAPORTE'}">
                     <c:set var="tienePasaporte" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
-                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <sec:authorize access="hasAuthority('VER_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    </sec:authorize>
+        
+                    <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    </sec:authorize>
                     <br>
                     <!--Modal de confirmación de eliminación-->
                     <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
@@ -182,7 +215,9 @@
                   </c:if>
                 </c:forEach>
                 <c:if test="${not tienePasaporte}">
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirPasaporte"><i class="bi bi-upload"></i></a>
+                    <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirPasaporte"><i class="bi bi-upload"></i></a>
+                    </sec:authorize>
                 </c:if>
                 </td>            
             </tr>
@@ -193,8 +228,13 @@
                 <c:forEach items="${documentos}" var="doc" varStatus="i">
                   <c:if test="${fn:trim(doc.tipoFile) eq 'DOCUMENTO DE IDENTIFICACION EXTRANJERO'}">
                     <c:set var="tieneDP" value="true" />
-                    <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
-                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    <sec:authorize access="hasAuthority('VER_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-secondary" href="/archivo/${doc.idDocumento}" target="_blank"><i class="bi bi-eye"></i></a>
+                    </sec:authorize>
+        
+                    <sec:authorize access="hasAuthority('ELIMINAR_DOCUMENTO_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar-${doc.idDocumento}"><i class="bi bi-trash"></i></a>
+                    </sec:authorize>
                     <br>
                     <!--Modal de confirmación de eliminación-->
                     <div class="modal fade" id="confirmarEliminar-${doc.idDocumento}" tabindex="-1" aria-labelledby="confirmarEliminarLabel-${doc.idDocumento}" aria-hidden="true">
@@ -218,7 +258,9 @@
                   </c:if>
                 </c:forEach>
                 <c:if test="${not tieneDP}">
-                  <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDocExtranjero"><i class="bi bi-upload"></i></a>
+                    <sec:authorize access="hasAuthority('SUBIR_DOCUMENTOS_PERFIL_COORDINADOR_PRIVILAGE')">
+                      <a type="button" class="btn btn-outline-primary" href="" data-bs-toggle="modal" data-bs-target="#subirDocExtranjero"><i class="bi bi-upload"></i></a>
+                    </sec:authorize>
                 </c:if>
                 </td>            
             </tr>
