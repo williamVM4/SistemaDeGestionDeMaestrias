@@ -75,6 +75,9 @@
                                         <td>${elemento.montoTotalServicios}</td>
                                         <td>${elemento.fechaContratacion}</td>
                                         <td class="text-center">
+                                            <a href="/PerfilAspiranteProfesor/${elemento.idAspiranteProfesor.idAspiranteProfesor}" type="button" title="Perfil" class="btn btn-outline-primary">
+                                                <i class="bi bi-person"></i>
+                                            </a> 
                                             </button> 
                                             <button type="button" title="Eliminar" class="btn btn-outline-danger eliminarModal-btn" data-id="${elemento.idProfesor}" data-nombre="${elemento.idAspiranteProfesor.nombresAp}" >
                                                 <i class="bi bi-trash"></i></button>
