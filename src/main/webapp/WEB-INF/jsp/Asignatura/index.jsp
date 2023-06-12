@@ -129,7 +129,7 @@
                             <h6>Programa de la Asignatura</h6>
                             <div class="row">
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
-                                    <label for="duracion">Duraciòn en Semanas</label>
+                                    <label for="duracion">Duración en Semanas</label>
                                     <input type="number" maxlength="4" class="form-control" id="duracion" name="duracion">
 
                                 </div>
@@ -153,7 +153,7 @@
                                     <textarea rows="2" maxlength="300" type="text" class="form-control" id="introduccion" name="introduccion"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
-                                    <label for="descipcionPrograma">Descriòn del Programa</label>
+                                    <label for="descipcionPrograma">Descripción del Programa</label>
                                     <textarea rows="2" maxlength="500" type="text" class="form-control" id="descipcionPrograma" name="descipcionPrograma"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
@@ -165,7 +165,7 @@
                                     <textarea rows="2" maxlength="300" type="text" class="form-control" id="metodologia" name="metodologia"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
-                                    <label for="sistemaEvaluacion">Sistema de Evaluaciòn</label>
+                                    <label for="sistemaEvaluacion">Sistema de Evaluación</label>
                                     <textarea rows="2" maxlength="500" type="text" class="form-control" id="sistemaEvaluacion" name="sistemaEvaluacion"></textarea>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
@@ -185,7 +185,7 @@
                                 </div>
 
                                 <div class="form-group mb-3 col-md-6 col-sm-6">
-                                    <input type="number" maxlength="3" class="form-control ponderaciones-class" id="ponderacion" name="ponderacion[]" placeholder="Ponderaciòn de la Actividad en %">
+                                    <input type="number" maxlength="3" class="form-control ponderaciones-class" id="ponderacion" name="ponderacion[]" placeholder="Ponderación de la Actividad en %">
                                 </div>
                             </div>
                             <div id="actividades-extra" class="row">
@@ -235,7 +235,10 @@
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="ciclo">Ciclo</label>
-                                    <input type="number" class="form-control" id="ciclo" name="ciclo">
+                                    <select class="form-control" id="ciclo" name="ciclo">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
                                 </div>
                                 <div class="form-grup mb-3 col-md-6 col-sm-6">
                                     <label for="idAreaC">Àrea de Conocimiento</label>

@@ -106,7 +106,15 @@
             </ul>
           </li>
            </sec:authorize>
-          
+            
+            <sec:authorize access="hasAuthority('VIEW_POSTULAR_PROFESOR_COHORTE_PRIVILAGE')">          
+            <li class="nav-item">
+                <a href="/misPostulaciones" class="nav-link">
+                    <i class="far bi-clipboard2-check nav-icon"></i>
+                    <p>Mis Postulaciones</p>
+                </a>
+            </li>
+            </sec:authorize>
                         
            <sec:authorize access="hasAuthority('VIEW_COORDINADORES_PRIVILAGE') or hasAuthority('VIEW_ASPIRANTES_PRIVILAGE') 
                           or hasAuthority('VIEW_ESTUDIANTE_PRIVILAGE')">             
