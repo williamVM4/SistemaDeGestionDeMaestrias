@@ -44,7 +44,6 @@ public class AreaConocimientoImp implements AreaConocimientoService{
     }
     @Override
     public void actualizarAC(AreaConocimiento areaConocimiento) {
-        System.out.println(1);
         // Verifica si el área de conocimiento existe en la base de datos
         if (areaConocimientoDao.existsById(areaConocimiento.getIdAreaConocimiento())) {
             // Actualiza el área de conocimiento en la base de datos

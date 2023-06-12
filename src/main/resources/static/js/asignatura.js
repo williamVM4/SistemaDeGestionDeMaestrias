@@ -115,35 +115,40 @@ $(document).ready(function () {
             },
             uv: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:3
             },
             numeroCorrelativo: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:3
             },
             ciclo: {
                 required: true,
                 positiveInteger: true,
-                soloUnoODos: true
             },
             idAreaC: {
                 required: true
             },
             duracion: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:4
             },
             horasT: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:4
             },
             horasP: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:4
             },
             horaCiclo: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:4
             },
             introduccion: {
                 required: true
@@ -182,10 +187,12 @@ $(document).ready(function () {
                 required: 'Campo Requerido'
             },
             uv: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 3 Digitos'
             },
             numeroCorrelativo: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 3 Digitos'
             },
             ciclo: {
                 required: 'Campo Requerido'
@@ -194,16 +201,20 @@ $(document).ready(function () {
                 required: 'Campo Requerido'
             },
             duracion: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 4 Digitos'
             },
             horasT: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 4 Digitos'
             },
             horasP: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 4 Digitos'
             },
             horaCiclo: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 4 Digitos'
             },
             introduccion: {
                 required: 'Campo Requerido'
@@ -298,16 +309,17 @@ $(document).ready(function () {
             },
             unidadesValorativas: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:3
             },
             numeroCorrelativo: {
                 required: true,
-                positiveInteger: true
+                positiveInteger: true,
+                maxlength:3
             },
             ciclo: {
                 required: true,
                 positiveInteger: true,
-                soloUnoODos: true
             },
             idAreaConocimiento: {
                 required: true
@@ -321,10 +333,12 @@ $(document).ready(function () {
                 required: 'Campo Requerido'
             },
             unidadesValorativas: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 3 Digitos'
             },
             numeroCorrelativo: {
-                required: 'Campo Requerido'
+                required: 'Campo Requerido',
+                maxlength:'Maximo 3 Digitos'
             },
             ciclo: {
                 required: 'Campo Requerido'
@@ -445,7 +459,7 @@ $(document).ready(function () {
 
         // Actualizar el contenido del modal con los parámetros recibidos
         tituloModal.text('Confirmar eliminación');
-        cuerpoModal.html('<strong>¿Estás seguro de eliminar la Àrea de Conocimiento seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a la Àrea de Conocimiento ' + nombreAsignatura + '.');
+        cuerpoModal.html('<strong>¿Estás seguro de eliminar la Asignatura seleccionada?</strong><br>Ten en cuenta que se eliminarán los datos relacionados a la Asignatura ' + nombreAsignatura + '.');
 
         // Actualizar el atributo href del botón de eliminación con el idMaestria
         eliminarBtn.data('id', idAsignatura);

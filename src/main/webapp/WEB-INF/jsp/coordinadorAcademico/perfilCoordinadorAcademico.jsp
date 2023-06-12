@@ -38,6 +38,7 @@
                 <div class="row">
                     <div class="col-sm-2 ">
                         <div class="row">
+                          <sec:authorize access="hasAuthority('AGREGAR_FOTOGRAFIA_PERFIL_COORDINADOR_PRIVILAGE')">
                             <c:if test="${empty imagenBase64}">
                                 <div class="col-sm-12" style="text-align: center;">
                                     <i style="font-size: 8rem;cursor:pointer;" class="bi bi-person-add" id="tab_fotografia" title="Click para subir foto" onerror="" onclick="setActiveButton('tab_fotografia')"></i>
@@ -48,6 +49,7 @@
                                     <img style="width:128px;cursor:pointer;" src="data:image;base64,${imagenBase64}" id="tab_fotografia" title="Click para subir foto" onclick="setActiveButton('tab_fotografia')">
                                 </div>
                             </c:if>
+                          </sec:authorize>
                         </div>
                         <br>
                         <div class="row">

@@ -14,5 +14,5 @@ public interface ProfesorCohorteDao extends JpaRepository<ProfesorCohorte, Long>
     
     @Query("SELECT pc.idAspiranteProfesor FROM ProfesorCohorte pc")
     List<AspiranteProfesor> findIdsProfesorCohorte();
-
+    
 }

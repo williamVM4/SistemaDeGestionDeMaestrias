@@ -43,7 +43,9 @@
             </div>
             <div class="row col-sm-12 d-flex justify-content-end">
               <div class="col-sm-1">
-                  <button type="button" class="btn-add btn" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
+                  <sec:authorize access="hasAuthority('AGREGAR_COORDINADORES_PRIVILAGE')">
+                    <button type="button" class="btn-add btn" data-bs-toggle="modal" data-bs-target="#crearModal">Agregar</button>
+                  </sec:authorize>
               </div>
             </div>
 
@@ -130,6 +132,14 @@
     </form>
     <!-- /.Modal de eliminar -->
 </div>
+<sec:authorize access="hasAuthority('GESTIONAR_COORDINADORES_PRIVILAGE')" var="hasPrivilegeGestionarCoordinadores"></sec:authorize>
+<script>
+    var hasPrivilegeGestionarCoordinadores = ${hasPrivilegeGestionarCoordinadores};
+</script>
+<sec:authorize access="hasAuthority('ELIMINAR_COORDINADORES_PRIVILAGE')" var="hasPrivilegeEliminarCoordinadores"></sec:authorize>
+<script>
+    var hasPrivilegeEliminarCoordinadores = ${hasPrivilegeEliminarCoordinadores};
+</script>
 <!-- /.content-wrapper -->
 <%@ include file="../common/footer1.jspf"%>
 <script src="${pageContext.request.contextPath}/js/coordinador.js"></script>

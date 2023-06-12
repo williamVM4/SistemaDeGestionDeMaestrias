@@ -31,4 +31,9 @@ public class PostuladoCohorteServiceImp implements PostuladoCohorteService {
         postuladoDao.save(postulado);
     }
 
+    @Override
+    public List<PostulacionCohorte> listarPostulaciones(Long idAspiranteProfesor) {
+        return (List<PostulacionCohorte>) postuladoDao.findPostulaciones(idAspiranteProfesor);
+    }
+
 }
