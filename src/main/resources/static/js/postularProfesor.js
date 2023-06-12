@@ -150,9 +150,9 @@ $(document).ready(function () {
     function mostrarMensaje(mensaje, tipo) {
         var alertElement = $('.alert-' + tipo);
         alertElement.text(mensaje).addClass('show').removeClass('d-none');
-        /*setTimeout(function () {
+        setTimeout(function () {
             alertElement.removeClass('show').addClass('d-none');
-        }, 5000);*/
+        }, 5000);
     }
 });
 
