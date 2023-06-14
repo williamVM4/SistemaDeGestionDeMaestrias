@@ -60,57 +60,63 @@
                                                   <h5 class="modal-title" id="modificarTituloLabel-${atestado.idAtestadoTa}">Modificar Título Académico</h5>
                                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                               </div>
-                                              <form action="/modificarTituloAcademicoCA/${coordinadorCA.idCoorAca}/${atestado.idAtestadoTa}" method="post" onsubmit="return validarFormularioEditar();" enctype="multipart/form-data" accept-charset="UTF-8" >
-                                                  <div class="modal-body">
-                                                      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                                                      <div id="MensajeErrorTituloAcademicoEditar" class="d-none">
-                                                          <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                                              <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El valor del año de titulación no es correcto.
-                                                              <button id="btnAlertaTituloAcademicoEditar" type="button" class="btn-close" aria-label="Close"></button>
-                                                          </div>
-                                                      </div>
-                                                      <div class="overflow-auto" style="max-height:55vh;">
-                                                          <div class="form-group">
-                                                              <label for="tipoAta" class="form-label">Nombre:</label>
-                                                              <select type="text" class="form-select" id="tipoAta" name="tipoAta" required>
-                                                                  <option value="">Seleccione una opción</option>
-                                                                  <c:forEach items="${tiposTitulos}" var="tipoT">
-                                                                      <option value="${tipoT}" <c:if test="${atestado.tipoAta == tipoT}">selected</c:if>>${tipoT}</option>
-                                                                  </c:forEach>
-                                                              </select>
-                                                          </div>
-                                                          <div class="form-group">
-                                                              <label for="nombreAta" class="form-label">Nombre de Título:</label>
-                                                              <input type="text" class="form-control" id="nombreAta" name="nombreAta" value="${atestado.nombreAta}" required>
-                                                          </div>
-                                                          <div class="form-group">
-                                                              <label for="institucion" class="form-label">Institución:</label>
-                                                              <input type="text" class="form-control" id="institucion" name="institucion" value="${atestado.institucion}" required>
-                                                          </div>                          
-                                                          <div class="form-group">
-                                                              <label for="anioTitulacion" class="form-label">Año de Titulación:</label>
-                                                              <input class="form-control" type="number" id="anioTitulacion" value="${atestado.anioTitulacion}" name="anioTitulacion" step="1" maxlength="4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>  
-                                                          </div>
-                                                          <div class="form-group">
+                                              <form action="/modificarTituloAcademicoCA/${coordinadorCA.idCoorAca}/${atestado.idAtestadoTa}" method="post" onsubmit="return validarFormularioEditar('${atestado.idAtestadoTa}');" enctype="multipart/form-data" accept-charset="UTF-8">
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                                    <div id="MensajeErrorAnioEditar-${atestado.idAtestadoTa}" class="d-none">
+                                                        <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                                            <div class="me-3">
+                                                                <strong><i class="bi bi-exclamation-triangle"></i></strong>
+                                                            </div>
+                                                            <div>
+                                                                <strong>Error!</strong>
+                                                                El valor de año de titulación debe ser un número mayor a 1880 y menor o igual al año actual.
+                                                            </div>
+                                                            <button id="btnAlertaAnioEditar-${atestado.idAtestadoTa}" onclick="cerrarMensaje('${atestado.idAtestadoTa}');" type="button" class="btn-close" aria-label="Close"></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="overflow-auto" style="max-height:55vh;">
+                                                        <div class="form-group">
+                                                            <label for="tipoAta-${atestado.idAtestadoTa}" class="form-label">Tipo:</label>
+                                                            <select type="text" class="form-select" id="tipoAta-${atestado.idAtestadoTa}" name="tipoAta" required>
+                                                                <option value="">Seleccione una opción</option>
+                                                                <c:forEach items="${tiposTitulos}" var="tipoT">
+                                                                    <option value="${tipoT}" <c:if test="${atestado.tipoAta == tipoT}">selected</c:if>>${tipoT}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nombreAta-${atestado.idAtestadoTa}" class="form-label">Nombre de Título:</label>
+                                                            <input type="text" class="form-control" id="nombreAta-${atestado.idAtestadoTa}" name="nombreAta" value="${atestado.nombreAta}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="institucion-${atestado.idAtestadoTa}" class="form-label">Institución:</label>
+                                                            <input type="text" class="form-control" id="institucion-${atestado.idAtestadoTa}" name="institucion" value="${atestado.institucion}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="anioTitulacion-${atestado.idAtestadoTa}" class="form-label">Año de Titulación:</label>
+                                                            <input class="form-control" type="text" id="anioTitulacion-${atestado.idAtestadoTa}" name="anioTitulacion" maxlength="4" value="${atestado.anioTitulacion}" required>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label class="form-label">Archivo Actual: </label>
-                                                                <c:choose>
-                                                                    <c:when test="${not empty atestado.archivoAta}">
-                                                                      <a href="/archivoCA/tituloAcademico/${atestado.idAtestadoTa}" target="_blank">Puede ver el archivo PDF aquí</a>.
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <a>No se ha guardado el atestado.</a>
-                                                                    </c:otherwise>
-                                                                </c:choose><br/>
-                                                            <label for="archivoAta" class="form-label">Subir nuevo comprobante:</label>
-                                                            <input type="file" class="form-control" id="archivoAta" name="archivoAta" aria-hidden="true" accept=".pdf">
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                      <button type="submit" class="btn btn-outline-success">Guardar</button>
-                                                      <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                                                  </div>
-                                              </form>
+                                                            <c:choose>
+                                                                <c:when test="${not empty atestado.archivoAta}">
+                                                                    <a href="/archivoCA/tituloAcademico/${atestado.idAtestadoTa}" target="_blank">Puede ver el archivo PDF aquí</a>.
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <a>No se ha guardado el atestado.</a>
+                                                                </c:otherwise>
+                                                            </c:choose><br/>
+                                                            <label for="archivoAta-${atestado.idAtestadoTa}" class="form-label">Subir nuevo comprobante:</label>
+                                                            <input type="file" class="form-control" id="archivoAta-${atestado.idAtestadoTa}" name="archivoAta" aria-hidden="true" accept=".pdf">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                                                </div>
+                                            </form>
                                           </div>
                                       </div>
                                   </div>
@@ -155,18 +161,24 @@
                     <h5 class="modal-title" id="crearModalTituloLabel">Agregar Titulo Académico</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/agregarTituloAcademicoCA/${coordinadorCA.idCoorAca}/${coordinadorCA.idListTa}" method="post" onsubmit="return validarFormularioAgregar();" enctype="multipart/form-data" accept-charset="UTF-8" >
+                <form action="/agregarTituloAcademicoCA/${coordinadorCA.idCoorAca}/${coordinadorCA.idListTa}" method="post" onsubmit="return validarFormularioAgregar()" enctype="multipart/form-data" accept-charset="UTF-8" >
                     <div class="modal-body">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                        <div id="MensajeErrorTituloAcademicoAgregar" class="d-none">
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                                <strong><i class="bi bi-exclamation-triangle"></i> Error!  </strong>El valor del año de titulación no es correcto.
-                                <button id="btnAlertaTituloAcademicoAgregar" type="button" class="btn-close" aria-label="Close"></button>
+                        <div id="MensajeErrorAnioAgregar" class="d-none">
+                          <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                            <div class="me-3">
+                              <strong><i class="bi bi-exclamation-triangle"></i></strong>
                             </div>
+                            <div>
+                              <strong>Error!</strong>
+                              El valor de año de titulación debe ser un número mayor a 1880 y menor o igual al año actual.
+                            </div>
+                            <button id="btnAlertaAnioAgregar" type="button" class="btn-close" aria-label="Close"></button>
+                          </div>
                         </div>
                         <div class="overflow-auto" style="max-height:55vh;">
                             <div class="form-group">
-                                <label for="tipoAta" class="form-label">Nombre:</label>
+                                <label for="tipoAta" class="form-label">Tipo:</label>
                                 <select type="text" class="form-select" id="tipoAta" name="tipoAta" required>
                                     <option value="">Seleccione una opción</option>
                                     <c:forEach items="${tiposTitulos}" var="tipoT">
@@ -184,7 +196,7 @@
                             </div>                          
                             <div class="form-group">
                                 <label for="anioTitulacion" class="form-label">Año de Titulación:</label>
-                                <input class="form-control" type="number" id="anioTitulacion" name="anioTitulacion" step="1" maxlength="4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>  
+                                <input class="form-control" type="text" id="anioTitulacionA" name="anioTitulacion" maxlength="4" required>  
                             </div>
                             <div class="form-group">
                                 <label for="archivoAta" class="form-label">Subir comprobante:</label>
@@ -201,58 +213,57 @@
         </div>
     </div>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Alerta de Numero
-    var mensajeErrorAgregar = document.getElementById("MensajeErrorTituloAcademicoAgregar");
-    var botonAlertaAgregar = document.getElementById("btnAlertaTituloAcademicoAgregar");
-    botonAlertaAgregar.addEventListener("click", function() {
-      mensajeErrorAgregar.classList.add("d-none");
-    });
-    
-    var mensajeErrorEditar = document.getElementById("MensajeErrorTituloAcademicoEditar");
-    var botonAlertaEditar = document.getElementById("btnAlertaTituloAcademicoEditar");
-    botonAlertaEditar.addEventListener("click", function() {
-      mensajeErrorEditar.classList.add("d-none");
-    });
-  });
 
-  function validarFormularioAgregar() {
-    var anioInput = document.getElementById("anioTitulacion");
-    var anioActual = new Date().getFullYear();
-    
-    if (anioInput.value.length !== 4) {
-      var mensajeErrorA = document.getElementById("MensajeErrorTituloAcademicoAgregar");
-      mensajeErrorA.classList.remove("d-none");
-      return false;
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        //Alerta anio form agregar
+        var mensajeErrorAnioAgregar = document.getElementById("MensajeErrorAnioAgregar");
+        var botonAlertaAnioAgregar=document.getElementById("btnAlertaAnioAgregar");
+        botonAlertaAnioAgregar.addEventListener("click", function() {
+          mensajeErrorAnioAgregar.classList.add("d-none");
+        });
+    });
+    function cerrarMensaje(id) {
+        var mensajeError = document.getElementById("MensajeErrorAnioEditar-" + id);
+        mensajeError.classList.add("d-none");
     }
-    
-    if (anioInput.value > anioActual) {
-      var mensajeErrorA = document.getElementById("MensajeErrorTituloAcademicoAgregar");
-      mensajeErrorA.classList.remove("d-none");
-      return false;
+    function validarFormularioAgregar() {
+        var anio = document.getElementById("anioTitulacionA").value;
+        var anioActual = new Date().getFullYear();
+        
+        //Expresiones regulares
+        var patron = /^\d{4}$/;
+        
+        if (!patron.test(anio)) {
+            var mensajeErrorAnioAgregar = document.getElementById("MensajeErrorAnioAgregar");
+            mensajeErrorAnioAgregar.classList.remove("d-none");
+            return false;
+        }
+        if ( parseInt(anio) <= 1880 || parseInt(anio) > anioActual) {
+            var mensajeErrorAnioAgregar = document.getElementById("MensajeErrorAnioAgregar");
+            mensajeErrorAnioAgregar.classList.remove("d-none");
+            return false;
+        }
+        return true;
     }
-    
-    return true;
-  }
-  function validarFormularioEditar() {
-    console.log("");
-    var anioInput = document.getElementById("anioTitulacion");
-    var anioActual = new Date().getFullYear();
-    
-    if (anioInput.value.length !== 4) {
-      var mensajeErrorE = document.getElementById("MensajeErrorTituloAcademicoEditar");
-      mensajeErrorE.classList.remove("d-none");
-      return false;
+    function validarFormularioEditar(id) {
+        var anio = document.getElementById("anioTitulacion-"+id).value;
+        var anioActual = new Date().getFullYear();
+        
+        //Expresiones regulares
+        var patron = /^\d{4}$/;
+        
+        if (!patron.test(anio)) {
+            var mensajeErrorAnioEditar = document.getElementById("MensajeErrorAnioEditar-"+id);
+            mensajeErrorAnioEditar.classList.remove("d-none");
+            return false;
+        }
+        if (parseInt(anio) > anioActual || parseInt(anio) <= 1880) {
+            var mensajeErrorAnioEditar = document.getElementById("MensajeErrorAnioEditar-"+id);
+            mensajeErrorAnioEditar.classList.remove("d-none");
+            return false;
+        }
+        return true;
     }
-    
-    if (anioInput.value > anioActual) {
-      var mensajeErrorE = document.getElementById("MensajeErrorTituloAcademicoEditar");
-      mensajeErrorE.classList.remove("d-none");
-      return false;
-    }
-    
-    return true;
-  }
 </script>
                         

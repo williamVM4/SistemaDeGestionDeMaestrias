@@ -191,7 +191,7 @@ public class CoordinadorAcademicoController {
                 redirectAttributes.addFlashAttribute("error", "Ya existe un usuario con el mismo correo electrónico.");
                 return "redirect:/gestionarCoordinadorAcademico";
             }
-            coordinadorService.proIsertarCA(codCa, nombresCa, apellidosCa, email);
+            coordinadorService.proIsertarCA(codCa.toLowerCase().trim(), nombresCa.trim(), apellidosCa.trim(), email.trim());
             redirectAttributes.addFlashAttribute("mensaje", "Se ha ingresado un coordinador.");
             
             bitacoraService.registrarAccion("Agregar coordinador académico");
@@ -330,7 +330,7 @@ public class CoordinadorAcademicoController {
         @RequestParam ("tipoAta") String tipoAta,
         @RequestParam ("nombreAta") String nombreAta,
         @RequestParam ("institucion") String institucion,
-        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("anioTitulacion") String anioTitulacion,
         @RequestParam ("archivoAta") MultipartFile archivo,
         @PathVariable("idListTa") int idListTa, 
         @PathVariable("idCoorAca")int idCoorAca, 
@@ -345,7 +345,7 @@ public class CoordinadorAcademicoController {
             atestadoNew.setTipoAta(tipoAta);
             atestadoNew.setNombreAta(nombreAta);
             atestadoNew.setInstitucion(institucion);
-            atestadoNew.setAnioTitulacion(anioTitulacion);
+            atestadoNew.setAnioTitulacion(Integer.valueOf(anioTitulacion));
             atestadoNew.setArchivoAta(blob);
             
             atestadoService.agregarAtestado(atestadoNew);
@@ -362,7 +362,7 @@ public class CoordinadorAcademicoController {
         @RequestParam ("tipoAta") String tipoAta,
         @RequestParam ("nombreAta") String nombreAta,
         @RequestParam ("institucion") String institucion,
-        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("anioTitulacion") String anioTitulacion,
         @RequestParam ("archivoAta") MultipartFile archivo,
         @PathVariable("idAtestadoTa") Long idAtestadoTa, 
         @PathVariable("idCoorAca")int idCoorAca, 
@@ -373,7 +373,7 @@ public class CoordinadorAcademicoController {
         atestadoActualizar.setTipoAta(tipoAta);
         atestadoActualizar.setNombreAta(nombreAta);
         atestadoActualizar.setInstitucion(institucion);
-        atestadoActualizar.setAnioTitulacion(anioTitulacion);
+        atestadoActualizar.setAnioTitulacion(Integer.valueOf(anioTitulacion));
                    
         if(archivo == null || archivo.isEmpty()){
           atestadoActualizar.setArchivoAta(null);
