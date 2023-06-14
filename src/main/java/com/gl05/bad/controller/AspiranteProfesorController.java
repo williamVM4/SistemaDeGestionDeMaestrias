@@ -578,7 +578,7 @@ public class AspiranteProfesorController {
         @RequestParam ("tipoAta") String tipoAta,
         @RequestParam ("nombreAta") String nombreAta,
         @RequestParam ("institucion") String institucion,
-        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("anioTitulacion") String anioTitulacion,
         @RequestParam ("archivoAta") MultipartFile archivo,
         @PathVariable("idListTa") int idListTa, 
         @PathVariable("idAspiranteProfesor")int idAspiranteProfesor, 
@@ -593,7 +593,7 @@ public class AspiranteProfesorController {
             atestadoNew.setTipoAta(tipoAta);
             atestadoNew.setNombreAta(nombreAta);
             atestadoNew.setInstitucion(institucion);
-            atestadoNew.setAnioTitulacion(anioTitulacion);
+            atestadoNew.setAnioTitulacion(Integer.valueOf(anioTitulacion));
             atestadoNew.setArchivoAta(blob);
             
             atestadoService.agregarAtestado(atestadoNew);
@@ -610,7 +610,7 @@ public class AspiranteProfesorController {
         @RequestParam ("tipoAta") String tipoAta,
         @RequestParam ("nombreAta") String nombreAta,
         @RequestParam ("institucion") String institucion,
-        @RequestParam ("anioTitulacion") Integer anioTitulacion,
+        @RequestParam ("anioTitulacion") String anioTitulacion,
         @RequestParam ("archivoAta") MultipartFile archivo,
         @PathVariable("idAtestadoTa") Long idAtestadoTa, 
         @PathVariable("idAspiranteProfesor")int idAspiranteProfesor, 
@@ -621,7 +621,7 @@ public class AspiranteProfesorController {
         atestadoActualizar.setTipoAta(tipoAta);
         atestadoActualizar.setNombreAta(nombreAta);
         atestadoActualizar.setInstitucion(institucion);
-        atestadoActualizar.setAnioTitulacion(anioTitulacion);
+        atestadoActualizar.setAnioTitulacion(Integer.valueOf(anioTitulacion));
                    
         if(archivo == null || archivo.isEmpty()){
           atestadoActualizar.setArchivoAta(null);

@@ -45,8 +45,8 @@ public class CoordinadorAcademicoServiceImp implements CoordinadorAcademicoServi
     @Transactional
     public void actualizarCA(CoordinadorAcademico coordinador) {
         CoordinadorAcademico coordinadorExistente = coordinadorDao.findById(coordinador.getIdCoorAca()).orElse(null);
-        coordinadorExistente.setNombresCa(coordinador.getNombresCa());
-        coordinadorExistente.setApellidosCa(coordinador.getApellidosCa());
+        coordinadorExistente.setNombresCa(coordinador.getNombresCa().trim());
+        coordinadorExistente.setApellidosCa(coordinador.getApellidosCa().trim());
         coordinadorExistente.setSexoCa(coordinador.getSexoCa());
         coordinadorExistente.setGeneroCa(coordinador.getGeneroCa());
         coordinadorExistente.setFechaNacCa(coordinador.getFechaNacCa());
