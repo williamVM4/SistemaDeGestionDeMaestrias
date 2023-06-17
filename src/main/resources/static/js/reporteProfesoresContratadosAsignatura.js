@@ -13,25 +13,25 @@ $(document).ready(function() {
               extend: 'copy',
               text: 'Copiar',
               exportOptions: {
-                columns: [0, 1, 2, 3] // Índices de las columnas que se copiarán
+                columns: [0, 1, 2, 3, 4] // Índices de las columnas que se copiarán
               }
             },
             {
               extend: 'excel',
               text: 'Exportar a Excel',
-              title: 'Número de estudiantes inscritos por cohorte', // Título del reporte en Excel
-              filename: 'Reporte del número de estudiantes inscritos por cohorte ' + getCurrentDateTime(), // Nombre del archivo Excel
+              title: 'Profesores contratados por cohorte y materias que imparten', // Título del reporte en Excel
+              filename: 'Reporte de los profesores contratados por cohorte y materias que imparten ' + getCurrentDateTime(), // Nombre del archivo Excel
               exportOptions: {
-                columns: [0, 1, 2, 3] // Índices de las columnas que se exportarán
+                columns: [0, 1, 2, 3, 4] // Índices de las columnas que se exportarán
               }
             },
             {
               extend: 'pdf',
               text: 'Exportar a PDF',
-              title: 'Número de estudiantes inscritos por cohorte', // Título del reporte en PDF
-              filename: 'Reporte del número de estudiantes inscritos por cohorte ' + getCurrentDateTime(), // Nombre del archivo PDF
+              title: 'Profesores contratados por cohorte y materias que imparten', // Título del reporte en PDF
+              filename: 'Reporte de los profesores contratados por cohorte y materias que imparten ' + getCurrentDateTime(), // Nombre del archivo PDF
               exportOptions: {
-                columns: [0, 1, 2, 3] // Índices de las columnas que se exportarán
+                columns: [0, 1, 2, 3, 4] // Índices de las columnas que se exportarán
               },
               customize: function (doc) {
                 doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');

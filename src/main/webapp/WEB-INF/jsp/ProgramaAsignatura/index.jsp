@@ -9,7 +9,7 @@
                 <div class="col-sm-12">
                     <div class="titulo-Perfil">
                         <div class="container">
-                            <h1>Programa de la Asingatura</h1>
+                            <h1>Programa de la Asignatura</h1>
                         </div>
                     </div>
                 </div>
