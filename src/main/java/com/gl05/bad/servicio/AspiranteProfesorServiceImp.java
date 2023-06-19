@@ -177,7 +177,7 @@ public class AspiranteProfesorServiceImp implements AspiranteProfesorService{
         List<String> correos = new ArrayList<>();
 
         for (AspiranteProfesor aspirante : aspirantes) {
-            if (idsProfesorCohorte.contains(aspirante)) {
+            if (!idsProfesorCohorte.contains(aspirante)) {
                 idListCorreos.add(aspirante.getIdListCorreo());
             }
         }
